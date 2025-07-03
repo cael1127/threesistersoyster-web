@@ -10,6 +10,7 @@ import {
   FarmInventoryCounter,
   NurseryInventoryCounter,
 } from "@/components/inventory-counters"
+import TeamScroller from "@/components/TeamScroller"
 
 export default function HomePage() {
   return (
@@ -243,6 +244,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+          <TeamScroller />
         </div>
       </section>
 
