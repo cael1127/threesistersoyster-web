@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Waves, Fish, Leaf, Phone, Mail, MapPin, ArrowLeft, Heart, Users, Globe, Award } from "lucide-react"
-import CartButton from "@/components/cart-button"
+import { CartButton } from "@/components/cart-button"
 
 export default function AboutPage() {
   return (
