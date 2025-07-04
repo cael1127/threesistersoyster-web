@@ -20,16 +20,16 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
-                <Waves className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
+                <Waves className="w-5 h-5 md:w-6 md:h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-purple-900">Three Sisters Oyster Co.</h1>
-                <p className="text-sm text-teal-600">Premium Texas Oysters</p>
+                <h1 className="text-lg md:text-xl font-bold text-purple-900">Three Sisters Oyster Co.</h1>
+                <p className="text-xs md:text-sm text-teal-600">Premium Texas Oysters</p>
               </div>
             </div>
-            <div className="flex items-center space-x-2 md:space-x-4">
-              <nav className="flex space-x-2 md:space-x-4">
+            <div className="flex items-center space-x-1 md:space-x-4">
+              <nav className="hidden sm:flex space-x-2 md:space-x-4">
                 <Link href="#home" className="text-purple-700 hover:text-teal-600 font-medium text-xs md:text-base">
                   Home
                 </Link>
@@ -54,7 +54,7 @@ export default function HomePage() {
                 <Button
                   asChild
                   size="sm"
-                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs md:text-sm px-2 md:px-4"
+                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs md:text-sm px-2 md:px-4 min-h-[44px]"
                 >
                   <Link href="/order">Order</Link>
                 </Button>
@@ -65,55 +65,55 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="py-20 px-4">
+      <section id="home" className="py-12 md:py-20 px-4">
         <div className="container mx-auto text-center">
-          <Badge className="mb-6 bg-purple-100 text-purple-800 hover:bg-purple-200">Family-Owned Since 2024</Badge>
-          <h1 className="text-5xl md:text-7xl font-bold text-purple-900 mb-6">
+          <Badge className="mb-4 md:mb-6 bg-purple-100 text-purple-800 hover:bg-purple-200 text-sm md:text-base">Family-Owned Since 2024</Badge>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-purple-900 mb-4 md:mb-6 leading-tight">
             Premium Texas
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600">
               Oysters
             </span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
             Committed to the long-term viability of off-bottom aquaculture and a thriving Texas coastline. Growing the
             finest oysters in the pristine waters of Keller Bay.
           </p>
 
           {/* Inventory Counters */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12 max-w-4xl mx-auto">
             {/* Harvest Ready Count */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-purple-100">
-              <h3 className="text-lg font-bold text-purple-900 mb-2">Harvest Ready</h3>
-              <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600 mb-1">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-purple-100">
+              <h3 className="text-base md:text-lg font-bold text-purple-900 mb-2">Harvest Ready</h3>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600 mb-1">
                 <HarvestReadyInventoryCounter />
               </div>
-              <p className="text-sm text-gray-600">Ready for harvest</p>
+              <p className="text-xs md:text-sm text-gray-600">Ready for harvest</p>
             </div>
 
             {/* Farm Count */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-purple-100">
-              <h3 className="text-lg font-bold text-purple-900 mb-2">Farm Oysters</h3>
-              <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-700 mb-1">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-purple-100">
+              <h3 className="text-base md:text-lg font-bold text-purple-900 mb-2">Farm Oysters</h3>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-purple-700 mb-1">
                 <FarmInventoryCounter />
               </div>
-              <p className="text-sm text-gray-600">Total farm stock</p>
+              <p className="text-xs md:text-sm text-gray-600">Total farm stock</p>
             </div>
 
             {/* Nursery Count */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-teal-100">
-              <h3 className="text-lg font-bold text-purple-900 mb-2">Nursery Seed</h3>
-              <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-700 mb-1">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-teal-100 sm:col-span-2 md:col-span-1">
+              <h3 className="text-base md:text-lg font-bold text-purple-900 mb-2">Nursery Seed</h3>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-teal-700 mb-1">
                 <NurseryInventoryCounter />
               </div>
-              <p className="text-sm text-gray-600">Total seed stock</p>
+              <p className="text-xs md:text-sm text-gray-600">Total seed stock</p>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700"
+              className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 min-h-[48px] text-base"
             >
               <Link href="/products">Shop Fresh Oysters</Link>
             </Button>
@@ -121,7 +121,7 @@ export default function HomePage() {
               asChild
               size="lg"
               variant="outline"
-              className="border-purple-300 text-purple-700 hover:bg-purple-50 bg-transparent"
+              className="border-purple-300 text-purple-700 hover:bg-purple-50 bg-transparent min-h-[48px] text-base"
             >
               <Link href="#about">Learn Our Story</Link>
             </Button>
@@ -130,30 +130,30 @@ export default function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 px-4 bg-white/50">
+      <section className="py-12 md:py-20 px-4 bg-white/50">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-purple-900 mb-4">Our Operations</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-3 md:mb-4">Our Operations</h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               From nursery to market, we provide premium oyster solutions for growers and consumers alike.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {/* Farm Card */}
             <Card id="farm" className="border-purple-200 hover:shadow-xl transition-shadow duration-300">
-              <CardContent className="p-8">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center mr-4">
-                    <Fish className="w-6 h-6 text-white" />
+              <CardContent className="p-6 md:p-8">
+                <div className="flex items-center mb-4 md:mb-6">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                    <Fish className="w-5 h-5 md:w-6 md:h-6 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-purple-900">Oyster Farm</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-purple-900">Oyster Farm</h3>
                 </div>
-                <p className="text-gray-600 mb-6">
+                <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
                   We grow oysters to market size for the premium half-shell market while providing essential habitat for
                   fish and other sea life in our sustainable farming operations.
                 </p>
-                <ul className="space-y-2 text-gray-600">
+                <ul className="space-y-2 text-sm md:text-base text-gray-600">
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
                     Premium half-shell market oysters
@@ -172,18 +172,18 @@ export default function HomePage() {
 
             {/* Nursery Card */}
             <Card id="nursery" className="border-teal-200 hover:shadow-xl transition-shadow duration-300">
-              <CardContent className="p-8">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-teal-600 to-teal-700 rounded-full flex items-center justify-center mr-4">
-                    <Leaf className="w-6 h-6 text-white" />
+              <CardContent className="p-6 md:p-8">
+                <div className="flex items-center mb-4 md:mb-6">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-teal-600 to-teal-700 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                    <Leaf className="w-5 h-5 md:w-6 md:h-6 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-purple-900">Oyster Nursery</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-purple-900">Oyster Nursery</h3>
                 </div>
-                <p className="text-gray-600 mb-6">
+                <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
                   Three Sisters Nursery offers customers hardy Eastern oyster (Crassostrea virginica) seed to meet
                   growers' needs with superior quality and reliability.
                 </p>
-                <ul className="space-y-2 text-gray-600 mb-6">
+                <ul className="space-y-2 text-sm md:text-base text-gray-600 mb-4 md:mb-6">
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
                     Hardy Eastern oyster seed
@@ -197,7 +197,7 @@ export default function HomePage() {
                     Expert cultivation support
                   </li>
                 </ul>
-                <p className="text-sm text-gray-500">
+                <p className="text-xs md:text-sm text-gray-500">
                   For pricing and ordering information, please call{" "}
                   <span className="font-semibold text-teal-600">713-854-7427</span>
                 </p>
@@ -208,27 +208,27 @@ export default function HomePage() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-4">
+      <section id="about" className="py-12 md:py-20 px-4">
         <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
-              <Badge className="mb-6 bg-teal-100 text-teal-800 hover:bg-teal-200">Our Story</Badge>
-              <h2 className="text-4xl font-bold text-purple-900 mb-6">Named After Blake's Three Daughters</h2>
-              <p className="text-gray-600 mb-6">
+              <Badge className="mb-4 md:mb-6 bg-teal-100 text-teal-800 hover:bg-teal-200 text-sm md:text-base">Our Story</Badge>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-4 md:mb-6 leading-tight">Named After Blake's Three Daughters</h2>
+              <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
                 Three Sisters Oyster Co is a family-owned oyster farm on the coast of Texas. Named after Blake's three
                 daughters, our team strives to create a better coastline for the future.
               </p>
-              <p className="text-gray-600 mb-6">
+              <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
                 Blake grew up outdoors, learning to dive in Thousand Island Indonesia and staying active in wildlife and
                 FFA during his youth. His love of the outdoors led him to oyster farming as a family and lifestyle
                 choice.
               </p>
-              <p className="text-gray-600 mb-8">
+              <p className="text-sm md:text-base text-gray-600 mb-6 md:mb-8 leading-relaxed">
                 With a Range and Wildlife Management degree from Texas A&M Kingsville and 8 years in Environmental
                 Consulting, Blake discovered the pristine waters of Keller Bay - an excellent location for growing
                 premium oysters while improving water quality and sequestering nitrogen and carbon.
               </p>
-              <Button className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700">
+              <Button className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 min-h-[48px] text-base">
                 Learn More About Our Mission
               </Button>
             </div>
