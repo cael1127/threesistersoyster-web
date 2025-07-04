@@ -155,36 +155,6 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {/* Farm Card */}
-            <Card id="farm" className="border-purple-200 hover:shadow-xl transition-shadow duration-300">
-              <CardContent className="p-6 md:p-8">
-                <div className="flex items-center mb-4 md:mb-6">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center mr-3 md:mr-4">
-                    <Fish className="w-5 h-5 md:w-6 md:h-6 text-white" />
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-purple-900">Oyster Farm</h3>
-                </div>
-                <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
-                  We grow oysters to market size for the premium half-shell market while providing essential habitat for
-                  fish and other sea life in our sustainable farming operations.
-                </p>
-                <ul className="space-y-2 text-sm md:text-base text-gray-600">
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
-                    Premium half-shell market oysters
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
-                    Sustainable aquaculture practices
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
-                    Marine habitat restoration
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
             {/* Nursery Card */}
             <Card id="nursery" className="border-teal-200 hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-6 md:p-8">
@@ -216,6 +186,36 @@ export default function HomePage() {
                   For pricing and ordering information, please call{" "}
                   <span className="font-semibold text-teal-600">713-854-7427</span>
                 </p>
+              </CardContent>
+            </Card>
+
+            {/* Farm Card */}
+            <Card id="farm" className="border-purple-200 hover:shadow-xl transition-shadow duration-300">
+              <CardContent className="p-6 md:p-8">
+                <div className="flex items-center mb-4 md:mb-6">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                    <Fish className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-purple-900">Oyster Farm</h3>
+                </div>
+                <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
+                  We grow oysters to market size for the premium half-shell market while providing essential habitat for
+                  fish and other sea life in our sustainable farming operations.
+                </p>
+                <ul className="space-y-2 text-sm md:text-base text-gray-600">
+                  <li className="flex items-center">
+                    <div className="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
+                    Premium half-shell market oysters
+                  </li>
+                  <li className="flex items-center">
+                    <div className="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
+                    Sustainable aquaculture practices
+                  </li>
+                  <li className="flex items-center">
+                    <div className="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
+                    Marine habitat restoration
+                  </li>
+                </ul>
               </CardContent>
             </Card>
           </div>

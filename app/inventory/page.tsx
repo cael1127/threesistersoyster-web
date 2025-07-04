@@ -306,17 +306,17 @@ export default async function InventoryPage() {
           </Card>
         </div>
 
-        <Tabs defaultValue="farm" className="w-full">
+        <Tabs defaultValue="nursery" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border border-purple-200">
-            <TabsTrigger value="farm" className="flex items-center space-x-2 data-[state=active]:bg-purple-100">
-              <Fish className="w-4 h-4" />
-              <span>Farm Inventory</span>
-              <Badge className="bg-purple-100 text-purple-800 ml-2">{processedFarmInventory.length}</Badge>
-            </TabsTrigger>
             <TabsTrigger value="nursery" className="flex items-center space-x-2 data-[state=active]:bg-teal-100">
               <Leaf className="w-4 h-4" />
               <span>Nursery Inventory</span>
               <Badge className="bg-teal-100 text-teal-800 ml-2">{processedNurseryInventory.length}</Badge>
+            </TabsTrigger>
+            <TabsTrigger value="farm" className="flex items-center space-x-2 data-[state=active]:bg-purple-100">
+              <Fish className="w-4 h-4" />
+              <span>Farm Inventory</span>
+              <Badge className="bg-purple-100 text-purple-800 ml-2">{processedFarmInventory.length}</Badge>
             </TabsTrigger>
           </TabsList>
 

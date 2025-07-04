@@ -197,15 +197,15 @@ export default function OrderPage() {
                 <div className="bg-white border border-purple-200 p-6 rounded-lg">
                   <h3 className="text-lg font-semibold text-purple-900 mb-4">Order Types</h3>
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div className="p-4 border border-purple-200 rounded-lg">
-                      <h4 className="font-semibold text-purple-800 mb-2">Farm Orders</h4>
-                      <p className="text-sm text-gray-600 mb-3">Premium half-shell oysters ready for market</p>
-                      <Badge className="bg-purple-100 text-purple-800">Market Ready</Badge>
-                    </div>
                     <div className="p-4 border border-teal-200 rounded-lg">
                       <h4 className="font-semibold text-teal-800 mb-2">Nursery Orders</h4>
                       <p className="text-sm text-gray-600 mb-3">Hardy Eastern oyster seed for growers</p>
                       <Badge className="bg-teal-100 text-teal-800">Seed Stock</Badge>
+                    </div>
+                    <div className="p-4 border border-purple-200 rounded-lg">
+                      <h4 className="font-semibold text-purple-800 mb-2">Farm Orders</h4>
+                      <p className="text-sm text-gray-600 mb-3">Premium half-shell oysters ready for market</p>
+                      <Badge className="bg-purple-100 text-purple-800">Market Ready</Badge>
                     </div>
                   </div>
                 </div>
