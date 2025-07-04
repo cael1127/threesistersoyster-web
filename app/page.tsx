@@ -24,7 +24,10 @@ export default function HomePage() {
                 <Waves className="w-4 h-4 md:w-6 md:h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-sm md:text-xl font-bold text-purple-900">Three Sisters Oyster Co.</h1>
+                <h1 className="text-sm md:text-xl font-bold text-purple-900">
+                  <span className="md:hidden">Three Sisters</span>
+                  <span className="hidden md:inline">Three Sisters Oyster Co.</span>
+                </h1>
                 <p className="text-xs text-teal-600 hidden sm:block">Premium Texas Oysters</p>
               </div>
             </div>
