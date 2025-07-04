@@ -137,16 +137,13 @@ export default async function ProductsPage() {
               
               {/* Mobile Navigation - Compact */}
               <nav className="flex md:hidden space-x-2">
-                <Link href="/" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
-                  Home
-                </Link>
                 <Link href="/products" className="text-teal-600 font-medium text-xs px-2 py-1">
                   Shop
                 </Link>
                 <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
                   Stock
                 </Link>
-                <Link href="/#about" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
+                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
                   About
                 </Link>
               </nav>
