@@ -46,10 +46,10 @@ export default function HomePage() {
                 >
                   Inventory
                 </Link>
-                <Link href="#about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   About
                 </Link>
-                <Link href="#contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   Contact
                 </Link>
               </nav>
@@ -62,7 +62,7 @@ export default function HomePage() {
                 <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
                   Stock
                 </Link>
-                <Link href="#about" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
+                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
                   About
                 </Link>
               </nav>
@@ -141,7 +141,7 @@ export default function HomePage() {
               variant="outline"
               className="border-purple-300 text-purple-700 hover:bg-purple-50 bg-transparent min-h-[48px] text-base"
             >
-              <Link href="#about">Learn Our Story</Link>
+              <Link href="/about">Learn Our Story</Link>
             </Button>
           </div>
         </div>
@@ -426,7 +426,7 @@ export default function HomePage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#about" className="hover:text-white">
+                  <Link href="/about" className="hover:text-white">
                     About
                   </Link>
                 </li>
