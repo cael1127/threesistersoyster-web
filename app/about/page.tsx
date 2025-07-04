@@ -55,9 +55,6 @@ export default function AboutPage() {
                 <Link href="/about" className="text-teal-600 font-medium text-xs px-2 py-1">
                   About
                 </Link>
-                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
-                  Contact
-                </Link>
               </nav>
               
               <div className="flex items-center space-x-1 md:space-x-2">
