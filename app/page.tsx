@@ -246,8 +246,8 @@ export default function HomePage() {
                 Consulting, Blake discovered the pristine waters of Keller Bay - an excellent location for growing
                 premium oysters while improving water quality and sequestering nitrogen and carbon.
               </p>
-              <Button className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 min-h-[48px] text-base">
-                Learn More About Our Mission
+              <Button asChild className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 min-h-[48px] text-base">
+                <Link href="/about">Learn More About Our Mission</Link>
               </Button>
             </div>
             <div className="relative">
