@@ -200,41 +200,59 @@ export default async function InventoryPage() {
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-teal-50">
       {/* Header */}
       <header className="bg-white/90 backdrop-blur-sm border-b border-purple-100 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
-                <Waves className="w-6 h-6 text-white" />
+            <Link href="/" className="flex items-center space-x-2 md:space-x-3">
+              <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
+                <Waves className="w-4 h-4 md:w-6 md:h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-purple-900">Three Sisters Oyster Co.</h1>
-                <p className="text-sm text-teal-600">Premium Texas Oysters</p>
+                <h1 className="text-sm md:text-xl font-bold text-purple-900">Three Sisters Oyster Co.</h1>
+                <p className="text-xs text-teal-600 hidden sm:block">Premium Texas Oysters</p>
               </div>
             </Link>
-            <div className="flex items-center space-x-2 md:space-x-4">
-              <nav className="flex space-x-2 md:space-x-4">
-                <Link href="/" className="text-purple-700 hover:text-teal-600 font-medium text-xs md:text-base">
+            <div className="flex items-center space-x-1 md:space-x-4">
+              {/* Desktop Navigation */}
+              <nav className="hidden md:flex space-x-4">
+                <Link href="/" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   Home
                 </Link>
-                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs md:text-base">
+                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   Products
                 </Link>
-                <Link href="/inventory" className="text-teal-600 font-medium text-xs md:text-base">
+                <Link href="/inventory" className="text-teal-600 font-medium text-sm">
                   Inventory
                 </Link>
-                <Link href="/#about" className="text-purple-700 hover:text-teal-600 font-medium text-xs md:text-base">
+                <Link href="/#about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   About
                 </Link>
-                <Link href="/#contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs md:text-base">
+                <Link href="/#contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   Contact
                 </Link>
               </nav>
-              <div className="flex items-center space-x-2">
+              
+              {/* Mobile Navigation - Compact */}
+              <nav className="flex md:hidden space-x-2">
+                <Link href="/" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
+                  Home
+                </Link>
+                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
+                  Shop
+                </Link>
+                <Link href="/inventory" className="text-teal-600 font-medium text-xs px-2 py-1">
+                  Stock
+                </Link>
+                <Link href="/#about" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
+                  About
+                </Link>
+              </nav>
+              
+              <div className="flex items-center space-x-1 md:space-x-2">
                 <CartButton />
                 <Button
                   asChild
                   size="sm"
-                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs md:text-sm px-2 md:px-4"
+                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs md:text-sm px-2 md:px-4 min-h-[36px] md:min-h-[44px]"
                 >
                   <Link href="/order">Order</Link>
                 </Button>

@@ -16,21 +16,22 @@ export default function CartPage() {
       <div className="min-h-screen bg-gradient-to-b from-purple-50 to-teal-50">
         {/* Header */}
         <header className="bg-white/90 backdrop-blur-sm border-b border-purple-100 sticky top-0 z-50">
-          <div className="container mx-auto px-4 py-4">
+          <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
             <div className="flex items-center justify-between">
-              <Link href="/" className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
-                  <Waves className="w-6 h-6 text-white" />
+              <Link href="/" className="flex items-center space-x-2 md:space-x-3">
+                <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
+                  <Waves className="w-4 h-4 md:w-6 md:h-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-purple-900">Three Sisters Oyster Co.</h1>
-                  <p className="text-sm text-teal-600">Premium Texas Oysters</p>
+                  <h1 className="text-sm md:text-xl font-bold text-purple-900">Three Sisters Oyster Co.</h1>
+                  <p className="text-xs text-teal-600 hidden sm:block">Premium Texas Oysters</p>
                 </div>
               </Link>
-              <Button asChild variant="outline">
-                <Link href="/products" className="flex items-center space-x-2">
-                  <ArrowLeft className="w-4 h-4" />
-                  <span>Continue Shopping</span>
+              <Button asChild variant="outline" className="min-h-[36px] md:min-h-[44px]">
+                <Link href="/products" className="flex items-center space-x-2 text-xs md:text-sm">
+                  <ArrowLeft className="w-3 h-3 md:w-4 md:h-4" />
+                  <span className="hidden sm:inline">Continue Shopping</span>
+                  <span className="sm:hidden">Shop</span>
                 </Link>
               </Button>
             </div>
@@ -57,21 +58,22 @@ export default function CartPage() {
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-teal-50">
       {/* Header */}
       <header className="bg-white/90 backdrop-blur-sm border-b border-purple-100 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
-                <Waves className="w-6 h-6 text-white" />
+            <Link href="/" className="flex items-center space-x-2 md:space-x-3">
+              <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
+                <Waves className="w-4 h-4 md:w-6 md:h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-purple-900">Three Sisters Oyster Co.</h1>
-                <p className="text-sm text-teal-600">Premium Texas Oysters</p>
+                <h1 className="text-sm md:text-xl font-bold text-purple-900">Three Sisters Oyster Co.</h1>
+                <p className="text-xs text-teal-600 hidden sm:block">Premium Texas Oysters</p>
               </div>
             </Link>
-            <Button asChild variant="outline">
-              <Link href="/products" className="flex items-center space-x-2">
-                <ArrowLeft className="w-4 h-4" />
-                <span>Continue Shopping</span>
+            <Button asChild variant="outline" className="min-h-[36px] md:min-h-[44px]">
+              <Link href="/products" className="flex items-center space-x-2 text-xs md:text-sm">
+                <ArrowLeft className="w-3 h-3 md:w-4 md:h-4" />
+                <span className="hidden sm:inline">Continue Shopping</span>
+                <span className="sm:hidden">Shop</span>
               </Link>
             </Button>
           </div>
