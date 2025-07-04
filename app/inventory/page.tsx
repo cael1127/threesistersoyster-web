@@ -1,16 +1,42 @@
+"use client"
+
 import { getInventoryByType, getAllInventory } from "@/lib/supabase"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link"
-import { Fish, Leaf, MapPin, Calendar, Heart, DollarSign, Waves, TrendingUp, Package } from "lucide-react"
+import { Fish, Leaf, MapPin, Calendar, Heart, DollarSign, Waves, TrendingUp, Package, RefreshCw } from "lucide-react"
 import { CartButton } from "@/components/cart-button"
+import { useState, useEffect } from "react"
 
-export default async function InventoryPage() {
-  const farmInventory = await getInventoryByType("farm")
-  const nurseryInventory = await getInventoryByType("nursery")
-  const allInventory = await getAllInventory()
+export default function InventoryPage() {
+  const [farmInventory, setFarmInventory] = useState([])
+  const [nurseryInventory, setNurseryInventory] = useState([])
+  const [allInventory, setAllInventory] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const fetchInventory = async () => {
+    setLoading(true)
+    try {
+      const [farm, nursery, all] = await Promise.all([
+        getInventoryByType("farm"),
+        getInventoryByType("nursery"),
+        getAllInventory()
+      ])
+      setFarmInventory(farm)
+      setNurseryInventory(nursery)
+      setAllInventory(all)
+    } catch (error) {
+      console.error("Error fetching inventory:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchInventory()
+  }, [])
 
   // Helper function to parse inventory description
   function parseInventoryDescription(description: string | null) {
@@ -264,7 +290,19 @@ export default async function InventoryPage() {
 
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-purple-900 mb-4">Live Inventory Dashboard</h1>
+          <div className="flex items-center justify-center space-x-4 mb-4">
+            <h1 className="text-4xl font-bold text-purple-900">Live Inventory Dashboard</h1>
+            <Button
+              onClick={fetchInventory}
+              variant="outline"
+              size="sm"
+              disabled={loading}
+              className="flex items-center space-x-2 border-purple-300 text-purple-700 hover:bg-purple-50"
+            >
+              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+              <span>{loading ? 'Refreshing...' : 'Refresh'}</span>
+            </Button>
+          </div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Real-time tracking of our farm and nursery operations in Keller Bay
           </p>
