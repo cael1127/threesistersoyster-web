@@ -72,7 +72,7 @@ export default function AboutPage() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Back Button */}
         <div className="mb-8">
           <Button asChild variant="outline" className="flex items-center space-x-2">
@@ -86,8 +86,8 @@ export default function AboutPage() {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <Badge className="mb-4 bg-purple-100 text-purple-800 hover:bg-purple-200">Our Story</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6">About Three Sisters Oyster Co.</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 px-2">About Three Sisters Oyster Co.</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto px-4">
             A family-owned oyster farm committed to sustainable aquaculture and environmental stewardship in the pristine waters of Keller Bay.
           </p>
         </div>

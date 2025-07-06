@@ -76,7 +76,7 @@ export default function ContactPage() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Back Button */}
         <div className="mb-8">
           <Button asChild variant="outline" className="flex items-center space-x-2">
@@ -89,8 +89,8 @@ export default function ContactPage() {
 
         <div className="text-center mb-12">
           <Badge className="mb-4 bg-teal-100 text-teal-800 hover:bg-teal-200">Contact Us</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6">Get In Touch</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 px-2">Get In Touch</h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Ready to order premium oysters or learn more about our operations? Reach out to us below.
           </p>
         </div>

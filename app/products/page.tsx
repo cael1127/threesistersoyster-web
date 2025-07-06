@@ -183,10 +183,10 @@ export default function ProductsPage() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center space-x-4 mb-4">
-            <h1 className="text-4xl font-bold text-purple-900">Our Products</h1>
+            <h1 className="text-4xl font-bold text-purple-900 px-2">Our Products</h1>
             <Button
               onClick={fetchProducts}
               variant="outline"
@@ -198,7 +198,7 @@ export default function ProductsPage() {
               <span>{loading ? 'Refreshing...' : 'Refresh'}</span>
             </Button>
           </div>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Premium oysters and aquaculture products from the pristine waters of Keller Bay
           </p>
         </div>

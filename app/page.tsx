@@ -83,16 +83,16 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="py-12 md:py-20 px-4">
-        <div className="container mx-auto text-center">
+      <section id="home" className="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto text-center max-w-7xl">
           <Badge className="mb-4 md:mb-6 bg-purple-100 text-purple-800 hover:bg-purple-200 text-sm md:text-base">Family-Owned Since 2024</Badge>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-purple-900 mb-4 md:mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-purple-900 mb-4 md:mb-6 leading-tight px-2">
             Premium Texas
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600">
               Oysters
             </span>
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed px-4">
             Committed to the long-term viability of off-bottom aquaculture and a thriving Texas coastline. Growing the
             finest oysters in the pristine waters of Keller Bay.
           </p>
@@ -148,11 +148,11 @@ export default function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-12 md:py-20 px-4 bg-white/50">
-        <div className="container mx-auto">
+      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-white/50">
+        <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-3 md:mb-4">Our Operations</h2>
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-3 md:mb-4 px-2">Our Operations</h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed px-4">
               From nursery to market, we provide premium oyster solutions for growers and consumers alike.
             </p>
           </div>
@@ -226,22 +226,22 @@ export default function HomePage() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-12 md:py-20 px-4">
-        <div className="container mx-auto">
+      <section id="about" className="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
               <Badge className="mb-4 md:mb-6 bg-teal-100 text-teal-800 hover:bg-teal-200 text-sm md:text-base">Our Story</Badge>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-4 md:mb-6 leading-tight">Named After Blake's Three Daughters</h2>
-              <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-4 md:mb-6 leading-tight px-2">Named After Blake's Three Daughters</h2>
+              <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed px-2">
                 Three Sisters Oyster Co is a family-owned oyster farm on the coast of Texas. Named after Blake's three
                 daughters, our team strives to create a better coastline for the future.
               </p>
-              <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
+              <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed px-2">
                 Blake grew up outdoors, learning to dive in Thousand Island Indonesia and staying active in wildlife and
                 FFA during his youth. His love of the outdoors led him to oyster farming as a family and lifestyle
                 choice.
               </p>
-              <p className="text-sm md:text-base text-gray-600 mb-6 md:mb-8 leading-relaxed">
+              <p className="text-sm md:text-base text-gray-600 mb-6 md:mb-8 leading-relaxed px-2">
                 With a Range and Wildlife Management degree from Texas A&M Kingsville and 8 years in Environmental
                 Consulting, Blake discovered the pristine waters of Keller Bay - an excellent location for growing
                 premium oysters while improving water quality and sequestering nitrogen and carbon.
