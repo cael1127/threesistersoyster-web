@@ -1,16 +1,36 @@
+"use client"
+
 import { getProducts } from "@/lib/supabase"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Image from "next/image"
 import Link from "next/link"
-import { Waves, Fish, ShoppingBag } from "lucide-react"
+import { Waves, Fish, ShoppingBag, RefreshCw } from "lucide-react"
 import { CartButton } from "@/components/cart-button"
 import { AddToCartButton } from "@/components/add-to-cart-button"
 import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react"
 
-export default async function ProductsPage() {
-  const products = await getProducts()
+export default function ProductsPage() {
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const fetchProducts = async () => {
+    setLoading(true)
+    try {
+      const productsData = await getProducts()
+      setProducts(productsData)
+    } catch (error) {
+      console.error("Error fetching products:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchProducts()
+  }, [])
 
   // Helper function to parse product description
   function parseProductDescription(description: string | null) {
@@ -165,7 +185,19 @@ export default async function ProductsPage() {
 
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-purple-900 mb-4">Our Products</h1>
+          <div className="flex items-center justify-center space-x-4 mb-4">
+            <h1 className="text-4xl font-bold text-purple-900">Our Products</h1>
+            <Button
+              onClick={fetchProducts}
+              variant="outline"
+              size="sm"
+              disabled={loading}
+              className="flex items-center space-x-2 border-purple-300 text-purple-700 hover:bg-purple-50"
+            >
+              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+              <span>{loading ? 'Refreshing...' : 'Refresh'}</span>
+            </Button>
+          </div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Premium oysters and aquaculture products from the pristine waters of Keller Bay
           </p>
