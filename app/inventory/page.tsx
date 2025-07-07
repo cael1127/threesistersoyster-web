@@ -414,7 +414,7 @@ export default function InventoryPage() {
                       </span>
                     ) : (
                       <span>
-                        Hardy Eastern oyster seed (Crassostrea virginica) for growers seeking superior quality.
+                        Hardy oyster seed stock.
                       </span>
                     )}
                   </p>
