@@ -99,18 +99,18 @@ export default function AboutPage() {
               <h2 className="text-3xl font-bold text-purple-900 mb-6">Named After Blake's Three Daughters</h2>
               <div className="space-y-4 text-gray-600">
                 <p>
-                  Three Sisters Oyster Co is a family-owned oyster farm on the coast of Texas. Named after Blake's three
+                  Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
                   daughters, our team strives to create a better coastline for the future.
                 </p>
                 <p>
-                  Blake grew up outdoors, learning to dive in Thousand Island Indonesia and staying active in wildlife and
-                  FFA during his youth. His love of the outdoors led him to oyster farming as a family and lifestyle
-                  choice.
+                Blake grew up outdoors, learning to dive in the Thousand Islands in Indonesia and stayed active in wildlife and
+                FFA during his youth. His love of the outdoors led him to oyster farming as a family and lifestyle
+                choice.
                 </p>
                 <p>
-                  With a Range and Wildlife Management degree from Texas A&M Kingsville and 8 years in Environmental
-                  Consulting, Blake discovered the pristine waters of Keller Bay - an excellent location for growing
-                  premium oysters while improving water quality and sequestering nitrogen and carbon.
+                With a Range and Wildlife Management degree from Texas A&M Kingsville and eight years in Environmental
+                Consulting, Blake discovered the pristine waters of Keller Bay - an excellent location for growing
+                premium oysters while improving water quality and sequestering nitrogen and carbon.
                 </p>
               </div>
             </div>

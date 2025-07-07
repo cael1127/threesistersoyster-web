@@ -86,9 +86,9 @@ export default function HomePage() {
       <section id="home" className="py-8 md:py-16 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto text-center max-w-7xl">
           <Badge className="mb-3 md:mb-5 bg-purple-100 text-purple-800 hover:bg-purple-200 text-sm md:text-base">Family-Owned Since 2024</Badge>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-purple-900 mb-4 md:mb-6 leading-[1.3] px-2 pb-2">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-purple-900 mb-4 md:mb-6 leading-[1.4] px-2 pb-4">
             Premium Texas
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600 pb-1">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600 pb-2">
               Oysters
             </span>
           </h1>
