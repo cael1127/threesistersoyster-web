@@ -168,7 +168,7 @@ export default function HomePage() {
                   <h3 className="text-xl md:text-2xl font-bold text-purple-900">Oyster Nursery</h3>
                 </div>
                 <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
-                  Three Sisters Nursery offers customers hardy Eastern oyster (Crassostrea virginica) seed to meet
+                  Three Sisters Nursery offers customers hardy oyster seed to meet
                   growers' needs with superior quality and reliability.
                 </p>
                 <ul className="space-y-2 text-sm md:text-base text-gray-600 mb-4 md:mb-6">

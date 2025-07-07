@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Three Sisters Oyster Co. - Premium Texas Oysters",
   description: "Premium oysters and aquaculture products from the pristine waters of Keller Bay",
-    generator: 'v0.dev'
+  generator: 'cf'
 }
 
 export default function RootLayout({
