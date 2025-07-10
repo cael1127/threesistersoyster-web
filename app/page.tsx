@@ -250,7 +250,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="aspect-square bg-gradient-to-br from-purple-200 to-teal-200 rounded-2xl flex items-center justify-center">
                 <Image
-                  src="/placeholder.svg?height=400&width=400"
+                  src="/aboutpic.jpg"
                   alt="Blake and family at the oyster farm"
                   width={400}
                   height={400}
