@@ -6,19 +6,19 @@ const workers = [
     name: "Blake Whitney",
     role: "Owner",
     description: "Oversees oyster cultivation and harvest.",
-    image: "/placeholder-user.jpg",
+    image: "/blake.jpg",
   },
   {
     name: "Hayden placeholder",
     role: "Farm Manager",
     description: "Ensures smooth oyster cultivation and harvest.",
-    image: "/placeholder-user.jpg",
+    image: "/hayden.jpg",
   },
   {
     name: "Kathryn Planceholder",
     role: "Nursery Manager",
     description: "Manages the nursery and oyster larvae.",
-    image: "/placeholder-user.jpg",
+    image: "/kath.jpg",
   },
   {
     name: "Celco placeholder",
