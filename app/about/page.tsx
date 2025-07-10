@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Waves, Fish, Leaf, Phone, Mail, MapPin, ArrowLeft, Heart, Users, Globe, Award } from "lucide-react"
 import { CartButton } from "@/components/cart-button"
+import Image from "next/image"
 
 export default function AboutPage() {
   return (
@@ -116,11 +117,13 @@ export default function AboutPage() {
             </div>
             <div className="relative">
               <div className="aspect-square bg-gradient-to-br from-purple-200 to-teal-200 rounded-2xl flex items-center justify-center">
-                <div className="text-center p-8">
-                  <Heart className="w-16 h-16 text-purple-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-purple-900 mb-2">Family First</h3>
-                  <p className="text-gray-600">Every oyster we grow represents our commitment to family, community, and the environment.</p>
-                </div>
+                <Image
+                  src="/aboutpic.jpg"
+                  alt="Blake and family at the oyster farm"
+                  width={400}
+                  height={400}
+                  className="rounded-2xl object-cover"
+                />
               </div>
             </div>
           </div>
