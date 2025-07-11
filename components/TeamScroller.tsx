@@ -12,7 +12,7 @@ const workers = [
     name: "Dan Whitney",
     role: "Placeholder",
     description: "Placeholder",
-    image: "/logo.jpg",
+    image: "/dan.jpg",
   },
   {
     name: "Hayden placeholder",
