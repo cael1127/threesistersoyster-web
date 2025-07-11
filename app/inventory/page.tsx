@@ -122,7 +122,11 @@ export default function InventoryPage() {
                 <Badge className={item.type === "farm" ? "bg-purple-100 text-purple-800" : "bg-teal-100 text-teal-800"}>
                   {item.type === "farm" ? "Farm Stock" : "Nursery Seed"}
                 </Badge>
-                {item.size && <Badge variant="outline">{item.size}</Badge>}
+                {item.size && (
+                  <Badge className="bg-white text-purple-900 font-semibold border border-purple-300 px-3 py-1 text-sm shadow-sm">
+                    {item.size}
+                  </Badge>
+                )}
               </div>
             </div>
             <div className="text-right">
