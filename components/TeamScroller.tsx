@@ -54,7 +54,7 @@ const workers = [
     name: "Andrew Bingham",
     role: "Clown",
     description: "Placeholder",
-    image: "/andrew.jpg",
+    image: "/andrew.JPEG",
   },
   {
     name: "Cael Findley",
