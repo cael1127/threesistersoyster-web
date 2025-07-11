@@ -50,7 +50,9 @@ export default function AboutPage() {
               </nav>
               <div className="flex items-center space-x-1 md:space-x-2">
                 <CartButton />
-                <Button asChild size="sm" className="bg-purpleBrand text-[#3a2a4d] text-xs md:text-sm px-2 md:px-4 min-h-[36px] md:min-h-[44px]"> <Link href="/order">Order</Link> </Button>
+                <Button asChild size="sm" className="bg-purpleBrand text-[#3a2a4d] text-xs md:text-sm px-2 md:px-4 min-h-[36px] md:min-h-[44px]">
+                  <Link href="/order">Order</Link>
+                </Button>
               </div>
             </div>
           </div>
