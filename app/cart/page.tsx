@@ -110,7 +110,7 @@ export default function CartPage() {
                       <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-teal-100 rounded-lg overflow-hidden flex-shrink-0">
                         {item.image_url ? (
                           <Image
-                            src={item.image_url || "/placeholder.svg"}
+                            src={item.image_url || "/logo.jpg"}
                             alt={item.name}
                             width={80}
                             height={80}

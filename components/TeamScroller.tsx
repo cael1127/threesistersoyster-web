@@ -24,37 +24,37 @@ const workers = [
     name: "Celco placeholder",
     role: "Farm Hand",
     description: "Operates the farm in addition to heading opperations",
-    image: "/placeholder-user.jpg",
+    image: "/logo.jpg",
   },
   {
     name: "Lorenzo placeholder",
     role: "Farm Hand",
     description: "Placeholder",
-    image: "/placeholder-user.jpg",
+    image: "/logo.jpg",
   },
   {
     name: "Adam placeholder",
     role: "Farm Hand",
     description: "Placeholder",
-    image: "/placeholder-user.jpg",
+    image: "/logo.jpg",
   },
   {
     name: "Macie placeholder",
     role: "Farm Hand/Diver",
     description: "Placeholder",
-    image: "/placeholder-user.jpg",
+    image: "/logo.jpg",
   },
   {
     name: "Andrew placeholder",
     role: "Farm Hand/Carpenter",
     description: "Placeholder",
-    image: "/placeholder-user.jpg",
+    image: "/logo.jpg",
   },
   {
     name: "Cael Findley",
     role: "Farm Hand/Software Developer",
     description: "Placeholder",
-    image: "/placeholder-user.jpg",
+    image: "/logo.jpg",
   },
 ];
 

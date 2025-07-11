@@ -149,7 +149,7 @@ export default function CheckoutPage() {
             <div className="aspect-square bg-gradient-to-br from-purple-100 to-teal-100 rounded-2xl overflow-hidden">
               {product.image_url ? (
                 <Image
-                  src={product.image_url || "/placeholder.svg"}
+                  src={product.image_url || "/logo.jpg"}
                   alt={product.name}
                   width={600}
                   height={600}

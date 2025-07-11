@@ -72,7 +72,7 @@ export function QuickAddModal({ product, trigger }: QuickAddModalProps) {
             <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-teal-100 rounded-lg overflow-hidden flex-shrink-0">
               {product.image_url ? (
                 <Image
-                  src={product.image_url || "/placeholder.svg"}
+                  src={product.image_url || "/logo.jpg"}
                   alt={product.name}
                   width={64}
                   height={64}

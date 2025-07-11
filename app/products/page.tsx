@@ -68,7 +68,7 @@ export default function ProductsPage() {
           <div className="aspect-video bg-gradient-to-br from-purple-100 to-teal-100 relative overflow-hidden rounded-t-lg">
             {product.image_url ? (
               <Image
-                src={product.image_url || "/placeholder.svg"}
+                src={product.image_url || "/logo.jpg"}
                 alt={product.name}
                 fill
                 className="object-cover"

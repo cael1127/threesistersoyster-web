@@ -130,8 +130,7 @@ export default function HomePage() {
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="border-white/30 text-[#3a2a4d] hover:bg-white/10 bg-transparent min-h-[48px] text-base backdrop-blur-sm"
+              className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white min-h-[48px] text-base shadow-lg"
             >
               <Link href="/about">Learn Our Story</Link>
             </Button>
