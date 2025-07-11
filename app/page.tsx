@@ -380,8 +380,14 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-teal-400 rounded-full flex items-center justify-center">
-                  <Waves className="w-5 h-5 text-white" />
+                <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/logo.jpg"
+                    alt="Three Sisters Oyster Co. Logo"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold">Three Sisters Oyster Co.</h3>
@@ -431,6 +437,7 @@ export default function HomePage() {
 
           <div className="border-t border-purple-800 mt-8 pt-8 text-center text-purple-300 text-sm">
             <p>&copy; 2024 Three Sisters Oyster Co. All rights reserved.</p>
+            <p className="mt-2">App developed by Cael Findley for Three Sisters Oyster Co.</p>
           </div>
         </div>
       </footer>

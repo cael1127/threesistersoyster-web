@@ -33,7 +33,7 @@ export default function CartPage() {
                     <span className="md:hidden">Three Sisters</span>
                     <span className="hidden md:inline">Three Sisters Oyster Co.</span>
                   </h1>
-                  <p className="text-xs text-teal-600 hidden sm:block">Premium Texas Oysters</p>
+                  <p className="text-xs text-[#3a2a4d] hidden sm:block">Premium Texas Oysters</p>
                 </div>
               </Link>
               <Button asChild variant="outline" className="min-h-[36px] md:min-h-[44px]">
