@@ -10,6 +10,7 @@ import { Fish, Leaf, MapPin, Calendar, Heart, DollarSign, Waves, TrendingUp, Pac
 import { CartButton } from "@/components/cart-button"
 import { useState, useEffect } from "react"
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const ClientInventoryCounters = dynamic(() => import("@/components/ClientInventoryCounters"));
 
@@ -223,8 +224,14 @@ export default function InventoryPage() {
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2 md:space-x-3">
-              <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
-                <Waves className="w-4 h-4 md:w-6 md:h-6 text-white" />
+              <div className="w-8 h-8 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center">
+                <Image
+                  src="/logo.jpg"
+                  alt="Three Sisters Oyster Co. Logo"
+                  width={48}
+                  height={48}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <h1 className="text-sm md:text-xl font-bold text-purple-900">
