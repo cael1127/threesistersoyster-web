@@ -81,15 +81,6 @@ export default function InventoryPage() {
     ...parseInventoryDescription(item.description),
   }))
 
-  // Calculate totals with corrected harvest ready logic
-  const farmTotal = processedFarmInventory.reduce((sum, item) => sum + item.count, 0)
-  const nurseryTotal = processedNurseryInventory.reduce((sum, item) => sum + item.count, 0)
-
-  // Calculate harvest ready from ALL inventory (both farm and nursery)
-  const harvestReady = processedAllInventory
-    .filter((item) => item.harvestReady === true)
-    .reduce((sum, item) => sum + item.count, 0)
-
   // Debug logging
   console.log("=== INVENTORY DEBUG ===")
   console.log("Farm inventory items:", processedFarmInventory.length)
@@ -107,7 +98,7 @@ export default function InventoryPage() {
     "Nursery harvest ready items:",
     nurseryHarvestReady.map((item) => ({ name: item.name, count: item.count, harvestReady: item.harvestReady })),
   )
-  console.log("Total harvest ready count:", harvestReady)
+  console.log("Total harvest ready count:", processedAllInventory.filter((item) => item.harvestReady).length)
 
   function InventoryCard({ item }: { item: any }) {
     return (

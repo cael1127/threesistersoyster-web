@@ -6,6 +6,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { CartButton } from "@/components/cart-button"
 import dynamic from "next/dynamic";
+import TeamScroller from "@/components/TeamScroller";
 
 const ClientInventoryCounters = dynamic(() => import("@/components/ClientInventoryCounters"), { ssr: false });
 
