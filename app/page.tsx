@@ -5,12 +5,9 @@ import { Phone, Mail, MapPin, Waves, Fish, Leaf } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { CartButton } from "@/components/cart-button"
-import {
-  HarvestReadyInventoryCounter,
-  FarmInventoryCounter,
-  NurseryInventoryCounter,
-} from "@/components/inventory-counters"
-import TeamScroller from "@/components/TeamScroller"
+import dynamic from "next/dynamic";
+
+const ClientInventoryCounters = dynamic(() => import("@/components/ClientInventoryCounters"), { ssr: false });
 
 export default function HomePage() {
   return (
@@ -117,33 +114,8 @@ export default function HomePage() {
           </p>
 
           {/* Inventory Counters */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12 max-w-4xl mx-auto">
-            {/* Harvest Ready Count */}
-            <div className="bg-gradient-to-br from-purple-800/40 to-blue-800/40 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-purple-300/30">
-              <h3 className="text-base md:text-lg font-bold text-[#3a2a4d] mb-2">Harvest Ready</h3>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-blue-300 mb-1">
-                <HarvestReadyInventoryCounter />
-              </div>
-              <p className="text-xs md:text-sm text-[#3a2a4d]">Ready for harvest</p>
-            </div>
-
-            {/* Farm Count */}
-            <div className="bg-gradient-to-br from-blue-800/40 to-purple-800/40 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-blue-300/30">
-              <h3 className="text-base md:text-lg font-bold text-[#3a2a4d] mb-2">Farm Oysters</h3>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300 mb-1">
-                <FarmInventoryCounter />
-              </div>
-              <p className="text-xs md:text-sm text-[#3a2a4d]">Total farm stock</p>
-            </div>
-
-            {/* Nursery Count */}
-            <div className="bg-gradient-to-br from-teal-800/40 to-blue-800/40 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-teal-300/30 sm:col-span-2 md:col-span-1">
-              <h3 className="text-base md:text-lg font-bold text-[#3a2a4d] mb-2">Nursery Seed</h3>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-blue-300 mb-1">
-                <NurseryInventoryCounter />
-              </div>
-              <p className="text-xs md:text-sm text-[#3a2a4d]">Total seed stock</p>
-            </div>
+          <div className="mb-8 md:mb-12 max-w-4xl mx-auto">
+            <ClientInventoryCounters />
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">

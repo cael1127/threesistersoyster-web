@@ -1,5 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { createOrder } from "../../lib/supabase"
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,6 +10,9 @@ export async function POST(request: NextRequest) {
       }, { status: 500 })
     }
 
+    // Dynamically import Supabase functions to avoid build-time issues
+    const { createOrder } = await import("../../lib/supabase")
+    
     const orderData = await request.json()
 
     const order = await createOrder(orderData)

@@ -9,6 +9,9 @@ import Link from "next/link"
 import { Fish, Leaf, MapPin, Calendar, Heart, DollarSign, Waves, TrendingUp, Package, RefreshCw } from "lucide-react"
 import { CartButton } from "@/components/cart-button"
 import { useState, useEffect } from "react"
+import dynamic from "next/dynamic";
+
+const ClientInventoryCounters = dynamic(() => import("@/components/ClientInventoryCounters"), { ssr: false });
 
 export default function InventoryPage() {
   const [farmInventory, setFarmInventory] = useState<Inventory[]>([])
@@ -309,40 +312,7 @@ export default function InventoryPage() {
         </div>
 
         {/* Stats Overview */}
-        <div className="grid md:grid-cols-4 gap-6 mb-12">
-          <Card className="border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100">
-            <CardContent className="p-6 text-center">
-              <TrendingUp className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-purple-900">{(farmTotal + nurseryTotal).toLocaleString()}</div>
-              <p className="text-sm text-purple-700">Total Inventory</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-green-200 bg-gradient-to-br from-green-50 to-green-100">
-            <CardContent className="p-6 text-center">
-              <Package className="w-8 h-8 text-green-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-green-900">{harvestReady.toLocaleString()}</div>
-              <p className="text-sm text-green-700">Harvest Ready</p>
-              <p className="text-xs text-green-600 mt-1">Farm + Nursery</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100">
-            <CardContent className="p-6 text-center">
-              <Fish className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-purple-900">{farmTotal.toLocaleString()}</div>
-              <p className="text-sm text-purple-700">Farm Stock</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-teal-200 bg-gradient-to-br from-teal-50 to-teal-100">
-            <CardContent className="p-6 text-center">
-              <Leaf className="w-8 h-8 text-teal-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-teal-900">{nurseryTotal.toLocaleString()}</div>
-              <p className="text-sm text-teal-700">Nursery Seed</p>
-            </CardContent>
-          </Card>
-        </div>
+        <ClientInventoryCounters />
 
         <Tabs defaultValue="nursery" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border border-purple-200">

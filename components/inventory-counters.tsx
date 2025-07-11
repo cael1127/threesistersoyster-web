@@ -1,14 +1,37 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { getHarvestReadyInventoryCount, getFarmInventoryCount, getNurseryInventoryCount } from "@/lib/supabase"
+import dynamic from "next/dynamic"
+
+// Dynamically import Supabase functions to avoid SSR issues
+const getHarvestReadyInventoryCount = async () => {
+  const { getHarvestReadyInventoryCount } = await import("@/lib/supabase")
+  return getHarvestReadyInventoryCount()
+}
+
+const getFarmInventoryCount = async () => {
+  const { getFarmInventoryCount } = await import("@/lib/supabase")
+  return getFarmInventoryCount()
+}
+
+const getNurseryInventoryCount = async () => {
+  const { getNurseryInventoryCount } = await import("@/lib/supabase")
+  return getNurseryInventoryCount()
+}
 
 export function HarvestReadyInventoryCounter() {
   const [count, setCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+
     async function fetchCount() {
       try {
         console.log("Fetching harvest ready count...")
@@ -28,7 +51,12 @@ export function HarvestReadyInventoryCounter() {
     // Refresh every 10 seconds for testing
     const interval = setInterval(fetchCount, 10000)
     return () => clearInterval(interval)
-  }, [])
+  }, [mounted])
+
+  // During SSR, show a placeholder
+  if (!mounted) {
+    return <div className="animate-pulse">0</div>
+  }
 
   if (loading) {
     return <div className="animate-pulse">Loading...</div>
@@ -45,8 +73,15 @@ export function FarmInventoryCounter() {
   const [count, setCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+
     async function fetchCount() {
       try {
         console.log("Fetching farm count...")
@@ -66,7 +101,12 @@ export function FarmInventoryCounter() {
     // Refresh every 10 seconds for testing
     const interval = setInterval(fetchCount, 10000)
     return () => clearInterval(interval)
-  }, [])
+  }, [mounted])
+
+  // During SSR, show a placeholder
+  if (!mounted) {
+    return <div className="animate-pulse">0</div>
+  }
 
   if (loading) {
     return <div className="animate-pulse">Loading...</div>
@@ -83,8 +123,15 @@ export function NurseryInventoryCounter() {
   const [count, setCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+
     async function fetchCount() {
       try {
         console.log("Fetching nursery count...")
@@ -104,7 +151,12 @@ export function NurseryInventoryCounter() {
     // Refresh every 10 seconds for testing
     const interval = setInterval(fetchCount, 10000)
     return () => clearInterval(interval)
-  }, [])
+  }, [mounted])
+
+  // During SSR, show a placeholder
+  if (!mounted) {
+    return <div className="animate-pulse">0</div>
+  }
 
   if (loading) {
     return <div className="animate-pulse">Loading...</div>
