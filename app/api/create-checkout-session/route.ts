@@ -1,12 +1,19 @@
 import { type NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env["STRIPE_SECRET_KEY"] as string, {
-  apiVersion: "2024-06-20",
-});
+// Only create Stripe instance if we have the secret key
+const stripe = process.env.STRIPE_SECRET_KEY 
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: "2025-06-30.basil",
+    })
+  : null
 
 export async function POST(request: NextRequest) {
   try {
+    if (!stripe) {
+      return NextResponse.json({ error: "Stripe not configured" }, { status: 500 })
+    }
+
     const { items, total } = await request.json()
 
     // Convert cart items to Stripe line items

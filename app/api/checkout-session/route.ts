@@ -1,9 +1,12 @@
 import { type NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-06-20",
-})
+// Only create Stripe instance if we have the secret key
+const stripe = process.env.STRIPE_SECRET_KEY 
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: "2025-06-30.basil",
+    })
+  : null
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
@@ -11,6 +14,10 @@ export async function GET(request: NextRequest) {
 
   if (!sessionId) {
     return NextResponse.json({ error: "Session ID required" }, { status: 400 })
+  }
+
+  if (!stripe) {
+    return NextResponse.json({ error: "Stripe not configured" }, { status: 500 })
   }
 
   try {
