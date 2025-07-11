@@ -1,9 +1,24 @@
 import { createClient } from "@supabase/supabase-js"
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co"
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key"
+// Check for required environment variables
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// If environment variables are missing, create a mock client that won't crash the app
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.warn(
+    "⚠️ Supabase environment variables are missing. Please create a .env.local file with:\n" +
+    "NEXT_PUBLIC_SUPABASE_URL=your-project-url.supabase.co\n" +
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here\n" +
+    "\nGet these values from your Supabase project dashboard > Settings > API"
+  )
+}
+
+// Create Supabase client with fallback for missing env vars
+export const supabase = createClient(
+  supabaseUrl || "https://placeholder.supabase.co",
+  supabaseAnonKey || "placeholder-key"
+)
 
 export type Product = {
   id: string
@@ -90,6 +105,12 @@ export async function getHarvestReadyInventoryCount() {
   try {
     console.log("=== DEBUGGING HARVEST READY COUNT ===")
 
+    // Check if we have valid Supabase credentials
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+      console.log("Supabase not configured, returning fallback value")
+      return 0
+    }
+
     // Get ALL inventory data with descriptions (both farm and nursery)
     const { data: allData, error: allError } = await supabase.from("inventory").select("*")
 
@@ -148,6 +169,13 @@ export async function getHarvestReadyInventoryCount() {
 export async function getFarmInventoryCount() {
   try {
     console.log("Querying farm inventory...")
+    
+    // Check if we have valid Supabase credentials
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+      console.log("Supabase not configured, returning fallback value")
+      return 0
+    }
+    
     const { data, error } = await supabase.from("inventory").select("count").eq("type", "farm")
 
     console.log("Farm query result:", { data, error })
@@ -170,6 +198,13 @@ export async function getFarmInventoryCount() {
 export async function getNurseryInventoryCount() {
   try {
     console.log("Querying nursery inventory...")
+    
+    // Check if we have valid Supabase credentials
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+      console.log("Supabase not configured, returning fallback value")
+      return 0
+    }
+    
     const { data, error } = await supabase.from("inventory").select("count").eq("type", "nursery")
 
     console.log("Nursery query result:", { data, error })
