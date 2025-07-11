@@ -8,7 +8,7 @@ import { CartButton } from "@/components/cart-button"
 import dynamic from "next/dynamic";
 import TeamScroller from "@/components/TeamScroller";
 
-const ClientInventoryCounters = dynamic(() => import("@/components/ClientInventoryCounters"), { ssr: false });
+const ClientInventoryCounters = dynamic(() => import("@/components/ClientInventoryCounters"));
 
 export default function HomePage() {
   return (
@@ -115,7 +115,7 @@ export default function HomePage() {
           </p>
 
           {/* Inventory Counters */}
-          <div className="mb-8 md:mb-12 max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <ClientInventoryCounters />
           </div>
 

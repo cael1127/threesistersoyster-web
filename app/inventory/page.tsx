@@ -11,7 +11,7 @@ import { CartButton } from "@/components/cart-button"
 import { useState, useEffect } from "react"
 import dynamic from "next/dynamic";
 
-const ClientInventoryCounters = dynamic(() => import("@/components/ClientInventoryCounters"), { ssr: false });
+const ClientInventoryCounters = dynamic(() => import("@/components/ClientInventoryCounters"));
 
 export default function InventoryPage() {
   const [farmInventory, setFarmInventory] = useState<Inventory[]>([])
