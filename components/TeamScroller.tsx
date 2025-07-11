@@ -4,7 +4,7 @@ import Image from "next/image";
 const workers = [
   {
     name: "Blake Whitney",
-    role: "Owner",
+    role: "Placeholder",
     description: "Placeholder",
     image: "/blake.jpg",
   },
@@ -54,7 +54,7 @@ const workers = [
     name: "Andrew Bingham",
     role: "Clown",
     description: "Placeholder",
-    image: "/logo.jpg",
+    image: "/andrew.jpg",
   },
   {
     name: "Cael Findley",
