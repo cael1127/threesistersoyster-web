@@ -21,7 +21,7 @@ const workers = [
     image: "/hayden.jpg",
   },
   {
-    name: "Kathryn Planceholder",
+    name: "Kathryn Placeholder",
     role: "Nursery Manager",
     description: "Placeholder",
     image: "/kath.jpg",
