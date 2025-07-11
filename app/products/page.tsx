@@ -1,6 +1,7 @@
 "use client"
 
 import { getProducts } from "@/lib/supabase"
+import { Product } from "@/lib/supabase"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -13,7 +14,7 @@ import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
 
   const fetchProducts = async () => {
@@ -115,9 +116,9 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-teal-50">
+    <div className="min-h-screen bg-gradient-to-r from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-white/90 backdrop-blur-sm border-b border-purple-100 sticky top-0 z-50">
+      <header className="bg-gradient-to-r from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2 md:space-x-3">
