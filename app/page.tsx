@@ -16,7 +16,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-gradient-to-r from-purple-800/95 to-blue-800/95 backdrop-blur-sm border-b border-purple-300/30 sticky top-0 z-50">
+      <header className="bg-gradient-to-r from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 md:space-x-3">
@@ -89,7 +89,7 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gradient-to-br from-purple-900 via-blue-800 to-teal-800">
+      <section id="home" className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         {/* Background Video - Optimized for Performance */}
         <video
           autoPlay
@@ -102,8 +102,7 @@ export default function HomePage() {
         >
           <source src="/homepage.mp4" type="video/mp4" />
         </video>
-        {/* Enhanced overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/70 via-blue-800/60 to-teal-800/70 z-10"></div>
+        {/* Removed overlay for better video visibility */}
         <div className="container mx-auto text-center max-w-7xl relative z-20">
           <Badge className="mb-3 md:mb-5 bg-gradient-to-r from-purple-400/20 to-teal-400/20 text-[#3a2a4d] border border-purple-300/30 hover:from-purple-400/30 hover:to-teal-400/30 text-sm md:text-base backdrop-blur-sm">Family Owned, Ocean Grown</Badge>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#3a2a4d] mb-4 md:mb-6 leading-[1.4] px-2 pb-4">
