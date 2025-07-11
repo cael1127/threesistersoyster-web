@@ -45,14 +45,14 @@ const workers = [
     image: "/logo.jpg",
   },
   {
-    name: "Macie placeholder",
-    role: "Placeholder",
+    name: "Macie Kolodziejczyk",
+    role: "Farm Hand/Diver",
     description: "Placeholder",
     image: "/logo.jpg",
   },
   {
-    name: "Andrew placeholder",
-    role: "Placeholder",
+    name: "Andrew Bingham",
+    role: "Clown",
     description: "Placeholder",
     image: "/logo.jpg",
   },
