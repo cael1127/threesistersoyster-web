@@ -75,19 +75,19 @@ export default function TeamScroller() {
             className="min-w-[200px] sm:min-w-[220px] md:min-w-[240px] bg-white rounded-lg shadow-md p-4 md:p-6 flex-shrink-0 hover:shadow-lg transition-shadow duration-300"
           >
             <div className="flex flex-col items-center">
-              <div className="relative w-16 h-16 md:w-20 md:h-20 mb-3 md:mb-4">
+              <div className="relative w-20 h-20 md:w-24 md:h-24 mb-3 md:mb-4 rounded-full overflow-hidden flex items-center justify-center bg-gray-100 border border-purple-200">
                 <Image
                   src={worker.image}
                   alt={worker.name}
                   width={96}
                   height={96}
-                  className="rounded-full object-cover"
+                  className="object-cover w-full h-full"
                   quality={100}
                 />
               </div>
-              <h3 className="text-sm md:text-lg font-semibold text-center mb-1 md:mb-2 leading-tight">{worker.name}</h3>
-              <p className="text-xs md:text-sm text-gray-500 text-center mb-2 md:mb-3 leading-tight">{worker.role}</p>
-              <p className="text-xs md:text-sm text-gray-700 text-center leading-relaxed">{worker.description}</p>
+              <h3 className="text-sm md:text-lg font-semibold text-center mb-1 md:mb-2 leading-tight break-words max-w-[8rem] md:max-w-[10rem]">{worker.name}</h3>
+              <p className="text-xs md:text-sm text-gray-500 text-center mb-2 md:mb-3 leading-tight break-words max-w-[8rem] md:max-w-[10rem]">{worker.role}</p>
+              <p className="text-xs md:text-sm text-gray-700 text-center leading-relaxed break-words max-w-[8rem] md:max-w-[10rem]">{worker.description}</p>
             </div>
           </div>
         ))}
