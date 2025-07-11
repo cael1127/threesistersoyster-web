@@ -32,7 +32,7 @@ export default function HomePage() {
                   <span className="md:hidden">Three Sisters</span>
                   <span className="hidden md:inline">Three Sisters Oyster Co.</span>
                 </h1>
-                <p className="text-xs text-[#3a2a4d] hidden sm:block">Premium Texas Oysters</p>
+                <p className="text-xs text-[#3a2a4d] hidden sm:block">Three Sisters Oyster Co.</p>
               </div>
             </div>
             <div className="flex items-center space-x-1 md:space-x-4">
@@ -103,7 +103,7 @@ export default function HomePage() {
         {/* Removed overlay for better video visibility */}
         <div className="container mx-auto text-center max-w-7xl relative z-20">
           <Badge className="mb-3 md:mb-5 bg-gradient-to-r from-purple-400/20 to-teal-400/20 text-[#3a2a4d] border border-purple-300/30 hover:from-purple-400/30 hover:to-teal-400/30 text-sm md:text-base backdrop-blur-sm">Family Owned, Ocean Grown</Badge>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#3a2a4d] mb-4 md:mb-6 leading-[1.4] px-2 pb-4">
+          <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#3a2a4d] mb-4 md:mb-6 leading-[1.4] px-2 pb-4">
             Premium Texas
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-blue-300 pb-2">
               Oysters
