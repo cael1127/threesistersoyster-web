@@ -119,7 +119,7 @@ export default function OrderPage() {
                   <span className="md:hidden">Three Sisters</span>
                   <span className="hidden md:inline">Three Sisters Oyster Co.</span>
                 </h1>
-                <p className="text-xs text-teal-600 hidden sm:block">Premium Texas Oysters</p>
+                <p className="text-xs text-[#3a2a4d] hidden sm:block">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">
