@@ -199,7 +199,7 @@ export default function OrderPage() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="p-4 border border-teal-200 rounded-lg">
                       <h4 className="font-semibold text-teal-800 mb-2">Nursery Orders</h4>
-                      <p className="text-sm text-gray-600 mb-3">Hardy Eastern oyster seed for growers</p>
+                      <p className="text-sm text-gray-600 mb-3">Hardy Gulf Coast oyster seed for growers</p>
                       <Badge className="bg-teal-100 text-teal-800">Seed Stock</Badge>
                     </div>
                     <div className="p-4 border border-purple-200 rounded-lg">
