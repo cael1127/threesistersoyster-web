@@ -234,7 +234,7 @@ export default function InventoryPage() {
                 />
               </div>
               <div>
-                <h1 className="text-sm md:text-xl font-bold text-purple-900">
+                <h1 className="text-sm md:text-xl font-bold text-[#3a2a4d]">
                   <span className="md:hidden">Three Sisters</span>
                   <span className="hidden md:inline">Three Sisters Oyster Co.</span>
                 </h1>
