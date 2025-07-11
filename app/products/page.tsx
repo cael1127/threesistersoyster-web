@@ -72,7 +72,7 @@ export default function ProductsPage() {
                 alt={product.name}
                 fill
                 className="object-cover"
-                unoptimized
+                quality={90}
               />
             ) : (
               <div className="flex items-center justify-center h-full">
@@ -129,6 +129,7 @@ export default function ProductsPage() {
                   width={48}
                   height={48}
                   className="w-full h-full object-cover"
+                  quality={90}
                 />
               </div>
               <div>

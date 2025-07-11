@@ -23,6 +23,7 @@ export default function AboutPage() {
                   width={48}
                   height={48}
                   className="w-full h-full object-cover"
+                  quality={90}
                 />
               </div>
               <div>
@@ -109,6 +110,7 @@ export default function AboutPage() {
                   width={400}
                   height={400}
                   className="rounded-2xl object-cover"
+                  quality={90}
                 />
               </div>
             </div>

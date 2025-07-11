@@ -82,6 +82,7 @@ export default function TeamScroller() {
                   fill
                   className="rounded-full object-cover"
                   sizes="(max-width: 768px) 64px, 80px"
+                  quality={90}
                 />
               </div>
               <h3 className="text-sm md:text-lg font-semibold text-center mb-1 md:mb-2 leading-tight">{worker.name}</h3>

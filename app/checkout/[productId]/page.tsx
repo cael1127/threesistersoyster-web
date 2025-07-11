@@ -154,7 +154,7 @@ export default function CheckoutPage() {
                   width={600}
                   height={600}
                   className="w-full h-full object-cover"
-                  unoptimized
+                  quality={90}
                 />
               ) : (
                 <div className="flex items-center justify-center h-full">

@@ -77,7 +77,7 @@ export function QuickAddModal({ product, trigger }: QuickAddModalProps) {
                   width={64}
                   height={64}
                   className="w-full h-full object-cover"
-                  unoptimized
+                  quality={90}
                 />
               ) : (
                 <div className="flex items-center justify-center h-full">

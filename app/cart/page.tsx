@@ -26,6 +26,7 @@ export default function CartPage() {
                     width={48}
                     height={48}
                     className="w-full h-full object-cover"
+                    quality={90}
                   />
                 </div>
                 <div>
@@ -77,6 +78,7 @@ export default function CartPage() {
                   width={48}
                   height={48}
                   className="w-full h-full object-cover"
+                  quality={90}
                 />
               </div>
               <div>
@@ -127,7 +129,7 @@ export default function CartPage() {
                             width={80}
                             height={80}
                             className="w-full h-full object-cover"
-                            unoptimized
+                            quality={90}
                           />
                         ) : (
                           <div className="flex items-center justify-center h-full">

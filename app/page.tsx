@@ -25,6 +25,7 @@ export default function HomePage() {
                   width={48}
                   height={48}
                   className="w-full h-full object-cover"
+                  quality={90}
                 />
               </div>
               <div>
@@ -246,6 +247,7 @@ export default function HomePage() {
                   width={400}
                   height={400}
                   className="rounded-2xl object-cover"
+                  quality={90}
                 />
               </div>
             </div>
@@ -387,6 +389,7 @@ export default function HomePage() {
                     width={40}
                     height={40}
                     className="w-full h-full object-cover"
+                    quality={90}
                   />
                 </div>
                 <div>

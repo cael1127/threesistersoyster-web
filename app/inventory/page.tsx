@@ -235,6 +235,7 @@ export default function InventoryPage() {
                   width={48}
                   height={48}
                   className="w-full h-full object-cover"
+                  quality={90}
                 />
               </div>
               <div>
