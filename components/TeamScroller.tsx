@@ -79,10 +79,10 @@ export default function TeamScroller() {
                 <Image
                   src={worker.image}
                   alt={worker.name}
-                  fill
+                  width={96}
+                  height={96}
                   className="rounded-full object-cover"
-                  sizes="(max-width: 768px) 64px, 80px"
-                  quality={90}
+                  quality={100}
                 />
               </div>
               <h3 className="text-sm md:text-lg font-semibold text-center mb-1 md:mb-2 leading-tight">{worker.name}</h3>

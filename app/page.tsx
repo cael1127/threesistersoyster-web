@@ -22,10 +22,10 @@ export default function HomePage() {
                 <Image
                   src="/logo.jpg"
                   alt="Three Sisters Oyster Co. Logo"
-                  width={48}
-                  height={48}
+                  width={96}
+                  height={96}
                   className="w-full h-full object-cover"
-                  quality={90}
+                  quality={100}
                 />
               </div>
               <div>
@@ -386,10 +386,10 @@ export default function HomePage() {
                   <Image
                     src="/logo.jpg"
                     alt="Three Sisters Oyster Co. Logo"
-                    width={40}
-                    height={40}
+                    width={80}
+                    height={80}
                     className="w-full h-full object-cover"
-                    quality={90}
+                    quality={100}
                   />
                 </div>
                 <div>

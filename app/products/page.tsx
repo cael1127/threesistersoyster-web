@@ -126,10 +126,10 @@ export default function ProductsPage() {
                 <Image
                   src="/logo.jpg"
                   alt="Three Sisters Oyster Co. Logo"
-                  width={48}
-                  height={48}
+                  width={96}
+                  height={96}
                   className="w-full h-full object-cover"
-                  quality={90}
+                  quality={100}
                 />
               </div>
               <div>
