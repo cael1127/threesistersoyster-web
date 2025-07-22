@@ -152,11 +152,6 @@ export default function TeamScroller() {
           <div className="w-2 h-2 bg-purple-300 rounded-full"></div>
         </div>
       </div>
-      
-      {/* Desktop scroll hint */}
-      <div className="hidden md:block text-center mt-4">
-        <p className="text-sm text-gray-500">Use mouse wheel or arrow keys to scroll</p>
-      </div>
     </div>
   );
 } 
