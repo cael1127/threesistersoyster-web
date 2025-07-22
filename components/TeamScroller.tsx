@@ -1,5 +1,7 @@
 "use client";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useRef } from "react";
 
 const workers = [
   {
@@ -59,10 +61,65 @@ const workers = [
 ];
 
 export default function TeamScroller() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScrollButtons = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+    }
+  };
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="py-6 md:py-8">
+    <div className="py-6 md:py-8 relative">
       <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center">Meet Our Team</h2>
-      <div className="flex overflow-x-auto space-x-4 md:space-x-6 pb-4 scrollbar-hide">
+      
+      {/* Desktop scroll buttons */}
+      <div className="hidden md:block">
+        <button
+          onClick={scrollLeft}
+          disabled={!canScrollLeft}
+          className={`absolute left-2 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 hover:bg-white shadow-lg flex items-center justify-center transition-all duration-200 ${
+            canScrollLeft ? 'opacity-100 cursor-pointer' : 'opacity-50 cursor-not-allowed'
+          }`}
+          aria-label="Scroll left"
+        >
+          <ChevronLeft className="w-5 h-5 text-purple-600" />
+        </button>
+        
+        <button
+          onClick={scrollRight}
+          disabled={!canScrollRight}
+          className={`absolute right-2 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 hover:bg-white shadow-lg flex items-center justify-center transition-all duration-200 ${
+            canScrollRight ? 'opacity-100 cursor-pointer' : 'opacity-50 cursor-not-allowed'
+          }`}
+          aria-label="Scroll right"
+        >
+          <ChevronRight className="w-5 h-5 text-purple-600" />
+        </button>
+      </div>
+
+      <div 
+        ref={scrollContainerRef}
+        onScroll={checkScrollButtons}
+        className="flex overflow-x-auto space-x-4 md:space-x-6 pb-4 md:pb-6 md:px-12 scrollbar-thin scrollbar-thumb-purple-300 scrollbar-track-transparent hover:scrollbar-thumb-purple-400"
+        style={{ scrollbarWidth: 'thin', scrollbarColor: '#c084fc transparent' }}
+      >
         {workers.map((worker, idx) => (
           <div
             key={idx}
@@ -86,6 +143,7 @@ export default function TeamScroller() {
           </div>
         ))}
       </div>
+      
       {/* Scroll indicator for mobile */}
       <div className="flex justify-center mt-4 md:hidden">
         <div className="flex space-x-1">
@@ -93,6 +151,11 @@ export default function TeamScroller() {
           <div className="w-2 h-2 bg-purple-300 rounded-full"></div>
           <div className="w-2 h-2 bg-purple-300 rounded-full"></div>
         </div>
+      </div>
+      
+      {/* Desktop scroll hint */}
+      <div className="hidden md:block text-center mt-4">
+        <p className="text-sm text-gray-500">Use mouse wheel or arrow keys to scroll</p>
       </div>
     </div>
   );
