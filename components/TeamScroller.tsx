@@ -48,7 +48,7 @@ const workers = [
   },
   {
     name: "Andrew Bingham",
-    role: "Clown",
+    role: "Farm Hand",
     description: "Placeholder",
     image: "/andrew.JPEG",
   },
