@@ -11,7 +11,7 @@ export default function EmploymentForm() {
     const lastName = formData.get('lastName') as string;
     const email = formData.get('email') as string;
     const phone = formData.get('phone') as string;
-    const position = formData.get('position') as string;
+    const hours = formData.get('hours') as string;
     const availability = formData.get('availability') as string;
     const about = formData.get('about') as string;
     
@@ -22,7 +22,7 @@ export default function EmploymentForm() {
 Name: ${firstName} ${lastName}
 Email: ${email}
 Phone: ${phone}
-Position of Interest: ${position}
+Hours Available: ${hours}
 Availability: ${availability}
 
 About: ${about}`
@@ -89,14 +89,15 @@ About: ${about}`
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Position of Interest *</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">What hours can you work? *</label>
             <select 
-              name="position"
+              name="hours"
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
-              <option value="">Select a position</option>
-              <option value="farm-hand">Farm Hand</option>
+              <option value="">Select hours</option>
+              <option value="part-time">Part-time</option>
+              <option value="full-time">Full-time</option>
             </select>
           </div>
 
@@ -108,10 +109,8 @@ About: ${about}`
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
               <option value="">Select availability</option>
-              <option value="full-time">Full-time</option>
               <option value="part-time">Part-time</option>
-              <option value="seasonal">Seasonal</option>
-              <option value="flexible">Flexible</option>
+              <option value="full-time">Full-time</option>
             </select>
           </div>
 
