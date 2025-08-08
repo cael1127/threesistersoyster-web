@@ -70,6 +70,9 @@ export default function HomePage() {
                 <Link href="/about" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-2 py-1 transition-colors">
                   About
                 </Link>
+                <Link href="/contact" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-2 py-1 transition-colors">
+                  Contact
+                </Link>
               </nav>
               
               <div className="flex items-center space-x-1 md:space-x-2">

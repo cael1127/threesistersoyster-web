@@ -135,4 +135,46 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Mobile optimization */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Prevent horizontal scrolling on mobile */
+  body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Ensure proper viewport on mobile */
+  @media (max-width: 768px) {
+    body {
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      /* Prevent zoom on input focus */
+      font-size: 16px;
+    }
+    
+    html {
+      height: -webkit-fill-available;
+    }
+    
+    /* Prevent horizontal scrolling */
+    .container {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    
+    /* Ensure proper touch targets */
+    button, a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    /* Prevent text zoom on input focus */
+    input, textarea, select {
+      font-size: 16px !important;
+    }
+  }
 }

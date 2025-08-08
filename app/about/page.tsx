@@ -48,6 +48,7 @@ export default function AboutPage() {
                 <Link href="/products" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-xs px-2 py-1">Shop</Link>
                 <Link href="/inventory" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-xs px-2 py-1">Stock</Link>
                 <Link href="/about" className="text-[#3a2a4d] font-medium text-xs px-2 py-1">About</Link>
+                <Link href="/contact" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-xs px-2 py-1">Contact</Link>
               </nav>
               <div className="flex items-center space-x-1 md:space-x-2">
                 <CartButton />
