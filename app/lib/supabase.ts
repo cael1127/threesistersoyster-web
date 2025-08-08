@@ -96,3 +96,48 @@ export async function createOrder(orderData: {
 
   return data[0] as Order
 }
+
+// Get harvest ready inventory count
+export async function getHarvestReadyInventoryCount() {
+  const { data, error } = await supabase
+    .from("inventory")
+    .select("count")
+    .eq("harvestReady", true)
+
+  if (error) {
+    console.error("Error fetching harvest ready inventory:", error)
+    return 0
+  }
+
+  return data?.reduce((total, item) => total + item.count, 0) || 0
+}
+
+// Get farm inventory count
+export async function getFarmInventoryCount() {
+  const { data, error } = await supabase
+    .from("inventory")
+    .select("count")
+    .eq("type", "farm")
+
+  if (error) {
+    console.error("Error fetching farm inventory:", error)
+    return 0
+  }
+
+  return data?.reduce((total, item) => total + item.count, 0) || 0
+}
+
+// Get nursery inventory count
+export async function getNurseryInventoryCount() {
+  const { data, error } = await supabase
+    .from("inventory")
+    .select("count")
+    .eq("type", "nursery")
+
+  if (error) {
+    console.error("Error fetching nursery inventory:", error)
+    return 0
+  }
+
+  return data?.reduce((total, item) => total + item.count, 0) || 0
+}

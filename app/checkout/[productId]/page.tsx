@@ -9,6 +9,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { supabase, type Product } from "../../lib/supabase"
 
+
+
 export default function CheckoutPage() {
   const params = useParams()
   const productId = params.productId as string
@@ -20,6 +22,13 @@ export default function CheckoutPage() {
   useEffect(() => {
     async function fetchProduct() {
       try {
+        // Check if Supabase is properly configured
+        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+          console.error("Supabase not configured")
+          setLoading(false)
+          return
+        }
+
         const { data, error } = await supabase.from("products").select("*").eq("id", productId).single()
 
         if (error) {

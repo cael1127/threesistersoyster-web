@@ -34,6 +34,15 @@ export function HarvestReadyInventoryCounter() {
 
     async function fetchCount() {
       try {
+        // Check if Supabase is properly configured
+        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+          console.error("Supabase not configured")
+          setCount(0)
+          setError(null)
+          setLoading(false)
+          return
+        }
+
         console.log("Fetching harvest ready count...")
         const harvestReadyCount = await getHarvestReadyInventoryCount()
         console.log("Harvest ready count received:", harvestReadyCount)
@@ -84,6 +93,15 @@ export function FarmInventoryCounter() {
 
     async function fetchCount() {
       try {
+        // Check if Supabase is properly configured
+        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+          console.error("Supabase not configured")
+          setCount(0)
+          setError(null)
+          setLoading(false)
+          return
+        }
+
         console.log("Fetching farm count...")
         const farmCount = await getFarmInventoryCount()
         console.log("Farm count received:", farmCount)
@@ -134,6 +152,15 @@ export function NurseryInventoryCounter() {
 
     async function fetchCount() {
       try {
+        // Check if Supabase is properly configured
+        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+          console.error("Supabase not configured")
+          setCount(0)
+          setError(null)
+          setLoading(false)
+          return
+        }
+
         console.log("Fetching nursery count...")
         const nurseryCount = await getNurseryInventoryCount()
         console.log("Nursery count received:", nurseryCount)
