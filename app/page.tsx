@@ -60,22 +60,22 @@ export default function HomePage() {
               </nav>
               
               {/* Mobile Navigation - Compact */}
-              <nav className="flex md:hidden space-x-2">
-                <Link href="/products" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-2 py-1 transition-colors">
+              <nav className="flex md:hidden space-x-1">
+                <Link href="/products" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-1 py-1 transition-colors">
                   Shop
                 </Link>
-                <Link href="/inventory" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-2 py-1 transition-colors">
+                <Link href="/inventory" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-1 py-1 transition-colors">
                   Stock
                 </Link>
-                <Link href="/about" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-2 py-1 transition-colors">
+                <Link href="/about" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-1 py-1 transition-colors">
                   About
                 </Link>
-                <Link href="/contact" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-2 py-1 transition-colors">
+                <Link href="/contact" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-1 py-1 transition-colors">
                   Contact
                 </Link>
               </nav>
               
-              <div className="flex items-center space-x-1 md:space-x-2">
+              <div className="flex items-center space-x-1">
                 <CartButton />
                 <Button
                   asChild

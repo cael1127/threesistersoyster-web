@@ -267,22 +267,22 @@ export default function InventoryPage() {
               </nav>
               
               {/* Mobile Navigation - Compact */}
-              <nav className="flex md:hidden space-x-2">
-                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
+              <nav className="flex md:hidden space-x-1">
+                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
                   Shop
                 </Link>
-                <Link href="/inventory" className="text-teal-600 font-medium text-xs px-2 py-1">
+                <Link href="/inventory" className="text-teal-600 font-medium text-xs px-1 py-1">
                   Stock
                 </Link>
-                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
+                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
                   About
                 </Link>
-                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
+                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
                   Contact
                 </Link>
               </nav>
               
-              <div className="flex items-center space-x-1 md:space-x-2">
+              <div className="flex items-center space-x-1">
                 <CartButton />
                 <Button
                   asChild

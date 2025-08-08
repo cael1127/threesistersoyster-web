@@ -44,13 +44,13 @@ export default function AboutPage() {
                 <Link href="/contact" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-sm">Contact</Link>
               </nav>
               {/* Mobile Navigation - Compact */}
-              <nav className="flex md:hidden space-x-2">
-                <Link href="/products" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-xs px-2 py-1">Shop</Link>
-                <Link href="/inventory" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-xs px-2 py-1">Stock</Link>
-                <Link href="/about" className="text-[#3a2a4d] font-medium text-xs px-2 py-1">About</Link>
-                <Link href="/contact" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-xs px-2 py-1">Contact</Link>
+              <nav className="flex md:hidden space-x-1">
+                <Link href="/products" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-xs px-1 py-1">Shop</Link>
+                <Link href="/inventory" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-xs px-1 py-1">Stock</Link>
+                <Link href="/about" className="text-[#3a2a4d] font-medium text-xs px-1 py-1">About</Link>
+                <Link href="/contact" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-xs px-1 py-1">Contact</Link>
               </nav>
-              <div className="flex items-center space-x-1 md:space-x-2">
+              <div className="flex items-center space-x-1">
                 <CartButton />
                 <Button asChild size="sm" className="bg-purpleBrand text-[#3a2a4d] text-xs md:text-sm px-2 md:px-4 min-h-[36px] md:min-h-[44px]">
                   <Link href="/order">Order</Link>
