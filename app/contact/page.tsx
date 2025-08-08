@@ -223,15 +223,11 @@ export default function ContactPage() {
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>Must be 18+ years old</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                     <span>Comfortable working outdoors in all weather</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>Ability to lift 50+ pounds</span>
+                    <span>Capable of lifting heavy objects</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
