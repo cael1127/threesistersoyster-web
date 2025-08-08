@@ -47,6 +47,12 @@ const workers = [
     image: "/logo.jpg",
   },
   {
+    name: "Ray Odell",
+    role: "Nursery Hand",
+    description: "Placeholder",
+    image: "/logo.jpg",
+  },
+  {
     name: "Andrew Bingham",
     role: "Farm Hand",
     description: "Placeholder",
