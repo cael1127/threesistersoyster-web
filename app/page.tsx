@@ -28,12 +28,11 @@ export default function HomePage() {
                   quality={100}
                 />
               </div>
-              <div>
-                <h1 className="text-sm md:text-xl font-bold text-[#3a2a4d]">
-                  <span className="md:hidden">Three Sisters</span>
-                  <span className="hidden md:inline">Three Sisters Oyster Co.</span>
+              <div className="hidden md:block">
+                <h1 className="text-xl font-bold text-[#3a2a4d]">
+                  Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-[#3a2a4d] hidden sm:block">Premium Texas Oysters</p>
+                <p className="text-xs text-[#3a2a4d]">Premium Texas Oysters</p>
               </div>
             </div>
             <div className="flex items-center space-x-1 md:space-x-4">
@@ -70,9 +69,6 @@ export default function HomePage() {
                 <Link href="/about" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-1 py-1 transition-colors">
                   About
                 </Link>
-                <Link href="/contact" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-1 py-1 transition-colors">
-                  Contact
-                </Link>
               </nav>
               
               <div className="flex items-center space-x-1">
@@ -80,7 +76,7 @@ export default function HomePage() {
                 <Button
                   asChild
                   size="sm"
-                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs md:text-sm px-2 md:px-4 min-h-[36px] md:min-h-[44px]"
+                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm"
                 >
                   <Link href="/order">Order</Link>
                 </Button>
