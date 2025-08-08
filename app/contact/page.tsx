@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge"
 import { Waves, Phone, Mail, MapPin, ArrowLeft, Users, Briefcase, Heart, Leaf } from "lucide-react"
 import { CartButton } from "@/components/cart-button"
 import Image from "next/image"
+import ContactForm from "@/components/ContactForm"
+import EmploymentForm from "@/components/EmploymentForm"
 
 export default function ContactPage() {
   return (
@@ -143,63 +145,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <Card className="border-purple-200">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-purple-900 mb-6">Send Us a Message</h3>
-              <form 
-                className="space-y-4"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const formData = new FormData(e.currentTarget);
-                  const name = formData.get('name') as string;
-                  const email = formData.get('email') as string;
-                  const message = formData.get('message') as string;
-                  
-                  const subject = encodeURIComponent('Contact from Three Sisters Oyster Co. Website');
-                  const body = encodeURIComponent(
-                    `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-                  );
-                  
-                  window.location.href = `mailto:info@threesistersoyster.com?subject=${subject}&body=${body}`;
-                }}
-              >
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
-                  <input
-                    name="name"
-                    type="text"
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                  <input
-                    name="email"
-                    type="email"
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    placeholder="Tell us about your inquiry..."
-                  ></textarea>
-                </div>
-                <Button 
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700"
-                >
-                  Send Message
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+          <ContactForm />
         </div>
 
         {/* Employment Section */}
@@ -311,105 +257,7 @@ export default function ContactPage() {
           </div>
 
           {/* Application Form */}
-          <Card className="border-purple-200 max-w-4xl mx-auto">
-            <CardContent className="p-8">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-purple-900 mb-4">Apply Now</h3>
-                <p className="text-gray-600">
-                  Interested in joining our team? Fill out the application below and we'll get back to you soon.
-                </p>
-              </div>
-              
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                    <input
-                      type="text"
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                    <input
-                      type="text"
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    />
-                  </div>
-                </div>
-                
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                    <input
-                      type="email"
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
-                    <input
-                      type="tel"
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Position of Interest *</label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    <option value="">Select a position</option>
-                    <option value="farm-hand">Farm Hand</option>
-                    <option value="nursery-assistant">Nursery Assistant</option>
-                    <option value="general-labor">General Labor</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Availability *</label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    <option value="">Select availability</option>
-                    <option value="full-time">Full-time</option>
-                    <option value="part-time">Part-time</option>
-                    <option value="seasonal">Seasonal</option>
-                    <option value="flexible">Flexible</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Tell us about yourself and why you're interested in working with us *</label>
-                  <textarea
-                    rows={4}
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    placeholder="Share your experience, interests, and what draws you to sustainable aquaculture..."
-                  ></textarea>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button 
-                    type="submit"
-                    className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 px-8"
-                  >
-                    Submit Application
-                  </Button>
-                  <Button 
-                    type="button"
-                    variant="outline"
-                    className="border-purple-300 text-purple-700 hover:bg-purple-50"
-                    onClick={() => window.location.href = "mailto:info@threesistersoyster.com?subject=Employment%20Inquiry"}
-                  >
-                    Email Resume
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
+          <EmploymentForm />
         </div>
       </div>
     </div>
