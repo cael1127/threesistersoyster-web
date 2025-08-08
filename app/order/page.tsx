@@ -192,11 +192,15 @@ export default function OrderPage() {
                   <div className="space-y-4">
                     <div className="flex items-center">
                       <span className="font-medium text-purple-700 w-20">Phone:</span>
-                      <span className="text-gray-700">713-854-7427</span>
+                      <a href="tel:713-854-7427" className="text-gray-700 hover:text-purple-600 transition-colors duration-200">
+                        713-854-7427
+                      </a>
                     </div>
                     <div className="flex items-center">
                       <span className="font-medium text-purple-700 w-20">Email:</span>
-                      <span className="text-gray-700">info@threesistersoyster.com</span>
+                      <a href="mailto:info@threesistersoyster.com" className="text-gray-700 hover:text-purple-600 transition-colors duration-200">
+                        info@threesistersoyster.com
+                      </a>
                     </div>
                   </div>
                 </div>

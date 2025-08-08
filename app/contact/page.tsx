@@ -2,7 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Waves, Phone, Mail, MapPin, ArrowLeft } from "lucide-react"
+import { Waves, Phone, Mail, MapPin, ArrowLeft, Users, Briefcase, Heart, Leaf } from "lucide-react"
 import { CartButton } from "@/components/cart-button"
 import Image from "next/image"
 
@@ -146,31 +146,267 @@ export default function ContactPage() {
           <Card className="border-purple-200">
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold text-purple-900 mb-6">Send Us a Message</h3>
-              <form className="space-y-4">
+              <form 
+                className="space-y-4"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.currentTarget);
+                  const name = formData.get('name') as string;
+                  const email = formData.get('email') as string;
+                  const message = formData.get('message') as string;
+                  
+                  const subject = encodeURIComponent('Contact from Three Sisters Oyster Co. Website');
+                  const body = encodeURIComponent(
+                    `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+                  );
+                  
+                  window.location.href = `mailto:info@threesistersoyster.com?subject=${subject}&body=${body}`;
+                }}
+              >
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
                   <input
+                    name="name"
                     type="text"
+                    required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
                   <input
+                    name="email"
                     type="email"
+                    required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
                   <textarea
+                    name="message"
                     rows={4}
+                    required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    placeholder="Tell us about your inquiry..."
                   ></textarea>
                 </div>
-                <Button className="w-full bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700">
+                <Button 
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700"
+                >
                   Send Message
                 </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Employment Section */}
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 bg-gradient-to-r from-purple-100 to-teal-100 text-purple-800 hover:from-purple-200 hover:to-teal-200">
+              <Users className="w-4 h-4 mr-2" />
+              Join Our Team
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-6">Employment Opportunities</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto px-4">
+              Join our growing team and be part of sustainable aquaculture in the beautiful Texas Gulf Coast
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8 mb-12">
+            {/* Why Work With Us */}
+            <Card className="border-purple-200 bg-gradient-to-br from-purple-50 to-teal-50">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-teal-500 rounded-full flex items-center justify-center mr-4">
+                    <Heart className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-purple-900">Why Work With Us</h3>
+                </div>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span>Family-owned business with a supportive work environment</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span>Work outdoors in beautiful coastal Texas</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span>Learn sustainable aquaculture practices</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span>Contribute to environmental conservation</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Current Positions */}
+            <Card className="border-teal-200 bg-gradient-to-br from-teal-50 to-blue-50">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-blue-500 rounded-full flex items-center justify-center mr-4">
+                    <Briefcase className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-teal-900">Current Positions</h3>
+                </div>
+                <div className="space-y-4">
+                  <div className="p-3 bg-white rounded-lg border border-teal-200">
+                    <h4 className="font-semibold text-teal-800 mb-1">Farm Hand</h4>
+                    <p className="text-sm text-gray-600">Full-time position working on oyster farm operations</p>
+                    <Badge className="mt-2 bg-teal-100 text-teal-800">Full-time</Badge>
+                  </div>
+                  <div className="p-3 bg-white rounded-lg border border-teal-200">
+                    <h4 className="font-semibold text-teal-800 mb-1">Nursery Assistant</h4>
+                    <p className="text-sm text-gray-600">Part-time position helping with oyster seed production</p>
+                    <Badge className="mt-2 bg-blue-100 text-blue-800">Part-time</Badge>
+                  </div>
+                  <div className="p-3 bg-white rounded-lg border border-teal-200">
+                    <h4 className="font-semibold text-teal-800 mb-1">General Labor</h4>
+                    <p className="text-sm text-gray-600">Seasonal work during peak oyster season</p>
+                    <Badge className="mt-2 bg-purple-100 text-purple-800">Seasonal</Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Requirements */}
+            <Card className="border-blue-200 bg-gradient-to-br from-blue-50 to-purple-50">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mr-4">
+                    <Leaf className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-blue-900">Requirements</h3>
+                </div>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span>Must be 18+ years old</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span>Comfortable working outdoors in all weather</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span>Ability to lift 50+ pounds</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span>Reliable transportation to Port Lavaca</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span>Passion for environmental conservation</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Application Form */}
+          <Card className="border-purple-200 max-w-4xl mx-auto">
+            <CardContent className="p-8">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-purple-900 mb-4">Apply Now</h3>
+                <p className="text-gray-600">
+                  Interested in joining our team? Fill out the application below and we'll get back to you soon.
+                </p>
+              </div>
+              
+              <form className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                    <input
+                      type="text"
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                    <input
+                      type="text"
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                    <input
+                      type="email"
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
+                    <input
+                      type="tel"
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Position of Interest *</label>
+                  <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <option value="">Select a position</option>
+                    <option value="farm-hand">Farm Hand</option>
+                    <option value="nursery-assistant">Nursery Assistant</option>
+                    <option value="general-labor">General Labor</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Availability *</label>
+                  <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <option value="">Select availability</option>
+                    <option value="full-time">Full-time</option>
+                    <option value="part-time">Part-time</option>
+                    <option value="seasonal">Seasonal</option>
+                    <option value="flexible">Flexible</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Tell us about yourself and why you're interested in working with us *</label>
+                  <textarea
+                    rows={4}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    placeholder="Share your experience, interests, and what draws you to sustainable aquaculture..."
+                  ></textarea>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button 
+                    type="submit"
+                    className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 px-8"
+                  >
+                    Submit Application
+                  </Button>
+                  <Button 
+                    type="button"
+                    variant="outline"
+                    className="border-purple-300 text-purple-700 hover:bg-purple-50"
+                    onClick={() => window.location.href = "mailto:info@threesistersoyster.com?subject=Employment%20Inquiry"}
+                  >
+                    Email Resume
+                  </Button>
+                </div>
               </form>
             </CardContent>
           </Card>

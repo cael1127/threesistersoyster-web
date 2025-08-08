@@ -179,7 +179,9 @@ export default function HomePage() {
                 </ul>
                 <p className="text-xs md:text-sm text-[#3a2a4d]">
                   For pricing and ordering information, please call{" "}
-                  <span className="font-semibold text-teal-300">713-854-7427</span>
+                  <a href="tel:713-854-7427" className="font-semibold text-teal-300 hover:text-teal-200 transition-colors duration-200">
+                    713-854-7427
+                  </a>
                 </p>
               </CardContent>
             </Card>
@@ -431,9 +433,21 @@ export default function HomePage() {
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
               <ul className="space-y-2 text-purple-200 text-sm">
-                <li>713-854-7427</li>
-                <li>info@threesistersoyster.com</li>
-                <li>106 Grant St. Port Lavaca, TX 77979</li>
+                <li>
+                  <a href="tel:713-854-7427" className="hover:text-white transition-colors duration-200">
+                    713-854-7427
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:info@threesistersoyster.com" className="hover:text-white transition-colors duration-200">
+                    info@threesistersoyster.com
+                  </a>
+                </li>
+                <li>
+                  <a href="https://maps.google.com/?q=106+Grant+St.+Port+Lavaca,+TX+77979" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">
+                    106 Grant St. Port Lavaca, TX 77979
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
