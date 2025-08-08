@@ -207,16 +207,6 @@ export default function ContactPage() {
                     <p className="text-sm text-gray-600">Full-time position working on oyster farm operations</p>
                     <Badge className="mt-2 bg-teal-100 text-teal-800">Full-time</Badge>
                   </div>
-                  <div className="p-3 bg-white rounded-lg border border-teal-200">
-                    <h4 className="font-semibold text-teal-800 mb-1">Nursery Assistant</h4>
-                    <p className="text-sm text-gray-600">Part-time position helping with oyster seed production</p>
-                    <Badge className="mt-2 bg-blue-100 text-blue-800">Part-time</Badge>
-                  </div>
-                  <div className="p-3 bg-white rounded-lg border border-teal-200">
-                    <h4 className="font-semibold text-teal-800 mb-1">General Labor</h4>
-                    <p className="text-sm text-gray-600">Seasonal work during peak oyster season</p>
-                    <Badge className="mt-2 bg-purple-100 text-purple-800">Seasonal</Badge>
-                  </div>
                 </div>
               </CardContent>
             </Card>

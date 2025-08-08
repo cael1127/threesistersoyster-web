@@ -97,9 +97,6 @@ About: ${about}`
             >
               <option value="">Select a position</option>
               <option value="farm-hand">Farm Hand</option>
-              <option value="nursery-assistant">Nursery Assistant</option>
-              <option value="general-labor">General Labor</option>
-              <option value="other">Other</option>
             </select>
           </div>
 
