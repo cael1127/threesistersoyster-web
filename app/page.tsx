@@ -61,7 +61,7 @@ export default function HomePage() {
               </nav>
               
               {/* Mobile Navigation - Compact */}
-              <nav className="flex md:hidden space-x-1">
+              <nav className="flex md:hidden items-center space-x-1">
                 <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
                   Shop
                 </Link>
