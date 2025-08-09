@@ -310,13 +310,13 @@ export default function InventoryPage() {
         <ClientInventoryCounters />
 
         <Tabs defaultValue="nursery" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border border-purple-200 p-1">
-            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-teal-100 data-[state=active]:text-teal-900 text-xs md:text-sm px-3 py-3 rounded-md transition-all">
+          <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border border-purple-200 p-2 rounded-lg">
+            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-teal-100 data-[state=active]:text-teal-900 data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-2 md:px-3 md:py-3 rounded-md transition-all bg-white border-0">
               <Leaf className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Nursery</span>
               <Badge className="bg-teal-200 text-teal-900 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-purple-100 data-[state=active]:text-purple-900 text-xs md:text-sm px-3 py-3 rounded-md transition-all">
+            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-purple-100 data-[state=active]:text-purple-900 data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-2 md:px-3 md:py-3 rounded-md transition-all bg-white border-0">
               <Fish className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Farm</span>
               <Badge className="bg-purple-200 text-purple-900 text-xs px-1 flex-shrink-0">{processedFarmInventory.length}</Badge>
@@ -386,8 +386,7 @@ export default function InventoryPage() {
                 </div>
                 <Button
                   asChild
-                  variant="outline"
-                  className="border-teal-300 text-teal-700 hover:bg-teal-50 bg-transparent text-xs md:text-sm px-3 md:px-4 py-2 flex-shrink-0 w-fit"
+                  className="bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white text-xs md:text-sm px-3 md:px-4 py-2 flex-shrink-0 w-fit"
                 >
                   <a href="tel:713-854-7427">Contact for Pricing</a>
                 </Button>
