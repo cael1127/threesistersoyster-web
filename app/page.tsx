@@ -104,12 +104,18 @@ export default function HomePage() {
           style={{ 
             objectPosition: 'center',
             filter: 'brightness(1.1) contrast(1.05)',
-            imageRendering: 'crisp-edges'
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            perspective: '1000px',
+            transform: 'translateZ(0)'
           }}
           ref={(video) => {
             if (video) {
-              video.playbackRate = 0.2; // Slow down to 20% speed
+              video.playbackRate = 0.6; // More moderate slow down to 60% speed for smoothness
               video.setAttribute('webkit-playsinline', 'true');
+              // Ensure smooth playback
+              video.style.transform = 'translateZ(0)';
+              video.style.willChange = 'transform';
             }
           }}
         >
