@@ -92,19 +92,24 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <section id="home" className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-black">
         {/* Background Video - Optimized for Performance */}
         <video
           autoPlay
           muted
           loop
           playsInline
-          preload="none"
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
-          style={{ objectPosition: 'center' }}
+          style={{ 
+            objectPosition: 'center',
+            filter: 'brightness(1.1) contrast(1.05)',
+            imageRendering: 'crisp-edges'
+          }}
           ref={(video) => {
             if (video) {
-              video.playbackRate = 0.5; // Slow down to 50% speed
+              video.playbackRate = 0.2; // Slow down to 20% speed
+              video.setAttribute('webkit-playsinline', 'true');
             }
           }}
         >

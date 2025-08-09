@@ -154,7 +154,7 @@ export default function ProductsPage() {
                 >
                   Inventory
                 </Link>
-                <Link href="/#about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   About
                 </Link>
                 <Link href="/#contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
