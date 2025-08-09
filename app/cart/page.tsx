@@ -29,21 +29,62 @@ export default function CartPage() {
                     quality={100}
                   />
                 </div>
-                <div>
-                  <h1 className="text-sm md:text-xl font-bold text-purple-900">
-                    <span className="md:hidden">Three Sisters</span>
-                    <span className="hidden md:inline">Three Sisters Oyster Co.</span>
+                <div className="hidden md:block">
+                  <h1 className="text-xl font-bold text-[#3a2a4d]">
+                    Three Sisters Oyster Co.
                   </h1>
-                  <p className="text-xs text-[#3a2a4d] hidden sm:block">Premium Texas Oysters</p>
+                  <p className="text-xs text-[#3a2a4d]">Premium Texas Oysters</p>
                 </div>
               </Link>
-              <Button asChild variant="outline" className="min-h-[36px] md:min-h-[44px]">
-                <Link href="/products" className="flex items-center space-x-2 text-xs md:text-sm">
-                  <ArrowLeft className="w-3 h-3 md:w-4 md:h-4" />
-                  <span className="hidden sm:inline">Continue Shopping</span>
-                  <span className="sm:hidden">Shop</span>
-                </Link>
-              </Button>
+              <div className="flex items-center space-x-1 md:space-x-4">
+                {/* Desktop Navigation */}
+                <nav className="hidden md:flex space-x-4">
+                  <Link href="/" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                    Home
+                  </Link>
+                  <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                    Products
+                  </Link>
+                  <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                    Inventory
+                  </Link>
+                  <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                    About
+                  </Link>
+                  <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                    Contact
+                  </Link>
+                </nav>
+                
+                {/* Mobile Navigation - Compact */}
+                <nav className="flex md:hidden space-x-1">
+                  <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
+                    Shop
+                  </Link>
+                  <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
+                    Stock
+                  </Link>
+                  <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
+                    About
+                  </Link>
+                  <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
+                    Contact
+                  </Link>
+                </nav>
+                
+                <div className="flex items-center space-x-1">
+                  <Badge className="bg-teal-600 text-white text-xs px-2 py-1">
+                    Cart
+                  </Badge>
+                  <Button
+                    asChild
+                    size="sm"
+                    className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+                  >
+                    <Link href="/order">Order</Link>
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </header>
@@ -67,7 +108,7 @@ export default function CartPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-teal-50">
       {/* Header */}
-      <header className="bg-white/90 backdrop-blur-sm border-b border-purple-100 sticky top-0 z-50">
+      <header className="bg-gradient-to-r from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2 md:space-x-3">
@@ -81,21 +122,62 @@ export default function CartPage() {
                   quality={100}
                 />
               </div>
-              <div>
-                <h1 className="text-sm md:text-xl font-bold text-[#3a2a4d]">
-                  <span className="md:hidden">Three Sisters</span>
-                  <span className="hidden md:inline">Three Sisters Oyster Co.</span>
+              <div className="hidden md:block">
+                <h1 className="text-xl font-bold text-[#3a2a4d]">
+                  Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-[#3a2a4d] hidden sm:block">Premium Texas Oysters</p>
+                <p className="text-xs text-[#3a2a4d]">Premium Texas Oysters</p>
               </div>
             </Link>
-            <Button asChild variant="outline" className="min-h-[36px] md:min-h-[44px]">
-              <Link href="/products" className="flex items-center space-x-2 text-xs md:text-sm">
-                <ArrowLeft className="w-3 h-3 md:w-4 md:h-4" />
-                <span className="hidden sm:inline">Continue Shopping</span>
-                <span className="sm:hidden">Shop</span>
-              </Link>
-            </Button>
+            <div className="flex items-center space-x-1 md:space-x-4">
+              {/* Desktop Navigation */}
+              <nav className="hidden md:flex space-x-4">
+                <Link href="/" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                  Home
+                </Link>
+                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                  Products
+                </Link>
+                <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                  Inventory
+                </Link>
+                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                  About
+                </Link>
+                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                  Contact
+                </Link>
+              </nav>
+              
+              {/* Mobile Navigation - Compact */}
+              <nav className="flex md:hidden space-x-1">
+                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
+                  Shop
+                </Link>
+                <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
+                  Stock
+                </Link>
+                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
+                  About
+                </Link>
+                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
+                  Contact
+                </Link>
+              </nav>
+              
+              <div className="flex items-center space-x-1">
+                <Badge className="bg-teal-600 text-white text-xs px-2 py-1">
+                  Cart
+                </Badge>
+                <Button
+                  asChild
+                  size="sm"
+                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+                >
+                  <Link href="/order">Order</Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </header>

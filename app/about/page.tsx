@@ -51,7 +51,7 @@ export default function AboutPage() {
               </nav>
               <div className="flex items-center space-x-1">
                 <CartButton />
-                <Button asChild size="sm" className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm">
+                <Button asChild size="sm" className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0">
                   <Link href="/order">Order</Link>
                 </Button>
               </div>
