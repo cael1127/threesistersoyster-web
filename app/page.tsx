@@ -38,38 +38,38 @@ export default function HomePage() {
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="#home" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-sm transition-colors">
+                <Link href="#home" className="text-teal-600 font-medium text-sm">
                   Home
                 </Link>
-                <Link href="/products" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-sm transition-colors">
+                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   Products
                 </Link>
                 <Link
                   href="/inventory"
-                  className="text-[#3a2a4d] hover:text-teal-300 font-medium text-sm transition-colors"
+                  className="text-purple-700 hover:text-teal-600 font-medium text-sm"
                 >
                   Inventory
                 </Link>
-                <Link href="/about" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-sm transition-colors">
+                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   About
                 </Link>
-                <Link href="/contact" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-sm transition-colors">
+                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   Contact
                 </Link>
               </nav>
               
               {/* Mobile Navigation - Compact */}
               <nav className="flex md:hidden space-x-1">
-                <Link href="/products" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-1 py-1 transition-colors">
+                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
                   Shop
                 </Link>
-                <Link href="/inventory" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-1 py-1 transition-colors">
+                <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
                   Stock
                 </Link>
-                <Link href="/about" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-1 py-1 transition-colors">
+                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
                   About
                 </Link>
-                <Link href="/contact" className="text-[#3a2a4d] hover:text-teal-300 font-medium text-xs px-1 py-1 transition-colors">
+                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
                   Contact
                 </Link>
               </nav>
@@ -100,6 +100,11 @@ export default function HomePage() {
           preload="none"
           className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
           style={{ objectPosition: 'center' }}
+          ref={(video) => {
+            if (video) {
+              video.playbackRate = 0.5; // Slow down to 50% speed
+            }
+          }}
         >
           <source src="/homepage.mp4" type="video/mp4" />
         </video>

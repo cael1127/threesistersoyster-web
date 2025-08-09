@@ -36,18 +36,18 @@ export default function AboutPage() {
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-sm">Home</Link>
-                <Link href="/products" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-sm">Products</Link>
-                <Link href="/inventory" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-sm">Inventory</Link>
-                <Link href="/about" className="text-[#3a2a4d] font-medium text-sm">About</Link>
-                <Link href="/contact" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-sm">Contact</Link>
+                <Link href="/" className="text-purple-700 hover:text-teal-600 font-medium text-sm">Home</Link>
+                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-sm">Products</Link>
+                <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-sm">Inventory</Link>
+                <Link href="/about" className="text-teal-600 font-medium text-sm">About</Link>
+                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">Contact</Link>
               </nav>
               {/* Mobile Navigation - Compact */}
               <nav className="flex md:hidden space-x-1">
-                <Link href="/products" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-xs px-1 py-1">Shop</Link>
-                <Link href="/inventory" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-xs px-1 py-1">Stock</Link>
-                <Link href="/about" className="text-[#3a2a4d] font-medium text-xs px-1 py-1">About</Link>
-                <Link href="/contact" className="text-[#3a2a4d] hover:text-lavenderBrand font-medium text-xs px-1 py-1">Contact</Link>
+                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">Shop</Link>
+                <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">Stock</Link>
+                <Link href="/about" className="text-teal-600 font-medium text-xs px-1 py-1">About</Link>
+                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">Contact</Link>
               </nav>
               <div className="flex items-center space-x-1">
                 <CartButton />
