@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link"
-import { Fish, Leaf, MapPin, Calendar, Heart, DollarSign, Waves, TrendingUp, Package, RefreshCw } from "lucide-react"
+import { Fish, Leaf, MapPin, Calendar, Heart, DollarSign, Waves, TrendingUp, Package } from "lucide-react"
 import { CartButton } from "@/components/cart-button"
 import { useState, useEffect } from "react"
 import dynamic from "next/dynamic";
@@ -298,19 +298,8 @@ export default function InventoryPage() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <div className="flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 mb-4">
+          <div className="mb-4">
             <h1 className="text-2xl md:text-4xl font-bold text-purple-900 px-2">Live Inventory Dashboard</h1>
-            <Button
-              onClick={fetchInventory}
-              variant="outline"
-              size="sm"
-              disabled={loading}
-              className="flex items-center space-x-2 border-purple-300 text-purple-700 hover:bg-purple-50 text-xs md:text-sm"
-            >
-              <RefreshCw className={`w-3 h-3 md:w-4 md:h-4 ${loading ? 'animate-spin' : ''}`} />
-              <span className="hidden sm:inline">{loading ? 'Refreshing...' : 'Refresh'}</span>
-              <span className="sm:hidden">↻</span>
-            </Button>
           </div>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Real-time tracking of our farm and nursery operations in Keller Bay

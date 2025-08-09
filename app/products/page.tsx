@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Image from "next/image"
 import Link from "next/link"
-import { Waves, Fish, ShoppingBag, RefreshCw } from "lucide-react"
+import { Waves, Fish, ShoppingBag } from "lucide-react"
 import { CartButton } from "@/components/cart-button"
 import { AddToCartButton } from "@/components/add-to-cart-button"
 import { Button } from "@/components/ui/button"
@@ -195,18 +195,8 @@ export default function ProductsPage() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center space-x-4 mb-4">
+          <div className="mb-4">
             <h1 className="text-4xl font-bold text-purple-900 px-2">Our Products</h1>
-            <Button
-              onClick={fetchProducts}
-              variant="outline"
-              size="sm"
-              disabled={loading}
-              className="flex items-center space-x-2 border-purple-300 text-purple-700 hover:bg-purple-50"
-            >
-              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-              <span>{loading ? 'Refreshing...' : 'Refresh'}</span>
-            </Button>
           </div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Premium oysters and aquaculture products from the pristine waters of Keller Bay
