@@ -140,30 +140,33 @@ export default function OrderPage() {
                 <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   About
                 </Link>
-                <Link href="/#contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   Contact
                 </Link>
               </nav>
               
               {/* Mobile Navigation - Compact */}
-              <nav className="flex md:hidden space-x-2">
-                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
+              <nav className="flex md:hidden space-x-1">
+                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
                   Shop
                 </Link>
-                <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
+                <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
                   Stock
                 </Link>
-                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-2 py-1">
+                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
                   About
+                </Link>
+                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">
+                  Contact
                 </Link>
               </nav>
               
-              <div className="flex items-center space-x-1 md:space-x-2">
+              <div className="flex items-center space-x-1">
                 <CartButton />
                 <Button
                   asChild
                   size="sm"
-                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs md:text-sm px-2 md:px-4 min-h-[36px] md:min-h-[44px]"
+                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
                 >
                   <Link href="/order">Order</Link>
                 </Button>
