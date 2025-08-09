@@ -114,12 +114,11 @@ export default function OrderPage() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div>
-                <h1 className="text-sm md:text-xl font-bold text-[#3a2a4d]">
-                  <span className="md:hidden">Three Sisters</span>
-                  <span className="hidden md:inline">Three Sisters Oyster Co.</span>
+              <div className="hidden md:block">
+                <h1 className="text-xl font-bold text-[#3a2a4d]">
+                  Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-[#3a2a4d] hidden sm:block">Premium Texas Oysters</p>
+                <p className="text-xs text-[#3a2a4d]">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">

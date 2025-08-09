@@ -260,7 +260,7 @@ export default function InventoryPage() {
                 <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   About
                 </Link>
-                <Link href="/#contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   Contact
                 </Link>
               </nav>
@@ -298,20 +298,21 @@ export default function InventoryPage() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center space-x-4 mb-4">
-            <h1 className="text-4xl font-bold text-purple-900 px-2">Live Inventory Dashboard</h1>
+          <div className="flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-4 mb-4">
+            <h1 className="text-2xl md:text-4xl font-bold text-purple-900 px-2">Live Inventory Dashboard</h1>
             <Button
               onClick={fetchInventory}
               variant="outline"
               size="sm"
               disabled={loading}
-              className="flex items-center space-x-2 border-purple-300 text-purple-700 hover:bg-purple-50"
+              className="flex items-center space-x-2 border-purple-300 text-purple-700 hover:bg-purple-50 text-xs md:text-sm"
             >
-              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-              <span>{loading ? 'Refreshing...' : 'Refresh'}</span>
+              <RefreshCw className={`w-3 h-3 md:w-4 md:h-4 ${loading ? 'animate-spin' : ''}`} />
+              <span className="hidden sm:inline">{loading ? 'Refreshing...' : 'Refresh'}</span>
+              <span className="sm:hidden">↻</span>
             </Button>
           </div>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto px-4">
+          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Real-time tracking of our farm and nursery operations in Keller Bay
           </p>
         </div>
@@ -321,15 +322,15 @@ export default function InventoryPage() {
 
         <Tabs defaultValue="nursery" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border border-purple-200">
-            <TabsTrigger value="nursery" className="flex items-center space-x-2 data-[state=active]:bg-teal-100">
-              <Leaf className="w-4 h-4" />
-              <span>Nursery Inventory</span>
-              <Badge className="bg-teal-100 text-teal-800 ml-2">{processedNurseryInventory.length}</Badge>
+            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-teal-100 text-xs md:text-sm px-2 py-2">
+              <Leaf className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
+              <span className="truncate">Nursery</span>
+              <Badge className="bg-teal-100 text-teal-800 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="farm" className="flex items-center space-x-2 data-[state=active]:bg-purple-100">
-              <Fish className="w-4 h-4" />
-              <span>Farm Inventory</span>
-              <Badge className="bg-purple-100 text-purple-800 ml-2">{processedFarmInventory.length}</Badge>
+            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-purple-100 text-xs md:text-sm px-2 py-2">
+              <Fish className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
+              <span className="truncate">Farm</span>
+              <Badge className="bg-purple-100 text-purple-800 text-xs px-1 flex-shrink-0">{processedFarmInventory.length}</Badge>
             </TabsTrigger>
           </TabsList>
 
