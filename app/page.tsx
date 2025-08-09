@@ -143,7 +143,7 @@ export default function HomePage() {
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 min-h-[48px] text-base text-[#3a2a4d] shadow-lg"
+              className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white min-h-[48px] text-base shadow-lg"
             >
               <Link href="/products">Shop Fresh Oysters</Link>
             </Button>
