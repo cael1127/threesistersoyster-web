@@ -7,6 +7,7 @@ import { Minus, Plus, Trash2, ArrowLeft, Waves } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
+import { CartButton } from "@/components/cart-button"
 
 export default function CartPage() {
   const { state, updateQuantity, removeItem, clearCart } = useCart()
@@ -73,9 +74,7 @@ export default function CartPage() {
                 </nav>
                 
                 <div className="flex items-center space-x-1">
-                  <Badge className="bg-teal-600 text-white text-xs px-2 py-1">
-                    Cart
-                  </Badge>
+                  <CartButton />
                   <Button
                     asChild
                     size="sm"
@@ -166,9 +165,7 @@ export default function CartPage() {
               </nav>
               
               <div className="flex items-center space-x-1">
-                <Badge className="bg-teal-600 text-white text-xs px-2 py-1">
-                  Cart
-                </Badge>
+                <CartButton />
                 <Button
                   asChild
                   size="sm"
