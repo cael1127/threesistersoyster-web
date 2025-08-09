@@ -123,14 +123,14 @@ export default function HomePage() {
         </video>
         {/* Removed overlay for better video visibility */}
         <div className="container mx-auto text-center max-w-7xl relative z-20">
-          <Badge className="mb-3 md:mb-5 bg-gradient-to-r from-purple-400/20 to-teal-400/20 text-[#3a2a4d] border border-purple-300/30 hover:from-purple-400/30 hover:to-teal-400/30 text-sm md:text-base backdrop-blur-sm">Family Owned, Ocean Grown</Badge>
-          <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#3a2a4d] mb-4 md:mb-6 leading-[1.4] px-2 pb-4">
+          <Badge className="mb-3 md:mb-5 bg-gradient-to-r from-purple-400/20 to-teal-400/20 text-purpleBrand border border-purple-300/30 hover:from-purple-400/30 hover:to-teal-400/30 text-sm md:text-base backdrop-blur-sm">Family Owned, Ocean Grown</Badge>
+          <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-purpleBrand mb-4 md:mb-6 leading-[1.4] px-2 pb-4">
             Three Sisters
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-blue-300 pb-2">
               Oyster Co.
             </span>
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-[#3a2a4d] mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed px-4">
+          <p className="text-base sm:text-lg md:text-xl text-purpleBrand mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed px-4">
             Committed to the long-term viability of off-bottom aquaculture and a thriving Texas coastline. Growing the
             finest oysters in the pristine waters of Keller Bay.
           </p>
