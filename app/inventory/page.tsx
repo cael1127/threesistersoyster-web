@@ -310,25 +310,25 @@ export default function InventoryPage() {
         <ClientInventoryCounters />
 
         <Tabs defaultValue="nursery" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border border-purple-200">
-            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-teal-100 text-xs md:text-sm px-2 py-2">
+          <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border border-purple-200 p-1">
+            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-teal-100 data-[state=active]:text-teal-900 text-xs md:text-sm px-3 py-3 rounded-md transition-all">
               <Leaf className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Nursery</span>
-              <Badge className="bg-teal-100 text-teal-800 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
+              <Badge className="bg-teal-200 text-teal-900 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-purple-100 text-xs md:text-sm px-2 py-2">
+            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-purple-100 data-[state=active]:text-purple-900 text-xs md:text-sm px-3 py-3 rounded-md transition-all">
               <Fish className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Farm</span>
-              <Badge className="bg-purple-100 text-purple-800 text-xs px-1 flex-shrink-0">{processedFarmInventory.length}</Badge>
+              <Badge className="bg-purple-200 text-purple-900 text-xs px-1 flex-shrink-0">{processedFarmInventory.length}</Badge>
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="farm">
             <div className="mb-6">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-bold text-purple-900">Farm Operations</h2>
-                  <p className="text-gray-600 mt-1">
+                  <h2 className="text-xl md:text-2xl font-bold text-purple-900">Farm Operations</h2>
+                  <p className="text-gray-600 mt-1 text-sm md:text-base">
                     {processedFarmInventory.filter((item) => item.harvestReady).length > 0 ? (
                       <span className="text-green-600 font-medium">
                         {processedFarmInventory
@@ -342,7 +342,7 @@ export default function InventoryPage() {
                     )}
                   </p>
                 </div>
-                <Button asChild className="bg-gradient-to-r from-purple-600 to-teal-600">
+                <Button asChild className="bg-gradient-to-r from-purple-600 to-teal-600 text-xs md:text-sm px-3 md:px-4 py-2 flex-shrink-0 w-fit">
                   <Link href="/products">Shop Farm Products</Link>
                 </Button>
               </div>
@@ -365,10 +365,10 @@ export default function InventoryPage() {
 
           <TabsContent value="nursery">
             <div className="mb-6">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-bold text-purple-900">Nursery Operations</h2>
-                  <p className="text-gray-600 mt-1">
+                  <h2 className="text-xl md:text-2xl font-bold text-purple-900">Nursery Operations</h2>
+                  <p className="text-gray-600 mt-1 text-sm md:text-base">
                     {processedNurseryInventory.filter((item) => item.harvestReady).length > 0 ? (
                       <span className="text-green-600 font-medium">
                         {processedNurseryInventory
@@ -387,7 +387,7 @@ export default function InventoryPage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="border-teal-300 text-teal-700 hover:bg-teal-50 bg-transparent"
+                  className="border-teal-300 text-teal-700 hover:bg-teal-50 bg-transparent text-xs md:text-sm px-3 md:px-4 py-2 flex-shrink-0 w-fit"
                 >
                   <a href="tel:713-854-7427">Contact for Pricing</a>
                 </Button>
