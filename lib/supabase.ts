@@ -1,24 +1,21 @@
 import { createClient } from "@supabase/supabase-js"
 
-// Check for required environment variables
+// Create Supabase client with environment variables
+// These must be prefixed with NEXT_PUBLIC_ to be available on the client side
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-// If environment variables are missing, create a mock client that won't crash the app
+// Validate environment variables
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn(
-    "⚠️ Supabase environment variables are missing. Please create a .env.local file with:\n" +
+  throw new Error(
+    "Missing Supabase environment variables. Please check your .env.local file:\n" +
     "NEXT_PUBLIC_SUPABASE_URL=your-project-url.supabase.co\n" +
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here\n" +
-    "\nGet these values from your Supabase project dashboard > Settings > API"
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here"
   )
 }
 
-// Create Supabase client with fallback for missing env vars
-export const supabase = createClient(
-  supabaseUrl || "https://placeholder.supabase.co",
-  supabaseAnonKey || "placeholder-key"
-)
+// Create Supabase client
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export type Product = {
   id: string
@@ -316,13 +313,6 @@ export async function createOrder(orderData: {
 export async function getTotalHarvested(): Promise<number> {
   try {
     console.log("=== FETCHING TOTAL HARVESTED ===");
-    // Check if we have valid Supabase credentials
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
-      console.log("Supabase not configured, returning fallback value")
-      return 0
-    }
-
-    console.log("Supabase URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
     console.log("Querying harvested_counts table...");
 
     const { data, error } = await supabase
@@ -352,12 +342,6 @@ export async function incrementHarvestedCount(amount: number): Promise<void> {
     console.log("=== INCREMENTING HARVESTED COUNT ===");
     console.log("Amount to add:", amount);
     
-    // Check if we have valid Supabase credentials
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
-      console.log("Supabase not configured, cannot update harvested count")
-      return
-    }
-
     // First try to get existing record
     console.log("Fetching existing harvested count record...");
     const { data: existingData, error: fetchError } = await supabase
@@ -414,12 +398,6 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
     console.log("=== UPDATING PRODUCT INVENTORY COUNTS ===");
     console.log("Order items:", orderItems);
     
-    // Check if we have valid Supabase credentials
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
-      console.log("Supabase not configured, cannot update product inventory counts")
-      return
-    }
-
     // Process each order item
     for (const item of orderItems) {
       if (item.id && item.quantity && item.quantity > 0) {
@@ -466,7 +444,7 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
               newDescription = JSON.stringify(parsedDesc);
               console.log(`New description JSON: ${newDescription}`);
             }
-          } catch (e) {
+          } catch (error) {
             console.log("Could not update description JSON");
           }
           
