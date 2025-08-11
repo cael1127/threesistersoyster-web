@@ -9,20 +9,29 @@ export async function POST(request: NextRequest) {
     
     const { items, total_amount } = body;
 
-    // Calculate total quantity from order items
-    let totalQuantity = 0;
+    // Calculate total quantity from oyster items only
+    let oysterQuantity = 0;
     if (items && Array.isArray(items)) {
-      totalQuantity = items.reduce((sum: number, item: any) => {
-        return sum + (item.quantity || 0);
+      oysterQuantity = items.reduce((sum: number, item: any) => {
+        // Only count items that are tagged as "oysters"
+        if (item.category && item.category.toLowerCase() === 'oysters') {
+          console.log(`Counting ${item.quantity} ${item.name} as oyster product`);
+          return sum + (item.quantity || 0);
+        } else {
+          console.log(`Skipping ${item.name} - not an oyster product (category: ${item.category})`);
+          return sum;
+        }
       }, 0);
-      console.log('Total quantity calculated:', totalQuantity);
+      console.log('Oyster quantity calculated:', oysterQuantity);
     }
 
-    // Update the harvested count in Supabase
-    if (totalQuantity > 0) {
-      console.log('Updating harvested count...');
-      await incrementHarvestedCount(totalQuantity);
+    // Update the harvested count in Supabase only for oyster products
+    if (oysterQuantity > 0) {
+      console.log(`Updating harvested count with ${oysterQuantity} oysters...`);
+      await incrementHarvestedCount(oysterQuantity);
       console.log('Harvested count updated successfully');
+    } else {
+      console.log('No oyster products in order, harvested count not updated');
     }
 
     // Update product inventory counts (reduce stock levels)
@@ -35,8 +44,8 @@ export async function POST(request: NextRequest) {
     console.log('=== ORDER COMPLETION SUCCESSFUL ===');
     return NextResponse.json({ 
       success: true, 
-      message: "Order completed, harvested count updated, and inventory counts reduced",
-      quantityAdded: totalQuantity,
+      message: "Order completed, harvested count updated for oyster products, and inventory counts reduced",
+      quantityAdded: oysterQuantity,
       inventoryUpdated: true
     });
   } catch (error) {

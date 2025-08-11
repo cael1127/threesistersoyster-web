@@ -28,9 +28,9 @@ The system now displays a single "Total Harvested" counter on the homepage inste
 ### 2. Order Processing
 - When a customer completes an order (reaches success page):
   - The success page calls `/api/order-complete`
-  - This API calculates total quantity from order items
-  - Calls `incrementHarvestedCount()` to update the harvested count
-  - Calls `updateProductInventoryCounts()` to reduce product stock levels
+  - This API calculates total quantity from **oyster products only** (category: "oysters")
+  - Calls `incrementHarvestedCount()` to update the harvested count (oysters only)
+  - Calls `updateProductInventoryCounts()` to reduce product stock levels (all products)
   - Clears the cart after successful update
 
 ### 3. API Endpoints

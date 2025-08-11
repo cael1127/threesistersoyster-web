@@ -10,7 +10,8 @@ export async function POST(request: NextRequest) {
       {
         id: "9032febb-71b5-4285-9d62-0f3222622b73", // Your product ID
         name: "ONLY CAEL ORDER",
-        quantity: 5
+        quantity: 5,
+        category: "oysters" // Make sure it's tagged as oysters
       }
     ];
 
