@@ -55,6 +55,12 @@ export type Order = {
   created_at: string
 }
 
+export type HarvestedCount = {
+  id: string
+  total_harvested: number
+  last_updated: string
+}
+
 // Helper function to parse harvest ready status from description JSON
 function parseHarvestReady(description: string | null): boolean {
   if (!description) return false
@@ -279,4 +285,79 @@ export async function createOrder(orderData: {
   }
 
   return data[0] as Order
+}
+
+// Get total harvested count
+export async function getTotalHarvested(): Promise<number> {
+  try {
+    // Check if we have valid Supabase credentials
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+      console.log("Supabase not configured, returning fallback value")
+      return 0
+    }
+
+    const { data, error } = await supabase
+      .from("harvested_counts")
+      .select("total_harvested")
+      .single()
+
+    if (error) {
+      console.error("Error fetching total harvested:", error)
+      return 0
+    }
+
+    return data?.total_harvested || 0
+  } catch (error) {
+    console.error("Supabase connection error:", error)
+    return 0
+  }
+}
+
+// Update total harvested count (increment by amount)
+export async function incrementHarvestedCount(amount: number): Promise<void> {
+  try {
+    // Check if we have valid Supabase credentials
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+      console.log("Supabase not configured, cannot update harvested count")
+      return
+    }
+
+    // First try to get existing record
+    const { data: existingData } = await supabase
+      .from("harvested_counts")
+      .select("id, total_harvested")
+      .single()
+
+    if (existingData) {
+      // Update existing record
+      const { error } = await supabase
+        .from("harvested_counts")
+        .update({ 
+          total_harvested: existingData.total_harvested + amount,
+          last_updated: new Date().toISOString()
+        })
+        .eq("id", existingData.id)
+
+      if (error) {
+        console.error("Error updating harvested count:", error)
+        throw error
+      }
+    } else {
+      // Create new record if none exists
+      const { error } = await supabase
+        .from("harvested_counts")
+        .insert([{
+          total_harvested: amount,
+          last_updated: new Date().toISOString()
+        }])
+
+      if (error) {
+        console.error("Error creating harvested count:", error)
+        throw error
+      }
+    }
+  } catch (error) {
+    console.error("Error incrementing harvested count:", error)
+    throw error
+  }
 }

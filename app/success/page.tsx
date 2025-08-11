@@ -6,20 +6,44 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { CheckCircle, Waves, Package, Phone, Mail } from "lucide-react"
 import Link from "next/link"
+import { useCart } from "@/contexts/cart-context"
 
 export default function SuccessPage() {
   const searchParams = useSearchParams()
   const sessionId = searchParams.get("session_id")
   const [loading, setLoading] = useState(true)
   const [session, setSession] = useState<any>(null)
+  const { state: cartState, clearCart } = useCart() || { state: { items: [] }, clearCart: () => {} }
 
   useEffect(() => {
     if (sessionId) {
       // Fetch session details
       fetch(`/api/checkout-session?session_id=${sessionId}`)
         .then((res) => res.json())
-        .then((data) => {
+        .then(async (data) => {
           setSession(data)
+          
+          // Update harvested count if we have cart items
+          if (cartState.items && cartState.items.length > 0) {
+            try {
+              await fetch('/api/order-complete', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  items: cartState.items,
+                  total_amount: cartState.total
+                })
+              });
+              
+              // Clear the cart after successful order completion
+              clearCart();
+            } catch (error) {
+              console.error('Error updating harvested count:', error);
+            }
+          }
+          
           setLoading(false)
         })
         .catch((error) => {
@@ -29,7 +53,7 @@ export default function SuccessPage() {
     } else {
       setLoading(false)
     }
-  }, [sessionId])
+  }, [sessionId, cartState.items, cartState.total, clearCart])
 
   if (loading) {
     return (

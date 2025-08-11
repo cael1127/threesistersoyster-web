@@ -10,7 +10,7 @@ import { CartButton } from "@/components/cart-button"
 import dynamic from "next/dynamic";
 import TeamScroller from "@/components/TeamScroller";
 
-const HomeInventoryCounters = dynamic(() => import("@/components/HomeInventoryCounters"));
+const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedCounter"));
 
 export default function HomePage() {
   return (
@@ -124,9 +124,9 @@ export default function HomePage() {
                 finest oysters in the pristine waters of Keller Bay.
               </p>
 
-              {/* Inventory Counters */}
+              {/* Total Harvested Counter */}
               <div className="mb-6 md:mb-8">
-                <HomeInventoryCounters />
+                <TotalHarvestedCounter />
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
