@@ -10,7 +10,7 @@ import { CartButton } from "@/components/cart-button"
 import dynamic from "next/dynamic";
 import TeamScroller from "@/components/TeamScroller";
 
-const ClientInventoryCounters = dynamic(() => import("@/components/ClientInventoryCounters"));
+const HomeInventoryCounters = dynamic(() => import("@/components/HomeInventoryCounters"));
 
 export default function HomePage() {
   return (
@@ -136,7 +136,7 @@ export default function HomePage() {
 
           {/* Inventory Counters */}
           <div className="max-w-4xl mx-auto">
-            <ClientInventoryCounters />
+            <HomeInventoryCounters />
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
