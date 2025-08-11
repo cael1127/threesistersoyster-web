@@ -18,16 +18,16 @@ export default function ClientInventoryCounters() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
         <div className="text-center">
-          <div className="text-3xl md:text-4xl font-bold text-purpleBrand mb-2 animate-pulse">0</div>
-          <p className="text-sm md:text-base text-purpleBrand">Harvest Ready</p>
+          <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2 animate-pulse">0</div>
+          <p className="text-sm md:text-base text-purple-900">Harvest Ready</p>
         </div>
         <div className="text-center">
-          <div className="text-3xl md:text-4xl font-bold text-purpleBrand mb-2 animate-pulse">0</div>
-          <p className="text-sm md:text-base text-purpleBrand">Farm Stock</p>
+          <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2 animate-pulse">0</div>
+          <p className="text-sm md:text-base text-purple-900">Farm Stock</p>
         </div>
         <div className="text-center">
-          <div className="text-3xl md:text-4xl font-bold text-purpleBrand mb-2 animate-pulse">0</div>
-          <p className="text-sm md:text-base text-purpleBrand">Nursery Seed</p>
+          <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2 animate-pulse">0</div>
+          <p className="text-sm md:text-base text-purple-900">Nursery Seed</p>
         </div>
       </div>
     );
@@ -36,22 +36,22 @@ export default function ClientInventoryCounters() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
       <div className="text-center">
-        <div className="text-3xl md:text-4xl font-bold text-purpleBrand mb-2">
+        <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
           <HarvestReadyInventoryCounter />
         </div>
-        <p className="text-sm md:text-base text-purpleBrand">Harvest Ready</p>
+        <p className="text-sm md:text-base text-purple-900">Harvest Ready</p>
       </div>
       <div className="text-center">
-        <div className="text-3xl md:text-4xl font-bold text-purpleBrand mb-2">
+        <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
           <FarmInventoryCounter />
         </div>
-        <p className="text-sm md:text-base text-purpleBrand">Farm Stock</p>
+        <p className="text-sm md:text-base text-purple-900">Farm Stock</p>
       </div>
       <div className="text-center">
-        <div className="text-3xl md:text-4xl font-bold text-purpleBrand mb-2">
+        <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
           <NurseryInventoryCounter />
         </div>
-        <p className="text-sm md:text-base text-purpleBrand">Nursery Seed</p>
+        <p className="text-sm md:text-base text-purple-900">Nursery Seed</p>
       </div>
     </div>
   );
