@@ -290,23 +290,31 @@ export async function createOrder(orderData: {
 // Get total harvested count
 export async function getTotalHarvested(): Promise<number> {
   try {
+    console.log("=== FETCHING TOTAL HARVESTED ===");
     // Check if we have valid Supabase credentials
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
       console.log("Supabase not configured, returning fallback value")
       return 0
     }
 
+    console.log("Supabase URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
+    console.log("Querying harvested_counts table...");
+
     const { data, error } = await supabase
       .from("harvested_counts")
       .select("total_harvested")
       .single()
+
+    console.log("Supabase response:", { data, error });
 
     if (error) {
       console.error("Error fetching total harvested:", error)
       return 0
     }
 
-    return data?.total_harvested || 0
+    const result = data?.total_harvested || 0;
+    console.log("Total harvested result:", result);
+    return result;
   } catch (error) {
     console.error("Supabase connection error:", error)
     return 0
@@ -316,6 +324,9 @@ export async function getTotalHarvested(): Promise<number> {
 // Update total harvested count (increment by amount)
 export async function incrementHarvestedCount(amount: number): Promise<void> {
   try {
+    console.log("=== INCREMENTING HARVESTED COUNT ===");
+    console.log("Amount to add:", amount);
+    
     // Check if we have valid Supabase credentials
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
       console.log("Supabase not configured, cannot update harvested count")
@@ -323,17 +334,24 @@ export async function incrementHarvestedCount(amount: number): Promise<void> {
     }
 
     // First try to get existing record
-    const { data: existingData } = await supabase
+    console.log("Fetching existing harvested count record...");
+    const { data: existingData, error: fetchError } = await supabase
       .from("harvested_counts")
       .select("id, total_harvested")
       .single()
 
+    console.log("Fetch result:", { existingData, fetchError });
+
     if (existingData) {
+      console.log("Updating existing record:", existingData);
+      const newTotal = existingData.total_harvested + amount;
+      console.log("New total will be:", newTotal);
+      
       // Update existing record
       const { error } = await supabase
         .from("harvested_counts")
         .update({ 
-          total_harvested: existingData.total_harvested + amount,
+          total_harvested: newTotal,
           last_updated: new Date().toISOString()
         })
         .eq("id", existingData.id)
@@ -342,7 +360,9 @@ export async function incrementHarvestedCount(amount: number): Promise<void> {
         console.error("Error updating harvested count:", error)
         throw error
       }
+      console.log("Successfully updated harvested count to:", newTotal);
     } else {
+      console.log("No existing record found, creating new one...");
       // Create new record if none exists
       const { error } = await supabase
         .from("harvested_counts")
@@ -355,6 +375,7 @@ export async function incrementHarvestedCount(amount: number): Promise<void> {
         console.error("Error creating harvested count:", error)
         throw error
       }
+      console.log("Successfully created new harvested count record with:", amount);
     }
   } catch (error) {
     console.error("Error incrementing harvested count:", error)

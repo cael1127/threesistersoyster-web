@@ -26,8 +26,9 @@ export default function SuccessPage() {
           
           // Update harvested count if we have cart items
           if (cartState.items && cartState.items.length > 0) {
+            console.log('Cart items found, updating counts:', cartState.items);
             try {
-              await fetch('/api/order-complete', {
+              const response = await fetch('/api/order-complete', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -38,11 +39,21 @@ export default function SuccessPage() {
                 })
               });
               
-              // Clear the cart after successful order completion
-              clearCart();
+              const result = await response.json();
+              console.log('Order completion API response:', result);
+              
+              if (result.success) {
+                console.log('Successfully updated harvested count and inventory');
+                // Clear the cart after successful order completion
+                clearCart();
+              } else {
+                console.error('API returned error:', result.error);
+              }
             } catch (error) {
               console.error('Error updating harvested count:', error);
             }
+          } else {
+            console.log('No cart items found, skipping count update');
           }
           
           setLoading(false)
