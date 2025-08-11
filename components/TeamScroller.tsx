@@ -12,7 +12,7 @@ const workers = [
   },
   {
     name: "Dan Whitney",
-    role: "Operations Manager",
+    role: "Senior Advisor",
     description: "Dan oversees daily farm operations and logistics. His expertise in coastal operations ensures smooth coordination between our nursery and farm sites in Keller Bay. (Sample)",
     image: "/danc.jpg",
   },
