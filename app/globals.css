@@ -22,35 +22,36 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-  
+
   /* Hide scrollbar for mobile optimization */
   .scrollbar-hide {
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
   }
+
   .scrollbar-hide::-webkit-scrollbar {
-    display: none;  /* Safari and Chrome */
+    display: none; /* Safari and Chrome */
   }
-  
+
   /* Custom scrollbar styles for desktop */
   .scrollbar-thin {
     scrollbar-width: thin;
   }
-  
+
   .scrollbar-thin::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
-  
+
   .scrollbar-thin::-webkit-scrollbar-track {
     background: transparent;
   }
-  
+
   .scrollbar-thin::-webkit-scrollbar-thumb {
     background: #c084fc;
     border-radius: 3px;
   }
-  
+
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background: #a855f7;
   }
@@ -92,6 +93,7 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -132,48 +134,51 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
-  
+
   /* Mobile optimization */
   html {
     scroll-behavior: smooth;
   }
-  
+
   /* Prevent horizontal scrolling on mobile */
   body {
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   /* Ensure proper viewport on mobile */
   @media (max-width: 768px) {
     body {
       min-height: 100vh;
-      min-height: -webkit-fill-available;
-      /* Prevent zoom on input focus */
+      min-height: -webkit-fill-available; /* Prevent zoom on input focus */
       font-size: 16px;
     }
-    
+
     html {
       height: -webkit-fill-available;
     }
-    
+
     /* Prevent horizontal scrolling */
     .container {
       max-width: 100vw;
       overflow-x: hidden;
     }
-    
+
     /* Ensure proper touch targets */
-    button, a {
+    button,
+    a {
       min-height: 44px;
       min-width: 44px;
     }
-    
+
     /* Prevent text zoom on input focus */
-    input, textarea, select {
+    input,
+    textarea,
+    select {
       font-size: 16px !important;
     }
   }
