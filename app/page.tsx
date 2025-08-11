@@ -31,31 +31,31 @@ export default function HomePage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-green-100">
+                <h1 className="text-xl font-bold text-mintBrand">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-green-200">Premium Texas Oysters</p>
+                <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
               </div>
             </div>
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="#home" className="text-green-400 font-medium text-sm">
+                <Link href="#home" className="text-mintBrand font-medium text-sm">
                   Home
                 </Link>
-                <Link href="/products" className="text-green-400 hover:text-green-300 font-medium text-sm">
+                <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
                   Products
                 </Link>
                 <Link
                   href="/inventory"
-                  className="text-green-400 hover:text-green-300 font-medium text-sm"
+                  className="text-mintBrand hover:text-seafoamBrand font-medium text-sm"
                 >
                   Inventory
                 </Link>
-                <Link href="/about" className="text-green-400 hover:text-green-300 font-medium text-sm">
+                <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
                   About
                 </Link>
-                <Link href="/contact" className="text-green-400 hover:text-green-300 font-medium text-sm">
+                <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
                   Contact
                 </Link>
               </nav>
@@ -64,16 +64,16 @@ export default function HomePage() {
               <div className="flex md:hidden items-center w-full">
                 {/* Mobile Navigation - Compact */}
                 <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
                     Shop
                   </Link>
-                  <Link href="/inventory" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/inventory" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
                     Stock
                   </Link>
-                  <Link href="/about" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
                     About
                   </Link>
-                  <Link href="/contact" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
                     Contact
                   </Link>
                 </nav>
@@ -84,7 +84,7 @@ export default function HomePage() {
                   <Button
                     asChild
                     size="sm"
-                    className="bg-green-600 hover:bg-green-700 text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+                    className="bg-mintBrand hover:bg-seafoamBrand text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
                   >
                     <Link href="/order">Order</Link>
                   </Button>
@@ -97,7 +97,7 @@ export default function HomePage() {
                                   <Button
                     asChild
                     size="sm"
-                    className="bg-green-600 hover:bg-green-700 text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+                    className="bg-mintBrand hover:bg-seafoamBrand text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
                   >
                     <Link href="/order">Order</Link>
                   </Button>
