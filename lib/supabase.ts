@@ -27,7 +27,13 @@ export type Product = {
   price: number
   category: string
   image_url: string | null
+  inventory_count: number | null
   created_at: string
+}
+
+export type ProductDescription = {
+  originalDescription: string
+  inventory: number
 }
 
 export type Inventory = {
@@ -239,7 +245,26 @@ export async function getProducts() {
       return []
     }
 
-    return data as Product[]
+    // Parse inventory from description JSON for each product
+    const productsWithInventory = (data as Product[]).map(product => {
+      let inventoryCount = product.inventory_count || 0;
+      
+      try {
+        if (product.description) {
+          const parsedDesc = JSON.parse(product.description);
+          inventoryCount = parsedDesc.inventory || inventoryCount;
+        }
+      } catch (e) {
+        // Keep the inventory_count value if parsing fails
+      }
+      
+      return {
+        ...product,
+        inventory_count: inventoryCount
+      };
+    });
+
+    return productsWithInventory;
   } catch (error) {
     console.error("Supabase connection error:", error)
     return []
@@ -383,49 +408,87 @@ export async function incrementHarvestedCount(amount: number): Promise<void> {
   }
 }
 
-// Update inventory counts when orders are placed
-export async function updateInventoryCounts(orderItems: any[]): Promise<void> {
+// Update product inventory counts when orders are placed
+export async function updateProductInventoryCounts(orderItems: any[]): Promise<void> {
   try {
+    console.log("=== UPDATING PRODUCT INVENTORY COUNTS ===");
+    console.log("Order items:", orderItems);
+    
     // Check if we have valid Supabase credentials
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
-      console.log("Supabase not configured, cannot update inventory counts")
+      console.log("Supabase not configured, cannot update product inventory counts")
       return
     }
 
     // Process each order item
     for (const item of orderItems) {
       if (item.id && item.quantity && item.quantity > 0) {
-        // Get current inventory item
-        const { data: inventoryItem, error: fetchError } = await supabase
-          .from("inventory")
-          .select("id, count, name")
+        console.log(`Processing item: ${item.name} (ID: ${item.id}), Quantity: ${item.quantity}`);
+        
+        // Get current product with description to parse inventory
+        const { data: product, error: fetchError } = await supabase
+          .from("products")
+          .select("id, name, description, inventory_count")
           .eq("id", item.id)
           .single()
 
         if (fetchError) {
-          console.error(`Error fetching inventory item ${item.id}:`, fetchError)
+          console.error(`Error fetching product ${item.id}:`, fetchError)
           continue
         }
 
-        if (inventoryItem) {
-          const newCount = Math.max(0, inventoryItem.count - item.quantity)
+        if (product) {
+          // Parse inventory from description JSON first, fallback to inventory_count
+          let currentCount = 0;
+          try {
+            if (product.description) {
+              const parsedDesc = JSON.parse(product.description);
+              currentCount = parsedDesc.inventory || 0;
+              console.log(`Parsed inventory from description: ${currentCount}`);
+            }
+          } catch (e) {
+            console.log("Could not parse description JSON, using inventory_count");
+            currentCount = product.inventory_count || 0;
+          }
           
-          // Update the inventory count
+          console.log(`Current inventory for ${product.name}: ${currentCount}`);
+          const newCount = Math.max(0, currentCount - item.quantity)
+          
+          console.log(`Updating ${product.name} inventory: ${currentCount} → ${newCount}`);
+          
+          // Update both the description JSON and inventory_count field
+          let newDescription = product.description;
+          try {
+            if (product.description) {
+              const parsedDesc = JSON.parse(product.description);
+              parsedDesc.inventory = newCount;
+              newDescription = JSON.stringify(parsedDesc);
+            }
+          } catch (e) {
+            console.log("Could not update description JSON");
+          }
+          
+          // Update the product with new inventory count and description
           const { error: updateError } = await supabase
-            .from("inventory")
-            .update({ count: newCount })
+            .from("products")
+            .update({ 
+              inventory_count: newCount,
+              description: newDescription
+            })
             .eq("id", item.id)
 
           if (updateError) {
-            console.error(`Error updating inventory count for ${inventoryItem.name}:`, updateError)
+            console.error(`Error updating product inventory for ${product.name}:`, updateError)
           } else {
-            console.log(`Updated inventory for ${inventoryItem.name}: ${inventoryItem.count} → ${newCount}`)
+            console.log(`Successfully updated ${product.name} inventory to: ${newCount}`)
           }
+        } else {
+          console.log(`Product not found with ID: ${item.id}`)
         }
       }
     }
   } catch (error) {
-    console.error("Error updating inventory counts:", error)
+    console.error("Error updating product inventory counts:", error)
     throw error
   }
 }
