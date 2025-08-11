@@ -24,9 +24,19 @@ export default function SuccessPage() {
         .then(async (data) => {
           setSession(data)
           
-          // Update harvested count if we have cart items
-          if (cartState.items && cartState.items.length > 0) {
-            console.log('Cart items found, updating counts:', cartState.items);
+          // Update harvested count using Stripe session data
+          if (data.line_items && data.line_items.length > 0) {
+            console.log('Stripe session items found, updating counts:', data.line_items);
+            
+            // Convert Stripe line items to our format
+            const orderItems = data.line_items.map((item: any) => ({
+              id: item.price?.product || 'unknown',
+              name: item.description || 'Unknown Product',
+              quantity: item.quantity || 0,
+              category: 'oysters', // Assume all products are oysters for now
+              price: (item.amount_total || 0) / 100
+            }));
+            
             try {
               const response = await fetch('/api/order-complete', {
                 method: 'POST',
@@ -34,8 +44,8 @@ export default function SuccessPage() {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  items: cartState.items,
-                  total_amount: cartState.total
+                  items: orderItems,
+                  total_amount: data.amount_total / 100
                 })
               });
               
@@ -46,6 +56,8 @@ export default function SuccessPage() {
                 console.log('Successfully updated harvested count and inventory');
                 // Clear the cart after successful order completion
                 clearCart();
+                // Dispatch event to refresh the harvested counter
+                window.dispatchEvent(new Event('order-complete'));
               } else {
                 console.error('API returned error:', result.error);
               }
@@ -53,7 +65,7 @@ export default function SuccessPage() {
               console.error('Error updating harvested count:', error);
             }
           } else {
-            console.log('No cart items found, skipping count update');
+            console.log('No Stripe session items found, skipping count update');
           }
           
           setLoading(false)
@@ -81,7 +93,7 @@ export default function SuccessPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand border-b border-purple-300/30 sticky top-0 z-50">
+      <header className="bg-purple-900 border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 md:space-x-3">
@@ -156,9 +168,9 @@ export default function SuccessPage() {
                 <CheckCircle className="w-10 h-10 text-green-600" />
               </div>
 
-              <h1 className="text-3xl font-bold text-purple-900 mb-4">Order Confirmed!</h1>
+              <h1 className="text-3xl font-bold text-white mb-4">Order Confirmed!</h1>
 
-              <p className="text-gray-600 mb-6">
+              <p className="text-white mb-6">
                 Thank you for your order! Your payment has been processed successfully and we'll begin preparing your
                 fresh Texas oysters.
               </p>
@@ -228,10 +240,10 @@ export default function SuccessPage() {
               <div className="space-y-4">
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button asChild className="bg-gradient-to-r from-purple-600 to-teal-600">
-                    <Link href="/">Return Home</Link>
+                    <Link href="/" replace>Return Home</Link>
                   </Button>
                   <Button asChild variant="outline">
-                    <Link href="/products">Continue Shopping</Link>
+                    <Link href="/products" replace>Continue Shopping</Link>
                   </Button>
                 </div>
               </div>

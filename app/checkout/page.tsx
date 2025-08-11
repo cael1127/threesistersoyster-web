@@ -52,8 +52,14 @@ export default function CheckoutPage() {
 
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Waves className="w-12 h-12 text-gray-400" />
+            <div className="w-24 h-24 rounded-full overflow-hidden flex items-center justify-center mx-auto mb-6">
+              <Image
+                src="/logo.jpg"
+                alt="Three Sisters Oyster Co. Logo"
+                width={96}
+                height={96}
+                className="w-full h-full object-cover"
+              />
             </div>
             <h1 className="text-3xl font-bold text-white mb-4">Your Cart is Empty</h1>
             <p className="text-white mb-8">Add some premium oysters to get started!</p>
@@ -110,12 +116,18 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand border-b border-purple-300/30 sticky top-0 z-50">
+      <header className="bg-purple-900 border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
-                <Waves className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center">
+                <Image
+                  src="/logo.jpg"
+                  alt="Three Sisters Oyster Co. Logo"
+                  width={48}
+                  height={48}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-white">Three Sisters Oyster Co.</h1>
