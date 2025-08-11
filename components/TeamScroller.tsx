@@ -44,7 +44,7 @@ const workers = [
     name: "Macie Kolodziejczyk",
     role: "Farm Hand",
     description: "Macie assists with daily farm operations and oyster processing. Her dedication to sustainable practices aligns perfectly with our environmental mission. (Sample)",
-    image: "/logo.jpg",
+    image: "/maciek.JPEG",
   },
  
   {
