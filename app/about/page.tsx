@@ -42,14 +42,27 @@ export default function AboutPage() {
                 <Link href="/about" className="text-teal-600 font-medium text-sm">About</Link>
                 <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">Contact</Link>
               </nav>
-              {/* Mobile Navigation - Compact */}
-              <nav className="flex md:hidden items-center w-full px-4">
-                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">Shop</Link>
-                <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">Stock</Link>
-                <Link href="/about" className="text-teal-600 font-medium text-xs py-2 flex-1 text-center">About</Link>
-                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">Contact</Link>
-              </nav>
-              <div className="flex items-center space-x-1">
+              {/* Mobile Layout - Restructured for better spacing */}
+              <div className="flex md:hidden items-center w-full">
+                {/* Mobile Navigation - Compact */}
+                <nav className="flex items-center flex-1 px-4">
+                  <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">Shop</Link>
+                  <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">Stock</Link>
+                  <Link href="/about" className="text-teal-600 font-medium text-xs py-2 flex-1 text-center">About</Link>
+                  <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">Contact</Link>
+                </nav>
+                
+                {/* Mobile Cart/Order Buttons */}
+                <div className="flex items-center space-x-1 px-2">
+                  <CartButton />
+                  <Button asChild size="sm" className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0">
+                    <Link href="/order">Order</Link>
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Desktop Cart/Order Buttons */}
+              <div className="hidden md:flex items-center space-x-1">
                 <CartButton />
                 <Button asChild size="sm" className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0">
                   <Link href="/order">Order</Link>
@@ -61,20 +74,12 @@ export default function AboutPage() {
       </header>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Back Button */}
-        <div className="mb-8">
-          <Button asChild variant="outline" className="flex items-center space-x-2">
-            <Link href="/">
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to Home</span>
-            </Link>
-          </Button>
-        </div>
+
 
         {/* Hero Section */}
         <div className="text-center mb-16">
           <Badge className="mb-4 bg-purple-100 text-purple-800 hover:bg-purple-200">Our Story</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold text-[#3a2a4d] mb-6 px-2">About Three Sisters Oyster Co.</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 px-2">About Three Sisters Oyster Co.</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto px-4">
             A family-owned oyster farm committed to sustainable aquaculture and environmental stewardship in the pristine waters of Keller Bay.
           </p>
@@ -84,7 +89,7 @@ export default function AboutPage() {
         <section className="mb-16">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-[#3a2a4d] mb-6">Named After Blake's Three Daughters</h2>
+              <h2 className="text-3xl font-bold text-purple-900 mb-6">Named After Blake's Three Daughters</h2>
               <div className="space-y-4 text-gray-600">
                 <p>
                   Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
@@ -120,7 +125,7 @@ export default function AboutPage() {
         {/* Mission & Values */}
         <section className="mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#3a2a4d] mb-4">Our Mission & Values</h2>
+            <h2 className="text-3xl font-bold text-purple-900 mb-4">Our Mission & Values</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               We're committed to sustainable aquaculture practices that benefit both our community and the environment.
             </p>
@@ -132,7 +137,7 @@ export default function AboutPage() {
                 <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Globe className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-[#3a2a4d] mb-3">Environmental Stewardship</h3>
+                <h3 className="text-xl font-bold text-purple-900 mb-3">Environmental Stewardship</h3>
                 <p className="text-gray-600">
                   We believe in protecting and improving our coastal waters through sustainable aquaculture practices that enhance marine ecosystems.
                 </p>
@@ -144,7 +149,7 @@ export default function AboutPage() {
                 <div className="w-16 h-16 bg-gradient-to-br from-teal-600 to-teal-700 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-[#3a2a4d] mb-3">Community Impact</h3>
+                <h3 className="text-xl font-bold text-purple-900 mb-3">Community Impact</h3>
                 <p className="text-gray-600">
                   Supporting local economies and providing premium seafood while creating jobs and opportunities in coastal communities.
                 </p>
@@ -156,7 +161,7 @@ export default function AboutPage() {
                 <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Award className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-[#3a2a4d] mb-3">Quality Excellence</h3>
+                <h3 className="text-xl font-bold text-purple-900 mb-3">Quality Excellence</h3>
                 <p className="text-gray-600">
                   Delivering the highest quality oysters through careful cultivation, rigorous standards, and attention to every detail.
                 </p>
@@ -167,20 +172,19 @@ export default function AboutPage() {
 
         {/* Environmental Impact */}
         <section className="mb-16">
-          <div className="bg-gradient-to-r from-purple-100 to-teal-100 rounded-2xl p-8 md:p-12">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-[#3a2a4d] mb-4">Environmental Impact</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Our oyster farming operations provide significant environmental benefits beyond just producing delicious seafood.
-              </p>
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-purple-900 mb-4">Environmental Impact</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Our oyster farming operations provide significant environmental benefits beyond just producing delicious seafood.
+            </p>
+          </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Waves className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-[#3a2a4d] mb-2">Water Filtration</h3>
+                <h3 className="text-xl font-bold text-purple-900 mb-2">Water Filtration</h3>
                 <p className="text-gray-600">
                   Each oyster filters up to 50 gallons of water per day, removing pollutants and improving water clarity.
                 </p>
@@ -189,7 +193,7 @@ export default function AboutPage() {
                 <div className="w-16 h-16 bg-gradient-to-br from-teal-600 to-teal-700 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Leaf className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-[#3a2a4d] mb-2">Carbon Sequestration</h3>
+                <h3 className="text-xl font-bold text-purple-900 mb-2">Carbon Sequestration</h3>
                 <p className="text-gray-600">
                   Oyster shells and tissue naturally capture and store carbon, helping combat climate change.
                 </p>
@@ -198,19 +202,18 @@ export default function AboutPage() {
                 <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Fish className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-[#3a2a4d] mb-2">Habitat Creation</h3>
+                <h3 className="text-xl font-bold text-purple-900 mb-2">Habitat Creation</h3>
                 <p className="text-gray-600">
                   Our oyster reefs provide essential habitat for fish, crabs, and other marine life.
                 </p>
               </div>
             </div>
-          </div>
         </section>
 
         {/* Operations */}
         <section className="mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#3a2a4d] mb-4">Our Operations</h2>
+            <h2 className="text-3xl font-bold text-purple-900 mb-4">Our Operations</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               From nursery to market, we provide comprehensive oyster solutions for growers and consumers.
             </p>
@@ -223,7 +226,7 @@ export default function AboutPage() {
                   <div className="w-12 h-12 bg-gradient-to-br from-teal-600 to-teal-700 rounded-full flex items-center justify-center mr-4">
                     <Leaf className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-[#3a2a4d]">Nursery Operations</h3>
+                  <h3 className="text-2xl font-bold text-purple-900">Nursery Operations</h3>
                 </div>
                 <p className="text-gray-600 mb-4">
                   Our nursery provides hardy Eastern oyster (Crassostrea virginica) seed to meet growers' needs with superior quality and reliability.
@@ -251,7 +254,7 @@ export default function AboutPage() {
                   <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center mr-4">
                     <Fish className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-[#3a2a4d]">Farm Operations</h3>
+                  <h3 className="text-2xl font-bold text-purple-900">Farm Operations</h3>
                 </div>
                 <p className="text-gray-600 mb-4">
                   We grow oysters to market size for the premium half-shell market while providing essential habitat for fish and other sea life.
@@ -277,9 +280,9 @@ export default function AboutPage() {
 
         {/* Call to Action */}
         <section className="text-center">
-          <Card className="border-purple-200 bg-gradient-to-r from-purple-100 to-teal-100">
+          <Card className="border-purple-200">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-[#3a2a4d] mb-4">Ready to Learn More?</h3>
+              <h3 className="text-2xl font-bold text-purple-900 mb-4">Ready to Learn More?</h3>
               <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
                 Whether you're interested in our products, want to visit our operations, or have questions about sustainable aquaculture, we'd love to hear from you.
               </p>

@@ -51,22 +51,39 @@ export default function ContactPage() {
                   Contact
                 </Link>
               </nav>
-              {/* Mobile Navigation - Compact */}
-              <nav className="flex md:hidden items-center w-full px-4">
-                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
-                  Shop
-                </Link>
-                <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
-                  Stock
-                </Link>
-                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
-                  About
-                </Link>
-                <Link href="/contact" className="text-teal-600 font-medium text-xs py-2 flex-1 text-center">
-                  Contact
-                </Link>
-              </nav>
-              <div className="flex items-center space-x-1">
+              {/* Mobile Layout - Restructured for better spacing */}
+              <div className="flex md:hidden items-center w-full">
+                {/* Mobile Navigation - Compact */}
+                <nav className="flex items-center flex-1 px-4">
+                  <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                    Shop
+                  </Link>
+                  <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                    Stock
+                  </Link>
+                  <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                    About
+                  </Link>
+                  <Link href="/contact" className="text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                    Contact
+                  </Link>
+                </nav>
+                
+                {/* Mobile Cart/Order Buttons */}
+                <div className="flex items-center space-x-1 px-2">
+                  <CartButton />
+                  <Button
+                    asChild
+                    size="sm"
+                    className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+                  >
+                    <Link href="/order">Order</Link>
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Desktop Cart/Order Buttons */}
+              <div className="hidden md:flex items-center space-x-1">
                 <CartButton />
                 <Button
                   asChild
@@ -82,15 +99,7 @@ export default function ContactPage() {
       </header>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Back Button */}
-        <div className="mb-8">
-          <Button asChild variant="outline" className="flex items-center space-x-2">
-            <Link href="/">
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to Home</span>
-            </Link>
-          </Button>
-        </div>
+
 
         <div className="text-center mb-12">
           <Badge className="mb-4 bg-teal-100 text-teal-800 hover:bg-teal-200">Contact Us</Badge>
