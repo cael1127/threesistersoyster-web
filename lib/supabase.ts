@@ -361,3 +361,50 @@ export async function incrementHarvestedCount(amount: number): Promise<void> {
     throw error
   }
 }
+
+// Update inventory counts when orders are placed
+export async function updateInventoryCounts(orderItems: any[]): Promise<void> {
+  try {
+    // Check if we have valid Supabase credentials
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+      console.log("Supabase not configured, cannot update inventory counts")
+      return
+    }
+
+    // Process each order item
+    for (const item of orderItems) {
+      if (item.id && item.quantity && item.quantity > 0) {
+        // Get current inventory item
+        const { data: inventoryItem, error: fetchError } = await supabase
+          .from("inventory")
+          .select("id, count, name")
+          .eq("id", item.id)
+          .single()
+
+        if (fetchError) {
+          console.error(`Error fetching inventory item ${item.id}:`, fetchError)
+          continue
+        }
+
+        if (inventoryItem) {
+          const newCount = Math.max(0, inventoryItem.count - item.quantity)
+          
+          // Update the inventory count
+          const { error: updateError } = await supabase
+            .from("inventory")
+            .update({ count: newCount })
+            .eq("id", item.id)
+
+          if (updateError) {
+            console.error(`Error updating inventory count for ${inventoryItem.name}:`, updateError)
+          } else {
+            console.log(`Updated inventory for ${inventoryItem.name}: ${inventoryItem.count} → ${newCount}`)
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Error updating inventory counts:", error)
+    throw error
+  }
+}

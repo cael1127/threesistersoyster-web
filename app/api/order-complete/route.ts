@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { incrementHarvestedCount } from "@/lib/supabase";
+import { incrementHarvestedCount, updateInventoryCounts } from "@/lib/supabase";
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,10 +18,16 @@ export async function POST(request: NextRequest) {
       await incrementHarvestedCount(totalQuantity);
     }
 
+    // Update inventory counts (reduce stock levels)
+    if (items && Array.isArray(items) && items.length > 0) {
+      await updateInventoryCounts(items);
+    }
+
     return NextResponse.json({ 
       success: true, 
-      message: "Order completed and harvested count updated",
-      quantityAdded: totalQuantity
+      message: "Order completed, harvested count updated, and inventory counts reduced",
+      quantityAdded: totalQuantity,
+      inventoryUpdated: true
     });
   } catch (error) {
     console.error("Error processing order completion:", error);

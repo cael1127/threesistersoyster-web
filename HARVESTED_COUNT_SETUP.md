@@ -29,12 +29,13 @@ The system now displays a single "Total Harvested" counter on the homepage inste
 - When a customer completes an order (reaches success page):
   - The success page calls `/api/order-complete`
   - This API calculates total quantity from order items
-  - Calls `incrementHarvestedCount()` to update the database
+  - Calls `incrementHarvestedCount()` to update the harvested count
+  - Calls `updateInventoryCounts()` to reduce inventory stock levels
   - Clears the cart after successful update
 
 ### 3. API Endpoints
 - **GET** `/api/checkout-session?session_id={id}` - Retrieves Stripe session details
-- **POST** `/api/order-complete` - Updates harvested count and processes order completion
+- **POST** `/api/order-complete` - Updates harvested count, reduces inventory stock, and processes order completion
 
 ## Files Modified
 
@@ -46,7 +47,8 @@ The system now displays a single "Total Harvested" counter on the homepage inste
 ### Files Modified:
 - `app/page.tsx` - Updated to use TotalHarvestedCounter instead of HomeInventoryCounters
 - `app/success/page.tsx` - Added logic to update harvested count on order completion
-- `lib/supabase.ts` - Added new functions for harvested count management
+- `lib/supabase.ts` - Added new functions for harvested count and inventory management
+- `app/api/order-complete/route.ts` - Enhanced to update both harvested count and inventory stock levels
 
 ## Environment Variables
 
