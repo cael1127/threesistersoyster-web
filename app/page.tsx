@@ -108,7 +108,7 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-900/20 via-blue-800/20 to-teal-800/20">
+      <section id="home" className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purple-900/20 via-blue-800/20 to-teal-800/20">
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left Side - Text Content */}
@@ -184,7 +184,7 @@ export default function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-900/20 via-blue-800/20 to-teal-800/20">
+      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purple-900/20 via-blue-800/20 to-teal-800/20">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 md:mb-4 px-2">Our Operations</h2>
@@ -195,10 +195,10 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {/* Nursery Card */}
-            <Card id="nursery" className="border-teal-300/30 bg-gradient-to-br from-teal-900/40 to-blue-900/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
+            <Card id="nursery" className="border-teal-300/30 bg-gradient-to-b from-teal-900/40 to-blue-900/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-6 md:p-8">
                 <div className="flex items-center mb-4 md:mb-6">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-teal-500 to-blue-600 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-b from-teal-500 to-blue-600 rounded-full flex items-center justify-center mr-3 md:mr-4">
                     <Leaf className="w-5 h-5 md:w-6 md:h-6 text-white" />
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-white">Oyster Nursery</h3>
@@ -231,10 +231,10 @@ export default function HomePage() {
             </Card>
 
             {/* Farm Card */}
-            <Card id="farm" className="border-purple-300/30 bg-gradient-to-br from-purple-900/40 to-blue-900/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
+            <Card id="farm" className="border-purple-300/30 bg-gradient-to-b from-purple-900/40 to-blue-900/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-6 md:p-8">
                 <div className="flex items-center mb-4 md:mb-6">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center mr-3 md:mr-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-b from-purple-500 to-blue-600 rounded-full flex items-center justify-center mr-3 md:mr-4">
                     <Fish className="w-5 h-5 md:w-6 md:h-6 text-white" />
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-white">Oyster Farm</h3>
@@ -264,7 +264,7 @@ export default function HomePage() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-900/20 to-purple-900/20">
+      <section id="about" className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-900/20 to-purple-900/20">
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
@@ -286,7 +286,7 @@ export default function HomePage() {
               </p>
             </div>
             <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-purple-800/40 to-teal-800/40 rounded-2xl flex items-center justify-center border border-purple-300/30">
+              <div className="aspect-square bg-gradient-to-b from-purple-800/40 to-teal-800/40 rounded-2xl flex items-center justify-center border border-purple-300/30">
                 <Image
                   src="/aboutpic.jpg"
                   alt="Blake and family at the oyster farm"
@@ -303,7 +303,7 @@ export default function HomePage() {
       </section>
 
       {/* Environmental Impact */}
-      <section className="py-20 px-4 bg-gradient-to-br from-purple-900/40 via-blue-800/40 to-teal-800/40">
+      <section className="py-20 px-4 bg-gradient-to-b from-purple-900/40 via-blue-800/40 to-teal-800/40">
         <div className="container mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-6">Environmental Stewardship</h2>
           <p className="text-xl text-white mb-12 max-w-3xl mx-auto">
@@ -313,21 +313,21 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-b from-purple-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Waves className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Water Quality</h3>
               <p className="text-white">Improving coastal water quality through natural filtration</p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-b from-teal-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Leaf className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Carbon Sequestration</h3>
               <p className="text-white">Capturing and storing carbon to combat climate change</p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-b from-blue-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Fish className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Marine Habitat</h3>
