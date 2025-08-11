@@ -440,9 +440,11 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
         if (product) {
           // Parse inventory from description JSON first, fallback to inventory_count
           let currentCount = 0;
+          let parsedDesc = null;
+          
           try {
             if (product.description) {
-              const parsedDesc = JSON.parse(product.description);
+              parsedDesc = JSON.parse(product.description);
               currentCount = parsedDesc.inventory || 0;
               console.log(`Parsed inventory from description: ${currentCount}`);
             }
@@ -459,22 +461,26 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
           // Update both the description JSON and inventory_count field
           let newDescription = product.description;
           try {
-            if (product.description) {
-              const parsedDesc = JSON.parse(product.description);
+            if (parsedDesc) {
               parsedDesc.inventory = newCount;
               newDescription = JSON.stringify(parsedDesc);
+              console.log(`New description JSON: ${newDescription}`);
             }
           } catch (e) {
             console.log("Could not update description JSON");
           }
           
           // Update the product with new inventory count and description
+          const updateData: any = { inventory_count: newCount };
+          if (newDescription !== product.description) {
+            updateData.description = newDescription;
+          }
+          
+          console.log(`Updating product with data:`, updateData);
+          
           const { error: updateError } = await supabase
             .from("products")
-            .update({ 
-              inventory_count: newCount,
-              description: newDescription
-            })
+            .update(updateData)
             .eq("id", item.id)
 
           if (updateError) {
