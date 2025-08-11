@@ -78,7 +78,6 @@ export default function AboutPage() {
 
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <Badge className="mb-4 bg-purple-100 text-purple-800 hover:bg-purple-200">Our Story</Badge>
           <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 px-2">About Three Sisters Oyster Co.</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto px-4">
             A family-owned oyster farm committed to sustainable aquaculture and environmental stewardship in the pristine waters of Keller Bay.
@@ -172,12 +171,13 @@ export default function AboutPage() {
 
         {/* Environmental Impact */}
         <section className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-purple-900 mb-4">Environmental Impact</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our oyster farming operations provide significant environmental benefits beyond just producing delicious seafood.
-            </p>
-          </div>
+          <div className="bg-gradient-to-r from-purple-100 to-teal-100 rounded-2xl p-8 md:p-12">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-purple-900 mb-4">Environmental Impact</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Our oyster farming operations provide significant environmental benefits beyond just producing delicious seafood.
+              </p>
+            </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
@@ -280,7 +280,7 @@ export default function AboutPage() {
 
         {/* Call to Action */}
         <section className="text-center">
-          <Card className="border-purple-200">
+          <Card className="border-purple-200 bg-gradient-to-r from-purple-100 to-teal-100">
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold text-purple-900 mb-4">Ready to Learn More?</h3>
               <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
