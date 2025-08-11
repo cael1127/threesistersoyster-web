@@ -17,25 +17,25 @@ const workers = [
     image: "/danc.jpg",
   },
   {
-    name: "Hayden Whitney",
+    name: "Hayden Warren",
     role: "Farm Manager",
-    description: "Hayden manages our grow-out operations and coordinates harvest schedules. His hands-on approach ensures our oysters reach market at peak quality and size. (Sample)",
+    description: "Hayden manages our grow-out operations and coordinates harvest schedules. His hands-on approach ensures our oysters reach market at peak quality and size.",
     image: "/hayden.jpg",
   },
   {
-    name: "Kathryn Whitney",
+    name: "Kathryn Davin",
     role: "Nursery Manager",
-    description: "Kathryn oversees our seed oyster production and nursery operations. Her attention to detail ensures healthy stock for both our farm and wholesale customers. (Sample)",
+    description: "Kathryn oversees our seed oyster production and nursery operations. Her attention to detail ensures healthy stock for both our farm and wholesale customers.",
     image: "/kathc.jpg",
   },
   {
-    name: "Celco Rodriguez",
+    name: "Celco ",
     role: "Farm Hand",
     description: "Celco brings years of coastal work experience to our team. He specializes in equipment maintenance and boat operations, keeping our fleet running smoothly. (Sample)",
     image: "/logo.jpg",
   },
   {
-    name: "Lorenzo Martinez",
+    name: "Lorenzo ",
     role: "Farm Hand",
     description: "Lorenzo is skilled in oyster handling and grading. His expertise in shellfish care helps maintain the high quality standards Three Sisters is known for. (Sample)",
     image: "/logo.jpg",
@@ -43,7 +43,7 @@ const workers = [
   {
     name: "Macie Kolodziejczyk",
     role: "Farm Hand",
-    description: "Macie assists with daily farm operations and oyster processing. Her dedication to sustainable practices aligns perfectly with our environmental mission. (Sample)",
+    description: "Macie assists with daily farm operations and oyster processing. Her dedication to sustainable practices aligns perfectly with our environmental mission.",
     image: "/maciek.JPEG",
   },
  
