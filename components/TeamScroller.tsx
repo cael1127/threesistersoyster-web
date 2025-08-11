@@ -137,9 +137,9 @@ export default function TeamScroller() {
                   quality={100}
                 />
               </div>
-              <h3 className="text-sm md:text-lg font-semibold text-center mb-1 md:mb-2 leading-tight break-words max-w-[8rem] md:max-w-[10rem]">{worker.name}</h3>
-              <p className="text-xs md:text-sm text-gray-500 text-center mb-2 md:mb-3 leading-tight break-words max-w-[8rem] md:max-w-[10rem]">{worker.role}</p>
-              <p className="text-xs md:text-sm text-gray-700 text-center leading-relaxed break-words max-w-[8rem] md:max-w-[10rem]">{worker.description}</p>
+              <h3 className="text-sm md:text-lg font-semibold text-center mb-1 md:mb-2 leading-tight break-words max-w-[8rem] md:max-w-[10rem] text-white">{worker.name}</h3>
+              <p className="text-xs md:text-sm text-gray-300 text-center mb-2 md:mb-3 leading-tight break-words max-w-[8rem] md:max-w-[10rem]">{worker.role}</p>
+              <p className="text-xs md:text-sm text-gray-200 text-center leading-relaxed break-words max-w-[8rem] md:max-w-[10rem]">{worker.description}</p>
             </div>
           </div>
         ))}

@@ -79,9 +79,9 @@ export default function SuccessPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
+    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-gradient-to-r from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand border-b border-purple-300/30 sticky top-0 z-50">
+      <header className="bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 md:space-x-3">
@@ -96,10 +96,10 @@ export default function SuccessPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-[#3a2a4d]">
+                <h1 className="text-xl font-bold text-white">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-[#3a2a4d]">Premium Texas Oysters</p>
+                <p className="text-xs text-white">Premium Texas Oysters</p>
               </div>
             </div>
             <div className="flex items-center space-x-1 md:space-x-4">

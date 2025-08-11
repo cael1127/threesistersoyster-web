@@ -37,17 +37,17 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-screen bg-gradient-to-b from-purple-50 to-teal-50">
         <header className="bg-white/90 backdrop-blur-sm border-b border-purple-100">
-          <div className="container mx-auto px-4 py-4">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
-                <Waves className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-purple-900">Three Sisters Oyster Co.</h1>
-                <p className="text-sm text-teal-600">Premium Texas Oysters</p>
-              </div>
-            </Link>
-          </div>
+                  <div className="container mx-auto px-4 py-4">
+          <Link href="/" className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
+              <Waves className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-white">Three Sisters Oyster Co.</h1>
+              <p className="text-sm text-teal-300">Premium Texas Oysters</p>
+            </div>
+          </Link>
+        </div>
         </header>
 
         <div className="container mx-auto px-4 py-12">
@@ -55,8 +55,8 @@ export default function CheckoutPage() {
             <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Waves className="w-12 h-12 text-gray-400" />
             </div>
-            <h1 className="text-3xl font-bold text-purple-900 mb-4">Your Cart is Empty</h1>
-            <p className="text-gray-600 mb-8">Add some premium oysters to get started!</p>
+            <h1 className="text-3xl font-bold text-white mb-4">Your Cart is Empty</h1>
+            <p className="text-white mb-8">Add some premium oysters to get started!</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild className="bg-gradient-to-r from-purple-600 to-teal-600">
                 <Link href="/products">Shop Products</Link>
@@ -108,9 +108,9 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
+    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-gradient-to-r from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand border-b border-purple-300/30 sticky top-0 z-50">
+      <header className="bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-3">
@@ -118,8 +118,8 @@ export default function CheckoutPage() {
                 <Waves className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-purple-900">Three Sisters Oyster Co.</h1>
-                <p className="text-sm text-teal-600">Premium Texas Oysters</p>
+                <h1 className="text-xl font-bold text-white">Three Sisters Oyster Co.</h1>
+                <p className="text-sm text-teal-300">Premium Texas Oysters</p>
               </div>
             </Link>
             <Button asChild variant="outline">
@@ -134,7 +134,7 @@ export default function CheckoutPage() {
 
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold text-purple-900 mb-8 text-center">Secure Checkout</h1>
+          <h1 className="text-3xl font-bold text-white mb-8 text-center">Secure Checkout</h1>
 
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Order Summary */}

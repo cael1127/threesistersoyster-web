@@ -47,7 +47,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className + " bg-gradient-to-r from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand text-[#3a2a4d] min-h-screen"}>
+      <body className={inter.className + " bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand text-white min-h-screen"}>
         <CartProvider>{children}</CartProvider>
       </body>
     </html>

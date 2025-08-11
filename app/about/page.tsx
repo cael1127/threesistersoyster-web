@@ -10,9 +10,9 @@ import Image from "next/image"
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
+    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-gradient-to-r from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand border-b border-purple-300/30 sticky top-0 z-50">
+      <header className="bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2 md:space-x-3">
@@ -78,8 +78,8 @@ export default function AboutPage() {
 
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 px-2">About Three Sisters Oyster Co.</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto px-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 px-2">About Three Sisters Oyster Co.</h1>
+          <p className="text-xl text-white max-w-3xl mx-auto px-4">
             A family-owned oyster farm committed to sustainable aquaculture and environmental stewardship in the pristine waters of Keller Bay.
           </p>
         </div>
@@ -88,8 +88,8 @@ export default function AboutPage() {
         <section className="mb-16">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-purple-900 mb-6">Named After Blake's Three Daughters</h2>
-              <div className="space-y-4 text-gray-600">
+              <h2 className="text-3xl font-bold text-white mb-6">Named After Blake's Three Daughters</h2>
+              <div className="space-y-4 text-white">
                 <p>
                   Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
                   daughters, our team strives to create a better coastline for the future.
@@ -283,8 +283,8 @@ export default function AboutPage() {
         <section className="text-center">
           <Card className="border-purple-200 bg-gradient-to-r from-purple-100 to-teal-100">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-purple-900 mb-4">Ready to Learn More?</h3>
-              <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold text-white mb-4">Ready to Learn More?</h3>
+              <p className="text-white mb-6 max-w-2xl mx-auto">
                 Whether you're interested in our products, want to visit our operations, or have questions about sustainable aquaculture, we'd love to hear from you.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

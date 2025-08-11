@@ -22,10 +22,10 @@ export default function ContactForm() {
   return (
     <Card className="border-purple-200">
       <CardContent className="p-8">
-        <h3 className="text-2xl font-bold text-purple-900 mb-6">Send Us a Message</h3>
+        <h3 className="text-2xl font-bold text-white mb-6">Send Us a Message</h3>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+            <label className="block text-sm font-medium text-white mb-2">Name</label>
             <input
               name="name"
               type="text"
@@ -34,7 +34,7 @@ export default function ContactForm() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+            <label className="block text-sm font-medium text-white mb-2">Email</label>
             <input
               name="email"
               type="email"
@@ -43,7 +43,7 @@ export default function ContactForm() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+            <label className="block text-sm font-medium text-white mb-2">Message</label>
             <textarea
               name="message"
               rows={4}
