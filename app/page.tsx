@@ -108,68 +108,77 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-black">
-        {/* Background Video - Optimized for Performance */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
-          style={{ 
-            objectPosition: 'center',
-            filter: 'brightness(1.1) contrast(1.05)',
-            willChange: 'transform',
-            backfaceVisibility: 'hidden',
-            perspective: '1000px',
-            transform: 'translateZ(0)'
-          }}
-          ref={(video) => {
-            if (video) {
-              video.playbackRate = 0.6; // More moderate slow down to 60% speed for smoothness
-              video.setAttribute('webkit-playsinline', 'true');
-              // Ensure smooth playback
-              video.style.transform = 'translateZ(0)';
-              video.style.willChange = 'transform';
-            }
-          }}
-        >
-          <source src="/homepage.mp4" type="video/mp4" />
-        </video>
-        {/* Removed overlay for better video visibility */}
-        <div className="container mx-auto text-center max-w-7xl relative z-20">
-          <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-purpleBrand mb-4 md:mb-6 leading-[1.4] px-2 pb-4">
-            Three Sisters
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-blue-300 pb-2">
-              Oyster Co.
-            </span>
-          </h1>
-          <p className="text-base sm:text-lg md:text-xl text-purpleBrand mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed px-4">
-            Committed to the long-term viability of off-bottom aquaculture and a thriving Texas coastline. Growing the
-            finest oysters in the pristine waters of Keller Bay.
-          </p>
+      <section id="home" className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-900/20 via-blue-800/20 to-teal-800/20">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Left Side - Text Content */}
+            <div className="text-left">
+              <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#3a2a4d] mb-4 md:mb-6 leading-[1.4]">
+                Three Sisters
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-blue-300 pb-2">
+                  Oyster Co.
+                </span>
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl text-[#3a2a4d] mb-6 md:mb-8 leading-relaxed">
+                Committed to the long-term viability of off-bottom aquaculture and a thriving Texas coastline. Growing the
+                finest oysters in the pristine waters of Keller Bay.
+              </p>
 
-          {/* Inventory Counters */}
-          <div className="max-w-4xl mx-auto">
-            <HomeInventoryCounters />
-          </div>
+              {/* Inventory Counters */}
+              <div className="mb-6 md:mb-8">
+                <HomeInventoryCounters />
+              </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-            <Button
-              asChild
-              size="lg"
-              className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white min-h-[48px] text-base shadow-lg"
-            >
-              <Link href="/products">Shop Fresh Oysters</Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white min-h-[48px] text-base shadow-lg"
-            >
-              <Link href="/about">Learn Our Story</Link>
-            </Button>
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white min-h-[48px] text-base shadow-lg"
+                >
+                  <Link href="/products">Shop Fresh Oysters</Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white min-h-[48px] text-base shadow-lg"
+                >
+                  <Link href="/about">Learn Our Story</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Right Side - Video */}
+            <div className="relative">
+              <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-full object-cover"
+                  style={{ 
+                    objectPosition: 'center',
+                    filter: 'brightness(1.1) contrast(1.05)',
+                    willChange: 'transform',
+                    backfaceVisibility: 'hidden',
+                    perspective: '1000px',
+                    transform: 'translateZ(0)'
+                  }}
+                  ref={(video) => {
+                    if (video) {
+                      video.playbackRate = 1; 
+                      video.setAttribute('webkit-playsinline', 'true');
+                      // Ensure smooth playback
+                      video.style.transform = 'translateZ(0)';
+                      video.style.willChange = 'transform';
+                    }
+                  }}
+                >
+                  <source src="/homepage.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
           </div>
         </div>
       </section>
