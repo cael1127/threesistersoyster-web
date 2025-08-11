@@ -58,7 +58,7 @@ export default function CartPage() {
                 </nav>
                 
                 {/* Mobile Navigation - Compact */}
-                <nav className="flex md:hidden items-center w-full">
+                <nav className="flex md:hidden items-center w-full px-4">
                   <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
                     Shop
                   </Link>
@@ -149,7 +149,7 @@ export default function CartPage() {
               </nav>
               
               {/* Mobile Navigation - Compact */}
-              <nav className="flex md:hidden items-center w-full">
+              <nav className="flex md:hidden items-center w-full px-4">
                 <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
                   Shop
                 </Link>
