@@ -43,11 +43,11 @@ export default function AboutPage() {
                 <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">Contact</Link>
               </nav>
               {/* Mobile Navigation - Compact */}
-              <nav className="flex md:hidden items-center space-x-1">
-                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">Shop</Link>
-                <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">Stock</Link>
-                <Link href="/about" className="text-teal-600 font-medium text-xs px-1 py-1">About</Link>
-                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs px-1 py-1">Contact</Link>
+              <nav className="flex md:hidden items-center justify-between w-full px-2">
+                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">Shop</Link>
+                <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">Stock</Link>
+                <Link href="/about" className="text-teal-600 font-medium text-xs py-2 flex-1 text-center">About</Link>
+                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">Contact</Link>
               </nav>
               <div className="flex items-center space-x-1">
                 <CartButton />
