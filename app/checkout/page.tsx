@@ -64,7 +64,7 @@ export default function CheckoutPage() {
             <h1 className="text-3xl font-bold text-white mb-4">Your Cart is Empty</h1>
             <p className="text-white mb-8">Add some premium oysters to get started!</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild className="bg-gradient-to-r from-purple-600 to-teal-600">
+              <Button asChild className="bg-green-600 hover:bg-green-700">
                 <Link href="/products">Shop Products</Link>
               </Button>
               <Button asChild variant="outline">
@@ -116,7 +116,7 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-purple-900 border-b border-purple-300/30 sticky top-0 z-50">
+      <header className="bg-purpleBrand border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-3">
@@ -134,7 +134,7 @@ export default function CheckoutPage() {
                 <p className="text-sm text-teal-300">Premium Texas Oysters</p>
               </div>
             </Link>
-            <Button asChild variant="outline">
+            <Button asChild className="bg-green-600 hover:bg-green-700 text-white border-green-600">
               <Link href="/cart" className="flex items-center space-x-2">
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back to Cart</span>

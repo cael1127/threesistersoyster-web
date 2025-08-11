@@ -16,7 +16,7 @@ export default function CartPage() {
     return (
           <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-purple-900 border-b border-purple-300/30 sticky top-0 z-50">
+      <header className="bg-purpleBrand border-b border-purple-300/30 sticky top-0 z-50">
           <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center space-x-2 md:space-x-3">
@@ -111,9 +111,9 @@ export default function CartPage() {
             </div>
             <h1 className="text-3xl font-bold text-purple-900 mb-4">Your Cart is Empty</h1>
             <p className="text-gray-600 mb-8">Add some premium oysters to get started!</p>
-            <Button asChild className="bg-gradient-to-r from-purple-600 to-teal-600">
-              <Link href="/products">Shop Products</Link>
-            </Button>
+                          <Button asChild className="bg-green-600 hover:bg-green-700">
+                <Link href="/products">Shop Products</Link>
+              </Button>
           </div>
         </div>
       </div>
@@ -123,7 +123,7 @@ export default function CartPage() {
   return (
           <div className="min-h-screen bg-gradient-to-b from-purple-50 to-teal-50">
         {/* Header */}
-        <header className="bg-purple-900 border-b border-purple-300/30 sticky top-0 z-50">
+        <header className="bg-purpleBrand border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2 md:space-x-3">
@@ -147,19 +147,19 @@ export default function CartPage() {
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/" className="text-green-400 hover:text-green-300 font-medium text-sm">
                   Home
                 </Link>
-                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/products" className="text-green-400 hover:text-green-300 font-medium text-sm">
                   Products
                 </Link>
-                <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/inventory" className="text-green-400 hover:text-green-300 font-medium text-sm">
                   Inventory
                 </Link>
-                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/about" className="text-green-400 hover:text-green-300 font-medium text-sm">
                   About
                 </Link>
-                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/contact" className="text-green-400 hover:text-green-300 font-medium text-sm">
                   Contact
                 </Link>
               </nav>
@@ -168,16 +168,16 @@ export default function CartPage() {
               <div className="flex md:hidden items-center w-full">
                 {/* Mobile Navigation - Compact */}
                 <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/products" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
                     Shop
                   </Link>
-                  <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/inventory" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
                     Stock
                   </Link>
-                  <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/about" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
                     About
                   </Link>
-                  <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/contact" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
                     Contact
                   </Link>
                 </nav>
@@ -188,7 +188,7 @@ export default function CartPage() {
                   <Button
                     asChild
                     size="sm"
-                    className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+                    className="bg-green-600 hover:bg-green-700 text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
                   >
                     <Link href="/order">Order</Link>
                   </Button>
@@ -201,7 +201,7 @@ export default function CartPage() {
                 <Button
                   asChild
                   size="sm"
-                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="bg-green-600 hover:bg-green-700 text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
                 >
                   <Link href="/order">Order</Link>
                 </Button>

@@ -129,7 +129,7 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-              <header className="bg-purple-900 border-b border-purple-300/30 sticky top-0 z-50">
+              <header className="bg-purpleBrand border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-3">
