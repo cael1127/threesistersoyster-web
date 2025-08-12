@@ -155,27 +155,21 @@ export default function HomePage() {
                   muted
                   loop
                   playsInline
-                  preload="metadata"
+                  preload="none"
                   className="w-full h-full object-cover"
                   style={{ 
                     objectPosition: 'center',
-                    filter: 'brightness(1.1) contrast(1.05)',
-                    willChange: 'transform',
-                    backfaceVisibility: 'hidden',
-                    perspective: '1000px',
-                    transform: 'translateZ(0)'
+                    filter: 'brightness(1.1) contrast(1.05)'
                   }}
-                  ref={(video) => {
-                    if (video) {
-                      video.playbackRate = 1; 
-                      video.setAttribute('webkit-playsinline', 'true');
-                      // Ensure smooth playback
-                      video.style.transform = 'translateZ(0)';
-                      video.style.willChange = 'transform';
-                    }
-                  }}
+                  poster="/homepage-poster.jpg"
+                  onLoadStart={() => console.log('Video loading started')}
+                  onCanPlay={() => console.log('Video can play')}
+                  onError={(e) => console.error('Video error:', e)}
                 >
                   <source src="/homepage.mp4" type="video/mp4" />
+                  <source src="/homepage.webm" type="video/webm" />
+                  {/* Fallback for browsers that don't support video */}
+                  <img src="/homepage-poster.jpg" alt="Three Sisters Oyster Co. Farm" className="w-full h-full object-cover" />
                 </video>
               </div>
             </div>

@@ -24,48 +24,10 @@ export default function SuccessPage() {
         .then(async (data) => {
           setSession(data)
           
-          // Update harvested count using Stripe session data
-          if (data.line_items && data.line_items.length > 0) {
-            console.log('Stripe session items found, updating counts:', data.line_items);
-            
-            // Convert Stripe line items to our format
-            const orderItems = data.line_items.map((item: any) => ({
-              id: item.price?.product || 'unknown',
-              name: item.description || 'Unknown Product',
-              quantity: item.quantity || 0,
-              category: 'oysters', // Assume all products are oysters for now
-              price: (item.amount_total || 0) / 100
-            }));
-            
-            try {
-              const response = await fetch('/api/order-complete', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  items: orderItems,
-                  total_amount: data.amount_total / 100
-                })
-              });
-              
-              const result = await response.json();
-              console.log('Order completion API response:', result);
-              
-              if (result.success) {
-                console.log('Successfully updated harvested count and inventory');
-                // Clear the cart after successful order completion
-                clearCart();
-                // Dispatch event to refresh the harvested counter
-                window.dispatchEvent(new Event('order-complete'));
-              } else {
-                console.error('API returned error:', result.error);
-              }
-            } catch (error) {
-              console.error('Error updating harvested count:', error);
-            }
-          } else {
-            console.log('No Stripe session items found, skipping count update');
+          // Clear the cart after successful order completion
+          if (cartState.items && cartState.items.length > 0) {
+            console.log('Clearing cart after successful order');
+            clearCart();
           }
           
           setLoading(false)
@@ -108,31 +70,31 @@ export default function SuccessPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-white">
+                <h1 className="text-xl font-bold text-mintBrand">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-white">Premium Texas Oysters</p>
+                <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
               </div>
             </div>
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-teal-600 font-medium text-sm">
+                <Link href="/" className="text-mintBrand font-medium text-sm">
                   Home
                 </Link>
-                <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
                   Products
                 </Link>
                 <Link
                   href="/inventory"
-                  className="text-purple-700 hover:text-teal-600 font-medium text-sm"
+                  className="text-mintBrand hover:text-seafoamBrand font-medium text-sm"
                 >
                   Inventory
                 </Link>
-                <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
                   About
                 </Link>
-                <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
                   Contact
                 </Link>
               </nav>
@@ -141,16 +103,16 @@ export default function SuccessPage() {
               <div className="flex md:hidden items-center w-full">
                 {/* Mobile Navigation - Compact */}
                 <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
                     Shop
                   </Link>
-                  <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/inventory" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
                     Stock
                   </Link>
-                  <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
                     About
                   </Link>
-                  <Link href="/contact" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
                     Contact
                   </Link>
                 </nav>
