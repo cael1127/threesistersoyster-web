@@ -2,7 +2,7 @@
 
 export default function TotalHarvestedCounter() {
   // Easy to update number - just change this value when you want to update the counter
-  const totalHarvested = 12500;
+  const totalHarvested = "Coming Soon";
 
   return (
     <div className="text-center">
