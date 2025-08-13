@@ -93,15 +93,15 @@ export default function OriginCrew() {
                   />
                 </div>
                                  {/* Decorative ring */}
-                 <div className="absolute inset-0 rounded-full border-2 border-yellow-300/50 group-hover:border-yellow-300 transition-all duration-300"></div>
+                 <div className="absolute inset-0 rounded-full border-2 border-purpleBrand/50 group-hover:border-purpleBrand transition-all duration-300"></div>
               </div>
 
                              {/* Member Info */}
                <div className="text-center">
-                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-yellow-300 transition-colors duration-300">
+                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-purpleBrand transition-colors duration-300">
                    {member.name}
                  </h3>
-                 <p className="text-lg md:text-xl text-yellow-300 font-semibold mb-4">
+                 <p className="text-lg md:text-xl text-purpleBrand font-semibold mb-4">
                    {member.role}
                  </p>
                  <p className="text-white text-sm md:text-base leading-relaxed">
@@ -110,7 +110,7 @@ export default function OriginCrew() {
                </div>
 
                              {/* Hover effect overlay */}
-               <div className="absolute inset-0 bg-gradient-to-t from-yellow-300/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"></div>
+               <div className="absolute inset-0 bg-gradient-to-t from-purpleBrand/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"></div>
             </div>
           ))}
         </div>
@@ -120,10 +120,9 @@ export default function OriginCrew() {
           <p className="text-lg md:text-xl text-white/80 mb-6">
             Together, we're building the future of sustainable oyster farming in Texas.
           </p>
-                     <div className="inline-flex items-center px-6 py-3 bg-yellow-300/20 backdrop-blur-sm border border-yellow-300/30 text-yellow-300 font-semibold rounded-full hover:bg-yellow-300/30 transition-all duration-300">
-            <span className="mr-2">🌊</span>
-            Proud to be part of the Three Sisters family
-          </div>
+                                <div className="inline-flex items-center px-6 py-3 bg-purpleBrand/20 backdrop-blur-sm border border-purpleBrand/30 text-purpleBrand font-semibold rounded-full hover:bg-purpleBrand/30 transition-all duration-300">
+             Proud to be part of the Three Sisters family
+           </div>
         </div>
       </div>
     </section>
