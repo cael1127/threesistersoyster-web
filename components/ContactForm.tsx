@@ -54,7 +54,7 @@ export default function ContactForm() {
           </div>
           <Button 
             type="submit"
-            className="w-full bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700"
+            className="w-full bg-mintBrand hover:bg-seafoamBrand text-white"
           >
             Send Message
           </Button>

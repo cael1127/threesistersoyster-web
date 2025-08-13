@@ -422,7 +422,7 @@ export default function HomePage() {
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                     ></textarea>
                   </div>
-                  <Button className="w-full bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700">
+                  <Button className="w-full bg-mintBrand hover:bg-seafoamBrand text-white">
                     Send Message
                   </Button>
                 </form>

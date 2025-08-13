@@ -137,8 +137,8 @@ export default function CheckoutPage() {
                 <Waves className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-purple-900">Three Sisters Oyster Co.</h1>
-                <p className="text-sm text-teal-600">Premium Texas Oysters</p>
+                <h1 className="text-xl font-bold text-mintBrand">Three Sisters Oyster Co.</h1>
+                <p className="text-sm text-seafoamBrand">Premium Texas Oysters</p>
               </div>
             </Link>
             <Button asChild variant="outline">

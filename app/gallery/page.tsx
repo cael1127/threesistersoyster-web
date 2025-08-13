@@ -84,10 +84,10 @@ export default function GalleryPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-white">
+                <h1 className="text-xl font-bold text-mintBrand">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-white">Premium Texas Oysters</p>
+                <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">

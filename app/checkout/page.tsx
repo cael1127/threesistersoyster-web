@@ -130,8 +130,8 @@ export default function CheckoutPage() {
                 />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">Three Sisters Oyster Co.</h1>
-                <p className="text-sm text-teal-300">Premium Texas Oysters</p>
+                <h1 className="text-xl font-bold text-mintBrand">Three Sisters Oyster Co.</h1>
+                <p className="text-sm text-seafoamBrand">Premium Texas Oysters</p>
               </div>
             </Link>
             <Button asChild className="bg-green-600 hover:bg-green-700 text-white border-green-600">
