@@ -192,8 +192,15 @@ export default function HomePage() {
             <Card id="nursery" className="border-teal-300/30 bg-gradient-to-b from-teal-900/40 to-blue-900/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-6 md:p-8">
                 <div className="flex items-center mb-4 md:mb-6">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-b from-teal-500 to-blue-600 rounded-full flex items-center justify-center mr-3 md:mr-4">
-                    <Leaf className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center mr-3 md:mr-4">
+                    <Image
+                      src="/nurserylog.JPEG"
+                      alt="Three Sisters Oyster Nursery"
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
+                      quality={90}
+                    />
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-white">Oyster Nursery</h3>
                 </div>
@@ -228,8 +235,15 @@ export default function HomePage() {
             <Card id="farm" className="border-purple-300/30 bg-gradient-to-b from-purple-900/40 to-blue-900/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-6 md:p-8">
                 <div className="flex items-center mb-4 md:mb-6">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-b from-purple-500 to-blue-600 rounded-full flex items-center justify-center mr-3 md:mr-4">
-                    <Fish className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center mr-3 md:mr-4">
+                    <Image
+                      src="/farmlog.jpg"
+                      alt="Three Sisters Oyster Farm"
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
+                      quality={90}
+                    />
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-white">Oyster Farm</h3>
                 </div>
