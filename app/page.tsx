@@ -167,12 +167,11 @@ export default function HomePage() {
                     objectPosition: 'center',
                     filter: 'brightness(1.1) contrast(1.05)'
                   }}
-                  poster="/homepage-poster.jpg"
+                  poster="/topFarm.JPG"
                 >
-                  <source src="/homepage.mp4" type="video/mp4" />
-                  <source src="/homepage.webm" type="video/webm" />
+                  <source src="/homepage.MP4" type="video/mp4" />
                   {/* Fallback for browsers that don't support video */}
-                  <img src="/homepage-poster.jpg" alt="Three Sisters Oyster Co. Farm" className="w-full h-full object-cover" />
+                  <img src="/topFarm.JPG" alt="Three Sisters Oyster Co. Farm" className="w-full h-full object-cover" />
                 </video>
               </div>
             </div>
