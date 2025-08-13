@@ -114,7 +114,7 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purple-900/20 via-blue-800/20 to-teal-800/20">
+      <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purple-900/20 via-blue-800/20 to-teal-800/20">
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left Side - Text Content */}
