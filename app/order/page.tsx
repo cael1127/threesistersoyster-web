@@ -80,7 +80,7 @@ export default function OrderPage() {
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <ShoppingCart className="w-8 h-8 text-green-600" />
             </div>
-            <h2 className="text-2xl font-bold text-purple-900 mb-4">Order Submitted!</h2>
+            <h2 className="text-2xl font-bold text-purple-900 mb-4 text-center">Order Submitted!</h2>
             <p className="text-gray-600 mb-6">
               Thank you for your order. We'll contact you soon to confirm details and arrange delivery.
             </p>
@@ -115,7 +115,7 @@ export default function OrderPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-mintBrand">
+                <h1 className="text-xl font-bold text-mintBrand text-center">
                   Three Sisters Oyster Co.
                 </h1>
                 <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
@@ -199,7 +199,7 @@ export default function OrderPage() {
 
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-purple-900 mb-4">Place Your Order</h1>
+          <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">Place Your Order</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Contact us directly to place your order for premium oysters
           </p>
@@ -208,11 +208,11 @@ export default function OrderPage() {
         <div className="max-w-2xl mx-auto">
           <Card className="border-purple-200">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-purple-900 mb-6">Order Information</h2>
+              <h2 className="text-2xl font-bold text-purple-900 mb-6 text-center">Order Information</h2>
 
               <div className="space-y-6">
                 <div className="bg-gradient-to-r from-purple-100 to-teal-100 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-purple-900 mb-4">Contact Information</h3>
+                  <h3 className="text-lg font-semibold text-purple-900 mb-4 text-center">Contact Information</h3>
                   <div className="space-y-4">
                     <div className="flex items-center">
                       <span className="font-medium text-purple-700 w-20">Phone:</span>
@@ -230,15 +230,15 @@ export default function OrderPage() {
                 </div>
 
                 <div className="bg-white border border-purple-200 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-purple-900 mb-4">Order Types</h3>
+                  <h3 className="text-lg font-semibold text-purple-900 mb-4 text-center">Order Types</h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="p-4 border border-teal-200 rounded-lg">
-                      <h4 className="font-semibold text-teal-800 mb-2">Nursery Orders</h4>
+                      <h4 className="font-semibold text-teal-800 mb-2 text-center">Nursery Orders</h4>
                       <p className="text-sm text-gray-600 mb-3">Hardy Gulf Coast oyster seed for growers</p>
                       <Badge className="bg-teal-100 text-teal-800">Seed Stock</Badge>
                     </div>
                     <div className="p-4 border border-purple-200 rounded-lg">
-                      <h4 className="font-semibold text-purple-800 mb-2">Farm Orders</h4>
+                      <h4 className="font-semibold text-purple-800 mb-2 text-center">Farm Orders</h4>
                       <p className="text-sm text-gray-600 mb-3">Premium half-shell oysters ready for market</p>
                       <Badge className="bg-purple-100 text-purple-800">Market Ready</Badge>
                     </div>

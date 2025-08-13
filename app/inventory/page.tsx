@@ -108,7 +108,7 @@ export default function InventoryPage() {
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
               <div className="flex items-center space-x-2 mb-2">
-                <h3 className="text-xl font-bold text-purple-900 group-hover:text-purple-700 transition-colors">
+                <h3 className="text-xl font-bold text-purple-900 group-hover:text-purple-700 transition-colors text-center">
                   {item.name}
                 </h3>
                 {item.harvestReady && (
@@ -239,7 +239,7 @@ export default function InventoryPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-mintBrand">
+                <h1 className="text-xl font-bold text-mintBrand text-center">
                   Three Sisters Oyster Co.
                 </h1>
                 <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
@@ -321,7 +321,7 @@ export default function InventoryPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <div className="mb-4">
-            <h1 className="text-2xl md:text-4xl font-bold text-purple-900 px-2">Live Inventory Dashboard</h1>
+            <h1 className="text-2xl md:text-4xl font-bold text-purple-900 px-2 text-center">Live Inventory Dashboard</h1>
           </div>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Real-time tracking of our farm and nursery operations in Keller Bay
@@ -349,7 +349,7 @@ export default function InventoryPage() {
             <div className="mb-6">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-purple-900">Farm Operations</h2>
+                  <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Farm Operations</h2>
                   <p className="text-gray-600 mt-1 text-sm md:text-base">
                     {processedFarmInventory.filter((item) => item.harvestReady).length > 0 ? (
                       <span className="text-green-600 font-medium">
@@ -389,7 +389,7 @@ export default function InventoryPage() {
             <div className="mb-6">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-purple-900">Nursery Operations</h2>
+                  <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Nursery Operations</h2>
                   <p className="text-gray-600 mt-1 text-sm md:text-base">
                     {processedNurseryInventory.filter((item) => item.harvestReady).length > 0 ? (
                       <span className="text-green-600 font-medium">
@@ -435,7 +435,7 @@ export default function InventoryPage() {
         <div className="mt-16 text-center">
           <Card className="border-purple-200 bg-gradient-to-r from-purple-100 to-teal-100">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-purple-900 mb-4">Ready to Order?</h3>
+              <h3 className="text-2xl font-bold text-purple-900 mb-4 text-center">Ready to Order?</h3>
               <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
                 Contact us directly for custom orders, bulk pricing, or to discuss your specific aquaculture needs.
               </p>

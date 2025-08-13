@@ -137,7 +137,7 @@ export default function CheckoutPage() {
                 <Waves className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-mintBrand">Three Sisters Oyster Co.</h1>
+                <h1 className="text-xl font-bold text-mintBrand text-center">Three Sisters Oyster Co.</h1>
                 <p className="text-sm text-seafoamBrand">Premium Texas Oysters</p>
               </div>
             </Link>
@@ -176,7 +176,7 @@ export default function CheckoutPage() {
             <div className="flex flex-col justify-center">
               <div className="mb-6">
                 <Badge className="bg-teal-100 text-teal-800 hover:bg-teal-200 mb-4">{product.category}</Badge>
-                <h1 className="text-4xl font-bold text-purple-900 mb-4">{product.name}</h1>
+                <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">{product.name}</h1>
                 {originalDescription && <p className="text-gray-600 text-lg mb-4">{originalDescription}</p>}
                 {inventory > 0 && <p className="text-green-600 font-medium mb-4">{inventory} available in stock</p>}
               </div>

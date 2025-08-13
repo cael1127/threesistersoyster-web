@@ -86,7 +86,7 @@ export default function ProductsPage() {
           </div>
           <div className="p-6">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xl font-bold text-purple-900">{product.name}</h3>
+              <h3 className="text-xl font-bold text-purple-900 text-center">{product.name}</h3>
               <Badge className="bg-teal-100 text-teal-800 hover:bg-teal-200">{product.category}</Badge>
             </div>
 
@@ -133,7 +133,7 @@ export default function ProductsPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-mintBrand">
+                <h1 className="text-xl font-bold text-mintBrand text-center">
                   Three Sisters Oyster Co.
                 </h1>
                 <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
@@ -218,7 +218,7 @@ export default function ProductsPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <div className="mb-4">
-            <h1 className="text-4xl font-bold text-purple-900 px-2">Our Products</h1>
+            <h1 className="text-4xl font-bold text-purple-900 px-2 text-center">Our Products</h1>
           </div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Premium oysters and aquaculture products from the pristine waters of Keller Bay
@@ -247,14 +247,12 @@ export default function ProductsPage() {
 
             <TabsContent value="oysters">
               <div className="mb-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-2xl font-bold text-purple-900">Fresh Oysters & Related Products</h2>
-                    <p className="text-gray-600 mt-1">
-                      Premium half-shell oysters, hardy seed stock, and oyster-themed merchandise from our Keller Bay
-                      operations
-                    </p>
-                  </div>
+                <div className="text-center">
+                  <h2 className="text-2xl font-bold text-purple-900 text-center">Fresh Oysters & Related Products</h2>
+                  <p className="text-gray-600 mt-1">
+                    Premium half-shell oysters, hardy seed stock, and oyster-themed merchandise from our Keller Bay
+                    operations
+                  </p>
                 </div>
               </div>
 
@@ -283,7 +281,7 @@ export default function ProductsPage() {
               <div className="mb-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-2xl font-bold text-purple-900">Three Sisters Merchandise</h2>
+                    <h2 className="text-2xl font-bold text-purple-900 text-center">Three Sisters Merchandise</h2>
                     <p className="text-gray-600 mt-1">
                       Show your support for sustainable aquaculture with our branded merchandise
                     </p>
@@ -312,7 +310,7 @@ export default function ProductsPage() {
         <div className="mt-16 text-center">
           <Card className="border-purple-200 bg-gradient-to-r from-purple-100 to-teal-100">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-purple-900 mb-4">Need Custom Orders?</h3>
+              <h3 className="text-2xl font-bold text-purple-900 mb-4 text-center">Need Custom Orders?</h3>
               <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
                 Looking for bulk oyster orders, custom merchandise, or have specific aquaculture needs? Contact us
                 directly for personalized service.

@@ -70,7 +70,7 @@ export default function SuccessPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-mintBrand">
+                <h1 className="text-xl font-bold text-mintBrand text-center">
                   Three Sisters Oyster Co.
                 </h1>
                 <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
@@ -136,7 +136,7 @@ export default function SuccessPage() {
                 <CheckCircle className="w-10 h-10 text-green-600" />
               </div>
 
-              <h1 className="text-3xl font-bold text-white mb-4">Order Confirmed!</h1>
+              <h1 className="text-3xl font-bold text-white mb-4 text-center">Order Confirmed!</h1>
 
               <p className="text-white mb-6">
                 Thank you for your order! Your payment has been processed successfully and we'll begin preparing your
@@ -145,7 +145,7 @@ export default function SuccessPage() {
 
               {session && (
                 <div className="bg-white p-6 rounded-lg border border-green-200 mb-6">
-                  <h3 className="font-semibold text-purple-900 mb-4 flex items-center justify-center">
+                  <h3 className="font-semibold text-purple-900 mb-4 flex items-center justify-center text-center">
                     <Package className="w-5 h-5 mr-2" />
                     Order Details
                   </h3>
@@ -167,7 +167,7 @@ export default function SuccessPage() {
               )}
 
               <div className="bg-gradient-to-r from-purple-100 to-teal-100 p-6 rounded-lg mb-6">
-                <h3 className="font-semibold text-purple-900 mb-3">What happens next?</h3>
+                <h3 className="font-semibold text-purple-900 mb-3 text-center">What happens next?</h3>
                 <ul className="text-sm text-gray-700 space-y-2 text-left">
                   <li className="flex items-start">
                     <span className="text-green-500 mr-2">✓</span>

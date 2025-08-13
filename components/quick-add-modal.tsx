@@ -86,7 +86,7 @@ export function QuickAddModal({ product, trigger }: QuickAddModalProps) {
               )}
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-purple-900">{product.name}</h3>
+              <h3 className="font-semibold text-purple-900 text-center">{product.name}</h3>
               <Badge className="bg-teal-100 text-teal-800 text-xs">{product.category}</Badge>
               <p className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600 mt-1">
                 ${product.price.toFixed(2)} each

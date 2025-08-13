@@ -84,7 +84,7 @@ export default function GalleryPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-mintBrand">
+                <h1 className="text-xl font-bold text-mintBrand text-center">
                   Three Sisters Oyster Co.
                 </h1>
                 <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
@@ -146,9 +146,7 @@ export default function GalleryPage() {
         <div className="container mx-auto max-w-7xl">
                      {/* Hero Section */}
            <div className="text-center mb-16">
-             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-               Kathryn's Photo Bomb
-             </h1>
+             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight text-center">Kathryn's Photo Bomb</h1>
             <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
               A visual journey through our oyster farm, capturing the beauty of nature, 
               the hard work of our team, and the magic of sustainable aquaculture.
@@ -201,7 +199,7 @@ export default function GalleryPage() {
                      )}
                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                       <h3 className="text-lg font-semibold mb-1">{item.title}</h3>
+                       <h3 className="text-lg font-semibold mb-1 text-center">{item.title}</h3>
                        <p className="text-sm text-white/90">{item.description}</p>
                        <Badge className="mt-2 bg-mintBrand/80 text-white border-0">
                          {item.category}
@@ -215,7 +213,7 @@ export default function GalleryPage() {
 
           {/* Call to Action */}
           <div className="text-center mt-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 text-center">
               Want to See More?
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">

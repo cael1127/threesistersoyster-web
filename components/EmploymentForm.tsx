@@ -37,7 +37,7 @@ About: ${about}`
     <Card className="border-purple-200 max-w-4xl mx-auto">
       <CardContent className="p-8">
         <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold text-purple-900 mb-4">Apply Now</h3>
+          <h3 className="text-2xl font-bold text-purple-900 mb-4 text-center">Apply Now</h3>
           <p className="text-gray-600">
             Interested in joining our team? Fill out the application below and we'll get back to you soon.
           </p>

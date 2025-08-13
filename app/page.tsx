@@ -31,7 +31,7 @@ export default function HomePage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-mintBrand">
+                <h1 className="text-xl font-bold text-mintBrand text-center">
                   Three Sisters Oyster Co.
                 </h1>
                 <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
@@ -118,8 +118,8 @@ export default function HomePage() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left Side - Text Content */}
-            <div className="text-left">
-              <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6 leading-[1.4]">
+            <div className="text-center lg:text-left">
+              <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6 leading-[1.4] text-center">
                 Three Sisters
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-blue-300 pb-2">
                   Oyster Co.
@@ -139,14 +139,14 @@ export default function HomePage() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white min-h-[48px] text-base shadow-lg"
+                  className="bg-mintBrand hover:bg-seafoamBrand text-white min-h-[48px] text-base shadow-lg"
                 >
                   <Link href="/products">Shop Fresh Oysters</Link>
                 </Button>
                 <Button
                   asChild
                   size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white min-h-[48px] text-base shadow-lg"
+                  className="bg-mintBrand hover:bg-seafoamBrand text-white min-h-[48px] text-base shadow-lg"
                 >
                   <Link href="/about">Learn Our Story</Link>
                 </Button>
@@ -184,7 +184,7 @@ export default function HomePage() {
       <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purple-900/20 via-blue-800/20 to-teal-800/20">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 md:mb-4 px-2">Our Operations</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 md:mb-4 px-2 text-center">Our Operations</h2>
             <p className="text-base sm:text-lg md:text-xl text-white max-w-2xl mx-auto leading-relaxed px-4">
               From nursery to market, we provide premium oyster solutions for growers and consumers alike.
             </p>
@@ -205,7 +205,7 @@ export default function HomePage() {
                       quality={90}
                     />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white">Oyster Nursery</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-white text-center">Oyster Nursery</h3>
                 </div>
                 <p className="text-sm md:text-base text-white mb-4 md:mb-6 leading-relaxed">
                   Three Sisters Nursery offers customers hardy oyster seed to meet
@@ -248,7 +248,7 @@ export default function HomePage() {
                       quality={90}
                     />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white">Oyster Farm</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-white text-center">Oyster Farm</h3>
                 </div>
                 <p className="text-sm md:text-base text-white mb-4 md:mb-6 leading-relaxed">
                   We grow oysters to market size for the premium half-shell market while providing essential habitat for
@@ -278,8 +278,8 @@ export default function HomePage() {
       <section id="about" className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-900/20 to-purple-900/20">
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6 leading-tight px-2">Named After Blake's Three Daughters</h2>
+            <div className="text-center lg:text-left">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6 leading-tight px-2 text-center">Named After Blake's Three Daughters</h2>
               <p className="text-sm md:text-base text-white mb-4 md:mb-6 leading-relaxed px-2">
                 Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
                 daughters, our team strives to create a better coastline for the future.
@@ -315,7 +315,7 @@ export default function HomePage() {
       {/* Environmental Impact */}
       <section className="py-20 px-4 bg-gradient-to-b from-purple-900/40 via-blue-800/40 to-teal-800/40">
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">Environmental Stewardship</h2>
+          <h2 className="text-4xl font-bold text-white mb-6 text-center">Environmental Stewardship</h2>
           <p className="text-xl text-white mb-12 max-w-3xl mx-auto">
             We take pride in creating the best oysters while helping the environment, improving water quality and
             sequestering nitrogen and carbon.
@@ -326,21 +326,21 @@ export default function HomePage() {
               <div className="w-16 h-16 bg-gradient-to-b from-purple-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Waves className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Water Quality</h3>
+              <h3 className="text-xl font-bold text-white mb-2 text-center">Water Quality</h3>
               <p className="text-white">Improving coastal water quality through natural filtration</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-b from-teal-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Leaf className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Carbon Sequestration</h3>
+              <h3 className="text-xl font-bold text-white mb-2 text-center">Carbon Sequestration</h3>
               <p className="text-white">Capturing and storing carbon to combat climate change</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-b from-blue-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Fish className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Marine Habitat</h3>
+              <h3 className="text-xl font-bold text-white mb-2 text-center">Marine Habitat</h3>
               <p className="text-white">Creating habitat for fish and marine life</p>
             </div>
           </div>
@@ -351,13 +351,13 @@ export default function HomePage() {
       <section id="contact" className="py-20 px-4 bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-purpleBrand mb-4">Get In Touch</h2>
+            <h2 className="text-4xl font-bold text-purpleBrand mb-4 text-center">Get In Touch</h2>
             <p className="text-xl text-gray-700">Ready to order premium oysters or learn more about our operations?</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-2xl font-bold text-purpleBrand mb-6">Contact Information</h3>
+              <h3 className="text-2xl font-bold text-purpleBrand mb-6 text-center">Contact Information</h3>
               <div className="space-y-4">
                 <a
                   href="tel:713-854-7427"
@@ -385,7 +385,7 @@ export default function HomePage() {
               </div>
 
               <div className="mt-8">
-                <h4 className="text-lg font-semibold text-purpleBrand mb-4">Follow Us</h4>
+                <h4 className="text-lg font-semibold text-purpleBrand mb-4 text-center">Follow Us</h4>
                 <a
                   href="https://instagram.com/threesistersoysterco"
                   target="_blank"
@@ -399,7 +399,7 @@ export default function HomePage() {
 
             <Card className="border-purple-200">
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-purpleBrand mb-6">Send Us a Message</h3>
+                <h3 className="text-2xl font-bold text-purpleBrand mb-6 text-center">Send Us a Message</h3>
                 <form className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
@@ -449,7 +449,7 @@ export default function HomePage() {
                   />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold">Three Sisters Oyster Co.</h3>
+                  <h3 className="text-lg font-bold text-center">Three Sisters Oyster Co.</h3>
                   <p className="text-purple-300 text-sm">Premium Texas Oysters</p>
                 </div>
               </div>
@@ -459,7 +459,7 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
+              <h4 className="font-semibold mb-4 text-center">Quick Links</h4>
               <ul className="space-y-2 text-purple-200">
                 <li>
                   <Link href="#home" className="hover:text-white">
@@ -485,7 +485,7 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Contact</h4>
+              <h4 className="font-semibold mb-4 text-center">Contact</h4>
               <ul className="space-y-2 text-purple-200 text-sm">
                 <li>
                   <a href="tel:713-854-7427" className="hover:text-white transition-colors duration-200">

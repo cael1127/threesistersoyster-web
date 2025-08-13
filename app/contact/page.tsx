@@ -26,7 +26,7 @@ export default function ContactPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-mintBrand">
+                <h1 className="text-xl font-bold text-mintBrand text-center">
                   Three Sisters Oyster Co.
                 </h1>
                 <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
@@ -108,7 +108,7 @@ export default function ContactPage() {
 
 
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 px-2">Get In Touch</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 px-2 text-center">Get In Touch</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Ready to order premium oysters or learn more about our operations? Reach out to us below.
           </p>
@@ -116,7 +116,7 @@ export default function ContactPage() {
 
         <div className="grid lg:grid-cols-2 gap-12">
           <div>
-            <h3 className="text-2xl font-bold text-purple-900 mb-6">Contact Information</h3>
+            <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Contact Information</h3>
             <div className="space-y-4">
               <a
                 href="tel:713-854-7427"
@@ -143,7 +143,7 @@ export default function ContactPage() {
               </a>
             </div>
             <div className="mt-8">
-              <h4 className="text-lg font-semibold text-purple-900 mb-4">Follow Us</h4>
+              <h4 className="text-lg font-semibold text-purple-900 mb-4 text-center">Follow Us</h4>
               <a
                 href="https://instagram.com/threesistersoysterco"
                 target="_blank"
@@ -165,7 +165,7 @@ export default function ContactPage() {
               <Users className="w-4 h-4 mr-2" />
               Join Our Team
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-6">Employment Opportunities</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-6 text-center">Employment Opportunities</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto px-4">
               Join our growing team and be part of sustainable aquaculture in the beautiful Texas Gulf Coast
             </p>
@@ -179,7 +179,7 @@ export default function ContactPage() {
                   <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-teal-500 rounded-full flex items-center justify-center mr-4">
                     <Heart className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-purple-900">Why Work With Us</h3>
+                  <h3 className="text-xl font-bold text-purple-900 text-center">Why Work With Us</h3>
                 </div>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">
@@ -209,11 +209,11 @@ export default function ContactPage() {
                   <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-blue-500 rounded-full flex items-center justify-center mr-4">
                     <Briefcase className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-teal-900">Current Positions</h3>
+                  <h3 className="text-xl font-bold text-teal-900 text-center">Current Positions</h3>
                 </div>
                 <div className="space-y-4">
                   <div className="p-3 bg-white rounded-lg border border-teal-200">
-                    <h4 className="font-semibold text-teal-800 mb-1">Farm Hand</h4>
+                    <h4 className="font-semibold text-teal-800 mb-1 text-center">Farm Hand</h4>
                     <p className="text-sm text-gray-600">Full-time position working on oyster farm operations</p>
                     <Badge className="mt-2 bg-teal-100 text-teal-800">Full-time</Badge>
                   </div>
@@ -228,7 +228,7 @@ export default function ContactPage() {
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mr-4">
                     <Leaf className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-blue-900">Requirements</h3>
+                  <h3 className="text-xl font-bold text-blue-900 text-center">Requirements</h3>
                 </div>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">

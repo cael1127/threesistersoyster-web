@@ -31,7 +31,7 @@ export default function CartPage() {
                   />
                 </div>
                 <div className="hidden md:block">
-                  <h1 className="text-xl font-bold text-mintBrand">
+                  <h1 className="text-xl font-bold text-mintBrand text-center">
                     Three Sisters Oyster Co.
                   </h1>
                   <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
@@ -115,7 +115,7 @@ export default function CartPage() {
             <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Waves className="w-12 h-12 text-gray-400" />
             </div>
-            <h1 className="text-3xl font-bold text-purple-900 mb-4">Your Cart is Empty</h1>
+            <h1 className="text-3xl font-bold text-purple-900 mb-4 text-center">Your Cart is Empty</h1>
             <p className="text-gray-600 mb-8">Add some premium oysters to get started!</p>
                           <Button asChild className="bg-green-600 hover:bg-green-700">
                 <Link href="/products">Shop Products</Link>
@@ -144,10 +144,10 @@ export default function CartPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-[#3a2a4d]">
+                <h1 className="text-xl font-bold text-mintBrand text-center">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-[#3a2a4d]">Premium Texas Oysters</p>
+                <p className="text-xs text-mintBrand">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">
@@ -226,7 +226,7 @@ export default function CartPage() {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-8">
-            <h1 className="text-3xl font-bold text-purple-900">Shopping Cart</h1>
+            <h1 className="text-3xl font-bold text-purple-900 text-center">Shopping Cart</h1>
             <Button
               onClick={clearCart}
               variant="outline"
@@ -265,7 +265,7 @@ export default function CartPage() {
                       <div className="flex-1">
                         <div className="flex items-start justify-between">
                           <div>
-                            <h3 className="font-semibold text-purple-900">{item.name}</h3>
+                            <h3 className="font-semibold text-purple-900 text-center">{item.name}</h3>
                             <Badge className="bg-teal-100 text-teal-800 text-xs mt-1">{item.category}</Badge>
                             <p className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600 mt-2">
                               ${item.price.toFixed(2)}
@@ -316,7 +316,7 @@ export default function CartPage() {
             <div className="lg:col-span-1">
               <Card className="border-purple-200 sticky top-24">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-purple-900 mb-4">Order Summary</h2>
+                  <h2 className="text-xl font-bold text-purple-900 mb-4 text-center">Order Summary</h2>
 
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between text-sm">

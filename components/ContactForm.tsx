@@ -22,7 +22,7 @@ export default function ContactForm() {
   return (
     <Card className="border-purple-200">
       <CardContent className="p-8">
-        <h3 className="text-2xl font-bold text-white mb-6">Send Us a Message</h3>
+        <h3 className="text-2xl font-bold text-white mb-6 text-center">Send Us a Message</h3>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="block text-sm font-medium text-white mb-2">Name</label>

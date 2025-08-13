@@ -43,7 +43,7 @@ export default function CheckoutPage() {
               <Waves className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">Three Sisters Oyster Co.</h1>
+              <h1 className="text-xl font-bold text-white text-center">Three Sisters Oyster Co.</h1>
               <p className="text-sm text-teal-300">Premium Texas Oysters</p>
             </div>
           </Link>
@@ -61,7 +61,7 @@ export default function CheckoutPage() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <h1 className="text-3xl font-bold text-white mb-4">Your Cart is Empty</h1>
+            <h1 className="text-3xl font-bold text-white mb-4 text-center">Your Cart is Empty</h1>
             <p className="text-white mb-8">Add some premium oysters to get started!</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild className="bg-green-600 hover:bg-green-700">
@@ -130,7 +130,7 @@ export default function CheckoutPage() {
                 />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-mintBrand">Three Sisters Oyster Co.</h1>
+                <h1 className="text-xl font-bold text-mintBrand text-center">Three Sisters Oyster Co.</h1>
                 <p className="text-sm text-seafoamBrand">Premium Texas Oysters</p>
               </div>
             </Link>
@@ -153,7 +153,7 @@ export default function CheckoutPage() {
             <div className="space-y-6">
               <Card className="border-purple-200">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-purple-900 mb-4">Order Summary</h2>
+                  <h2 className="text-xl font-bold text-purple-900 mb-4 text-center">Order Summary</h2>
 
                   <div className="space-y-4 mb-6">
                     {state.items.map((item) => (
@@ -176,7 +176,7 @@ export default function CheckoutPage() {
                         </div>
 
                         <div className="flex-1">
-                          <h3 className="font-medium text-purple-900">{item.name}</h3>
+                          <h3 className="font-medium text-purple-900 text-center">{item.name}</h3>
                           <Badge className="bg-teal-100 text-teal-800 text-xs">{item.category}</Badge>
                           <div className="flex items-center justify-between mt-2">
                             <span className="text-sm text-gray-600">
@@ -213,7 +213,7 @@ export default function CheckoutPage() {
               {/* Contact Info */}
               <Card className="border-purple-200">
                 <CardContent className="p-6">
-                  <h3 className="text-lg font-bold text-purple-900 mb-4">Need Help?</h3>
+                  <h3 className="text-lg font-bold text-purple-900 mb-4 text-center">Need Help?</h3>
                   <div className="space-y-2 text-sm">
                     <p className="flex items-center text-gray-600">
                       <span className="font-medium mr-2">Phone:</span>
@@ -236,13 +236,13 @@ export default function CheckoutPage() {
             <div className="space-y-6">
               <Card className="border-purple-200">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-purple-900 mb-6">Payment Information</h2>
+                  <h2 className="text-xl font-bold text-purple-900 mb-6 text-center">Payment Information</h2>
 
                   <div className="space-y-4 mb-6">
                     <div className="bg-gradient-to-r from-purple-100 to-teal-100 p-4 rounded-lg">
                       <div className="flex items-center mb-2">
                         <Shield className="w-5 h-5 text-purple-600 mr-2" />
-                        <h3 className="font-semibold text-purple-900">Secure Checkout</h3>
+                        <h3 className="font-semibold text-purple-900 text-center">Secure Checkout</h3>
                       </div>
                       <p className="text-sm text-gray-700">
                         Your payment will be processed securely through Stripe. We accept all major credit cards and
@@ -264,7 +264,7 @@ export default function CheckoutPage() {
                     </div>
 
                     <div className="bg-white border border-purple-200 p-4 rounded-lg">
-                      <h3 className="font-semibold text-purple-900 mb-2">What happens next?</h3>
+                      <h3 className="font-semibold text-purple-900 mb-2 text-center">What happens next?</h3>
                       <ul className="text-sm text-gray-600 space-y-1">
                         <li>• You'll be redirected to Stripe's secure payment page</li>
                         <li>• Complete your payment and shipping information</li>
@@ -302,7 +302,7 @@ export default function CheckoutPage() {
               {/* Alternative Contact */}
               <Card className="border-amber-200 bg-amber-50">
                 <CardContent className="p-6">
-                  <h3 className="text-lg font-bold text-amber-800 mb-2">Prefer to Order by Phone?</h3>
+                  <h3 className="text-lg font-bold text-amber-800 mb-2 text-center">Prefer to Order by Phone?</h3>
                   <p className="text-sm text-amber-700 mb-4">
                     Call us directly to place your order and arrange payment over the phone.
                   </p>
