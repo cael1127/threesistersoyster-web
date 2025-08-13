@@ -279,13 +279,11 @@ export default function ProductsPage() {
 
             <TabsContent value="merchandise">
               <div className="mb-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-2xl font-bold text-purple-900 text-center">Three Sisters Merchandise</h2>
-                    <p className="text-gray-600 mt-1">
-                      Show your support for sustainable aquaculture with our branded merchandise
-                    </p>
-                  </div>
+                <div className="text-center">
+                  <h2 className="text-2xl font-bold text-purple-900 text-center">Three Sisters Merchandise</h2>
+                  <p className="text-gray-600 mt-1">
+                    Show your support for sustainable aquaculture with our branded merchandise
+                  </p>
                 </div>
               </div>
 

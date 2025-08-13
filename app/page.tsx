@@ -135,7 +135,7 @@ export default function HomePage() {
                 <TotalHarvestedCounter />
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
                 <Button
                   asChild
                   size="lg"
