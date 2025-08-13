@@ -187,13 +187,11 @@ export default function GalleryPage() {
                        <video
                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                          controls
-                         preload="none"
-                         poster="/placeholder.jpg"
+                         poster="/topFarm.JPG"
                          muted
                          playsInline
                        >
                          <source src={item.src} type="video/mp4" />
-                         <source src={item.src.replace('.MP4', '.webm')} type="video/webm" />
                          Your browser does not support the video tag.
                        </video>
                      )}
