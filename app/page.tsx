@@ -161,16 +161,17 @@ export default function HomePage() {
                   muted
                   loop
                   playsInline
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover bg-black"
                   style={{ 
                     objectPosition: 'center',
                     filter: 'brightness(1.1) contrast(1.05)'
                   }}
-                  poster="/topFarm.JPG"
                 >
                   <source src="/homepage.MP4" type="video/mp4" />
                   {/* Fallback for browsers that don't support video */}
-                  <img src="/topFarm.JPG" alt="Three Sisters Oyster Co. Farm" className="w-full h-full object-cover" />
+                  <div className="w-full h-full bg-black flex items-center justify-center">
+                    <span className="text-white text-lg">Video loading...</span>
+                  </div>
                 </video>
               </div>
             </div>
