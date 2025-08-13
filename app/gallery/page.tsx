@@ -12,7 +12,7 @@ export default function GalleryPage() {
       id: 1,
       type: 'image',
       src: '/topFarm.JPG',
-      alt: 'Sample Photo 1',
+      alt: 'Coastside Oyster Farm',
       title: 'Coastside Oyster Farm',
       description: 'Beautiful view of the oyster farm',
       category: 'Nature'
@@ -20,17 +20,17 @@ export default function GalleryPage() {
     {
       id: 2,
       type: 'image',
-      src: '/placeholder.jpg',
-      alt: 'Sample Photo 2',
-      title: 'Harvest Time',
-      description: 'Fresh oysters ready for harvest',
+      src: '/farmlog.jpg',
+      alt: 'Farm Operations',
+      title: 'Farm Operations',
+      description: 'Daily operations at the oyster farm',
       category: 'Harvest'
     },
     {
       id: 3,
       type: 'video',
       src: '/homepage.MP4',
-      alt: 'Sample Video 1',
+      alt: 'Farm Tour Video',
       title: 'Farm Tour',
       description: 'Take a tour of our oyster farm',
       category: 'Tour'
@@ -38,28 +38,28 @@ export default function GalleryPage() {
     {
       id: 4,
       type: 'image',
-      src: '/placeholder.jpg',
-      alt: 'Sample Photo 3',
-      title: 'Team at Work',
-      description: 'Our dedicated team working hard',
+      src: '/nurserylog.JPEG',
+      alt: 'Nursery Operations',
+      title: 'Nursery Operations',
+      description: 'Our oyster nursery in action',
       category: 'Team'
     },
     {
       id: 5,
       type: 'image',
-      src: '/placeholder.jpg',
-      alt: 'Sample Photo 4',
-      title: 'Water Quality',
-      description: 'Crystal clear waters of Keller Bay',
+      src: '/aboutpic.jpg',
+      alt: 'Family at Farm',
+      title: 'Family at Farm',
+      description: 'Blake and family at the oyster farm',
       category: 'Nature'
     },
     {
       id: 6,
-      type: 'video',
-      src: '/homepage.MP4',
-      alt: 'Sample Video 2',
-      title: 'Oyster Processing',
-      description: 'See how we process our oysters',
+      type: 'image',
+      src: '/logo.jpg',
+      alt: 'Three Sisters Logo',
+      title: 'Three Sisters Brand',
+      description: 'Our company logo and branding',
       category: 'Process'
     }
   ];
@@ -144,14 +144,11 @@ export default function GalleryPage() {
       {/* Main Content */}
       <main className="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-7xl">
-          {/* Hero Section */}
-          <div className="text-center mb-16">
-            <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-mintBrand/20 to-seafoamBrand/20 text-white border border-mintBrand/30 hover:from-mintBrand/30 hover:to-seafoamBrand/30 text-sm md:text-base backdrop-blur-sm">
-              Kathryn's Photo Bomb
-            </Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Kathryn's Photo Bomb
-            </h1>
+                     {/* Hero Section */}
+           <div className="text-center mb-16">
+             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+               Kathryn's Photo Bomb
+             </h1>
             <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
               A visual journey through our oyster farm, capturing the beauty of nature, 
               the hard work of our team, and the magic of sustainable aquaculture.
@@ -170,43 +167,55 @@ export default function GalleryPage() {
             ))}
           </div>
 
-          {/* Gallery Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {galleryItems.map((item) => (
-              <Card key={item.id} className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 overflow-hidden group">
-                <CardContent className="p-0">
-                  <div className="relative aspect-square overflow-hidden">
-                    {item.type === 'image' ? (
-                      <Image
-                        src={item.src}
-                        alt={item.alt}
-                        width={400}
-                        height={400}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        quality={90}
-                      />
-                    ) : (
-                      <video
-                        src={item.src}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        controls
-                        preload="none"
-                        poster="/placeholder.jpg"
-                      />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                      <h3 className="text-lg font-semibold mb-1">{item.title}</h3>
-                      <p className="text-sm text-white/90">{item.description}</p>
-                      <Badge className="mt-2 bg-mintBrand/80 text-white border-0">
-                        {item.category}
-                      </Badge>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                     {/* Gallery Grid */}
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+             {galleryItems.map((item) => (
+               <Card key={item.id} className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 overflow-hidden group">
+                 <CardContent className="p-0">
+                   <div className="relative aspect-square overflow-hidden">
+                     {item.type === 'image' ? (
+                       <Image
+                         src={item.src}
+                         alt={item.alt}
+                         width={400}
+                         height={400}
+                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                         quality={75}
+                         loading="lazy"
+                         placeholder="blur"
+                         blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                       />
+                     ) : (
+                       <video
+                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                         controls
+                         preload="none"
+                         poster="/placeholder.jpg"
+                         muted
+                         playsInline
+                         onLoadStart={() => console.log('Video loading started')}
+                         onCanPlay={() => console.log('Video can play')}
+                         onError={(e) => console.error('Video error:', e)}
+                       >
+                         <source src={item.src} type="video/mp4" />
+                         <source src={item.src.replace('.MP4', '.webm')} type="video/webm" />
+                         Your browser does not support the video tag.
+                       </video>
+                     )}
+                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                     <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                       <h3 className="text-lg font-semibold mb-1">{item.title}</h3>
+                       <p className="text-sm text-white/90">{item.description}</p>
+                       <Badge className="mt-2 bg-mintBrand/80 text-white border-0">
+                         {item.category}
+                       </Badge>
+                     </div>
+                   </div>
+                 </CardContent>
+               </Card>
+             ))}
+           </div>
 
           {/* Call to Action */}
           <div className="text-center mt-20">
