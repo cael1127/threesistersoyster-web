@@ -276,7 +276,6 @@ export default function HomePage() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
-              <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-teal-400/20 to-blue-400/20 text-white border border-teal-300/30 hover:from-teal-400/30 hover:to-blue-400/30 text-sm md:text-base backdrop-blur-sm">Our Story</Badge>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6 leading-tight px-2">Named After Blake's Three Daughters</h2>
               <p className="text-sm md:text-base text-white mb-4 md:mb-6 leading-relaxed px-2">
                 Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
