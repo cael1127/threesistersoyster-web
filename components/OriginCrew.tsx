@@ -92,25 +92,25 @@ export default function OriginCrew() {
                     quality={100}
                   />
                 </div>
-                {/* Decorative ring */}
-                <div className="absolute inset-0 rounded-full border-2 border-mintBrand/50 group-hover:border-mintBrand transition-all duration-300"></div>
+                                 {/* Decorative ring */}
+                 <div className="absolute inset-0 rounded-full border-2 border-yellow-300/50 group-hover:border-yellow-300 transition-all duration-300"></div>
               </div>
 
-              {/* Member Info */}
-              <div className="text-center">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-mintBrand transition-colors duration-300">
-                  {member.name}
-                </h3>
-                <p className="text-lg md:text-xl text-mintBrand font-semibold mb-4">
-                  {member.role}
-                </p>
-                <p className="text-white/90 text-sm md:text-base leading-relaxed">
-                  {member.description}
-                </p>
-              </div>
+                             {/* Member Info */}
+               <div className="text-center">
+                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-yellow-300 transition-colors duration-300">
+                   {member.name}
+                 </h3>
+                 <p className="text-lg md:text-xl text-yellow-300 font-semibold mb-4">
+                   {member.role}
+                 </p>
+                 <p className="text-white text-sm md:text-base leading-relaxed">
+                   {member.description}
+                 </p>
+               </div>
 
-              {/* Hover effect overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-mintBrand/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"></div>
+                             {/* Hover effect overlay */}
+               <div className="absolute inset-0 bg-gradient-to-t from-yellow-300/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"></div>
             </div>
           ))}
         </div>
@@ -120,7 +120,7 @@ export default function OriginCrew() {
           <p className="text-lg md:text-xl text-white/80 mb-6">
             Together, we're building the future of sustainable oyster farming in Texas.
           </p>
-          <div className="inline-flex items-center px-6 py-3 bg-mintBrand/20 backdrop-blur-sm border border-mintBrand/30 text-mintBrand font-semibold rounded-full hover:bg-mintBrand/30 transition-all duration-300">
+                     <div className="inline-flex items-center px-6 py-3 bg-yellow-300/20 backdrop-blur-sm border border-yellow-300/30 text-yellow-300 font-semibold rounded-full hover:bg-yellow-300/30 transition-all duration-300">
             <span className="mr-2">🌊</span>
             Proud to be part of the Three Sisters family
           </div>
