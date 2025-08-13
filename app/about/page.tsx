@@ -223,56 +223,76 @@ export default function AboutPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="border-teal-200">
+            <Card className="border-teal-300/30 bg-gradient-to-b from-teal-900/40 to-blue-900/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-8">
                 <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-teal-600 to-teal-700 rounded-full flex items-center justify-center mr-4">
-                    <Leaf className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center mr-4">
+                    <Image
+                      src="/nurserylog.JPEG"
+                      alt="Three Sisters Oyster Nursery"
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
+                      quality={90}
+                    />
                   </div>
-                  <h3 className="text-2xl font-bold text-purple-900 text-center">Nursery Operations</h3>
+                  <h3 className="text-2xl font-bold text-white text-center">Nursery Operations</h3>
                 </div>
-                <p className="text-gray-600 mb-4">
+                <p className="text-white mb-4">
                   Our nursery provides hardy Eastern oyster (Crassostrea virginica) seed to meet growers' needs with superior quality and reliability.
                 </p>
-                <ul className="space-y-2 text-gray-600">
+                <ul className="space-y-2 text-white mb-4">
                   <li className="flex items-center">
-                    <div className="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
+                    <div className="w-2 h-2 bg-teal-400 rounded-full mr-3"></div>
                     Hardy Eastern oyster seed
                   </li>
                   <li className="flex items-center">
-                    <div className="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
+                    <div className="w-2 h-2 bg-teal-400 rounded-full mr-3"></div>
                     Reliable supply for growers
                   </li>
                   <li className="flex items-center">
-                    <div className="w-2 h-2 bg-teal-500 rounded-full mr-3"></div>
+                    <div className="w-2 h-2 bg-teal-400 rounded-full mr-3"></div>
                     Expert cultivation support
                   </li>
                 </ul>
+                <p className="text-xs text-white">
+                  For pricing and ordering information, please call{" "}
+                  <a href="tel:713-854-7427" className="font-semibold text-teal-300 hover:text-teal-200 transition-colors duration-200">
+                    713-854-7427
+                  </a>
+                </p>
               </CardContent>
             </Card>
 
-            <Card className="border-purple-200">
+            <Card className="border-purple-300/30 bg-gradient-to-b from-purple-900/40 to-blue-900/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-8">
                 <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center mr-4">
-                    <Fish className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center mr-4">
+                    <Image
+                      src="/farmlog.jpg"
+                      alt="Three Sisters Oyster Farm"
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
+                      quality={90}
+                    />
                   </div>
-                  <h3 className="text-2xl font-bold text-purple-900 text-center">Farm Operations</h3>
+                  <h3 className="text-2xl font-bold text-white text-center">Farm Operations</h3>
                 </div>
-                <p className="text-gray-600 mb-4">
+                <p className="text-white mb-4">
                   We grow oysters to market size for the premium half-shell market while providing essential habitat for fish and other sea life.
                 </p>
-                <ul className="space-y-2 text-gray-600">
+                <ul className="space-y-2 text-white">
                   <li className="flex items-center">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                    <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
                     Premium half-shell market oysters
                   </li>
                   <li className="flex items-center">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                    <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
                     Sustainable aquaculture practices
                   </li>
                   <li className="flex items-center">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                    <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
                     Marine habitat restoration
                   </li>
                 </ul>
