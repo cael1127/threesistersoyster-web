@@ -349,46 +349,46 @@ export default function HomePage() {
       <section id="contact" className="py-20 px-4 bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">Get In Touch</h2>
-            <p className="text-xl text-white">Ready to order premium oysters or learn more about our operations?</p>
+            <h2 className="text-4xl font-bold text-purpleBrand mb-4">Get In Touch</h2>
+            <p className="text-xl text-gray-700">Ready to order premium oysters or learn more about our operations?</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
+              <h3 className="text-2xl font-bold text-purpleBrand mb-6">Contact Information</h3>
               <div className="space-y-4">
                 <a
                   href="tel:713-854-7427"
-                  className="flex items-center text-white hover:text-purple-300 transition-colors duration-200 group"
+                  className="flex items-center text-gray-700 hover:text-purpleBrand transition-colors duration-200 group"
                 >
-                  <Phone className="w-5 h-5 text-teal-300 mr-3 group-hover:text-purple-300 transition-colors duration-200" />
+                  <Phone className="w-5 h-5 text-mintBrand mr-3 group-hover:text-purpleBrand transition-colors duration-200" />
                   <span className="group-hover:underline">713-854-7427</span>
                 </a>
                 <a
                   href="mailto:info@threesistersoyster.com"
-                  className="flex items-center text-white hover:text-purple-300 transition-colors duration-200 group"
+                  className="flex items-center text-gray-700 hover:text-purpleBrand transition-colors duration-200 group"
                 >
-                  <Mail className="w-5 h-5 text-teal-300 mr-3 group-hover:text-purple-300 transition-colors duration-200" />
+                  <Mail className="w-5 h-5 text-mintBrand mr-3 group-hover:text-purpleBrand transition-colors duration-200" />
                   <span className="group-hover:underline">info@threesistersoyster.com</span>
                 </a>
                 <a
                   href="https://maps.google.com/?q=106+Grant+St.+Port+Lavaca,+TX+77979"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-white hover:text-purple-300 transition-colors duration-200 group"
+                  className="flex items-center text-gray-700 hover:text-purpleBrand transition-colors duration-200 group"
                 >
-                  <MapPin className="w-5 h-5 text-teal-300 mr-3 group-hover:text-purple-300 transition-colors duration-200" />
+                  <MapPin className="w-5 h-5 text-mintBrand mr-3 group-hover:text-purpleBrand transition-colors duration-200" />
                   <span className="group-hover:underline">106 Grant St. Port Lavaca, TX 77979</span>
                 </a>
               </div>
 
               <div className="mt-8">
-                <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
+                <h4 className="text-lg font-semibold text-purpleBrand mb-4">Follow Us</h4>
                 <a
                   href="https://instagram.com/threesistersoysterco"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white hover:text-purple-300 transition-colors duration-200 hover:underline"
+                  className="text-gray-700 hover:text-purpleBrand transition-colors duration-200 hover:underline"
                 >
                   @threesistersoysterco
                 </a>
@@ -397,24 +397,24 @@ export default function HomePage() {
 
             <Card className="border-purple-200">
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-white mb-6">Send Us a Message</h3>
+                <h3 className="text-2xl font-bold text-purpleBrand mb-6">Send Us a Message</h3>
                 <form className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Name</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
                     <input
                       type="text"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Email</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
                     <input
                       type="email"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Message</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
                     <textarea
                       rows={4}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
