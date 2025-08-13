@@ -161,7 +161,6 @@ export default function HomePage() {
                   muted
                   loop
                   playsInline
-                  preload="none"
                   className="w-full h-full object-cover"
                   style={{ 
                     objectPosition: 'center',
