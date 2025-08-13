@@ -8,10 +8,10 @@ export default function GalleryPage() {
     {
       id: 1,
       type: 'image',
-      src: '/placeholder.jpg',
+      src: '/topFarm.JPG',
       alt: 'Sample Photo 1',
-      title: 'Oyster Farm Sunset',
-      description: 'Beautiful sunset over the oyster beds',
+      title: 'Coastside Oyster Farm',
+      description: 'Beautiful view of the oyster farm',
       category: 'Nature'
     },
     {
