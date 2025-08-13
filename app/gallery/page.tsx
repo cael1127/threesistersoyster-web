@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CartButton } from '@/components/cart-button';
+import OriginCrew from '@/components/OriginCrew';
 
 export default function GalleryPage() {
   // Sample gallery items - you can replace these with your actual photos and videos
@@ -208,6 +209,9 @@ export default function GalleryPage() {
                </Card>
              ))}
            </div>
+
+          {/* Origin Crew Section */}
+          <OriginCrew />
 
           {/* Call to Action */}
           <div className="text-center mt-20">
