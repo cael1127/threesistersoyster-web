@@ -38,7 +38,7 @@ const workers = [
     name: "Lorenzo ",
     role: "Farm Hand",
     description: "Lorenzo is skilled in oyster handling and grading. His expertise in shellfish care helps maintain the high quality standards Three Sisters is known for. (Sample)",
-    image: "/logo.jpg",
+    image: "/lorenzo.JPEG",
   },
   {
     name: "Macie Kolodziejczyk",
