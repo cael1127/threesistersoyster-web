@@ -168,9 +168,6 @@ export default function HomePage() {
                     filter: 'brightness(1.1) contrast(1.05)'
                   }}
                   poster="/homepage-poster.jpg"
-                  onLoadStart={() => console.log('Video loading started')}
-                  onCanPlay={() => console.log('Video can play')}
-                  onError={(e) => console.error('Video error:', e)}
                 >
                   <source src="/homepage.mp4" type="video/mp4" />
                   <source src="/homepage.webm" type="video/webm" />
