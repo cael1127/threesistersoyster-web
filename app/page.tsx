@@ -52,6 +52,9 @@ export default function HomePage() {
                 >
                   Inventory
                 </Link>
+                <Link href="/gallery" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
+                  Gallery
+                </Link>
                 <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
                   About
                 </Link>
@@ -69,6 +72,9 @@ export default function HomePage() {
                   </Link>
                   <Link href="/inventory" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
                     Stock
+                  </Link>
+                  <Link href="/gallery" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
+                    Gallery
                   </Link>
                   <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
                     About

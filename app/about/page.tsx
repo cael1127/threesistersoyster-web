@@ -39,6 +39,7 @@ export default function AboutPage() {
                 <Link href="/" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Home</Link>
                 <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Products</Link>
                 <Link href="/inventory" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Inventory</Link>
+                <Link href="/gallery" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Gallery</Link>
                 <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">About</Link>
                 <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Contact</Link>
               </nav>
@@ -48,6 +49,7 @@ export default function AboutPage() {
                 <nav className="flex items-center flex-1 px-4">
                   <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-3 flex-1 text-center">Shop</Link>
                   <Link href="/inventory" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-3 flex-1 text-center">Stock</Link>
+                  <Link href="/gallery" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-3 flex-1 text-center">Gallery</Link>
                   <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-3 flex-1 text-center">About</Link>
                   <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-3 flex-1 text-center">Contact</Link>
                 </nav>

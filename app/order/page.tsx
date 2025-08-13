@@ -136,6 +136,9 @@ export default function OrderPage() {
                 >
                   Inventory
                 </Link>
+                <Link href="/gallery" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
+                  Gallery
+                </Link>
                 <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-sm">
                   About
                 </Link>
@@ -153,6 +156,9 @@ export default function OrderPage() {
                   </Link>
                   <Link href="/inventory" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
                     Stock
+                  </Link>
+                  <Link href="/gallery" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
+                    Gallery
                   </Link>
                   <Link href="/about" className="text-purple-700 hover:text-teal-600 font-medium text-xs py-2 flex-1 text-center">
                     About
