@@ -70,7 +70,7 @@ export default function GalleryPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-purpleBrand border-b border-purple-300/30 sticky top-0 z-50">
+      <header className="bg-purple-600 border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2 md:space-x-3">
@@ -85,32 +85,31 @@ export default function GalleryPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-mintBrand text-center">
+                <h1 className="text-xl font-bold text-white text-center">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
+                <p className="text-xs text-purple-100">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Home</Link>
-                <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Products</Link>
-                <Link href="/inventory" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Inventory</Link>
-                <Link href="/gallery" className="text-seafoamBrand font-medium text-sm">Gallery</Link>
-                <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">About</Link>
-                <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Contact</Link>
+                <Link href="/" className="text-white hover:text-purple-100 font-medium text-sm">Home</Link>
+                <Link href="/products" className="text-white hover:text-purple-100 font-medium text-sm">Products</Link>
+                <Link href="/inventory" className="text-white hover:text-purple-100 font-medium text-sm">Inventory</Link>
+                <Link href="/gallery" className="text-white hover:text-purple-100 font-medium text-sm">Gallery</Link>
+                <Link href="/about" className="text-white hover:text-purple-100 font-medium text-sm">About</Link>
+                <Link href="/contact" className="text-white hover:text-purple-100 font-medium text-sm">Contact</Link>
               </nav>
-              
               {/* Mobile Layout - Restructured for better spacing */}
               <div className="flex md:hidden items-center w-full">
                 {/* Mobile Navigation - Compact */}
                 <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">Shop</Link>
-                  <Link href="/inventory" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">Stock</Link>
-                  <Link href="/gallery" className="text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">Gallery</Link>
-                  <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">About</Link>
-                  <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">Contact</Link>
+                  <Link href="/products" className="text-white hover:text-purple-100 font-medium text-xs py-3 flex-1 text-center">Shop</Link>
+                  <Link href="/inventory" className="text-white hover:text-purple-100 font-medium text-xs py-3 flex-1 text-center">Stock</Link>
+                  <Link href="/gallery" className="text-white hover:text-purple-100 font-medium text-xs py-3 flex-1 text-center">Gallery</Link>
+                  <Link href="/about" className="text-white hover:text-purple-100 font-medium text-xs py-3 flex-1 text-center">About</Link>
+                  <Link href="/contact" className="text-white hover:text-purple-100 font-medium text-xs py-3 flex-1 text-center">Contact</Link>
                 </nav>
                 
                 {/* Mobile Cart/Order Buttons */}
@@ -119,7 +118,7 @@ export default function GalleryPage() {
                   <Button
                     asChild
                     size="sm"
-                    className="bg-mintBrand hover:bg-seafoamBrand text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+                    className="bg-white text-purple-600 hover:bg-purple-50 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
                   >
                     <Link href="/order">Order</Link>
                   </Button>
@@ -132,7 +131,7 @@ export default function GalleryPage() {
                 <Button
                   asChild
                   size="sm"
-                  className="bg-mintBrand hover:bg-seafoamBrand text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="bg-white text-purple-600 hover:bg-purple-50 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
                 >
                   <Link href="/order">Order</Link>
                 </Button>
@@ -143,12 +142,12 @@ export default function GalleryPage() {
       </header>
 
       {/* Main Content */}
-      <main className="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+      <main className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="container mx-auto max-w-7xl">
                      {/* Hero Section */}
            <div className="text-center mb-16">
-             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight text-center">Kathryn's Photo Bomb</h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-purple-900 mb-6 leading-tight text-center">Kathryn's Photo Bomb</h1>
+            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               A visual journey through our oyster farm, capturing the beauty of nature, 
               the hard work of our team, and the magic of sustainable aquaculture.
             </p>
@@ -159,7 +158,7 @@ export default function GalleryPage() {
             {categories.map((category) => (
               <button
                 key={category}
-                className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-200"
+                className="px-4 py-2 rounded-full bg-purple-100 border border-purple-200 text-purple-800 hover:bg-purple-200 transition-all duration-200"
               >
                 {category}
               </button>
@@ -169,7 +168,7 @@ export default function GalleryPage() {
                      {/* Gallery Grid */}
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
              {galleryItems.map((item) => (
-               <Card key={item.id} className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 overflow-hidden group">
+               <Card key={item.id} className="bg-white border border-purple-200 hover:shadow-xl transition-all duration-300 overflow-hidden group">
                  <CardContent className="p-0">
                    <div className="relative aspect-square overflow-hidden">
                      {item.type === 'image' ? (
@@ -200,7 +199,7 @@ export default function GalleryPage() {
                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                        <h3 className="text-lg font-semibold mb-1 text-center">{item.title}</h3>
                        <p className="text-sm text-white/90">{item.description}</p>
-                       <Badge className="mt-2 bg-mintBrand/80 text-white border-0">
+                       <Badge className="mt-2 bg-purple-600 text-white border-0">
                          {item.category}
                        </Badge>
                      </div>
@@ -215,7 +214,7 @@ export default function GalleryPage() {
 
           {/* Call to Action */}
           <div className="text-center mt-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-6 text-center">
               Want to See More?
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">

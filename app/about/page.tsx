@@ -12,7 +12,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-purpleBrand border-b border-purple-300/30 sticky top-0 z-50">
+      <header className="bg-purple-600 border-b border-purple-300/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2 md:space-x-3">
@@ -27,37 +27,37 @@ export default function AboutPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-mintBrand text-center">
+                <h1 className="text-xl font-bold text-white text-center">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
+                <p className="text-xs text-purple-100">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Home</Link>
-                <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Products</Link>
-                <Link href="/inventory" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Inventory</Link>
-                <Link href="/gallery" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Gallery</Link>
-                <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">About</Link>
-                <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">Contact</Link>
+                <Link href="/" className="text-white hover:text-purple-100 font-medium text-sm">Home</Link>
+                <Link href="/products" className="text-white hover:text-purple-100 font-medium text-sm">Products</Link>
+                <Link href="/inventory" className="text-white hover:text-purple-100 font-medium text-sm">Inventory</Link>
+                <Link href="/gallery" className="text-white hover:text-purple-100 font-medium text-sm">Gallery</Link>
+                <Link href="/about" className="text-white hover:text-purple-100 font-medium text-sm">About</Link>
+                <Link href="/contact" className="text-white hover:text-purple-100 font-medium text-sm">Contact</Link>
               </nav>
               {/* Mobile Layout - Restructured for better spacing */}
               <div className="flex md:hidden items-center w-full">
                 {/* Mobile Navigation - Compact */}
                 <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-3 flex-1 text-center">Shop</Link>
-                  <Link href="/inventory" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-3 flex-1 text-center">Stock</Link>
-                  <Link href="/gallery" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-3 flex-1 text-center">Gallery</Link>
-                  <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-3 flex-1 text-center">About</Link>
-                  <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-3 flex-1 text-center">Contact</Link>
+                  <Link href="/products" className="text-white hover:text-purple-100 font-medium text-xs py-3 flex-1 text-center">Shop</Link>
+                  <Link href="/inventory" className="text-white hover:text-purple-100 font-medium text-xs py-3 flex-1 text-center">Stock</Link>
+                  <Link href="/gallery" className="text-white hover:text-purple-100 font-medium text-xs py-3 flex-1 text-center">Gallery</Link>
+                  <Link href="/about" className="text-white hover:text-purple-100 font-medium text-xs py-3 flex-1 text-center">About</Link>
+                  <Link href="/contact" className="text-white hover:text-purple-100 font-medium text-xs py-3 flex-1 text-center">Contact</Link>
                 </nav>
                 
                 {/* Mobile Cart/Order Buttons */}
                 <div className="flex items-center space-x-1 px-2">
                   <CartButton />
-                  <Button asChild size="sm" className="bg-mintBrand hover:bg-seafoamBrand text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0">
+                  <Button asChild size="sm" className="bg-white text-purple-600 hover:bg-purple-50 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0">
                     <Link href="/order">Order</Link>
                   </Button>
                 </div>
@@ -66,7 +66,7 @@ export default function AboutPage() {
               {/* Desktop Cart/Order Buttons */}
               <div className="hidden md:flex items-center space-x-1">
                 <CartButton />
-                <Button asChild size="sm" className="bg-mintBrand hover:bg-seafoamBrand text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0">
+                <Button asChild size="sm" className="bg-white text-purple-600 hover:bg-purple-50 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0">
                   <Link href="/order">Order</Link>
                 </Button>
               </div>
@@ -80,8 +80,8 @@ export default function AboutPage() {
 
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 px-2 text-center">About Three Sisters Oyster Co.</h1>
-          <p className="text-xl text-white max-w-3xl mx-auto px-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 px-2 text-center">About Three Sisters Oyster Co.</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto px-4">
             A family-owned oyster farm committed to sustainable aquaculture and environmental stewardship in the pristine waters of Keller Bay.
           </p>
         </div>
@@ -90,8 +90,8 @@ export default function AboutPage() {
         <section className="mb-16">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
-              <h2 className="text-3xl font-bold text-white mb-6 text-center">Named After Blake's Three Daughters</h2>
-              <div className="space-y-4 text-white">
+              <h2 className="text-3xl font-bold text-purple-900 mb-6 text-center">Named After Blake's Three Daughters</h2>
+              <div className="space-y-4 text-gray-600">
                 <p>
                   Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
                   daughters, our team strives to create a better coastline for the future.
