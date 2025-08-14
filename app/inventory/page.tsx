@@ -103,74 +103,74 @@ export default function InventoryPage() {
 
   function InventoryCard({ item }: { item: any }) {
     return (
-      <Card className="border-purple-200 hover:shadow-lg transition-all duration-300 group">
+      <Card className="border-purpleBrand/30 hover:shadow-lg transition-all duration-300 group bg-white/10 backdrop-blur-sm">
         <CardContent className="p-6">
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
               <div className="flex items-center space-x-2 mb-2">
-                <h3 className="text-xl font-bold text-purple-900 group-hover:text-purple-700 transition-colors text-center">
+                <h3 className="text-xl font-bold text-white group-hover:text-mintBrand transition-colors text-center">
                   {item.name}
                 </h3>
                 {item.harvestReady && (
-                  <Badge className="bg-green-100 text-green-800 border-green-300 animate-pulse">
+                  <Badge className="bg-mintBrand/20 text-mintBrand border-mintBrand/30 animate-pulse">
                     <Package className="w-3 h-3 mr-1" />
                     Ready
                   </Badge>
                 )}
               </div>
               <div className="flex items-center space-x-2 mb-3">
-                <Badge className={item.type === "farm" ? "bg-purple-100 text-purple-800" : "bg-teal-100 text-teal-800"}>
+                <Badge className={item.type === "farm" ? "bg-purpleBrand/20 text-purpleBrand border-purpleBrand/30" : "bg-seafoamBrand/20 text-seafoamBrand border-seafoamBrand/30"}>
                   {item.type === "farm" ? "Farm Stock" : "Nursery Seed"}
                 </Badge>
                 {item.size && (
-                  <Badge className="bg-white text-purple-900 font-semibold border border-purple-300 px-3 py-1 text-sm shadow-sm">
+                  <Badge className="bg-white/20 text-white font-semibold border border-white/30 px-3 py-1 text-sm shadow-sm">
                     {item.size}
                   </Badge>
                 )}
               </div>
             </div>
             <div className="text-right">
-              <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600">
+              <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
                 {item.count.toLocaleString()}
               </div>
-              <p className="text-sm text-gray-500">units</p>
+              <p className="text-sm text-white/60">units</p>
             </div>
           </div>
 
           {item.originalDescription && (
-            <p className="text-gray-600 mb-4 text-sm leading-relaxed">{item.originalDescription}</p>
+            <p className="text-white/80 mb-4 text-sm leading-relaxed">{item.originalDescription}</p>
           )}
 
           <div className="grid grid-cols-2 gap-4 mb-4">
             {item.age && (
-              <div className="flex items-center text-sm text-gray-600">
-                <Calendar className="w-4 h-4 mr-2 text-purple-500" />
+              <div className="flex items-center text-sm text-white/80">
+                <Calendar className="w-4 h-4 mr-2 text-mintBrand" />
                 <span className="font-medium">Age:</span>
                 <span className="ml-1">{item.age}</span>
               </div>
             )}
 
             {item.health && (
-              <div className="flex items-center text-sm text-gray-600">
-                <Heart className="w-4 h-4 mr-2 text-red-500" />
+              <div className="flex items-center text-sm text-white/80">
+                <Heart className="w-4 h-4 mr-2 text-mintBrand" />
                 <span className="font-medium">Health:</span>
                 <span className="ml-1 capitalize">{item.health}</span>
               </div>
             )}
 
             {item.location && (
-              <div className="flex items-center text-sm text-gray-600">
-                <MapPin className="w-4 h-4 mr-2 text-teal-500" />
+              <div className="flex items-center text-sm text-white/80">
+                <MapPin className="w-4 h-4 mr-2 text-seafoamBrand" />
                 <span className="font-medium">Location:</span>
                 <span className="ml-1">{item.location}</span>
               </div>
             )}
 
             {item.pricePerDozen && (
-              <div className="flex items-center text-sm text-gray-600">
-                <DollarSign className="w-4 h-4 mr-2 text-green-500" />
+              <div className="flex items-center text-sm text-white/80">
+                <DollarSign className="w-4 h-4 mr-2 text-mintBrand" />
                 <span className="font-medium">Per Dozen:</span>
-                <span className="ml-1 font-bold text-teal-600">${item.pricePerDozen.toFixed(2)}</span>
+                <span className="ml-1 font-bold text-seafoamBrand">${item.pricePerDozen.toFixed(2)}</span>
               </div>
             )}
           </div>
@@ -179,40 +179,40 @@ export default function InventoryPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               {item.harvestReady ? (
-                <div className="flex items-center text-green-600 text-sm font-medium">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                <div className="flex items-center text-mintBrand text-sm font-medium">
+                  <div className="w-2 h-2 bg-mintBrand rounded-full mr-2 animate-pulse"></div>
                   Ready for harvest
                 </div>
               ) : (
-                <div className="flex items-center text-amber-600 text-sm font-medium">
-                  <div className="w-2 h-2 bg-amber-500 rounded-full mr-2"></div>
+                <div className="flex items-center text-seafoamBrand text-sm font-medium">
+                  <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-2"></div>
                   Growing
                 </div>
               )}
             </div>
 
             {item.harvestReady && (
-              <Badge className="bg-blue-100 text-blue-800">
+              <Badge className="bg-blueBrand/20 text-blueBrand border-blueBrand/30">
                 {item.type === "farm" ? "Market Ready" : "Seed Ready"}
               </Badge>
             )}
           </div>
 
-          {item.harvestReady && (
-            <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-sm text-green-800 font-medium">
-                ✓{" "}
-                {item.type === "farm"
-                  ? "Available for immediate harvest and sale"
-                  : "Ready seed stock available for growers"}
+          {/* Additional Info */}
+          {item.harvestReady && item.type === "farm" && (
+            <div className="mt-4 p-3 bg-mintBrand/20 border border-mintBrand/30 rounded-lg">
+              <p className="text-sm text-mintBrand font-medium">
+                <Package className="w-4 h-4 inline mr-2" />
+                This batch is ready for harvest and immediate delivery to restaurants and markets.
               </p>
             </div>
           )}
 
-          {!item.harvestReady && (
-            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-              <p className="text-sm text-blue-800 font-medium">
-                🌱 {item.type === "farm" ? "Growing to market size" : "Developing seed stock"}
+          {item.harvestReady && item.type === "nursery" && (
+            <div className="mt-4 p-3 bg-blueBrand/20 border border-blueBrand/30 rounded-lg">
+              <p className="text-sm text-blueBrand font-medium">
+                <Leaf className="w-4 h-4 inline mr-2" />
+                These seeds are ready for transfer to grow-out areas or sale to other growers.
               </p>
             </div>
           )}
@@ -224,7 +224,7 @@ export default function InventoryPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-purpleBrand border-b border-purple-300/30 sticky top-0 z-50">
+      <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2 md:space-x-3">
@@ -321,9 +321,9 @@ export default function InventoryPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <div className="mb-4">
-            <h1 className="text-2xl md:text-4xl font-bold text-purple-900 px-2 text-center">Live Inventory Dashboard</h1>
+            <h1 className="text-2xl md:text-4xl font-bold text-white px-2 text-center">Live Inventory Dashboard</h1>
           </div>
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto px-4">
             Real-time tracking of our farm and nursery operations in Keller Bay
           </p>
         </div>
@@ -332,16 +332,16 @@ export default function InventoryPage() {
         <ClientInventoryCounters />
 
         <Tabs defaultValue="nursery" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border border-purple-200 p-1 rounded-lg h-auto">
-            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-teal-100 data-[state=active]:text-teal-900 data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-white border-0 m-1 text-gray-700 hover:text-teal-700 data-[state=inactive]:text-gray-700">
+          <TabsList className="grid w-full grid-cols-2 mb-8 bg-white/10 backdrop-blur-sm border border-white/20 p-1 rounded-lg h-auto">
+            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand/20 data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-white/10 border-0 m-1 text-white/80 hover:text-white data-[state=inactive]:text-white/80">
               <Leaf className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Nursery</span>
-              <Badge className="bg-teal-200 text-teal-900 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
+              <Badge className="bg-seafoamBrand/20 text-seafoamBrand border-seafoamBrand/30 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-purple-100 data-[state=active]:text-purple-900 data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-white border-0 m-1 text-gray-700 hover:text-purple-700 data-[state=inactive]:text-gray-700">
+            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-purpleBrand/20 data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-white/10 border-0 m-1 text-white/80 hover:text-white data-[state=inactive]:text-white/80">
               <Fish className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Farm</span>
-              <Badge className="bg-purple-200 text-purple-900 text-xs px-1 flex-shrink-0">{processedFarmInventory.length}</Badge>
+              <Badge className="bg-purpleBrand/20 text-purpleBrand border-purpleBrand/30 text-xs px-1 flex-shrink-0">{processedFarmInventory.length}</Badge>
             </TabsTrigger>
           </TabsList>
 
@@ -349,10 +349,10 @@ export default function InventoryPage() {
             <div className="mb-6">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Farm Operations</h2>
-                  <p className="text-gray-600 mt-1 text-sm md:text-base">
+                  <h2 className="text-xl md:text-2xl font-bold text-white text-center">Farm Operations</h2>
+                  <p className="text-white/80 mt-1 text-sm md:text-base">
                     {processedFarmInventory.filter((item) => item.harvestReady).length > 0 ? (
-                      <span className="text-green-600 font-medium">
+                      <span className="text-mintBrand font-medium">
                         {processedFarmInventory
                           .filter((item) => item.harvestReady)
                           .reduce((sum, item) => sum + item.count, 0)
@@ -364,7 +364,7 @@ export default function InventoryPage() {
                     )}
                   </p>
                 </div>
-                <Button asChild className="bg-gradient-to-r from-purple-600 to-teal-600 text-xs md:text-sm px-3 md:px-4 py-2 flex-shrink-0 w-fit">
+                <Button asChild className="bg-gradient-to-r from-purpleBrand to-seafoamBrand text-xs md:text-sm px-3 md:px-4 py-2 flex-shrink-0 w-fit">
                   <Link href="/products">Shop Farm Products</Link>
                 </Button>
               </div>
@@ -372,9 +372,9 @@ export default function InventoryPage() {
 
             {processedFarmInventory.length === 0 ? (
               <div className="text-center py-12">
-                <Fish className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-600 text-lg">No farm inventory available at the moment.</p>
-                <p className="text-gray-500 mt-2">Check back soon for updates on our growing operations.</p>
+                <Fish className="w-16 h-16 text-white/40 mx-auto mb-4" />
+                <p className="text-white/80 text-lg">No farm inventory available at the moment.</p>
+                <p className="text-white/60 mt-2">Check back soon for updates on our growing operations.</p>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -389,10 +389,10 @@ export default function InventoryPage() {
             <div className="mb-6">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Nursery Operations</h2>
-                  <p className="text-gray-600 mt-1 text-sm md:text-base">
+                  <h2 className="text-xl md:text-2xl font-bold text-white text-center">Nursery Operations</h2>
+                  <p className="text-white/80 mt-1 text-sm md:text-base">
                     {processedNurseryInventory.filter((item) => item.harvestReady).length > 0 ? (
-                      <span className="text-green-600 font-medium">
+                      <span className="text-mintBrand font-medium">
                         {processedNurseryInventory
                           .filter((item) => item.harvestReady)
                           .reduce((sum, item) => sum + item.count, 0)
@@ -408,7 +408,7 @@ export default function InventoryPage() {
                 </div>
                 <Button
                   asChild
-                  className="bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white text-xs md:text-sm px-3 md:px-4 py-2 flex-shrink-0 w-fit"
+                  className="bg-gradient-to-r from-seafoamBrand to-blueBrand hover:from-mintBrand hover:to-blueBrand text-white text-xs md:text-sm px-3 md:px-4 py-2 flex-shrink-0 w-fit"
                 >
                   <a href="tel:713-854-7427">Contact for Pricing</a>
                 </Button>
@@ -417,9 +417,9 @@ export default function InventoryPage() {
 
             {processedNurseryInventory.length === 0 ? (
               <div className="text-center py-12">
-                <Leaf className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-600 text-lg">No nursery inventory available at the moment.</p>
-                <p className="text-gray-500 mt-2">Contact us directly for seed stock availability.</p>
+                <Leaf className="w-16 h-16 text-white/40 mx-auto mb-4" />
+                <p className="text-white/80 text-lg">No nursery inventory available at the moment.</p>
+                <p className="text-white/60 mt-2">Check back soon for updates on our seed stock.</p>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -433,20 +433,20 @@ export default function InventoryPage() {
 
         {/* Call to Action */}
         <div className="mt-16 text-center">
-          <Card className="border-purple-200 bg-gradient-to-r from-purple-100 to-teal-100">
+          <Card className="border-purpleBrand/30 bg-gradient-to-r from-purpleBrand/20 to-seafoamBrand/20">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-purple-900 mb-4 text-center">Ready to Order?</h3>
-              <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold text-white mb-4 text-center">Ready to Order?</h3>
+              <p className="text-white/80 mb-6 max-w-2xl mx-auto">
                 Contact us directly for custom orders, bulk pricing, or to discuss your specific aquaculture needs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild className="bg-gradient-to-r from-purple-600 to-teal-600">
+                <Button asChild className="bg-gradient-to-r from-purpleBrand to-seafoamBrand">
                   <Link href="/products">Browse Products</Link>
                 </Button>
                 <Button
                   asChild
                   variant="outline"
-                  className="border-purple-300 text-purple-700 hover:bg-purple-50 bg-transparent"
+                  className="border-mintBrand text-mintBrand hover:bg-mintBrand/20 bg-transparent"
                 >
                   <a href="tel:713-854-7427">Call 713-854-7427</a>
                 </Button>

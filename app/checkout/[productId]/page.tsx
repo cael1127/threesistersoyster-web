@@ -8,7 +8,7 @@ import { Minus, Plus, ArrowLeft, Waves } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { supabase, type Product } from "../../lib/supabase"
-
+import { CartButton } from "@/components/cart-button"
 
 
 export default function CheckoutPage() {
@@ -98,10 +98,10 @@ export default function CheckoutPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-teal-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 to-seafoamBrand/20 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading product...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mintBrand mx-auto mb-4"></div>
+          <p className="text-white/80">Loading product...</p>
         </div>
       </div>
     )
@@ -109,14 +109,11 @@ export default function CheckoutPage() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-teal-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 to-seafoamBrand/20 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600 text-lg mb-4">Product not found</p>
-          <Button asChild variant="outline">
-            <Link href="/products" className="flex items-center space-x-2">
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to Products</span>
-            </Link>
+          <p className="text-white/80 text-lg mb-4">Product not found</p>
+          <Button asChild>
+            <Link href="/products">Back to Products</Link>
           </Button>
         </div>
       </div>
@@ -129,24 +126,31 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-              <header className="bg-purpleBrand border-b border-purple-300/30 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+      <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50">
+        <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-teal-600 rounded-full flex items-center justify-center">
-                <Waves className="w-6 h-6 text-white" />
+            <Link href="/" className="flex items-center space-x-2 md:space-x-3">
+              <div className="w-8 h-8 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-purpleBrand to-seafoamBrand rounded-full flex items-center justify-center">
+                  <Image
+                    src="/logo.jpg"
+                    alt="Three Sisters Oyster Co. Logo"
+                    width={48}
+                    height={48}
+                    className="rounded-full object-cover"
+                  />
+                </div>
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-mintBrand text-center">Three Sisters Oyster Co.</h1>
-                <p className="text-sm text-seafoamBrand">Premium Texas Oysters</p>
+              <div className="hidden md:block">
+                <h1 className="text-xl font-bold text-white text-center">
+                  Three Sisters Oyster Co.
+                </h1>
+                <p className="text-xs text-mintBrand">Premium Texas Oysters</p>
               </div>
             </Link>
-            <Button asChild variant="outline">
-              <Link href="/products" className="flex items-center space-x-2">
-                <ArrowLeft className="w-4 h-4" />
-                <span>Back to Products</span>
-              </Link>
-            </Button>
+            <div className="flex items-center space-x-1 md:space-x-4">
+              <CartButton />
+            </div>
           </div>
         </div>
       </header>
@@ -155,83 +159,84 @@ export default function CheckoutPage() {
         <div className="max-w-4xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Product Image */}
-            <div className="aspect-square bg-gradient-to-br from-purple-100 to-teal-100 rounded-2xl overflow-hidden">
+            <div className="aspect-square bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 rounded-2xl overflow-hidden">
               {product.image_url ? (
                 <Image
-                  src={product.image_url || "/logo.jpg"}
+                  src={product.image_url}
                   alt={product.name}
-                  width={600}
-                  height={600}
+                  width={400}
+                  height={400}
                   className="w-full h-full object-cover"
-                  quality={90}
                 />
               ) : (
-                <div className="flex items-center justify-center h-full">
-                  <span className="text-purple-400 text-8xl">🦪</span>
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="text-purpleBrand text-8xl">🦪</span>
                 </div>
               )}
             </div>
 
             {/* Product Details */}
-            <div className="flex flex-col justify-center">
-              <div className="mb-6">
-                <Badge className="bg-teal-100 text-teal-800 hover:bg-teal-200 mb-4">{product.category}</Badge>
-                <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">{product.name}</h1>
-                {originalDescription && <p className="text-gray-600 text-lg mb-4">{originalDescription}</p>}
-                {inventory > 0 && <p className="text-green-600 font-medium mb-4">{inventory} available in stock</p>}
+            <div className="space-y-6">
+              <div>
+                <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30 mb-4">{product.category}</Badge>
+                <h1 className="text-4xl font-bold text-white mb-4 text-center">{product.name}</h1>
+                {originalDescription && <p className="text-white/80 text-lg mb-4">{originalDescription}</p>}
+                {inventory > 0 && <p className="text-mintBrand font-medium mb-4">{inventory} available in stock</p>}
               </div>
 
-              <div className="mb-8">
-                <span className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600">
-                  ${product.price.toFixed(2)}
+              <div className="text-center">
+                <span className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+                  ${product.price}
                 </span>
-                <span className="text-gray-500 ml-2">per unit</span>
+                <span className="text-white/60 ml-2">per unit</span>
               </div>
 
               {/* Quantity Selector */}
-              <div className="mb-8">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">Quantity</label>
                 <div className="flex items-center space-x-4">
                   <Button
-                    variant="outline"
-                    size="sm"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    disabled={quantity <= 1}
-                  >
-                    <Minus className="w-4 h-4" />
-                  </Button>
-                  <span className="text-xl font-semibold w-12 text-center">{quantity}</span>
-                  <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setQuantity(quantity + 1)}
-                    disabled={inventory > 0 && quantity >= inventory}
+                    className="border-white/30 text-white hover:bg-white/10"
                   >
-                    <Plus className="w-4 h-4" />
+                    -
+                  </Button>
+                  <span className="text-2xl font-bold text-white min-w-[3rem] text-center">{quantity}</span>
+                  <Button
+                    onClick={() => setQuantity(quantity + 1)}
+                    variant="outline"
+                    size="sm"
+                    className="border-white/30 text-white hover:bg-white/10"
+                  >
+                    +
                   </Button>
                 </div>
               </div>
 
-              {/* Total Price */}
-              <div className="mb-8 p-4 bg-white/80 rounded-lg border border-purple-200">
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-medium text-gray-700">Total:</span>
-                  <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600">
-                    ${totalPrice.toFixed(2)}
-                  </span>
-                </div>
-              </div>
+               {/* Add to Cart - Removed since not implemented in this page */}
+               
+               {/* Total */}
+               <div className="mb-8 p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+                 <div className="flex justify-between items-center">
+                   <span className="text-lg font-medium text-white">Total:</span>
+                   <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+                     ${(product.price * quantity).toFixed(2)}
+                   </span>
+                 </div>
+               </div>
 
-              {/* Checkout Button */}
-              <Button
-                onClick={handleCheckout}
-                disabled={checkingOut || (inventory > 0 && quantity > inventory)}
-                className="w-full bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-lg py-6"
-              >
-                {checkingOut ? "Processing..." : "Proceed to Checkout"}
-              </Button>
+               {/* Checkout Button */}
+               <Button
+                 onClick={handleCheckout}
+                 disabled={checkingOut}
+                 className="w-full bg-gradient-to-r from-purpleBrand to-seafoamBrand hover:from-lavenderBrand hover:to-blueBrand text-lg py-6"
+               >
+                 {checkingOut ? "Processing..." : "Proceed to Checkout"}
+               </Button>
 
-              <p className="text-sm text-gray-500 mt-4 text-center">Secure payment powered by Stripe</p>
+              <p className="text-sm text-white/60 mt-4 text-center">Secure payment powered by Stripe</p>
             </div>
           </div>
         </div>

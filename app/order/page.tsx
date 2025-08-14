@@ -74,26 +74,19 @@ export default function OrderPage() {
 
   if (orderSuccess) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-teal-50 flex items-center justify-center">
-        <Card className="max-w-md mx-auto">
-          <CardContent className="p-8 text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <ShoppingCart className="w-8 h-8 text-green-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-purple-900 mb-4 text-center">Order Submitted!</h2>
-            <p className="text-gray-600 mb-6">
-              Thank you for your order. We'll contact you soon to confirm details and arrange delivery.
-            </p>
-            <div className="space-y-2">
-              <Button asChild className="w-full bg-gradient-to-r from-purple-600 to-teal-600">
-                <Link href="/">Return Home</Link>
-              </Button>
-              <Button asChild variant="outline" className="w-full bg-transparent">
-                <Link href="/order">Place Another Order</Link>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 to-seafoamBrand/20 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-mintBrand/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <ShoppingCart className="w-8 h-8 text-mintBrand" />
+          </div>
+          <h2 className="text-2xl font-bold text-white mb-4 text-center">Order Submitted!</h2>
+          <p className="text-white/80 mb-6">
+            Thank you for your order! We'll contact you within 24 hours to arrange delivery or pickup.
+          </p>
+          <Button asChild className="w-full bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+            <Link href="/">Return Home</Link>
+          </Button>
+        </div>
       </div>
     )
   }
@@ -101,7 +94,7 @@ export default function OrderPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
       {/* Header */}
-      <header className="bg-purpleBrand border-b border-purple-300/30 sticky top-0 z-50">
+      <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2 md:space-x-3">
@@ -197,79 +190,134 @@ export default function OrderPage() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">Place Your Order</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Contact us directly to place your order for premium oysters
-          </p>
-        </div>
+      {/* Main Content */}
+      <main className="flex-1 py-8 px-4">
+        <div className="container mx-auto max-w-4xl">
+          {/* Page Header */}
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-white mb-4 text-center">Place Your Order</h1>
+            <p className="text-xl text-white/80 max-w-2xl mx-auto">
+              Ready to get started with Three Sisters Oyster Co.? Let us know what you need and we'll get back to you quickly.
+            </p>
+          </div>
 
-        <div className="max-w-2xl mx-auto">
-          <Card className="border-purple-200">
+          {/* Order Form */}
+          <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/20 to-blueBrand/20 backdrop-blur-sm">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-purple-900 mb-6 text-center">Order Information</h2>
+              <h2 className="text-2xl font-bold text-white mb-6 text-center">Order Information</h2>
 
+              {/* Contact Information */}
+              <div className="bg-gradient-to-r from-purpleBrand/20 to-seafoamBrand/20 p-6 rounded-lg mb-8">
+                <h3 className="text-lg font-semibold text-white mb-4 text-center">Contact Information</h3>
+                <div className="space-y-4 text-center">
+                  <div className="flex items-center justify-center space-x-4">
+                    <span className="font-medium text-mintBrand w-20">Phone:</span>
+                    <a href="tel:713-854-7427" className="text-white/80 hover:text-mintBrand transition-colors duration-200">
+                      713-854-7427
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-center space-x-4">
+                    <span className="font-medium text-mintBrand w-20">Email:</span>
+                    <a href="mailto:info@threesistersoyster.com" className="text-white/80 hover:text-mintBrand transition-colors duration-200">
+                      info@threesistersoyster.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Order Types */}
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 rounded-lg mb-8">
+                <h3 className="text-lg font-semibold text-white mb-4 text-center">Order Types</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="p-4 border border-seafoamBrand/30 rounded-lg bg-seafoamBrand/10">
+                    <h4 className="font-semibold text-seafoamBrand mb-2 text-center">Nursery Orders</h4>
+                    <p className="text-sm text-white/80 mb-3">Hardy Gulf Coast oyster seed for growers</p>
+                    <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30">Seed Stock</Badge>
+                  </div>
+                  <div className="p-4 border border-purpleBrand/30 rounded-lg bg-purpleBrand/10">
+                    <h4 className="font-semibold text-purpleBrand mb-2 text-center">Farm Orders</h4>
+                    <p className="text-sm text-white/80 mb-3">Premium half-shell oysters ready for market</p>
+                    <Badge className="bg-purpleBrand/20 text-purpleBrand border border-purpleBrand/30">Market Ready</Badge>
+                  </div>
+                </div>
+              </div>
+
+              {/* Order Form */}
               <div className="space-y-6">
-                <div className="bg-gradient-to-r from-purple-100 to-teal-100 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-purple-900 mb-4 text-center">Contact Information</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-center">
-                      <span className="font-medium text-purple-700 w-20">Phone:</span>
-                      <a href="tel:713-854-7427" className="text-gray-700 hover:text-purple-600 transition-colors duration-200">
-                        713-854-7427
-                      </a>
+                <p className="text-white/80 mb-4">
+                  Please fill out the form below with your order details. We'll contact you within 24 hours to confirm
+                  availability and arrange delivery or pickup.
+                </p>
+
+                <form onSubmit={handleSubmitOrder} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-white mb-2">Name *</label>
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-white placeholder-white/50"
+                        placeholder="Your full name"
+                      />
                     </div>
-                    <div className="flex items-center">
-                      <span className="font-medium text-purple-700 w-20">Email:</span>
-                      <a href="mailto:info@threesistersoyster.com" className="text-gray-700 hover:text-purple-600 transition-colors duration-200">
-                        info@threesistersoyster.com
-                      </a>
+                    <div>
+                      <label className="block text-sm font-medium text-white mb-2">Phone *</label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        required
+                        className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-white placeholder-white/50"
+                        placeholder="Your phone number"
+                      />
                     </div>
                   </div>
-                </div>
 
-                <div className="bg-white border border-purple-200 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-purple-900 mb-4 text-center">Order Types</h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="p-4 border border-teal-200 rounded-lg">
-                      <h4 className="font-semibold text-teal-800 mb-2 text-center">Nursery Orders</h4>
-                      <p className="text-sm text-gray-600 mb-3">Hardy Gulf Coast oyster seed for growers</p>
-                      <Badge className="bg-teal-100 text-teal-800">Seed Stock</Badge>
-                    </div>
-                    <div className="p-4 border border-purple-200 rounded-lg">
-                      <h4 className="font-semibold text-purple-800 mb-2 text-center">Farm Orders</h4>
-                      <p className="text-sm text-gray-600 mb-3">Premium half-shell oysters ready for market</p>
-                      <Badge className="bg-purple-100 text-purple-800">Market Ready</Badge>
-                    </div>
+                  <div>
+                    <label className="block text-sm font-medium text-white mb-2">Email *</label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-white placeholder-white/50"
+                      placeholder="your.email@example.com"
+                    />
                   </div>
-                </div>
 
-                <div className="text-center">
-                  <p className="text-gray-600 mb-4">
-                    Ready to place an order? Contact us directly for pricing and availability.
-                  </p>
+                  <div>
+                    <label className="block text-sm font-medium text-white mb-2">Order Details *</label>
+                    <textarea
+                      name="orderDetails"
+                      required
+                      rows={4}
+                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-white placeholder-white/50"
+                      placeholder="Please describe what you'd like to order, including quantities, sizes, and any special requirements..."
+                    />
+                  </div>
+
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button
-                      className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700"
-                      onClick={() => (window.location.href = "tel:713-854-7427")}
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="bg-gradient-to-r from-purpleBrand to-seafoamBrand hover:from-lavenderBrand hover:to-blueBrand"
                     >
-                      Call Now: 713-854-7427
+                      {isSubmitting ? "Submitting..." : "Submit Order"}
                     </Button>
                     <Button
+                      type="button"
                       variant="outline"
-                      className="border-purple-300 text-purple-700 hover:bg-purple-50 bg-transparent"
-                      onClick={() => (window.location.href = "mailto:info@threesistersoyster.com")}
+                      className="border-mintBrand text-mintBrand hover:bg-mintBrand/20 bg-transparent"
+                      onClick={() => window.history.back()}
                     >
-                      Send Email
+                      Back
                     </Button>
                   </div>
-                </div>
+                </form>
               </div>
             </CardContent>
           </Card>
         </div>
-      </div>
+      </main>
     </div>
   )
 }

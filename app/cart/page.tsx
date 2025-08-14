@@ -14,9 +14,9 @@ export default function CartPage() {
 
   if (state.items.length === 0) {
     return (
-          <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
-      {/* Header */}
-      <header className="bg-purpleBrand border-b border-purple-300/30 sticky top-0 z-50">
+      <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
+        {/* Header */}
+        <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50">
           <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center space-x-2 md:space-x-3">
@@ -31,80 +31,17 @@ export default function CartPage() {
                   />
                 </div>
                 <div className="hidden md:block">
-                  <h1 className="text-xl font-bold text-mintBrand text-center">
+                  <h1 className="text-xl font-bold text-white text-center">
                     Three Sisters Oyster Co.
                   </h1>
-                  <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
+                  <p className="text-xs text-mintBrand">Premium Texas Oysters</p>
                 </div>
               </Link>
               <div className="flex items-center space-x-1 md:space-x-4">
-                {/* Desktop Navigation */}
-                <nav className="hidden md:flex space-x-4">
-                  <Link href="/" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
-                    Home
-                  </Link>
-                  <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
-                    Products
-                  </Link>
-                  <Link href="/inventory" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
-                    Inventory
-                  </Link>
-                  <Link href="/gallery" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
-                    Gallery
-                  </Link>
-                  <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
-                    About
-                  </Link>
-                  <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
-                    Contact
-                  </Link>
-                </nav>
-                
-                {/* Mobile Layout - Restructured for better spacing */}
-                <div className="flex md:hidden items-center w-full">
-                  {/* Mobile Navigation - Compact */}
-                  <nav className="flex items-center flex-1 px-4">
-                    <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
-                      Shop
-                    </Link>
-                    <Link href="/inventory" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
-                      Stock
-                    </Link>
-                    <Link href="/gallery" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
-                      Gallery
-                    </Link>
-                    <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
-                      About
-                    </Link>
-                    <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
-                      Contact
-                    </Link>
-                  </nav>
-                  
-                  {/* Mobile Cart/Order Buttons */}
-                  <div className="flex items-center space-x-1 px-2">
-                    <CartButton />
-                    <Button
-                      asChild
-                      size="sm"
-                      className="bg-mintBrand hover:bg-seafoamBrand text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
-                    >
-                      <Link href="/order">Order</Link>
-                    </Button>
-                  </div>
-                </div>
-                
-                {/* Desktop Cart/Order Buttons */}
-                <div className="hidden md:flex items-center space-x-1">
-                  <CartButton />
-                  <Button
-                    asChild
-                    size="sm"
-                    className="bg-mintBrand hover:bg-seafoamBrand text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
-                  >
-                    <Link href="/order">Order</Link>
-                  </Button>
-                </div>
+                <CartButton />
+                <Button asChild className="bg-mintBrand hover:bg-seafoamBrand">
+                  <Link href="/products">Continue Shopping</Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -112,14 +49,14 @@ export default function CartPage() {
 
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Waves className="w-12 h-12 text-gray-400" />
+            <div className="w-24 h-24 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6">
+              <Waves className="w-12 h-12 text-white/40" />
             </div>
-            <h1 className="text-3xl font-bold text-purple-900 mb-4 text-center">Your Cart is Empty</h1>
-            <p className="text-gray-600 mb-8">Add some premium oysters to get started!</p>
-                          <Button asChild className="bg-green-600 hover:bg-green-700">
-                <Link href="/products">Shop Products</Link>
-              </Button>
+            <h1 className="text-3xl font-bold text-white mb-4 text-center">Your Cart is Empty</h1>
+            <p className="text-white/80 mb-8">Add some premium oysters to get started!</p>
+            <Button asChild className="bg-mintBrand hover:bg-seafoamBrand">
+              <Link href="/products">Browse Products</Link>
+            </Button>
           </div>
         </div>
       </div>
@@ -127,9 +64,9 @@ export default function CartPage() {
   }
 
   return (
-          <div className="min-h-screen bg-gradient-to-b from-purple-50 to-teal-50">
-        {/* Header */}
-        <header className="bg-purpleBrand border-b border-purple-300/30 sticky top-0 z-50">
+    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
+      {/* Header */}
+      <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2 md:space-x-3">
@@ -144,195 +81,133 @@ export default function CartPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-mintBrand text-center">
+                <h1 className="text-xl font-bold text-white text-center">
                   Three Sisters Oyster Co.
                 </h1>
                 <p className="text-xs text-mintBrand">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">
-              {/* Desktop Navigation */}
-              <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-green-400 hover:text-green-300 font-medium text-sm">
-                  Home
-                </Link>
-                <Link href="/products" className="text-green-400 hover:text-green-300 font-medium text-sm">
-                  Products
-                </Link>
-                <Link href="/inventory" className="text-green-400 hover:text-green-300 font-medium text-sm">
-                  Inventory
-                </Link>
-                <Link href="/gallery" className="text-green-400 hover:text-green-300 font-medium text-sm">
-                  Gallery
-                </Link>
-                <Link href="/about" className="text-green-400 hover:text-green-300 font-medium text-sm">
-                  About
-                </Link>
-                <Link href="/contact" className="text-green-400 hover:text-green-300 font-medium text-sm">
-                  Contact
-                </Link>
-              </nav>
-              
-              {/* Mobile Layout - Restructured for better spacing */}
-              <div className="flex md:hidden items-center w-full">
-                {/* Mobile Navigation - Compact */}
-                <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
-                    Shop
-                  </Link>
-                  <Link href="/inventory" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
-                    Stock
-                  </Link>
-                  <Link href="/gallery" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
-                    Gallery
-                  </Link>
-                  <Link href="/about" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
-                    About
-                  </Link>
-                  <Link href="/contact" className="text-green-400 hover:text-green-300 font-medium text-xs py-2 flex-1 text-center">
-                    Contact
-                  </Link>
-                </nav>
-                
-                {/* Mobile Cart/Order Buttons */}
-                <div className="flex items-center space-x-1 px-2">
-                  <CartButton />
-                  <Button
-                    asChild
-                    size="sm"
-                    className="bg-green-600 hover:bg-green-700 text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
-                  >
-                    <Link href="/order">Order</Link>
-                  </Button>
-                </div>
-              </div>
-              
-              {/* Desktop Cart/Order Buttons */}
-              <div className="hidden md:flex items-center space-x-1">
-                <CartButton />
-                <Button
-                  asChild
-                  size="sm"
-                  className="bg-green-600 hover:bg-green-700 text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
-                >
-                  <Link href="/order">Order</Link>
-                </Button>
-              </div>
+              <CartButton />
+              <Button asChild className="bg-mintBrand hover:bg-seafoamBrand">
+                <Link href="/products">Continue Shopping</Link>
+              </Button>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
-            <h1 className="text-3xl font-bold text-purple-900 text-center">Shopping Cart</h1>
-            <Button
-              onClick={clearCart}
-              variant="outline"
-              className="text-red-600 border-red-200 hover:bg-red-50 bg-transparent"
-            >
-              Clear Cart
-            </Button>
-          </div>
+      {/* Main Content */}
+      <main className="flex-1 py-8 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <h1 className="text-3xl font-bold text-white mb-8 text-center">Shopping Cart</h1>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               {state.items.map((item) => (
-                <Card key={item.id} className="border-purple-200">
+                <Card key={item.id} className="border-purpleBrand/30 bg-white/10 backdrop-blur-sm">
                   <CardContent className="p-6">
                     <div className="flex items-center space-x-4">
-                      {/* Product Image */}
-                      <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-teal-100 rounded-lg overflow-hidden flex-shrink-0">
+                      <div className="w-20 h-20 bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 rounded-lg overflow-hidden flex-shrink-0">
                         {item.image_url ? (
                           <Image
-                            src={item.image_url || "/logo.jpg"}
+                            src={item.image_url}
                             alt={item.name}
                             width={80}
                             height={80}
                             className="w-full h-full object-cover"
-                            quality={90}
                           />
                         ) : (
                           <div className="flex items-center justify-center h-full">
-                            <span className="text-purple-400 text-2xl">🦪</span>
+                            <span className="text-purpleBrand text-2xl">🦪</span>
                           </div>
                         )}
                       </div>
 
-                      {/* Product Details */}
                       <div className="flex-1">
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <h3 className="font-semibold text-purple-900 text-center">{item.name}</h3>
-                            <Badge className="bg-teal-100 text-teal-800 text-xs mt-1">{item.category}</Badge>
-                            <p className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600 mt-2">
-                              ${item.price.toFixed(2)}
-                            </p>
-                          </div>
+                        <h3 className="font-semibold text-white text-center">{item.name}</h3>
+                        <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30 text-xs mt-1">{item.category}</Badge>
+                        <p className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand mt-2">
+                          ${item.price.toFixed(2)}
+                        </p>
+                      </div>
 
-                          <Button
-                            onClick={() => removeItem(item.id)}
-                            variant="ghost"
-                            size="sm"
-                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                          className="border-white/30 text-white hover:bg-white/10"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </Button>
+                        <span className="text-white font-medium min-w-[2rem] text-center">{item.quantity}</span>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="border-white/30 text-white hover:bg-white/10"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => removeItem(item.id)}
+                          className="text-mintBrand hover:text-seafoamBrand hover:bg-mintBrand/20 border-mintBrand/30"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
 
-                        {/* Quantity Controls */}
-                        <div className="flex items-center space-x-2 mt-4">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            disabled={item.quantity <= 1}
-                          >
-                            <Minus className="w-3 h-3" />
-                          </Button>
-                          <span className="w-12 text-center font-medium">{item.quantity}</span>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            disabled={!!item.maxInventory && item.quantity >= item.maxInventory}
-                          >
-                            <Plus className="w-3 h-3" />
-                          </Button>
-                          <span className="text-sm text-gray-500 ml-4">
-                            Subtotal: ${(item.price * item.quantity).toFixed(2)}
-                          </span>
-                        </div>
+                    <div className="mt-4 pt-4 border-t border-white/20">
+                      <div className="flex justify-between items-center">
+                        <span className="text-white/80">Subtotal:</span>
+                        <span className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+                          ${(item.price * item.quantity).toFixed(2)}
+                        </span>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
               ))}
+
+              {/* Clear Cart Button */}
+              <div className="flex justify-between items-center">
+                <Button
+                  variant="outline"
+                  onClick={clearCart}
+                  className="border-mintBrand/30 text-mintBrand hover:bg-mintBrand/20"
+                >
+                  Clear Cart
+                </Button>
+                <span className="text-sm text-white/60">
+                  {state.itemCount} item{state.itemCount !== 1 ? 's' : ''} in cart
+                </span>
+              </div>
             </div>
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <Card className="border-purple-200 sticky top-24">
+              <Card className="border-purpleBrand/30 bg-white/10 backdrop-blur-sm sticky top-24">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-purple-900 mb-4 text-center">Order Summary</h2>
-
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between text-sm">
-                      <span>Items ({state.itemCount}):</span>
-                      <span>${state.total.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Shipping:</span>
-                      <span>Calculated at checkout</span>
-                    </div>
+                  <h2 className="text-xl font-bold text-white mb-4 text-center">Order Summary</h2>
+                  
+                  <div className="space-y-3 mb-6">
+                    {state.items.map((item) => (
+                      <div key={item.id} className="flex justify-between items-center text-sm">
+                        <span className="text-white/80">{item.name} × {item.quantity}</span>
+                        <span className="text-white">${(item.price * item.quantity).toFixed(2)}</span>
+                      </div>
+                    ))}
                   </div>
 
-                  <div className="border-t border-purple-200 pt-4 mb-6">
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg font-semibold text-purple-900">Total:</span>
-                      <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600">
+                  <div className="border-t border-white/20 pt-4 mb-6">
+                    <div className="flex justify-between items-center text-lg font-semibold text-white">
+                      <span>Total:</span>
+                      <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
                         ${state.total.toFixed(2)}
                       </span>
                     </div>
@@ -340,18 +215,18 @@ export default function CartPage() {
 
                   <Button
                     asChild
-                    className="w-full bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-lg py-6"
+                    className="w-full bg-gradient-to-r from-purpleBrand to-seafoamBrand hover:from-lavenderBrand hover:to-blueBrand text-lg py-6"
                   >
                     <Link href="/checkout">Proceed to Checkout</Link>
                   </Button>
 
-                  <p className="text-xs text-gray-500 mt-4 text-center">Secure payment powered by Stripe</p>
+                  <p className="text-xs text-white/60 mt-4 text-center">Secure payment powered by Stripe</p>
                 </CardContent>
               </Card>
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   )
 }
