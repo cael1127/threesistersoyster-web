@@ -41,39 +41,68 @@ function checkRateLimit(ip: string, endpoint: string): boolean {
   return true
 }
 
-// Input validation function
+// Input validation function - More permissive for legitimate requests
 function validateRequest(request: NextRequest): boolean {
   const url = request.url
   const method = request.method
   
-  // Block suspicious requests
-  if (url.includes('javascript:') || url.includes('data:') || url.includes('vbscript:')) {
+  // Only block obviously malicious requests
+  if (url.includes('javascript:') || url.includes('vbscript:')) {
+    console.log(`Blocked malicious URL: ${url}`)
     return false
   }
   
-  // Block requests with suspicious headers
+  // Allow data: URLs for legitimate image purposes
+  // if (url.includes('data:')) {
+  //   return false
+  // }
+  
+  // Only block suspicious headers if they're clearly malicious
   const suspiciousHeaders = ['x-forwarded-for', 'x-real-ip', 'x-forwarded-proto']
   for (const header of suspiciousHeaders) {
-    if (request.headers.get(header) && !request.headers.get(header)?.startsWith('https')) {
+    const headerValue = request.headers.get(header)
+    if (headerValue && headerValue.includes('javascript:') || headerValue.includes('vbscript:')) {
+      console.log(`Blocked malicious header ${header}: ${headerValue}`)
       return false
     }
   }
   
-  // Block requests with suspicious user agents
+  // Log bot requests but don't block them (many are legitimate)
   const userAgent = request.headers.get('user-agent') || ''
   const suspiciousUserAgents = ['bot', 'crawler', 'spider', 'scraper', 'curl', 'wget']
   if (suspiciousUserAgents.some(agent => userAgent.toLowerCase().includes(agent))) {
-    // Allow legitimate bots but log them
     console.log('Bot request detected:', userAgent)
   }
   
   return true
 }
 
-// Security middleware
+// Security middleware - TEMPORARILY DISABLED FOR TESTING
 export function middleware(request: NextRequest) {
+  // TEMPORARY: Skip all security checks to test if middleware is causing issues
+  console.log('Middleware running for:', request.nextUrl.pathname)
+  
+  // For now, just add security headers without blocking anything
+  const response = NextResponse.next()
+  
+  // Add basic security headers
+  response.headers.set('X-Frame-Options', 'DENY')
+  response.headers.set('X-Content-Type-Options', 'nosniff')
+  response.headers.set('X-XSS-Protection', '1; mode=block')
+  
+  return response
+  
+  /* ORIGINAL SECURITY CODE - COMMENTED OUT FOR TESTING
   const { pathname } = request.nextUrl
   const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+  
+  // Skip middleware for static assets and public files
+  if (pathname.startsWith('/_next/') || 
+      pathname.startsWith('/favicon.ico') || 
+      pathname.startsWith('/public/') ||
+      pathname.includes('.')) {
+    return NextResponse.next()
+  }
   
   // Security checks
   if (!validateRequest(request)) {
@@ -81,20 +110,22 @@ export function middleware(request: NextRequest) {
     return new NextResponse('Forbidden', { status: 403 })
   }
   
-  // Rate limiting
-  if (!checkRateLimit(ip, pathname)) {
+  // Rate limiting - only for API routes to avoid blocking legitimate users
+  if (pathname.startsWith('/api/') && !checkRateLimit(ip, pathname)) {
     console.log(`Rate limit exceeded for IP: ${ip}, Path: ${pathname}`)
     return new NextResponse('Too Many Requests', { status: 429 })
   }
   
   // Block access to sensitive files
   if (pathname.includes('.env') || pathname.includes('.git') || pathname.includes('package.json')) {
+    console.log(`Blocked access to sensitive file: ${pathname}`)
     return new NextResponse('Not Found', { status: 404 })
   }
   
   // Block access to development files in production
   if (process.env.NODE_ENV === 'production' && 
       (pathname.includes('.map') || pathname.includes('__nextjs'))) {
+    console.log(`Blocked access to dev file in production: ${pathname}`)
     return new NextResponse('Not Found', { status: 404 })
   }
   
@@ -113,6 +144,7 @@ export function middleware(request: NextRequest) {
   }
   
   return response
+  */
 }
 
 // Configure which paths the middleware should run on
@@ -124,7 +156,8 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      * - public folder
+     * - static assets
      */
-    '/((?!_next/static|_next/image|favicon.ico|public/).*)',
+    '/((?!_next/static|_next/image|favicon.ico|public/|.*\\.).*)',
   ],
 } 
