@@ -91,8 +91,8 @@ export default function ProductsPage() {
             {originalDescription && <p className="text-white/80 mb-4">{originalDescription}</p>}
             
             <div className="flex items-center justify-between mb-4">
-              <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
-                ${product.price}
+              <span className="text-2xl font-bold text-mintBrand">
+                ${product.price.toFixed(2)}
               </span>
               {inventory > 0 && <span className="text-sm text-mintBrand font-medium">{inventory} in stock</span>}
             </div>

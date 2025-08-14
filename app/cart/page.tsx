@@ -128,7 +128,7 @@ export default function CartPage() {
                       <div className="flex-1">
                         <h3 className="font-semibold text-white text-center">{item.name}</h3>
                         <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30 text-xs mt-1">{item.category}</Badge>
-                        <p className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand mt-2">
+                        <p className="text-lg font-bold text-mintBrand mt-2">
                           ${item.price.toFixed(2)}
                         </p>
                       </div>
@@ -165,7 +165,7 @@ export default function CartPage() {
                     <div className="mt-4 pt-4 border-t border-white/20">
                       <div className="flex justify-between items-center">
                         <span className="text-white/80">Subtotal:</span>
-                        <span className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+                        <span className="text-lg font-bold text-mintBrand">
                           ${(item.price * item.quantity).toFixed(2)}
                         </span>
                       </div>
@@ -207,7 +207,7 @@ export default function CartPage() {
                   <div className="border-t border-white/20 pt-4 mb-6">
                     <div className="flex justify-between items-center text-lg font-semibold text-white">
                       <span>Total:</span>
-                      <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+                      <span className="text-2xl font-bold text-mintBrand">
                         ${state.total.toFixed(2)}
                       </span>
                     </div>

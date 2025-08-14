@@ -99,7 +99,8 @@ export default function InventoryPage() {
     "Nursery harvest ready items:",
     nurseryHarvestReady.map((item) => ({ name: item.name, count: item.count, harvestReady: item.harvestReady })),
   )
-  console.log("Total harvest ready count:", processedAllInventory.filter((item) => item.harvestReady).length)
+  const totalCount = processedAllInventory.filter((item) => item.harvestReady).length;
+  console.log("Total harvest ready count:", totalCount);
 
   function InventoryCard({ item }: { item: any }) {
     return (
@@ -130,7 +131,7 @@ export default function InventoryPage() {
               </div>
             </div>
             <div className="text-right">
-              <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+              <div className="text-3xl font-bold text-mintBrand">
                 {item.count.toLocaleString()}
               </div>
               <p className="text-sm text-white/60">units</p>

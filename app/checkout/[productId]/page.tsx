@@ -185,7 +185,7 @@ export default function CheckoutPage() {
               </div>
 
               <div className="text-center">
-                <span className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+                <span className="text-4xl font-bold text-mintBrand">
                   ${product.price}
                 </span>
                 <span className="text-white/60 ml-2">per unit</span>
@@ -221,7 +221,7 @@ export default function CheckoutPage() {
                <div className="mb-8 p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
                  <div className="flex justify-between items-center">
                    <span className="text-lg font-medium text-white">Total:</span>
-                   <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+                   <span className="text-2xl font-bold text-mintBrand">
                      ${(product.price * quantity).toFixed(2)}
                    </span>
                  </div>

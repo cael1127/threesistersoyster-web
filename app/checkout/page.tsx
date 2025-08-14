@@ -193,18 +193,10 @@ export default function CheckoutPage() {
                     ))}
                   </div>
 
-                  <div className="border-t border-white/20 pt-4 space-y-2">
-                    <div className="flex justify-between items-center text-white">
-                      <span>Subtotal ({state.itemCount} items):</span>
-                      <span>${state.total.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between items-center text-sm text-white/80">
-                      <span>Shipping & Tax:</span>
-                      <span>Calculated at checkout</span>
-                    </div>
-                    <div className="flex justify-between items-center text-lg font-bold text-white pt-2 border-t border-white/20">
+                  <div className="border-t border-white/20 pt-4 mb-6">
+                    <div className="flex justify-between items-center text-lg font-semibold text-white">
                       <span>Total:</span>
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+                      <span className="text-2xl font-bold text-mintBrand">
                         ${state.total.toFixed(2)}+
                       </span>
                     </div>
