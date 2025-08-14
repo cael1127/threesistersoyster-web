@@ -321,8 +321,8 @@ export default function InventoryPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <div className="mb-4">
-            <h1 className="text-4xl font-bold text-purpleBrand mb-4 text-center">Live Inventory</h1>
-            <p className="text-lg text-purpleBrand/80 mb-8 text-center">
+            <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">Live Inventory</h1>
+            <p className="text-lg text-purple-700 mb-8 text-center">
               Real-time tracking of our oyster inventory across farm and nursery locations.
             </p>
           </div>

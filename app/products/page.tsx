@@ -183,8 +183,8 @@ export default function ProductsPage() {
         <div className="container mx-auto max-w-7xl">
           {/* Page Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-purpleBrand mb-4 text-center">Our Products</h1>
-            <p className="text-lg text-purpleBrand/80 mb-8 text-center">
+            <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">Our Products</h1>
+            <p className="text-lg text-purple-700 mb-8 text-center">
               Discover our premium Texas oysters, carefully cultivated for exceptional taste and quality.
             </p>
           </div>
