@@ -41,10 +41,9 @@ function checkRateLimit(ip: string, endpoint: string): boolean {
   return true
 }
 
-// Input validation function - More permissive for legitimate requests
+// Input validation function - Only blocks obviously malicious requests
 function validateRequest(request: NextRequest): boolean {
   const url = request.url
-  const method = request.method
   
   // Only block obviously malicious requests
   if (url.includes('javascript:') || url.includes('vbscript:')) {
@@ -52,16 +51,13 @@ function validateRequest(request: NextRequest): boolean {
     return false
   }
   
-  // Allow data: URLs for legitimate image purposes
-  // if (url.includes('data:')) {
-  //   return false
-  // }
+  // Allow data: URLs for legitimate image purposes (common in web apps)
   
   // Only block suspicious headers if they're clearly malicious
   const suspiciousHeaders = ['x-forwarded-for', 'x-real-ip', 'x-forwarded-proto']
   for (const header of suspiciousHeaders) {
     const headerValue = request.headers.get(header)
-    if (headerValue && headerValue.includes('javascript:') || headerValue.includes('vbscript:')) {
+    if (headerValue && (headerValue.includes('javascript:') || headerValue.includes('vbscript:'))) {
       console.log(`Blocked malicious header ${header}: ${headerValue}`)
       return false
     }
@@ -77,22 +73,8 @@ function validateRequest(request: NextRequest): boolean {
   return true
 }
 
-// Security middleware - TEMPORARILY DISABLED FOR TESTING
+// Security middleware - RE-ENABLED WITH PROPER CONFIGURATION
 export function middleware(request: NextRequest) {
-  // TEMPORARY: Skip all security checks to test if middleware is causing issues
-  console.log('Middleware running for:', request.nextUrl.pathname)
-  
-  // For now, just add security headers without blocking anything
-  const response = NextResponse.next()
-  
-  // Add basic security headers
-  response.headers.set('X-Frame-Options', 'DENY')
-  response.headers.set('X-Content-Type-Options', 'nosniff')
-  response.headers.set('X-XSS-Protection', '1; mode=block')
-  
-  return response
-  
-  /* ORIGINAL SECURITY CODE - COMMENTED OUT FOR TESTING
   const { pathname } = request.nextUrl
   const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
   
@@ -100,11 +82,12 @@ export function middleware(request: NextRequest) {
   if (pathname.startsWith('/_next/') || 
       pathname.startsWith('/favicon.ico') || 
       pathname.startsWith('/public/') ||
-      pathname.includes('.')) {
+      pathname.includes('.') ||
+      pathname === '/') {
     return NextResponse.next()
   }
   
-  // Security checks
+  // Security checks - only block obviously malicious requests
   if (!validateRequest(request)) {
     console.log(`Security violation blocked from IP: ${ip}, Path: ${pathname}`)
     return new NextResponse('Forbidden', { status: 403 })
@@ -144,7 +127,6 @@ export function middleware(request: NextRequest) {
   }
   
   return response
-  */
 }
 
 // Configure which paths the middleware should run on
@@ -156,8 +138,9 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      * - public folder
-     * - static assets
+     * - static assets (files with extensions)
+     * - root path (/)
      */
-    '/((?!_next/static|_next/image|favicon.ico|public/|.*\\.).*)',
+    '/((?!_next/static|_next/image|favicon.ico|public/|.*\\.|^$).*)',
   ],
 } 
