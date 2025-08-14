@@ -183,8 +183,8 @@ export default function HomePage() {
       <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 md:mb-4 px-2 text-center">Our Operations</h2>
-            <p className="text-base sm:text-lg md:text-xl text-white max-w-2xl mx-auto leading-relaxed px-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-3 md:mb-4 px-2 text-center">Our Operations</h2>
+            <p className="text-base sm:text-lg md:text-xl text-purple-800 max-w-2xl mx-auto leading-relaxed px-4">
               From nursery to market, we provide premium oyster solutions for growers and consumers alike.
             </p>
           </div>
@@ -204,13 +204,13 @@ export default function HomePage() {
                       quality={90}
                     />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white text-center">Oyster Nursery</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Oyster Nursery</h3>
                 </div>
-                <p className="text-sm md:text-base text-white mb-4 md:mb-6 leading-relaxed">
+                <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed">
                   Three Sisters Nursery offers customers hardy oyster seed to meet
                   growers' needs with superior quality and reliability.
                 </p>
-                <ul className="space-y-2 text-sm md:text-base text-white mb-4 md:mb-6">
+                <ul className="space-y-2 text-sm md:text-base text-purple-800 mb-4 md:mb-6">
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
                     Hardy Eastern oyster seed
@@ -224,7 +224,7 @@ export default function HomePage() {
                     Expert cultivation support
                   </li>
                 </ul>
-                <p className="text-xs md:text-sm text-white">
+                <p className="text-xs md:text-sm text-purple-800">
                   For pricing and ordering information, please call{" "}
                   <a href="tel:713-854-7427" className="font-semibold text-seafoamBrand hover:text-mintBrand transition-colors duration-200">
                     713-854-7427
@@ -247,13 +247,13 @@ export default function HomePage() {
                       quality={90}
                     />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white text-center">Oyster Farm</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Oyster Farm</h3>
                 </div>
-                <p className="text-sm md:text-base text-white mb-4 md:mb-6 leading-relaxed">
+                <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed">
                   We grow oysters to market size for the premium half-shell market while providing essential habitat for
                   fish and other sea life in our sustainable farming operations.
                 </p>
-                <ul className="space-y-2 text-sm md:text-base text-white">
+                <ul className="space-y-2 text-sm md:text-base text-purple-800">
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
                     Premium half-shell market oysters
@@ -278,17 +278,17 @@ export default function HomePage() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="text-center lg:text-left">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6 leading-tight px-2 text-center">Named After Blake's Three Daughters</h2>
-              <p className="text-sm md:text-base text-white mb-4 md:mb-6 leading-relaxed px-2">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-4 md:mb-6 leading-tight px-2 text-center">Named After Blake's Three Daughters</h2>
+              <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed px-2">
                 Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
                 daughters, our team strives to create a better coastline for the future.
               </p>
-              <p className="text-sm md:text-base text-white mb-4 md:mb-6 leading-relaxed px-2">
+              <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed px-2">
                 Blake grew up outdoors, learning to dive in the Thousand Islands in Indonesia and stayed active in wildlife and
                 FFA during his youth. His love of the outdoors led him to oyster farming as a family and lifestyle
                 choice.
               </p>
-              <p className="text-sm md:text-base text-white mb-6 md:mb-8 leading-relaxed px-2">
+              <p className="text-sm md:text-base text-purple-800 mb-6 md:mb-8 leading-relaxed px-2">
                 With a Range and Wildlife Management degree from Texas A&M Kingsville and eight years in Environmental
                 Consulting, Blake discovered the pristine waters of Keller Bay - an excellent location for growing
                 premium oysters while improving water quality and sequestering nitrogen and carbon.
@@ -307,6 +307,12 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+          <div className="mt-16 text-center">
+            <h2 className="text-4xl font-bold text-white mb-8 text-center">Meet Our Team</h2>
+            <p className="text-xl text-white/80 mb-12 max-w-3xl mx-auto">
+              The dedicated team behind Three Sisters Oyster Co. - passionate about sustainable aquaculture and premium oysters.
+            </p>
+          </div>
           <TeamScroller />
         </div>
       </section>
@@ -314,8 +320,8 @@ export default function HomePage() {
       {/* Environmental Impact */}
       <section className="py-20 px-4 bg-gradient-to-b from-purpleBrand/40 via-blueBrand/40 to-seafoamBrand/40">
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-6 text-center">Environmental Stewardship</h2>
-          <p className="text-xl text-white mb-12 max-w-3xl mx-auto">
+          <h2 className="text-4xl font-bold text-purple-900 mb-6 text-center">Environmental Stewardship</h2>
+          <p className="text-xl text-purple-800 mb-12 max-w-3xl mx-auto">
             We take pride in creating the best oysters while helping the environment, improving water quality and
             sequestering nitrogen and carbon.
           </p>
@@ -325,22 +331,22 @@ export default function HomePage() {
               <div className="w-16 h-16 bg-gradient-to-b from-purpleBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4">
                 <Waves className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2 text-center">Water Quality</h3>
-              <p className="text-white">Improving coastal water quality through natural filtration</p>
+              <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Water Quality</h3>
+              <p className="text-purple-800">Improving coastal water quality through natural filtration</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-b from-seafoamBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4">
                 <Leaf className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2 text-center">Carbon Sequestration</h3>
-              <p className="text-white">Capturing and storing carbon to combat climate change</p>
+              <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Carbon Sequestration</h3>
+              <p className="text-purple-800">Capturing and storing carbon to combat climate change</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-b from-blueBrand to-seafoamBrand rounded-full flex items-center justify-center mx-auto mb-4">
                 <Fish className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2 text-center">Marine Habitat</h3>
-              <p className="text-white">Creating habitat for fish and marine life</p>
+              <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Marine Habitat</h3>
+              <p className="text-purple-800">Creating habitat for fish and marine life</p>
             </div>
           </div>
         </div>
