@@ -63,15 +63,15 @@ export default function OriginCrew() {
     <section className="py-16 md:py-20 bg-gradient-to-b from-seafoamBrand to-blueBrand">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Our Origin Crew
-          </h2>
-          <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-            Meet the dedicated team that built Three Sisters Oyster Co. from the ground up. 
-            Each member brings unique expertise and passion to our sustainable aquaculture mission.
-          </p>
-        </div>
+                 <div className="text-center mb-16">
+           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
+             Our Origin Crew
+           </h2>
+           <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+             Meet the dedicated team that built Three Sisters Oyster Co. from the ground up. 
+             Each member brings unique expertise and passion to our sustainable aquaculture mission.
+           </p>
+         </div>
 
         {/* Crew Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
@@ -82,29 +82,29 @@ export default function OriginCrew() {
             >
               {/* Member Photo */}
               <div className="relative mb-6">
-                <div className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden border-4 border-white/30 group-hover:border-white/50 transition-all duration-300">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    width={160}
-                    height={160}
-                    className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300"
-                    quality={100}
-                  />
-                </div>
+                                 <div className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden border-4 border-white/30 group-hover:border-white/50 transition-all duration-300 aspect-square">
+                   <Image
+                     src={member.image}
+                     alt={member.name}
+                     width={160}
+                     height={160}
+                     className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300"
+                     quality={100}
+                   />
+                 </div>
                                  {/* Decorative ring */}
                  <div className="absolute inset-0 rounded-full border-2 border-purpleBrand/50 group-hover:border-purpleBrand transition-all duration-300"></div>
               </div>
 
                              {/* Member Info */}
                <div className="text-center">
-                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-purpleBrand transition-colors duration-300">
+                 <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2 group-hover:text-purpleBrand transition-colors duration-300">
                    {member.name}
                  </h3>
                  <p className="text-lg md:text-xl text-purpleBrand font-semibold mb-4">
                    {member.role}
                  </p>
-                 <p className="text-white text-sm md:text-base leading-relaxed">
+                 <p className="text-gray-700 text-sm md:text-base leading-relaxed">
                    {member.description}
                  </p>
                </div>
@@ -117,9 +117,9 @@ export default function OriginCrew() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <p className="text-lg md:text-xl text-white/80 mb-6">
-            Together, we're building the future of sustainable oyster farming in Texas.
-          </p>
+                     <p className="text-lg md:text-xl text-gray-700 mb-6">
+             Together, we're building the future of sustainable oyster farming in Texas.
+           </p>
                                 <div className="inline-flex items-center px-6 py-3 bg-purpleBrand/20 backdrop-blur-sm border border-purpleBrand/30 text-purpleBrand font-semibold rounded-full hover:bg-purpleBrand/30 transition-all duration-300">
              Proud to be part of the Three Sisters family
            </div>
