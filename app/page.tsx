@@ -119,13 +119,13 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left Side - Text Content */}
             <div className="text-center lg:text-left">
-              <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6 leading-[1.4] text-center">
+              <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-purple-900 mb-4 md:mb-6 leading-[1.4] text-center">
                 Three Sisters
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-mintBrand to-seafoamBrand pb-2">
                   Oyster Co.
                 </span>
               </h1>
-              <p className="text-base sm:text-lg md:text-xl text-white mb-6 md:mb-8 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-purple-800 mb-6 md:mb-8 leading-relaxed">
                 Committed to the long-term viability of off-bottom aquaculture and a thriving Texas coastline. Growing the
                 finest oysters in the pristine waters of Keller Bay.
               </p>
@@ -170,7 +170,7 @@ export default function HomePage() {
                   <source src="/homepage.MP4" type="video/mp4" />
                   {/* Fallback for browsers that don't support video */}
                   <div className="w-full h-full bg-black flex items-center justify-center">
-                    <span className="text-white text-lg">Video loading...</span>
+                    <span className="text-purple-900 text-lg">Video loading...</span>
                   </div>
                 </video>
               </div>
@@ -356,24 +356,24 @@ export default function HomePage() {
       <section id="contact" className="py-20 px-4 bg-gradient-to-b from-blueBrand/20 to-purpleBrand/20">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4 text-center">Get In Touch</h2>
-            <p className="text-xl text-white">Ready to order premium oysters or learn more about our operations?</p>
+            <h2 className="text-4xl font-bold text-purple-900 mb-4 text-center">Get In Touch</h2>
+            <p className="text-xl text-purple-800">Ready to order premium oysters or learn more about our operations?</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-2xl font-bold text-white mb-6 text-center">Contact Information</h3>
+              <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Contact Information</h3>
               <div className="space-y-4">
                 <a
                   href="tel:713-854-7427"
-                  className="flex items-center text-white hover:text-mintBrand transition-colors duration-200 group"
+                  className="flex items-center text-purple-800 hover:text-mintBrand transition-colors duration-200 group"
                 >
                   <Phone className="w-5 h-5 text-mintBrand mr-3 group-hover:text-seafoamBrand transition-colors duration-200" />
                   <span className="group-hover:underline">713-854-7427</span>
                 </a>
                 <a
                   href="mailto:info@threesistersoyster.com"
-                  className="flex items-center text-white hover:text-mintBrand transition-colors duration-200 group"
+                  className="flex items-center text-purple-800 hover:text-mintBrand transition-colors duration-200 group"
                 >
                   <Mail className="w-5 h-5 text-mintBrand mr-3 group-hover:text-seafoamBrand transition-colors duration-200" />
                   <span className="group-hover:underline">info@threesistersoyster.com</span>
@@ -382,7 +382,7 @@ export default function HomePage() {
                   href="https://maps.google.com/?q=106+Grant+St.+Port+Lavaca,+TX+77979"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-white hover:text-mintBrand transition-colors duration-200 group"
+                  className="flex items-center text-purple-800 hover:text-mintBrand transition-colors duration-200 group"
                 >
                   <MapPin className="w-5 h-5 text-mintBrand mr-3 group-hover:text-seafoamBrand transition-colors duration-200" />
                   <span className="group-hover:underline">106 Grant St. Port Lavaca, TX 77979</span>
@@ -390,12 +390,12 @@ export default function HomePage() {
               </div>
 
               <div className="mt-8">
-                <h4 className="text-lg font-semibold text-white mb-4 text-center">Follow Us</h4>
+                <h4 className="text-lg font-semibold text-purple-900 mb-4 text-center">Follow Us</h4>
                 <a
                   href="https://instagram.com/threesistersoysterco"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white hover:text-mintBrand transition-colors duration-200 hover:underline"
+                  className="text-purple-800 hover:text-mintBrand transition-colors duration-200 hover:underline"
                 >
                   @threesistersoysterco
                 </a>
@@ -404,29 +404,29 @@ export default function HomePage() {
 
             <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm">
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-white mb-6 text-center">Send Us a Message</h3>
+                <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Send Us a Message</h3>
                 <form className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Name</label>
+                    <label className="block text-sm font-medium text-purple-900 mb-2">Name</label>
                     <input
                       type="text"
-                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-white placeholder-white/50"
+                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-purple-900 placeholder-purple-600"
                       placeholder="Your name"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Email</label>
+                    <label className="block text-sm font-medium text-purple-900 mb-2">Email</label>
                     <input
                       type="email"
-                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-white placeholder-white/50"
+                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-purple-900 placeholder-purple-600"
                       placeholder="your.email@example.com"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Message</label>
+                    <label className="block text-sm font-medium text-purple-900 mb-2">Message</label>
                     <textarea
                       rows={4}
-                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-white placeholder-white/50"
+                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-purple-900 placeholder-purple-600"
                       placeholder="Tell us about your inquiry..."
                     />
                   </div>
