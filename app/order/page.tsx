@@ -11,6 +11,7 @@ import Link from "next/link"
 import { ShoppingCart } from "lucide-react"
 import { CartButton } from "@/components/cart-button"
 import Image from "next/image"
+import { Phone, Mail } from "lucide-react"
 
 export default function OrderPage() {
   const [orderItems, setOrderItems] = useState<any[]>([])
@@ -192,130 +193,145 @@ export default function OrderPage() {
 
       {/* Main Content */}
       <main className="flex-1 py-8 px-4">
-        <div className="container mx-auto max-w-4xl">
-          {/* Page Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-white mb-4 text-center">Place Your Order</h1>
-            <p className="text-xl text-white/80 max-w-2xl mx-auto">
-              Ready to get started with Three Sisters Oyster Co.? Let us know what you need and we'll get back to you quickly.
-            </p>
-          </div>
-
-          {/* Order Form */}
-          <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/20 to-blueBrand/20 backdrop-blur-sm">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-white mb-6 text-center">Order Information</h2>
-
-              {/* Contact Information */}
-              <div className="bg-gradient-to-r from-purpleBrand/20 to-seafoamBrand/20 p-6 rounded-lg mb-8">
-                <h3 className="text-lg font-semibold text-white mb-4 text-center">Contact Information</h3>
-                <div className="space-y-4 text-center">
-                  <div className="flex items-center justify-center space-x-4">
-                    <span className="font-medium text-mintBrand w-20">Phone:</span>
-                    <a href="tel:713-854-7427" className="text-white/80 hover:text-mintBrand transition-colors duration-200">
-                      713-854-7427
-                    </a>
-                  </div>
-                  <div className="flex items-center justify-center space-x-4">
-                    <span className="font-medium text-mintBrand w-20">Email:</span>
-                    <a href="mailto:info@threesistersoyster.com" className="text-white/80 hover:text-mintBrand transition-colors duration-200">
-                      info@threesistersoyster.com
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Order Types */}
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 rounded-lg mb-8">
-                <h3 className="text-lg font-semibold text-white mb-4 text-center">Order Types</h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="p-4 border border-seafoamBrand/30 rounded-lg bg-seafoamBrand/10">
-                    <h4 className="font-semibold text-seafoamBrand mb-2 text-center">Nursery Orders</h4>
-                    <p className="text-sm text-white/80 mb-3">Hardy Gulf Coast oyster seed for growers</p>
-                    <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30">Seed Stock</Badge>
-                  </div>
-                  <div className="p-4 border border-purpleBrand/30 rounded-lg bg-purpleBrand/10">
-                    <h4 className="font-semibold text-purpleBrand mb-2 text-center">Farm Orders</h4>
-                    <p className="text-sm text-white/80 mb-3">Premium half-shell oysters ready for market</p>
-                    <Badge className="bg-purpleBrand/20 text-purpleBrand border border-purpleBrand/30">Market Ready</Badge>
-                  </div>
-                </div>
-              </div>
-
-              {/* Order Form */}
-              <div className="space-y-6">
-                <p className="text-white/80 mb-4">
-                  Please fill out the form below with your order details. We'll contact you within 24 hours to confirm
-                  availability and arrange delivery or pickup.
+        <div className="container mx-auto px-4 py-12">
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/20 to-blueBrand/20 backdrop-blur-sm">
+              <CardContent className="p-8">
+                <h2 className="text-2xl font-bold text-purple-900 mb-4 text-center">Order Information</h2>
+                <p className="text-purple-800 mb-6 text-center">
+                  Please provide your order details and we'll get back to you within 24 hours.
                 </p>
 
-                <form onSubmit={handleSubmitOrder} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
+                {/* Contact Information */}
+                <div className="bg-gradient-to-r from-purpleBrand/20 to-seafoamBrand/20 rounded-lg p-6 mb-6">
+                  <h3 className="text-lg font-semibold text-purple-900 mb-4 text-center">Contact Information</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
                     <div>
-                      <label className="block text-sm font-medium text-white mb-2">Name *</label>
+                      <Phone className="w-5 h-5 text-mintBrand mx-auto mb-2" />
+                      <a href="tel:713-854-7427" className="text-purple-800 hover:text-mintBrand transition-colors duration-200">
+                        713-854-7427
+                      </a>
+                    </div>
+                    <div>
+                      <Mail className="w-5 h-5 text-mintBrand mx-auto mb-2" />
+                      <a href="mailto:info@threesistersoyster.com" className="text-purple-800 hover:text-mintBrand transition-colors duration-200">
+                        info@threesistersoyster.com
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Order Types */}
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 mb-6">
+                  <h3 className="text-lg font-semibold text-purple-900 mb-4 text-center">Order Types</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Nursery Orders */}
+                    <div className="border border-seafoamBrand/30 rounded-lg bg-seafoamBrand/10 p-4">
+                      <h4 className="text-lg font-semibold text-seafoamBrand mb-2 text-center">Nursery Orders</h4>
+                      <p className="text-purple-800 mb-3 text-sm text-center">
+                        Hardy Eastern oyster seed for growers
+                      </p>
+                      <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30">
+                        Available Year-Round
+                      </Badge>
+                    </div>
+
+                    {/* Farm Orders */}
+                    <div className="border border-purpleBrand/30 rounded-lg bg-purpleBrand/10 p-4">
+                      <h4 className="text-lg font-semibold text-purpleBrand mb-2 text-center">Farm Orders</h4>
+                      <p className="text-purple-800 mb-3 text-sm text-center">
+                        Premium half-shell market oysters
+                      </p>
+                      <Badge className="bg-purpleBrand/20 text-purpleBrand border border-purpleBrand/30">
+                        Seasonal Availability
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Order Form */}
+                <form onSubmit={handleSubmitOrder} className="space-y-6">
+                  <p className="text-purple-800 text-center">
+                    Fill out the form below and we'll contact you to arrange your order.
+                  </p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-purple-900 mb-2">First Name</label>
                       <input
                         type="text"
-                        name="name"
+                        name="firstName"
                         required
-                        className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-white placeholder-white/50"
-                        placeholder="Your full name"
+                        className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-purple-900 placeholder-purple-600"
+                        placeholder="Your first name"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-white mb-2">Phone *</label>
+                      <label className="block text-sm font-medium text-purple-900 mb-2">Last Name</label>
                       <input
-                        type="tel"
-                        name="phone"
+                        type="text"
+                        name="lastName"
                         required
-                        className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-white placeholder-white/50"
-                        placeholder="Your phone number"
+                        className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-purple-900 placeholder-purple-600"
+                        placeholder="Your last name"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Email *</label>
+                    <label className="block text-sm font-medium text-purple-900 mb-2">Email</label>
                     <input
                       type="email"
                       name="email"
                       required
-                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-white placeholder-white/50"
+                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-purple-900 placeholder-purple-600"
                       placeholder="your.email@example.com"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-white mb-2">Order Details *</label>
-                    <textarea
-                      name="orderDetails"
+                    <label className="block text-sm font-medium text-purple-900 mb-2">Phone</label>
+                    <input
+                      type="tel"
+                      name="phone"
                       required
-                      rows={4}
-                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-white placeholder-white/50"
-                      placeholder="Please describe what you'd like to order, including quantities, sizes, and any special requirements..."
+                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-purple-900 placeholder-purple-600"
+                      placeholder="(713) 854-7427"
                     />
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <div>
+                    <label className="block text-sm font-medium text-purple-900 mb-2">Order Details</label>
+                    <textarea
+                      name="orderDetails"
+                      rows={4}
+                      required
+                      className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-purple-900 placeholder-purple-600"
+                      placeholder="Please describe your order including quantities, sizes, and any special requirements..."
+                    />
+                  </div>
+
+                  <div className="text-center">
                     <Button
                       type="submit"
                       disabled={isSubmitting}
                       className="bg-gradient-to-r from-purpleBrand to-seafoamBrand hover:from-lavenderBrand hover:to-blueBrand"
                     >
-                      {isSubmitting ? "Submitting..." : "Submit Order"}
+                      {isSubmitting ? "Submitting..." : "Submit Order Request"}
                     </Button>
                     <Button
                       type="button"
                       variant="outline"
-                      className="border-mintBrand text-mintBrand hover:bg-mintBrand/20 bg-transparent"
                       onClick={() => window.history.back()}
+                      className="border-mintBrand text-mintBrand hover:bg-mintBrand/20 ml-3"
                     >
                       Back
                     </Button>
                   </div>
                 </form>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </main>
     </div>

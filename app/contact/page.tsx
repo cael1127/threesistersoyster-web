@@ -108,26 +108,26 @@ export default function ContactPage() {
 
 
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 px-2 text-center">Get In Touch</h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto px-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 px-2 text-center">Get In Touch</h1>
+          <p className="text-xl text-purple-800 max-w-2xl mx-auto px-4">
             Ready to order premium oysters or learn more about our operations? Reach out to us below.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           <div>
-            <h3 className="text-2xl font-bold text-white mb-6 text-center">Contact Information</h3>
+            <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Contact Information</h3>
             <div className="space-y-4">
               <a
                 href="tel:713-854-7427"
-                className="flex items-center text-white/80 hover:text-mintBrand transition-colors duration-200 group"
+                className="flex items-center text-purple-800 hover:text-mintBrand transition-colors duration-200 group"
               >
                 <Phone className="w-5 h-5 text-mintBrand mr-3 group-hover:text-seafoamBrand transition-colors duration-200" />
                 <span className="group-hover:underline">713-854-7427</span>
               </a>
               <a
                 href="mailto:info@threesistersoyster.com"
-                className="flex items-center text-white/80 hover:text-mintBrand transition-colors duration-200 group"
+                className="flex items-center text-purple-800 hover:text-mintBrand transition-colors duration-200 group"
               >
                 <Mail className="w-5 h-5 text-mintBrand mr-3 group-hover:text-seafoamBrand transition-colors duration-200" />
                 <span className="group-hover:underline">info@threesistersoyster.com</span>
@@ -136,19 +136,19 @@ export default function ContactPage() {
                 href="https://maps.google.com/?q=106+Grant+St.+Port+Lavaca,+TX+77979"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-white/80 hover:text-mintBrand transition-colors duration-200 group"
+                className="flex items-center text-purple-800 hover:text-mintBrand transition-colors duration-200 group"
               >
                 <MapPin className="w-5 h-5 text-mintBrand mr-3 group-hover:text-seafoamBrand transition-colors duration-200" />
                 <span className="group-hover:underline">106 Grant St. Port Lavaca, TX 77979</span>
               </a>
             </div>
             <div className="mt-8">
-              <h4 className="text-lg font-semibold text-white mb-4 text-center">Follow Us</h4>
+              <h4 className="text-lg font-semibold text-purple-900 mb-4 text-center">Follow Us</h4>
               <a
                 href="https://instagram.com/threesistersoysterco"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/80 hover:text-mintBrand transition-colors duration-200 hover:underline"
+                className="text-purple-800 hover:text-mintBrand transition-colors duration-200 hover:underline"
               >
                 @threesistersoysterco
               </a>
@@ -165,23 +165,23 @@ export default function ContactPage() {
               <Users className="w-4 h-4 mr-2" />
               Join Our Team
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 text-center">Employment Opportunities</h2>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-6 text-center">Employment Opportunities</h2>
+            <p className="text-xl text-purple-800 max-w-3xl mx-auto px-4">
               Join our growing team and be part of sustainable aquaculture in the beautiful Texas Gulf Coast
             </p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8 mb-12">
             {/* Why Work With Us */}
-            <Card className="border-white/20 bg-white/10 backdrop-blur-sm">
+            <Card className="border-purple-200 bg-white">
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-mintBrand rounded-full flex items-center justify-center mr-4">
                     <Heart className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white text-center">Why Work With Us</h3>
+                  <h3 className="text-xl font-bold text-purple-900 text-center">Why Work With Us</h3>
                 </div>
-                <ul className="space-y-3 text-white/80">
+                <ul className="space-y-3 text-purple-800">
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-mintBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
                     <span>Family-owned business with a supportive work environment</span>
@@ -203,18 +203,18 @@ export default function ContactPage() {
             </Card>
 
             {/* Current Positions */}
-            <Card className="border-white/20 bg-white/10 backdrop-blur-sm">
+            <Card className="border-purple-200 bg-white">
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-seafoamBrand rounded-full flex items-center justify-center mr-4">
                     <Briefcase className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white text-center">Current Positions</h3>
+                  <h3 className="text-xl font-bold text-purple-900 text-center">Current Positions</h3>
                 </div>
                 <div className="space-y-4">
-                  <div className="p-3 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-                    <h4 className="font-semibold text-white mb-1 text-center">Farm Hand</h4>
-                    <p className="text-sm text-white/80">Full-time position working on oyster farm operations</p>
+                  <div className="p-3 bg-seafoamBrand/10 rounded-lg border border-seafoamBrand/30">
+                    <h4 className="font-semibold text-purple-900 mb-1 text-center">Farm Hand</h4>
+                    <p className="text-sm text-purple-800">Full-time position working on oyster farm operations</p>
                     <Badge className="mt-2 bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30">Full-time</Badge>
                   </div>
                 </div>
@@ -222,15 +222,15 @@ export default function ContactPage() {
             </Card>
 
             {/* Requirements */}
-            <Card className="border-white/20 bg-white/10 backdrop-blur-sm">
+            <Card className="border-purple-200 bg-white">
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-blueBrand rounded-full flex items-center justify-center mr-4">
                     <Leaf className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white text-center">Requirements</h3>
+                  <h3 className="text-xl font-bold text-purple-900 text-center">Requirements</h3>
                 </div>
-                <ul className="space-y-3 text-white/80">
+                <ul className="space-y-3 text-purple-800">
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-blueBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
                     <span>Comfortable working outdoors in all weather</span>

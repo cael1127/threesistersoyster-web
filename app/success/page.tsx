@@ -132,88 +132,88 @@ export default function SuccessPage() {
         <div className="max-w-2xl mx-auto">
           <Card className="border-mintBrand/30 bg-mintBrand/20 backdrop-blur-sm">
             <CardContent className="p-8 text-center">
-              <div className="w-20 h-20 bg-mintBrand/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-10 h-10 text-mintBrand" />
+              <div className="w-16 h-16 bg-mintBrand/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-8 h-8 text-mintBrand" />
               </div>
-
-              <h1 className="text-3xl font-bold text-white mb-4 text-center">Order Confirmed!</h1>
-
-              <p className="text-white mb-6">
-                Thank you for your order! Your payment has been processed successfully and we'll begin preparing your
-                fresh Texas oysters.
+              <h1 className="text-3xl font-bold text-purple-900 mb-4 text-center">Order Confirmed!</h1>
+              <p className="text-purple-800 mb-6">
+                Thank you for your order! We've received your request and will be in touch soon.
               </p>
 
-              {session && (
-                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20 mb-6">
-                  <h3 className="font-semibold text-white mb-4 flex items-center justify-center text-center">
-                    <Package className="w-5 h-5 mr-2" />
-                    Order Details
-                  </h3>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-white/80">Order ID:</span>
-                      <span className="font-mono text-mintBrand">{session.id?.slice(-8)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-white/80">Amount:</span>
-                      <span className="font-bold text-mintBrand">${(session.amount_total / 100).toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-white/80">Status:</span>
-                      <span className="text-mintBrand font-medium">Confirmed</span>
-                    </div>
+              {/* Order Details */}
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 mb-6">
+                <h3 className="font-semibold text-purple-900 mb-4 flex items-center justify-center text-center">
+                  <CheckCircle className="w-5 h-5 text-mintBrand mr-2" />
+                  Order Details
+                </h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-purple-800">Order ID:</span>
+                    <span className="text-mintBrand font-medium">{session?.id || 'N/A'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-purple-800">Amount:</span>
+                    <span className="text-mintBrand font-medium">
+                      ${session?.amount_total ? (session.amount_total / 100).toFixed(2) : 'N/A'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-purple-800">Status:</span>
+                    <span className="text-mintBrand font-medium">Confirmed</span>
                   </div>
                 </div>
-              )}
+              </div>
 
-              <div className="bg-gradient-to-r from-purpleBrand/20 to-seafoamBrand/20 p-6 rounded-lg mb-6">
-                <h3 className="font-semibold text-white mb-3 text-center">What happens next?</h3>
-                <ul className="text-sm text-white/80 space-y-2 text-left">
-                  <li className="flex items-start">
-                    <span className="text-mintBrand mr-2">✓</span>
-                    You'll receive an email confirmation shortly
+              {/* What happens next */}
+              <div className="bg-gradient-to-r from-purpleBrand/20 to-seafoamBrand/20 rounded-lg p-6 mb-6">
+                <h3 className="font-semibold text-purple-900 mb-3 text-center">What happens next?</h3>
+                <ul className="text-sm text-purple-800 space-y-2 text-left">
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 text-mintBrand mr-2 flex-shrink-0" />
+                    We'll review your order within 24 hours
                   </li>
-                  <li className="flex items-start">
-                    <span className="text-mintBrand mr-2">✓</span>
-                    We'll contact you within 24 hours to arrange delivery or pickup
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 text-mintBrand mr-2 flex-shrink-0" />
+                    We'll contact you to confirm details
                   </li>
-                  <li className="flex items-start">
-                    <span className="text-mintBrand mr-2">✓</span>
-                    Your fresh oysters will be prepared and ready
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 text-mintBrand mr-2 flex-shrink-0" />
+                    Arrange pickup or delivery
                   </li>
-                  <li className="flex items-start">
-                    <span className="text-mintBrand mr-2">✓</span>
-                    Enjoy the finest Texas oysters from Keller Bay!
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 text-mintBrand mr-2 flex-shrink-0" />
+                    Enjoy your fresh Texas oysters!
                   </li>
                 </ul>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
-                  <Phone className="w-6 h-6 text-mintBrand mx-auto mb-2" />
-                  <p className="text-sm font-medium text-white">Questions?</p>
-                  <a href="tel:713-854-7427" className="text-xs text-mintBrand hover:underline">
-                    713-854-7427
-                  </a>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
-                  <Mail className="w-6 h-6 text-seafoamBrand mx-auto mb-2" />
-                  <p className="text-sm font-medium text-white">Email Us</p>
-                  <a href="mailto:info@threesistersoyster.com" className="text-xs text-seafoamBrand hover:underline">
-                    info@threesistersoyster.com
-                  </a>
+              {/* Contact Information */}
+              <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="text-center">
+                    <Phone className="w-5 h-5 text-mintBrand mx-auto mb-2" />
+                    <p className="text-sm font-medium text-purple-900">Questions?</p>
+                    <a href="tel:713-854-7427" className="text-mintBrand text-sm hover:underline">
+                      713-854-7427
+                    </a>
+                  </div>
+                  <div className="text-center">
+                    <Mail className="w-5 h-5 text-mintBrand mx-auto mb-2" />
+                    <p className="text-sm font-medium text-purple-900">Email Us</p>
+                    <a href="mailto:info@threesistersoyster.com" className="text-mintBrand text-sm hover:underline">
+                      info@threesistersoyster.com
+                    </a>
+                  </div>
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button asChild className="bg-gradient-to-r from-purpleBrand to-seafoamBrand">
-                    <Link href="/" replace>Return Home</Link>
-                  </Button>
-                  <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10">
-                    <Link href="/products" replace>Continue Shopping</Link>
-                  </Button>
-                </div>
+              <div className="mt-6">
+                <Button asChild className="bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+                  <Link href="/products">Continue Shopping</Link>
+                </Button>
+                <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10 ml-3">
+                  <Link href="/">Back to Home</Link>
+                </Button>
               </div>
             </CardContent>
           </Card>

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Waves, Fish, Leaf, Phone, Mail, MapPin, ArrowLeft, Heart, Users, Globe, Award } from "lucide-react"
+import { Waves, Fish, Leaf, Phone, Mail, MapPin, ArrowLeft, Heart, Users, Globe, Award, Star } from "lucide-react"
 import { CartButton } from "@/components/cart-button"
 import Image from "next/image"
 
@@ -75,36 +75,40 @@ export default function AboutPage() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 px-2 text-center">About Three Sisters Oyster Co.</h1>
-          <p className="text-xl text-white max-w-3xl mx-auto px-4">
-            A family-owned oyster farm committed to sustainable aquaculture and environmental stewardship in the pristine waters of Keller Bay.
+      {/* Hero Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h1 className="text-4xl md:text-6xl font-bold text-purple-900 mb-6">
+            Our Story
+          </h1>
+          <p className="text-xl text-purple-800 max-w-3xl mx-auto">
+            From the pristine waters of Keller Bay to your table, discover the passion behind Three Sisters Oyster Co.
           </p>
         </div>
+      </section>
 
-        {/* Our Story Section */}
-        <section className="mb-16">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Our Story Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-blueBrand/20 to-purpleBrand/20">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
-              <h2 className="text-3xl font-bold text-white mb-6 text-center">Named After Blake's Three Daughters</h2>
-              <div className="space-y-4 text-white">
+              <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-6">
+                Named After Blake's Three Daughters
+              </h2>
+              <div className="space-y-4 text-purple-800">
                 <p>
                   Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
                   daughters, our team strives to create a better coastline for the future.
                 </p>
                 <p>
-                Blake grew up outdoors, learning to dive in the Thousand Islands in Indonesia and stayed active in wildlife and
-                FFA during his youth. His love of the outdoors led him to oyster farming as a family and lifestyle
-                choice.
+                  Blake grew up outdoors, learning to dive in the Thousand Islands in Indonesia and stayed active in wildlife and
+                  FFA during his youth. His love of the outdoors led him to oyster farming as a family and lifestyle
+                  choice.
                 </p>
                 <p>
-                With a Range and Wildlife Management degree from Texas A&M Kingsville and eight years in Environmental
-                Consulting, Blake discovered the pristine waters of Keller Bay - an excellent location for growing
-                premium oysters while improving water quality and sequestering nitrogen and carbon.
+                  With a Range and Wildlife Management degree from Texas A&M Kingsville and eight years in Environmental
+                  Consulting, Blake discovered the pristine waters of Keller Bay - an excellent location for growing
+                  premium oysters while improving water quality and sequestering nitrogen and carbon.
                 </p>
               </div>
             </div>
@@ -116,183 +120,146 @@ export default function AboutPage() {
                   width={400}
                   height={400}
                   className="rounded-2xl object-cover"
-                  quality={90}
                 />
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Mission & Values Section */}
-        <section className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4 text-center">Our Mission & Values</h2>
-            <p className="text-xl text-white max-w-2xl mx-auto">
-              We're committed to sustainable aquaculture practices that benefit both our business and the environment.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
+      {/* Values Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-purpleBrand/20 to-blueBrand/20">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Sustainability */}
             <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-purpleBrand to-lavenderBrand rounded-full flex items-center justify-center mx-auto mb-4">
                   <Leaf className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 text-center">Environmental Stewardship</h3>
-                <p className="text-white/80">
-                  We prioritize sustainable practices that protect and enhance the coastal ecosystem.
+                <h3 className="text-xl font-bold text-purple-900 mb-3">Sustainability</h3>
+                <p className="text-purple-800">
+                  We're committed to sustainable aquaculture practices that protect and enhance our marine environment.
                 </p>
               </CardContent>
             </Card>
 
+            {/* Quality */}
             <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-seafoamBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-white" />
+                  <Star className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 text-center">Community Impact</h3>
-                <p className="text-white/80">
-                  Supporting local economies and providing opportunities for coastal communities.
+                <h3 className="text-xl font-bold text-purple-900 mb-3">Quality</h3>
+                <p className="text-purple-800">
+                  Every oyster is carefully cultivated to meet our high standards for taste, texture, and safety.
                 </p>
               </CardContent>
             </Card>
 
+            {/* Community */}
             <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-seafoamBrand/40 backdrop-blur-sm">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-purpleBrand to-seafoamBrand rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award className="w-8 h-8 text-white" />
+                  <Users className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 text-center">Quality Excellence</h3>
-                <p className="text-white/80">
-                  Maintaining the highest standards in oyster production and customer service.
+                <h3 className="text-xl font-bold text-purple-900 mb-3">Community</h3>
+                <p className="text-purple-800">
+                  We're proud to be part of the Texas Gulf Coast community and contribute to its economic vitality.
                 </p>
               </CardContent>
             </Card>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Environmental Impact Section */}
-        <section className="mb-16">
-          <div className="bg-gradient-to-r from-purpleBrand/40 to-seafoamBrand/40 rounded-2xl p-8 md:p-12">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white mb-4 text-center">Environmental Impact</h2>
-              <p className="text-xl text-white/80 max-w-3xl mx-auto">
-                Our oyster farming operations provide significant environmental benefits beyond just producing delicious seafood.
-              </p>
+      {/* Environmental Impact */}
+      <section className="py-20 px-4 bg-gradient-to-r from-purpleBrand/40 to-seafoamBrand/40">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-6">
+            Environmental Stewardship
+          </h2>
+          <p className="text-xl text-purple-800 mb-12">
+            Our oyster farming operations actively contribute to environmental restoration and protection.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-purpleBrand to-lavenderBrand rounded-full flex items-center justify-center mx-auto mb-4">
+                <Waves className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold text-purple-900 mb-2">Water Filtration</h3>
+              <p className="text-purple-800">Each oyster filters up to 50 gallons of water per day</p>
             </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-purpleBrand to-lavenderBrand rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Waves className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 text-center">Water Filtration</h3>
-                <p className="text-white/80">
-                  Each oyster filters up to 50 gallons of water per day, improving water clarity and quality.
-                </p>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-seafoamBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4">
+                <Leaf className="w-8 h-8 text-white" />
               </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-seafoamBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Leaf className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 text-center">Carbon Sequestration</h3>
-                <p className="text-white/80">
-                  Oyster shells and tissue store carbon, helping mitigate climate change impacts.
-                </p>
+              <h3 className="text-lg font-semibold text-purple-900 mb-2">Carbon Sequestration</h3>
+              <p className="text-purple-800">Oyster shells naturally capture and store carbon</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-purpleBrand to-seafoamBrand rounded-full flex items-center justify-center mx-auto mb-4">
+                <Fish className="w-8 h-8 text-white" />
               </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-purpleBrand to-seafoamBrand rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Fish className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 text-center">Habitat Creation</h3>
-                <p className="text-white/80">
-                  Our oyster reefs provide essential habitat for fish, crabs, and other marine life.
-                </p>
-              </div>
+              <h3 className="text-lg font-semibold text-purple-900 mb-2">Habitat Creation</h3>
+              <p className="text-purple-800">Oyster reefs provide shelter for marine life</p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Operations Section */}
-        <section className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4 text-center">Our Operations</h2>
-            <p className="text-xl text-white/80 max-w-2xl mx-auto">
-              From nursery to market, we maintain the highest standards in every aspect of our operations.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12">
-            <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
-              <CardContent className="p-6 md:p-8">
-                <div className="flex items-center mb-4 md:mb-6">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center mr-3 md:mr-4">
-                    <Image
-                      src="/nurserylog.JPEG"
-                      alt="Three Sisters Oyster Nursery"
-                      width={48}
-                      height={48}
-                      className="w-full h-full object-cover"
-                      quality={90}
-                    />
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white text-center">Oyster Nursery</h3>
-                </div>
-                <p className="text-sm md:text-base text-white mb-4 md:mb-6 leading-relaxed">
-                  Our nursery produces hardy Eastern oyster seed with superior survival rates and growth characteristics.
+      {/* Operations Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-blueBrand/20 to-purpleBrand/20">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-12 text-center">
+            Our Operations
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Nursery Operations */}
+            <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-purple-900 mb-4 text-center">Nursery Operations</h3>
+                <p className="text-purple-800 mb-4">
+                  Our nursery produces hardy Eastern oyster seed for growers throughout the region.
                 </p>
-                <ul className="space-y-2 text-sm md:text-base text-white mb-4 md:mb-6">
+                <ul className="space-y-2 text-purple-800">
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
-                    Hardy Eastern oyster seed
+                    Disease-resistant seed stock
                   </li>
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
-                    Reliable supply for growers
+                    Year-round availability
                   </li>
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
                     Expert cultivation support
                   </li>
                 </ul>
-                <p className="text-xs md:text-sm text-white">
+                <p className="text-purple-800 mt-4">
                   For pricing and ordering information, please call{" "}
-                  <a href="tel:713-854-7427" className="font-semibold text-seafoamBrand hover:text-mintBrand transition-colors duration-200">
+                  <a href="tel:713-854-7427" className="text-seafoamBrand hover:text-mintBrand transition-colors duration-200">
                     713-854-7427
                   </a>
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
-              <CardContent className="p-6 md:p-8">
-                <div className="flex items-center mb-4 md:mb-6">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center mr-3 md:mr-4">
-                    <Image
-                      src="/farmlog.jpg"
-                      alt="Three Sisters Oyster Farm"
-                      width={48}
-                      height={48}
-                      className="w-full h-full object-cover"
-                      quality={90}
-                    />
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white text-center">Oyster Farm</h3>
-                </div>
-                <p className="text-sm md:text-base text-white mb-4 md:mb-6 leading-relaxed">
-                  We grow oysters to market size for the premium half-shell market while providing essential habitat for
-                  fish and other sea life in our sustainable farming operations.
+            {/* Farm Operations */}
+            <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-purple-900 mb-4 text-center">Farm Operations</h3>
+                <p className="text-purple-800 mb-4">
+                  We grow oysters to market size for the premium half-shell market.
                 </p>
-                <ul className="space-y-2 text-sm md:text-base text-white">
+                <ul className="space-y-2 text-purple-800">
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
-                    Premium half-shell market oysters
+                    Premium half-shell oysters
                   </li>
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
-                    Sustainable aquaculture practices
+                    Sustainable farming practices
                   </li>
                   <li className="flex items-center">
                     <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
@@ -302,29 +269,39 @@ export default function AboutPage() {
               </CardContent>
             </Card>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Call to Action */}
-        <section className="text-center">
+      {/* Call to Action */}
+      <section className="py-20 px-4 bg-gradient-to-r from-purpleBrand/40 to-seafoamBrand/40">
+        <div className="container mx-auto max-w-4xl text-center">
           <Card className="border-purpleBrand/30 bg-gradient-to-r from-purpleBrand/40 to-seafoamBrand/40">
-            <CardContent className="p-8 md:p-12">
-              <h3 className="text-2xl font-bold text-white mb-4 text-center">Ready to Experience Premium Oysters?</h3>
-              <p className="text-white/80 mb-6 max-w-2xl mx-auto">
-                Whether you're a restaurant looking for consistent quality or an individual wanting the freshest oysters,
-                we're here to help you discover the taste of the Texas Gulf Coast.
+            <CardContent className="p-8">
+              <h3 className="text-3xl font-bold text-white mb-4">
+                Ready to Experience Premium Texas Oysters?
+              </h3>
+              <p className="text-white/80 mb-8 text-lg">
+                Contact us today to learn more about our products and place your order.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild className="bg-gradient-to-r from-purpleBrand to-seafoamBrand hover:from-lavenderBrand hover:to-blueBrand">
-                  <Link href="/products">Shop Our Products</Link>
+                <Button
+                  asChild
+                  className="bg-gradient-to-r from-purpleBrand to-seafoamBrand hover:from-lavenderBrand hover:to-blueBrand"
+                >
+                  <Link href="/contact">Get In Touch</Link>
                 </Button>
-                <Button asChild variant="outline" className="border-mintBrand text-mintBrand hover:bg-mintBrand/20 bg-transparent">
-                  <Link href="/contact">Get in Touch</Link>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="border-mintBrand text-mintBrand hover:bg-mintBrand/20"
+                >
+                  <Link href="/products">View Products</Link>
                 </Button>
               </div>
             </CardContent>
           </Card>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   )
 } 

@@ -179,8 +179,8 @@ export default function CheckoutPage() {
             <div className="space-y-6">
               <div>
                 <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30 mb-4">{product.category}</Badge>
-                <h1 className="text-4xl font-bold text-white mb-4 text-center">{product.name}</h1>
-                {originalDescription && <p className="text-white/80 text-lg mb-4">{originalDescription}</p>}
+                <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">{product.name}</h1>
+                {originalDescription && <p className="text-purple-800 text-lg mb-4">{originalDescription}</p>}
                 {inventory > 0 && <p className="text-mintBrand font-medium mb-4">{inventory} available in stock</p>}
               </div>
 
@@ -188,27 +188,27 @@ export default function CheckoutPage() {
                 <span className="text-4xl font-bold text-mintBrand">
                   ${product.price}
                 </span>
-                <span className="text-white/60 ml-2">per unit</span>
+                <span className="text-purple-600 ml-2">per unit</span>
               </div>
 
               {/* Quantity Selector */}
               <div>
-                <label className="block text-sm font-medium text-white mb-2">Quantity</label>
+                <label className="block text-sm font-medium text-purple-900 mb-2">Quantity</label>
                 <div className="flex items-center space-x-4">
                   <Button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     variant="outline"
                     size="sm"
-                    className="border-white/30 text-white hover:bg-white/10"
+                    className="border-purple-300 text-purple-700 hover:bg-purple-50"
                   >
                     -
                   </Button>
-                  <span className="text-2xl font-bold text-white min-w-[3rem] text-center">{quantity}</span>
+                  <span className="text-2xl font-bold text-purple-900 min-w-[3rem] text-center">{quantity}</span>
                   <Button
                     onClick={() => setQuantity(quantity + 1)}
                     variant="outline"
                     size="sm"
-                    className="border-white/30 text-white hover:bg-white/10"
+                    className="border-purple-300 text-purple-700 hover:bg-purple-50"
                   >
                     +
                   </Button>
@@ -218,9 +218,9 @@ export default function CheckoutPage() {
                {/* Add to Cart - Removed since not implemented in this page */}
                
                {/* Total */}
-               <div className="mb-8 p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+               <div className="mb-8 p-4 bg-purple-50 rounded-lg border border-purple-200">
                  <div className="flex justify-between items-center">
-                   <span className="text-lg font-medium text-white">Total:</span>
+                   <span className="text-lg font-medium text-purple-900">Total:</span>
                    <span className="text-2xl font-bold text-mintBrand">
                      ${(product.price * quantity).toFixed(2)}
                    </span>
@@ -236,7 +236,7 @@ export default function CheckoutPage() {
                  {checkingOut ? "Processing..." : "Proceed to Checkout"}
                </Button>
 
-              <p className="text-sm text-white/60 mt-4 text-center">Secure payment powered by Stripe</p>
+              <p className="text-sm text-purple-600 mt-4 text-center">Secure payment powered by Stripe</p>
             </div>
           </div>
         </div>

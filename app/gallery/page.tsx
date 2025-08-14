@@ -146,8 +146,8 @@ export default function GalleryPage() {
         <div className="container mx-auto max-w-7xl">
                      {/* Hero Section */}
            <div className="text-center mb-16">
-             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight text-center">Kathryn's Photo Bomb</h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-purple-900 mb-6 leading-tight text-center">Kathryn's Photo Bomb</h1>
+            <p className="text-xl md:text-2xl text-purple-800 max-w-3xl mx-auto leading-relaxed">
               A visual journey through our oyster farm, capturing the beauty of nature, 
               the hard work of our team, and the magic of sustainable aquaculture.
             </p>
@@ -158,7 +158,7 @@ export default function GalleryPage() {
             {categories.map((category) => (
               <button
                 key={category}
-                className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-200"
+                className="px-4 py-2 rounded-full bg-purple-100 border border-purple-200 text-purple-800 hover:bg-purple-200 transition-all duration-200"
               >
                 {category}
               </button>
@@ -168,7 +168,7 @@ export default function GalleryPage() {
                      {/* Gallery Grid */}
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
              {galleryItems.map((item) => (
-               <Card key={item.id} className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 overflow-hidden group">
+               <Card key={item.id} className="bg-white border border-purple-200 hover:bg-purple-50 transition-all duration-300 overflow-hidden group">
                  <CardContent className="p-0">
                    <div className="relative aspect-square overflow-hidden">
                      {item.type === 'image' ? (
@@ -199,7 +199,7 @@ export default function GalleryPage() {
                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                        <h3 className="text-lg font-semibold mb-1 text-center">{item.title}</h3>
                        <p className="text-sm text-white/90">{item.description}</p>
-                       <Badge className="mt-2 bg-mintBrand/80 text-white border-0">
+                       <Badge className="mt-2 bg-purple-600 text-white border-0">
                          {item.category}
                        </Badge>
                      </div>
@@ -214,10 +214,10 @@ export default function GalleryPage() {
 
           {/* Call to Action */}
           <div className="text-center mt-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-6 text-center">
               Want to See More?
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-purple-800 mb-8 max-w-2xl mx-auto">
               Follow us on Instagram for daily updates and behind-the-scenes content from the farm.
             </p>
             <a

@@ -350,8 +350,8 @@ export default function InventoryPage() {
             <div className="mb-6">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-white text-center">Farm Operations</h2>
-                  <p className="text-white/80 mt-1 text-sm md:text-base">
+                  <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Farm Operations</h2>
+                  <p className="text-purple-800 mt-1 text-sm md:text-base">
                     {processedFarmInventory.filter((item) => item.harvestReady).length > 0 ? (
                       <span className="text-mintBrand font-medium">
                         {processedFarmInventory
@@ -373,9 +373,9 @@ export default function InventoryPage() {
 
             {processedFarmInventory.length === 0 ? (
               <div className="text-center py-12">
-                <Fish className="w-16 h-16 text-white/40 mx-auto mb-4" />
-                <p className="text-white/80 text-lg">No farm inventory available at the moment.</p>
-                <p className="text-white/60 mt-2">Check back soon for updates on our growing operations.</p>
+                <Fish className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+                <p className="text-purple-800 text-lg">No farm inventory available at the moment.</p>
+                <p className="text-purple-600 mt-2">Check back soon for updates on our growing operations.</p>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -390,8 +390,8 @@ export default function InventoryPage() {
             <div className="mb-6">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-white text-center">Nursery Operations</h2>
-                  <p className="text-white/80 mt-1 text-sm md:text-base">
+                  <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Nursery Operations</h2>
+                  <p className="text-purple-800 mt-1 text-sm md:text-base">
                     {processedNurseryInventory.filter((item) => item.harvestReady).length > 0 ? (
                       <span className="text-mintBrand font-medium">
                         {processedNurseryInventory
@@ -418,9 +418,9 @@ export default function InventoryPage() {
 
             {processedNurseryInventory.length === 0 ? (
               <div className="text-center py-12">
-                <Leaf className="w-16 h-16 text-white/40 mx-auto mb-4" />
-                <p className="text-white/80 text-lg">No nursery inventory available at the moment.</p>
-                <p className="text-white/60 mt-2">Check back soon for updates on our seed stock.</p>
+                <Leaf className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+                <p className="text-purple-800 text-lg">No nursery inventory available at the moment.</p>
+                <p className="text-purple-600 mt-2">Check back soon for updates on our seed stock.</p>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -436,8 +436,8 @@ export default function InventoryPage() {
         <div className="mt-16 text-center">
           <Card className="border-purpleBrand/30 bg-gradient-to-r from-purpleBrand/20 to-seafoamBrand/20">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-white mb-4 text-center">Ready to Order?</h3>
-              <p className="text-white/80 mb-6 max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold text-purple-900 mb-4 text-center">Ready to Order?</h3>
+              <p className="text-purple-800 mb-6 max-w-2xl mx-auto">
                 Contact us directly for custom orders, bulk pricing, or to discuss your specific aquaculture needs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

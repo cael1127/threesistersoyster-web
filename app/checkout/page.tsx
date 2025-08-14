@@ -148,18 +148,18 @@ export default function CheckoutPage() {
 
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold text-white mb-8 text-center">Secure Checkout</h1>
+          <h1 className="text-3xl font-bold text-purple-900 mb-8 text-center">Secure Checkout</h1>
 
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Order Summary */}
             <div className="space-y-6">
-              <Card className="border-purpleBrand/30 bg-white/10 backdrop-blur-sm">
+              <Card className="border-purpleBrand/30 bg-white">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-white mb-4 text-center">Order Summary</h2>
+                  <h2 className="text-xl font-bold text-purple-900 mb-4 text-center">Order Summary</h2>
 
                   <div className="space-y-4 mb-6">
                     {state.items.map((item) => (
-                      <div key={item.id} className="flex items-center space-x-4 p-3 bg-white/10 rounded-lg">
+                      <div key={item.id} className="flex items-center space-x-4 p-3 bg-purple-50 rounded-lg">
                         <div className="w-16 h-16 bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 rounded-lg overflow-hidden flex-shrink-0">
                           {item.image_url ? (
                             <Image
@@ -178,10 +178,10 @@ export default function CheckoutPage() {
                         </div>
 
                         <div className="flex-1">
-                          <h3 className="font-medium text-white text-center">{item.name}</h3>
+                          <h3 className="font-medium text-purple-900 text-center">{item.name}</h3>
                           <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30 text-xs">{item.category}</Badge>
                           <div className="flex items-center justify-between mt-2">
-                            <span className="text-sm text-white/80">
+                            <span className="text-sm text-purple-800">
                               ${item.price.toFixed(2)} × {item.quantity}
                             </span>
                             <span className="font-semibold text-mintBrand">
@@ -193,8 +193,8 @@ export default function CheckoutPage() {
                     ))}
                   </div>
 
-                  <div className="border-t border-white/20 pt-4 mb-6">
-                    <div className="flex justify-between items-center text-lg font-semibold text-white">
+                  <div className="border-t border-purple-200 pt-4 mb-6">
+                    <div className="flex justify-between items-center text-lg font-semibold text-purple-900">
                       <span>Total:</span>
                       <span className="text-2xl font-bold text-mintBrand">
                         ${state.total.toFixed(2)}+
@@ -205,17 +205,17 @@ export default function CheckoutPage() {
               </Card>
 
               {/* Contact Info */}
-              <Card className="border-purpleBrand/30 bg-white/10 backdrop-blur-sm">
+              <Card className="border-purpleBrand/30 bg-white">
                 <CardContent className="p-6">
-                  <h3 className="text-lg font-bold text-white mb-4 text-center">Need Help?</h3>
+                  <h3 className="text-lg font-bold text-purple-900 mb-4 text-center">Need Help?</h3>
                   <div className="space-y-2 text-sm">
-                    <p className="flex items-center text-white/80">
+                    <p className="flex items-center text-purple-800">
                       <span className="font-medium mr-2">Phone:</span>
                       <a href="tel:713-854-7427" className="text-mintBrand hover:underline">
                         713-854-7427
                       </a>
                     </p>
-                    <p className="flex items-center text-white/80">
+                    <p className="flex items-center text-purple-800">
                       <span className="font-medium mr-2">Email:</span>
                       <a href="mailto:info@threesistersoyster.com" className="text-mintBrand hover:underline">
                         info@threesistersoyster.com
@@ -228,39 +228,39 @@ export default function CheckoutPage() {
 
             {/* Payment Section */}
             <div className="space-y-6">
-              <Card className="border-purpleBrand/30 bg-white/10 backdrop-blur-sm">
+              <Card className="border-purpleBrand/30 bg-white">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-white mb-6 text-center">Payment Information</h2>
+                  <h2 className="text-xl font-bold text-purple-900 mb-6 text-center">Payment Information</h2>
 
                   <div className="space-y-4 mb-6">
                     <div className="bg-gradient-to-r from-purpleBrand/20 to-seafoamBrand/20 p-4 rounded-lg">
                       <div className="flex items-center mb-2">
                         <Shield className="w-5 h-5 text-mintBrand mr-2" />
-                        <h3 className="font-semibold text-white text-center">Secure Checkout</h3>
+                        <h3 className="font-semibold text-purple-900 text-center">Secure Checkout</h3>
                       </div>
-                      <p className="text-sm text-white/80">
+                      <p className="text-sm text-purple-800">
                         Your payment information is encrypted and secure. We never store your payment details.
                       </p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-4 rounded-lg text-center">
+                      <div className="bg-purple-50 border border-purple-200 p-4 rounded-lg text-center">
                         <CreditCard className="w-8 h-8 text-mintBrand mx-auto mb-2" />
-                        <p className="text-sm font-medium text-white">Secure Payment</p>
-                        <p className="text-xs text-white/60">256-bit SSL encryption</p>
+                        <p className="text-sm font-medium text-purple-900">Secure Payment</p>
+                        <p className="text-xs text-purple-600">256-bit SSL encryption</p>
                       </div>
-                      <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-4 rounded-lg text-center">
+                      <div className="bg-purple-50 border border-purple-200 p-4 rounded-lg text-center">
                         <Truck className="w-8 h-8 text-seafoamBrand mx-auto mb-2" />
-                        <p className="text-sm font-medium text-white">Fast Delivery</p>
-                        <p className="text-xs text-white/60">We'll contact you</p>
+                        <p className="text-sm font-medium text-purple-900">Fast Delivery</p>
+                        <p className="text-xs text-purple-600">We'll contact you</p>
                       </div>
                     </div>
                   </div>
 
-                  <Card className="border-purpleBrand/30 bg-white/10 backdrop-blur-sm">
+                  <Card className="border-purpleBrand/30 bg-purple-50">
                     <CardContent className="p-6">
-                      <h3 className="text-semibold text-white mb-2 text-center">What happens next?</h3>
-                      <ul className="text-sm text-white/80 space-y-1">
+                      <h3 className="text-semibold text-purple-900 mb-2 text-center">What happens next?</h3>
+                      <ul className="text-sm text-purple-800 space-y-1">
                         <li>• Complete your payment securely</li>
                         <li>• Receive order confirmation</li>
                         <li>• We'll contact you within 24 hours</li>
@@ -278,7 +278,7 @@ export default function CheckoutPage() {
                     {checkingOut ? "Processing..." : "Complete Order"}
                   </Button>
 
-                  <p className="text-xs text-white/60 mt-4 text-center">
+                  <p className="text-xs text-purple-600 mt-4 text-center">
                     By completing your order, you agree to our terms of service and privacy policy.
                   </p>
                 </CardContent>

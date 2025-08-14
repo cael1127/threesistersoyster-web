@@ -100,13 +100,13 @@ export default function CartPage() {
       {/* Main Content */}
       <main className="flex-1 py-8 px-4">
         <div className="container mx-auto max-w-6xl">
-          <h1 className="text-3xl font-bold text-white mb-8 text-center">Shopping Cart</h1>
+          <h1 className="text-3xl font-bold text-purple-900 mb-8 text-center">Shopping Cart</h1>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               {state.items.map((item) => (
-                <Card key={item.id} className="border-purpleBrand/30 bg-white/10 backdrop-blur-sm">
+                <Card key={item.id} className="border-purpleBrand/30 bg-white">
                   <CardContent className="p-6">
                     <div className="flex items-center space-x-4">
                       <div className="w-20 h-20 bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 rounded-lg overflow-hidden flex-shrink-0">
@@ -126,7 +126,7 @@ export default function CartPage() {
                       </div>
 
                       <div className="flex-1">
-                        <h3 className="font-semibold text-white text-center">{item.name}</h3>
+                        <h3 className="font-semibold text-purple-900 text-center">{item.name}</h3>
                         <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30 text-xs mt-1">{item.category}</Badge>
                         <p className="text-lg font-bold text-mintBrand mt-2">
                           ${item.price.toFixed(2)}
@@ -138,16 +138,16 @@ export default function CartPage() {
                           variant="outline"
                           size="sm"
                           onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                          className="border-white/30 text-white hover:bg-white/10"
+                          className="border-purple-300 text-purple-700 hover:bg-purple-50"
                         >
                           <Minus className="w-4 h-4" />
                         </Button>
-                        <span className="text-white font-medium min-w-[2rem] text-center">{item.quantity}</span>
+                        <span className="text-purple-900 font-medium min-w-[2rem] text-center">{item.quantity}</span>
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="border-white/30 text-white hover:bg-white/10"
+                          className="border-purple-300 text-purple-700 hover:bg-purple-50"
                         >
                           <Plus className="w-4 h-4" />
                         </Button>
@@ -162,9 +162,9 @@ export default function CartPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 pt-4 border-t border-white/20">
+                    <div className="mt-4 pt-4 border-t border-purple-200">
                       <div className="flex justify-between items-center">
-                        <span className="text-white/80">Subtotal:</span>
+                        <span className="text-purple-800">Subtotal:</span>
                         <span className="text-lg font-bold text-mintBrand">
                           ${(item.price * item.quantity).toFixed(2)}
                         </span>
@@ -183,7 +183,7 @@ export default function CartPage() {
                 >
                   Clear Cart
                 </Button>
-                <span className="text-sm text-white/60">
+                <span className="text-sm text-purple-600">
                   {state.itemCount} item{state.itemCount !== 1 ? 's' : ''} in cart
                 </span>
               </div>
@@ -191,21 +191,21 @@ export default function CartPage() {
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <Card className="border-purpleBrand/30 bg-white/10 backdrop-blur-sm sticky top-24">
+              <Card className="border-purpleBrand/30 bg-white sticky top-24">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-white mb-4 text-center">Order Summary</h2>
+                  <h2 className="text-xl font-bold text-purple-900 mb-4 text-center">Order Summary</h2>
                   
                   <div className="space-y-3 mb-6">
                     {state.items.map((item) => (
                       <div key={item.id} className="flex justify-between items-center text-sm">
-                        <span className="text-white/80">{item.name} × {item.quantity}</span>
-                        <span className="text-white">${(item.price * item.quantity).toFixed(2)}</span>
+                        <span className="text-purple-800">{item.name} × {item.quantity}</span>
+                        <span className="text-purple-900">${(item.price * item.quantity).toFixed(2)}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="border-t border-white/20 pt-4 mb-6">
-                    <div className="flex justify-between items-center text-lg font-semibold text-white">
+                  <div className="border-t border-purple-200 pt-4 mb-6">
+                    <div className="flex justify-between items-center text-lg font-semibold text-purple-900">
                       <span>Total:</span>
                       <span className="text-2xl font-bold text-mintBrand">
                         ${state.total.toFixed(2)}
@@ -220,7 +220,7 @@ export default function CartPage() {
                     <Link href="/checkout">Proceed to Checkout</Link>
                   </Button>
 
-                  <p className="text-xs text-white/60 mt-4 text-center">Secure payment powered by Stripe</p>
+                  <p className="text-xs text-purple-600 mt-4 text-center">Secure payment powered by Stripe</p>
                 </CardContent>
               </Card>
             </div>
