@@ -60,13 +60,13 @@ const originCrew = [
 
 export default function OriginCrew() {
   return (
-    <section className="py-16 md:py-20 bg-gray-50">
+    <section className="py-16 md:py-20 bg-gradient-to-b from-seafoamBrand to-blueBrand">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                    <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-purple-900 mb-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Our Origin Crew
             </h2>
-            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
               Meet the dedicated team that built Three Sisters Oyster Co. from the ground up. 
               Each member brings unique expertise and passion to our sustainable aquaculture mission.
             </p>
@@ -77,11 +77,11 @@ export default function OriginCrew() {
             {originCrew.map((member, idx) => (
               <div
                 key={idx}
-                className="bg-white border border-purple-200 rounded-2xl p-6 md:p-8 hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 md:p-8 hover:bg-white/20 transition-all duration-300 hover:scale-105 group"
               >
                 {/* Member Photo */}
                 <div className="relative mb-6">
-                                   <div className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden border-4 border-purple-200 group-hover:border-purple-300 transition-all duration-300 aspect-square">
+                                   <div className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden border-4 border-white/30 group-hover:border-white/50 transition-all duration-300 aspect-square">
                      <Image
                        src={member.image}
                        alt={member.name}
@@ -92,34 +92,34 @@ export default function OriginCrew() {
                      />
                    </div>
                                    {/* Decorative ring */}
-                  <div className="absolute inset-0 rounded-full border-2 border-purple-300 group-hover:border-purple-400 transition-all duration-300"></div>
+                  <div className="absolute inset-0 rounded-full border-2 border-white/50 group-hover:border-white transition-all duration-300"></div>
                 </div>
 
                                {/* Member Info */}
                  <div className="text-center">
-                   <h3 className="text-2xl md:text-3xl font-bold text-purple-900 mb-2 group-hover:text-purple-700 transition-colors duration-300">
+                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-mintBrand transition-colors duration-300">
                      {member.name}
                    </h3>
-                   <p className="text-lg md:text-xl text-teal-600 font-semibold mb-4">
+                   <p className="text-lg md:text-xl text-mintBrand font-semibold mb-4">
                      {member.role}
                    </p>
-                   <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                   <p className="text-white/80 text-sm md:text-base leading-relaxed">
                      {member.description}
                    </p>
                  </div>
 
                                {/* Hover effect overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-purple-100 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"></div>
               </div>
             ))}
           </div>
 
           {/* Bottom CTA */}
           <div className="text-center mt-16">
-                               <p className="text-lg md:text-xl text-gray-600 mb-6">
+                               <p className="text-lg md:text-xl text-white/80 mb-6">
                                Together, we're building the future of sustainable oyster farming in Texas.
                              </p>
-                                           <div className="inline-flex items-center px-6 py-3 bg-purple-100 border border-purple-200 text-purple-800 font-semibold rounded-full hover:bg-purple-200 transition-all duration-300">
+                                           <div className="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-full hover:bg-white/30 transition-all duration-300">
                              Proud to be part of the Three Sisters family
                            </div>
           </div>

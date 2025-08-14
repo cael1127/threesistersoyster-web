@@ -80,8 +80,8 @@ export default function AboutPage() {
 
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 px-2 text-center">About Three Sisters Oyster Co.</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto px-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 px-2 text-center">About Three Sisters Oyster Co.</h1>
+          <p className="text-xl text-white max-w-3xl mx-auto px-4">
             A family-owned oyster farm committed to sustainable aquaculture and environmental stewardship in the pristine waters of Keller Bay.
           </p>
         </div>
@@ -90,8 +90,8 @@ export default function AboutPage() {
         <section className="mb-16">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
-              <h2 className="text-3xl font-bold text-purple-900 mb-6 text-center">Named After Blake's Three Daughters</h2>
-              <div className="space-y-4 text-gray-600">
+              <h2 className="text-3xl font-bold text-white mb-6 text-center">Named After Blake's Three Daughters</h2>
+              <div className="space-y-4 text-white">
                 <p>
                   Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
                   daughters, our team strives to create a better coastline for the future.
