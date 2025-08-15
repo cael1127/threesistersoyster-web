@@ -334,12 +334,12 @@ export default function InventoryPage() {
 
         <Tabs defaultValue="nursery" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8 bg-purpleBrand border border-purpleBrand/30 p-1 rounded-lg h-auto">
-            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-purpleBrand border-0 m-1 text-white hover:text-seafoamBrand data-[state=inactive]:text-white">
+            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-purpleBrand border-0 m-1 text-white hover:text-purple-900 data-[state=inactive]:text-white">
               <Leaf className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Nursery</span>
               <Badge className="bg-seafoamBrand/20 text-seafoamBrand border-seafoamBrand/30 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-purpleBrand border-0 m-1 text-white hover:text-seafoamBrand data-[state=inactive]:text-white">
+            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-purpleBrand border-0 m-1 text-white hover:text-purple-900 data-[state=inactive]:text-white">
               <Fish className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Farm</span>
               <Badge className="bg-seafoamBrand/20 text-seafoamBrand border-seafoamBrand/30 text-xs px-1 flex-shrink-0">{processedFarmInventory.length}</Badge>
