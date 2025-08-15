@@ -104,7 +104,7 @@ export default function InventoryPage() {
 
   function InventoryCard({ item }: { item: any }) {
     return (
-      <Card className="border-purpleBrand/30 hover:shadow-lg transition-all duration-300 group bg-white/10 backdrop-blur-sm">
+      <Card className="border-purpleBrand/30 hover:shadow-lg transition-all duration-300 group bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 backdrop-blur-sm">
         <CardContent className="p-6">
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
@@ -139,12 +139,12 @@ export default function InventoryPage() {
           </div>
 
           {item.originalDescription && (
-            <p className="text-white/80 mb-4 text-sm leading-relaxed">{item.originalDescription}</p>
+            <p className="text-purple-800 mb-4 text-sm leading-relaxed">{item.originalDescription}</p>
           )}
 
           <div className="grid grid-cols-2 gap-4 mb-4">
             {item.age && (
-              <div className="flex items-center text-sm text-white/80">
+              <div className="flex items-center text-sm text-purple-800">
                 <Calendar className="w-4 h-4 mr-2 text-mintBrand" />
                 <span className="font-medium">Age:</span>
                 <span className="ml-1">{item.age}</span>
@@ -152,7 +152,7 @@ export default function InventoryPage() {
             )}
 
             {item.health && (
-              <div className="flex items-center text-sm text-white/80">
+              <div className="flex items-center text-sm text-purple-800">
                 <Heart className="w-4 h-4 mr-2 text-mintBrand" />
                 <span className="font-medium">Health:</span>
                 <span className="ml-1 capitalize">{item.health}</span>
@@ -160,7 +160,7 @@ export default function InventoryPage() {
             )}
 
             {item.location && (
-              <div className="flex items-center text-sm text-white/80">
+              <div className="flex items-center text-sm text-purple-800">
                 <MapPin className="w-4 h-4 mr-2 text-seafoamBrand" />
                 <span className="font-medium">Location:</span>
                 <span className="ml-1">{item.location}</span>
@@ -168,7 +168,7 @@ export default function InventoryPage() {
             )}
 
             {item.pricePerDozen && (
-              <div className="flex items-center text-sm text-white/80">
+              <div className="flex items-center text-sm text-purple-800">
                 <DollarSign className="w-4 h-4 mr-2 text-mintBrand" />
                 <span className="font-medium">Per Dozen:</span>
                 <span className="ml-1 font-bold text-seafoamBrand">${item.pricePerDozen.toFixed(2)}</span>
@@ -334,12 +334,12 @@ export default function InventoryPage() {
 
         <Tabs defaultValue="nursery" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8 bg-white/10 backdrop-blur-sm border border-white/20 p-1 rounded-lg h-auto">
-            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand/20 data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-white/10 border-0 m-1 text-white/80 hover:text-white data-[state=inactive]:text-white/80">
+            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand/20 data-[state=active]:text-seafoamBrand data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-white/10 border-0 m-1 text-white/80 hover:text-seafoamBrand data-[state=inactive]:text-white/80">
               <Leaf className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Nursery</span>
               <Badge className="bg-seafoamBrand/20 text-seafoamBrand border-seafoamBrand/30 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-purpleBrand/20 data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-white/10 border-0 m-1 text-white/80 hover:text-white data-[state=inactive]:text-white/80">
+            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-purpleBrand/20 data-[state=active]:text-purpleBrand data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-white/10 border-0 m-1 text-white/80 hover:text-purpleBrand data-[state=inactive]:text-white/80">
               <Fish className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Farm</span>
               <Badge className="bg-purpleBrand/20 text-purpleBrand border-purpleBrand/30 text-xs px-1 flex-shrink-0">{processedFarmInventory.length}</Badge>
