@@ -9,6 +9,7 @@ import Image from "next/image"
 import { CartButton } from "@/components/cart-button"
 import dynamic from "next/dynamic";
 import TeamScroller from "@/components/TeamScroller";
+import { VideoPlayer } from '@/components/ui/video-player';
 
 const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedCounter"));
 
@@ -156,23 +157,18 @@ export default function HomePage() {
             {/* Right Side - Video */}
             <div className="relative">
               <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover bg-black"
-                  style={{ 
-                    objectPosition: 'center',
-                    filter: 'brightness(1.1) contrast(1.05)'
-                  }}
-                >
-                  <source src="/homepage.MP4" type="video/mp4" />
-                  {/* Fallback for browsers that don't support video */}
-                  <div className="w-full h-full bg-black flex items-center justify-center">
-                    <span className="text-purple-900 text-lg">Video loading...</span>
-                  </div>
-                </video>
+                <VideoPlayer
+                  src="/homepage.MP4"
+                  poster="/topFarm.JPG"
+                  alt="Three Sisters Oyster Farm Tour"
+                  className="w-full h-full"
+                  autoPlay={true}
+                  muted={true}
+                  loop={true}
+                  playsInline={true}
+                  controls={false}
+                  preload="metadata"
+                />
               </div>
             </div>
           </div>
