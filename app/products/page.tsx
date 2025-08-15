@@ -92,7 +92,7 @@ export default function ProductsPage() {
             
             {/* Price */}
             <div className="mb-4">
-              <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+              <span className="text-2xl font-bold text-purple-900">
                 ${product.price.toFixed(2)}
               </span>
             </div>
