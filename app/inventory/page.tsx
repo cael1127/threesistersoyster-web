@@ -120,7 +120,7 @@ export default function InventoryPage() {
                 )}
               </div>
               <div className="flex items-center space-x-2 mb-3">
-                <Badge className={item.type === "farm" ? "bg-white/20 text-white border-white/30" : "bg-seafoamBrand/20 text-seafoamBrand border-seafoamBrand/30"}>
+                <Badge className={item.type === "farm" ? "bg-white/20 text-white border-white/30" : "bg-white/20 text-white border-white/30"}>
                   {item.type === "farm" ? "Farm Stock" : "Nursery Seed"}
                 </Badge>
                 {item.size && (
