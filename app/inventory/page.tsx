@@ -104,7 +104,7 @@ export default function InventoryPage() {
 
   function InventoryCard({ item }: { item: any }) {
     return (
-      <Card className="border-purpleBrand/30 hover:shadow-lg transition-all duration-300 group bg-purpleBrand">
+      <Card className="border-purpleBrand/30 hover:shadow-lg transition-all duration-300 group bg-purpleBrand/20">
         <CardContent className="p-6">
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
@@ -333,13 +333,13 @@ export default function InventoryPage() {
         <ClientInventoryCounters />
 
         <Tabs defaultValue="nursery" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8 bg-purpleBrand border border-purpleBrand/30 p-1 rounded-lg h-auto">
-            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-purpleBrand border-0 m-1 text-white hover:text-purple-900 data-[state=inactive]:text-white">
+          <TabsList className="grid w-full grid-cols-2 mb-8 bg-purpleBrand/20 border border-purpleBrand/30 p-1 rounded-lg h-auto">
+            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-purpleBrand/20 border-0 m-1 text-purple-900 hover:text-purple-900 data-[state=inactive]:text-purple-900">
               <Leaf className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Nursery</span>
               <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-purpleBrand border-0 m-1 text-white hover:text-purple-900 data-[state=inactive]:text-white">
+            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-purpleBrand/20 border-0 m-1 text-purple-900 hover:text-purple-900 data-[state=inactive]:text-purple-900">
               <Fish className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Farm</span>
               <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-1 flex-shrink-0">{processedFarmInventory.length}</Badge>
