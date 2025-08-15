@@ -337,12 +337,12 @@ export default function InventoryPage() {
             <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-purpleBrand border-0 m-1 text-white hover:text-purple-900 data-[state=inactive]:text-white">
               <Leaf className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Nursery</span>
-              <Badge className="bg-seafoamBrand/20 text-seafoamBrand border-seafoamBrand/30 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
+              <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
             <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-purpleBrand border-0 m-1 text-white hover:text-purple-900 data-[state=inactive]:text-white">
               <Fish className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Farm</span>
-              <Badge className="bg-seafoamBrand/20 text-seafoamBrand border-seafoamBrand/30 text-xs px-1 flex-shrink-0">{processedFarmInventory.length}</Badge>
+              <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-1 flex-shrink-0">{processedFarmInventory.length}</Badge>
             </TabsTrigger>
           </TabsList>
 
