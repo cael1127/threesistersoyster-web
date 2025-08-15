@@ -85,9 +85,9 @@ export default function ProductsPage() {
           {/* Product Info */}
           <div className="text-center">
             <h3 className="text-xl font-bold text-purple-900 mb-2">{product.name}</h3>
-            <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30 hover:bg-seafoamBrand/30 mb-3">
-              {product.category}
-            </Badge>
+                            <Badge className="bg-white/20 text-white border border-white/30 hover:bg-white/30 mb-3">
+                  {product.category}
+                </Badge>
             {originalDescription && <p className="text-purple-800 mb-4 text-sm">{originalDescription}</p>}
             
             {/* Price */}
@@ -99,7 +99,7 @@ export default function ProductsPage() {
 
             {/* Inventory Status */}
             {inventory > 0 ? (
-              <p className="text-mintBrand text-sm font-medium mb-4">{inventory} in stock</p>
+              <p className="text-white text-sm font-medium mb-4">{inventory} in stock</p>
             ) : (
               <p className="text-purple-600 text-sm mb-4">Contact for availability</p>
             )}
@@ -138,28 +138,28 @@ export default function ProductsPage() {
                 <h1 className="text-xl font-bold text-white text-center">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-mintBrand">Premium Texas Oysters</p>
+                <p className="text-xs text-white">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-white hover:text-mintBrand font-medium text-sm">Home</Link>
-                <Link href="/products" className="text-white hover:text-mintBrand font-medium text-sm">Products</Link>
-                <Link href="/inventory" className="text-white hover:text-mintBrand font-medium text-sm">Inventory</Link>
-                <Link href="/gallery" className="text-white hover:text-mintBrand font-medium text-sm">Gallery</Link>
-                <Link href="/about" className="text-white hover:text-mintBrand font-medium text-sm">About</Link>
-                <Link href="/contact" className="text-white hover:text-mintBrand font-medium text-sm">Contact</Link>
+                <Link href="/" className="text-white hover:text-white font-medium text-sm">Home</Link>
+                <Link href="/products" className="text-white hover:text-white font-medium text-sm">Products</Link>
+                <Link href="/inventory" className="text-white hover:text-white font-medium text-sm">Inventory</Link>
+                <Link href="/gallery" className="text-white hover:text-white font-medium text-sm">Gallery</Link>
+                <Link href="/about" className="text-white hover:text-white font-medium text-sm">About</Link>
+                <Link href="/contact" className="text-white hover:text-white font-medium text-sm">Contact</Link>
               </nav>
               {/* Mobile Layout - Restructured for better spacing */}
               <div className="flex md:hidden items-center w-full">
                 {/* Mobile Navigation - Compact */}
                 <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">Shop</Link>
-                  <Link href="/inventory" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">Stock</Link>
-                  <Link href="/gallery" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">Gallery</Link>
-                  <Link href="/about" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">About</Link>
-                  <Link href="/contact" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">Contact</Link>
+                  <Link href="/products" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">Shop</Link>
+                  <Link href="/inventory" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">Stock</Link>
+                  <Link href="/gallery" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">Gallery</Link>
+                  <Link href="/about" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">About</Link>
+                  <Link href="/contact" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">Contact</Link>
                 </nav>
                 
                 {/* Mobile Cart/Order Buttons */}

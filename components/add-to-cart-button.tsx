@@ -43,13 +43,13 @@ export function AddToCartButton({ product, className }: AddToCartButtonProps) {
           size="sm"
           onClick={decrementQuantity}
           disabled={quantity <= 1}
-          className="h-8 w-8 p-0 bg-transparent"
+          className="h-8 w-8 p-0 bg-transparent border-purple-300 text-purple-700 hover:bg-purple-50"
         >
           <Minus className="w-3 h-3" />
         </Button>
 
         <div className="flex items-center space-x-2">
-          <span className="text-sm font-medium text-gray-600">Qty:</span>
+          <span className="text-sm font-medium text-purple-800">Qty:</span>
           <span className="text-lg font-semibold text-purple-900 min-w-[2rem] text-center">{quantity}</span>
         </div>
 
@@ -58,7 +58,7 @@ export function AddToCartButton({ product, className }: AddToCartButtonProps) {
           size="sm"
           onClick={incrementQuantity}
           disabled={product.maxInventory ? quantity >= product.maxInventory : false}
-          className="h-8 w-8 p-0"
+          className="h-8 w-8 p-0 border-purple-300 text-purple-700 hover:bg-purple-50"
         >
           <Plus className="w-3 h-3" />
         </Button>

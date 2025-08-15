@@ -78,7 +78,7 @@ export default function OrderPage() {
       <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 to-seafoamBrand/20 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 bg-mintBrand/30 rounded-full flex items-center justify-center mx-auto mb-4">
-            <ShoppingCart className="w-8 h-8 text-mintBrand" />
+                            <ShoppingCart className="w-8 h-8 text-white" />
           </div>
           <h2 className="text-2xl font-bold text-white mb-4 text-center">Order Submitted!</h2>
           <p className="text-white/80 mb-6">
@@ -109,34 +109,34 @@ export default function OrderPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-mintBrand text-center">
+                <h1 className="text-xl font-bold text-white text-center">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
+                <p className="text-xs text-white">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
+                <Link href="/" className="text-white hover:text-white font-medium text-sm">
                   Home
                 </Link>
-                <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
+                <Link href="/products" className="text-white hover:text-white font-medium text-sm">
                   Products
                 </Link>
                 <Link
                   href="/inventory"
-                  className="text-mintBrand hover:text-seafoamBrand font-medium text-sm"
+                  className="text-white hover:text-white font-medium text-sm"
                 >
                   Inventory
                 </Link>
-                <Link href="/gallery" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
+                <Link href="/gallery" className="text-white hover:text-white font-medium text-sm">
                   Gallery
                 </Link>
-                <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
+                <Link href="/about" className="text-white hover:text-white font-medium text-sm">
                   About
                 </Link>
-                <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
+                <Link href="/contact" className="text-white hover:text-white font-medium text-sm">
                   Contact
                 </Link>
               </nav>
@@ -145,19 +145,19 @@ export default function OrderPage() {
               <div className="flex md:hidden items-center w-full">
                 {/* Mobile Navigation - Compact */}
                 <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/products" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Shop
                   </Link>
-                  <Link href="/inventory" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/inventory" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Stock
                   </Link>
-                  <Link href="/gallery" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/gallery" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Gallery
                   </Link>
-                  <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/about" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     About
                   </Link>
-                  <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/contact" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Contact
                   </Link>
                 </nav>
@@ -207,16 +207,16 @@ export default function OrderPage() {
                   <h3 className="text-lg font-semibold text-purple-900 mb-4 text-center">Contact Information</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
                     <div>
-                      <Phone className="w-5 h-5 text-mintBrand mx-auto mb-2" />
-                      <a href="tel:713-854-7427" className="text-purple-800 hover:text-mintBrand transition-colors duration-200">
+                      <Phone className="w-5 h-5 text-white mx-auto mb-2" />
+                      <a href="tel:713-854-7427" className="text-purple-800 hover:text-white transition-colors duration-200">
                         713-854-7427
                       </a>
                     </div>
                     <div>
-                      <Mail className="w-5 h-5 text-mintBrand mx-auto mb-2" />
-                      <a href="mailto:info@threesistersoyster.com" className="text-purple-800 hover:text-mintBrand transition-colors duration-200">
-                        info@threesistersoyster.com
-                      </a>
+                                        <Mail className="w-5 h-5 text-white mx-auto mb-2" />
+                  <a href="mailto:info@threesistersoyster.com" className="text-purple-800 hover:text-white transition-colors duration-200">
+                    info@threesistersoyster.com
+                  </a>
                     </div>
                   </div>
                 </div>
@@ -226,12 +226,12 @@ export default function OrderPage() {
                   <h3 className="text-lg font-semibold text-purple-900 mb-4 text-center">Order Types</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Nursery Orders */}
-                    <div className="border border-seafoamBrand/30 rounded-lg bg-seafoamBrand/10 p-4">
-                      <h4 className="text-lg font-semibold text-seafoamBrand mb-2 text-center">Nursery Orders</h4>
+                    <div className="border border-white/30 rounded-lg bg-white/10 p-4">
+                      <h4 className="text-lg font-semibold text-white mb-2 text-center">Nursery Orders</h4>
                       <p className="text-purple-800 mb-3 text-sm text-center">
                         Hardy Eastern oyster seed for growers
                       </p>
-                      <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30">
+                      <Badge className="bg-white/20 text-white border border-white/30">
                         Available Year-Round
                       </Badge>
                     </div>
@@ -323,7 +323,7 @@ export default function OrderPage() {
                       type="button"
                       variant="outline"
                       onClick={() => window.history.back()}
-                      className="border-mintBrand text-mintBrand hover:bg-mintBrand/20 ml-3"
+                      className="border-white text-white hover:bg-white/20 ml-3"
                     >
                       Back
                     </Button>

@@ -34,7 +34,7 @@ export default function HomePage() {
                 <h1 className="text-xl font-bold text-white text-center">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-mintBrand">Premium Texas Oysters</p>
+                <p className="text-xs text-white">Premium Texas Oysters</p>
               </div>
             </div>
             <div className="flex items-center space-x-1 md:space-x-4">
@@ -43,22 +43,22 @@ export default function HomePage() {
                 <Link href="#home" className="text-white font-medium text-sm">
                   Home
                 </Link>
-                <Link href="/products" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/products" className="text-white hover:text-white font-medium text-sm">
                   Products
                 </Link>
                 <Link
                   href="/inventory"
-                  className="text-white hover:text-mintBrand font-medium text-sm"
+                  className="text-white hover:text-white font-medium text-sm"
                 >
                   Inventory
                 </Link>
-                <Link href="/gallery" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/gallery" className="text-white hover:text-white font-medium text-sm">
                   Gallery
                 </Link>
-                <Link href="/about" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/about" className="text-white hover:text-white font-medium text-sm">
                   About
                 </Link>
-                <Link href="/contact" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/contact" className="text-white hover:text-white font-medium text-sm">
                   Contact
                 </Link>
               </nav>
@@ -67,19 +67,19 @@ export default function HomePage() {
               <div className="flex md:hidden items-center w-full">
                 {/* Mobile Navigation - Compact */}
                 <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-white hover:text-mintBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/products" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Shop
                   </Link>
-                  <Link href="/inventory" className="text-white hover:text-mintBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/inventory" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Stock
                   </Link>
-                  <Link href="/gallery" className="text-white hover:text-mintBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/gallery" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Gallery
                   </Link>
-                  <Link href="/about" className="text-white hover:text-mintBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/about" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     About
                   </Link>
-                  <Link href="/contact" className="text-white hover:text-mintBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/contact" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Contact
                   </Link>
                 </nav>
@@ -226,9 +226,9 @@ export default function HomePage() {
                 </ul>
                 <p className="text-xs md:text-sm text-purple-800">
                   For pricing and ordering information, please call{" "}
-                  <a href="tel:713-854-7427" className="font-semibold text-seafoamBrand hover:text-mintBrand transition-colors duration-200">
-                    713-854-7427
-                  </a>
+                                  <a href="tel:713-854-7427" className="font-semibold text-white hover:text-white transition-colors duration-200">
+                  713-854-7427
+                </a>
                 </p>
               </CardContent>
             </Card>
@@ -366,25 +366,25 @@ export default function HomePage() {
               <div className="space-y-4">
                 <a
                   href="tel:713-854-7427"
-                  className="flex items-center text-purple-800 hover:text-mintBrand transition-colors duration-200 group"
+                  className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
                 >
-                  <Phone className="w-5 h-5 text-mintBrand mr-3 group-hover:text-seafoamBrand transition-colors duration-200" />
+                  <Phone className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
                   <span className="group-hover:underline">713-854-7427</span>
                 </a>
                 <a
                   href="mailto:info@threesistersoyster.com"
-                  className="flex items-center text-purple-800 hover:text-mintBrand transition-colors duration-200 group"
+                  className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
                 >
-                  <Mail className="w-5 h-5 text-mintBrand mr-3 group-hover:text-seafoamBrand transition-colors duration-200" />
+                  <Mail className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
                   <span className="group-hover:underline">info@threesistersoyster.com</span>
                 </a>
                 <a
                   href="https://maps.google.com/?q=106+Grant+St.+Port+Lavaca,+TX+77979"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-purple-800 hover:text-mintBrand transition-colors duration-200 group"
+                  className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
                 >
-                  <MapPin className="w-5 h-5 text-mintBrand mr-3 group-hover:text-seafoamBrand transition-colors duration-200" />
+                  <MapPin className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
                   <span className="group-hover:underline">106 Grant St. Port Lavaca, TX 77979</span>
                 </a>
               </div>
@@ -395,7 +395,7 @@ export default function HomePage() {
                   href="https://instagram.com/threesistersoysterco"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-purple-800 hover:text-mintBrand transition-colors duration-200 hover:underline"
+                  className="text-purple-800 hover:text-white transition-colors duration-200 hover:underline"
                 >
                   @threesistersoysterco
                 </a>
@@ -461,18 +461,18 @@ export default function HomePage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold">Three Sisters Oyster Co.</h3>
-                  <p className="text-mintBrand text-sm">Premium Texas Oysters</p>
+                  <p className="text-white text-sm">Premium Texas Oysters</p>
                 </div>
               </div>
-              <p className="text-mintBrand text-sm">
+              <p className="text-white text-sm">
                 Committed to sustainable aquaculture and environmental stewardship in the pristine waters of Keller Bay.
               </p>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-semibold mb-4 text-mintBrand">Quick Links</h4>
-              <ul className="space-y-2 text-mintBrand">
+              <h4 className="font-semibold mb-4 text-white">Quick Links</h4>
+              <ul className="space-y-2 text-white">
                 <li><Link href="/products" className="hover:text-white transition-colors">Products</Link></li>
                 <li><Link href="/inventory" className="hover:text-white transition-colors">Inventory</Link></li>
                 <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
@@ -482,8 +482,8 @@ export default function HomePage() {
 
             {/* Contact Info */}
             <div>
-              <h4 className="font-semibold mb-4 text-mintBrand">Contact</h4>
-              <ul className="space-y-2 text-mintBrand text-sm">
+              <h4 className="font-semibold mb-4 text-white">Contact</h4>
+              <ul className="space-y-2 text-white text-sm">
                 <li>713-854-7427</li>
                 <li>info@threesistersoyster.com</li>
                 <li>106 Grant St. Port Lavaca, TX 77979</li>
@@ -491,7 +491,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="border-t border-mintBrand/30 mt-8 pt-8 text-center text-mintBrand text-sm">
+          <div className="border-t border-white/30 mt-8 pt-8 text-center text-white text-sm">
             <p>&copy; 2024 Three Sisters Oyster Co. All rights reserved.</p>
           </div>
         </div>

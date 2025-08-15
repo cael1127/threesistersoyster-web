@@ -34,12 +34,12 @@ export default function CartPage() {
                   <h1 className="text-xl font-bold text-white text-center">
                     Three Sisters Oyster Co.
                   </h1>
-                  <p className="text-xs text-mintBrand">Premium Texas Oysters</p>
+                  <p className="text-xs text-white">Premium Texas Oysters</p>
                 </div>
               </Link>
               <div className="flex items-center space-x-1 md:space-x-4">
                 <CartButton />
-                <Button asChild className="bg-mintBrand hover:bg-seafoamBrand">
+                <Button asChild className="bg-white hover:bg-white/80">
                   <Link href="/products">Continue Shopping</Link>
                 </Button>
               </div>
@@ -54,7 +54,7 @@ export default function CartPage() {
             </div>
             <h1 className="text-3xl font-bold text-white mb-4 text-center">Your Cart is Empty</h1>
             <p className="text-white/80 mb-8">Add some premium oysters to get started!</p>
-            <Button asChild className="bg-mintBrand hover:bg-seafoamBrand">
+            <Button asChild className="bg-white hover:bg-white/80">
               <Link href="/products">Browse Products</Link>
             </Button>
           </div>
@@ -84,12 +84,12 @@ export default function CartPage() {
                 <h1 className="text-xl font-bold text-white text-center">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-mintBrand">Premium Texas Oysters</p>
+                <p className="text-xs text-white">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">
               <CartButton />
-              <Button asChild className="bg-mintBrand hover:bg-seafoamBrand">
+              <Button asChild className="bg-white hover:bg-white/80">
                 <Link href="/products">Continue Shopping</Link>
               </Button>
             </div>
@@ -127,8 +127,8 @@ export default function CartPage() {
 
                       <div className="flex-1">
                         <h3 className="font-semibold text-purple-900 text-center">{item.name}</h3>
-                        <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30 text-xs mt-1">{item.category}</Badge>
-                        <p className="text-lg font-bold text-mintBrand mt-2">
+                        <Badge className="bg-white/20 text-white border border-white/30 text-xs mt-1">{item.category}</Badge>
+                        <p className="text-lg font-bold text-white mt-2">
                           ${item.price.toFixed(2)}
                         </p>
                       </div>

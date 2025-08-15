@@ -45,7 +45,7 @@ export default function CheckoutPage() {
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-white">Three Sisters Oyster Co.</h1>
-                  <p className="text-sm text-mintBrand">Premium Texas Oysters</p>
+                  <p className="text-sm text-white">Premium Texas Oysters</p>
                 </div>
               </Link>
               <Button asChild className="bg-mintBrand hover:bg-seafoamBrand">
@@ -58,7 +58,7 @@ export default function CheckoutPage() {
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-md mx-auto text-center">
             <div className="w-16 h-16 bg-mintBrand/30 rounded-full flex items-center justify-center mx-auto mb-4">
-              <ShoppingCart className="w-8 h-8 text-mintBrand" />
+                              <ShoppingCart className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-2xl font-bold text-white mb-4">Your Cart is Empty</h2>
             <p className="text-white/80 mb-6">Add some premium oysters to get started!</p>
@@ -179,12 +179,12 @@ export default function CheckoutPage() {
 
                         <div className="flex-1">
                           <h3 className="font-medium text-purple-900 text-center">{item.name}</h3>
-                          <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30 text-xs">{item.category}</Badge>
+                          <Badge className="bg-white/20 text-white border border-white/30 text-xs">{item.category}</Badge>
                           <div className="flex items-center justify-between mt-2">
                             <span className="text-sm text-purple-800">
                               ${item.price.toFixed(2)} × {item.quantity}
                             </span>
-                            <span className="font-semibold text-mintBrand">
+                            <span className="font-semibold text-white">
                               ${(item.price * item.quantity).toFixed(2)}
                             </span>
                           </div>
@@ -196,7 +196,7 @@ export default function CheckoutPage() {
                   <div className="border-t border-purple-200 pt-4 mb-6">
                     <div className="flex justify-between items-center text-lg font-semibold text-purple-900">
                       <span>Total:</span>
-                      <span className="text-2xl font-bold text-mintBrand">
+                      <span className="text-2xl font-bold text-white">
                         ${state.total.toFixed(2)}+
                       </span>
                     </div>
@@ -211,13 +211,13 @@ export default function CheckoutPage() {
                   <div className="space-y-2 text-sm">
                     <p className="flex items-center text-purple-800">
                       <span className="font-medium mr-2">Phone:</span>
-                      <a href="tel:713-854-7427" className="text-mintBrand hover:underline">
+                      <a href="tel:713-854-7427" className="text-white hover:underline">
                         713-854-7427
                       </a>
                     </p>
                     <p className="flex items-center text-purple-800">
                       <span className="font-medium mr-2">Email:</span>
-                      <a href="mailto:info@threesistersoyster.com" className="text-mintBrand hover:underline">
+                      <a href="mailto:info@threesistersoyster.com" className="text-white hover:underline">
                         info@threesistersoyster.com
                       </a>
                     </p>
@@ -235,7 +235,7 @@ export default function CheckoutPage() {
                   <div className="space-y-4 mb-6">
                     <div className="bg-gradient-to-r from-purpleBrand/20 to-seafoamBrand/20 p-4 rounded-lg">
                       <div className="flex items-center mb-2">
-                        <Shield className="w-5 h-5 text-mintBrand mr-2" />
+                        <Shield className="w-5 h-5 text-white mr-2" />
                         <h3 className="font-semibold text-purple-900 text-center">Secure Checkout</h3>
                       </div>
                       <p className="text-sm text-purple-800">
@@ -245,12 +245,12 @@ export default function CheckoutPage() {
 
                     <div className="grid grid-cols-2 gap-4">
                       <div className="bg-purple-50 border border-purple-200 p-4 rounded-lg text-center">
-                        <CreditCard className="w-8 h-8 text-mintBrand mx-auto mb-2" />
+                        <CreditCard className="w-8 h-8 text-white mx-auto mb-2" />
                         <p className="text-sm font-medium text-purple-900">Secure Payment</p>
                         <p className="text-xs text-purple-600">256-bit SSL encryption</p>
                       </div>
                       <div className="bg-purple-50 border border-purple-200 p-4 rounded-lg text-center">
-                        <Truck className="w-8 h-8 text-seafoamBrand mx-auto mb-2" />
+                        <Truck className="w-8 h-8 text-white mx-auto mb-2" />
                         <p className="text-sm font-medium text-purple-900">Fast Delivery</p>
                         <p className="text-xs text-purple-600">We'll contact you</p>
                       </div>

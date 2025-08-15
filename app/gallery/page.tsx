@@ -88,28 +88,28 @@ export default function GalleryPage() {
                 <h1 className="text-xl font-bold text-white text-center">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-mintBrand">Premium Texas Oysters</p>
+                <p className="text-xs text-white">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-white hover:text-mintBrand font-medium text-sm">Home</Link>
-                <Link href="/products" className="text-white hover:text-mintBrand font-medium text-sm">Products</Link>
-                <Link href="/inventory" className="text-white hover:text-mintBrand font-medium text-sm">Inventory</Link>
-                <Link href="/gallery" className="text-white hover:text-mintBrand font-medium text-sm">Gallery</Link>
-                <Link href="/about" className="text-white hover:text-mintBrand font-medium text-sm">About</Link>
-                <Link href="/contact" className="text-white hover:text-mintBrand font-medium text-sm">Contact</Link>
+                <Link href="/" className="text-white hover:text-white font-medium text-sm">Home</Link>
+                <Link href="/products" className="text-white hover:text-white font-medium text-sm">Products</Link>
+                <Link href="/inventory" className="text-white hover:text-white font-medium text-sm">Inventory</Link>
+                <Link href="/gallery" className="text-white hover:text-white font-medium text-sm">Gallery</Link>
+                <Link href="/about" className="text-white hover:text-white font-medium text-sm">About</Link>
+                <Link href="/contact" className="text-white hover:text-white font-medium text-sm">Contact</Link>
               </nav>
               {/* Mobile Layout - Restructured for better spacing */}
               <div className="flex md:hidden items-center w-full">
                 {/* Mobile Navigation - Compact */}
                 <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">Shop</Link>
-                  <Link href="/inventory" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">Stock</Link>
-                  <Link href="/gallery" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">Gallery</Link>
-                  <Link href="/about" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">About</Link>
-                  <Link href="/contact" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">Contact</Link>
+                  <Link href="/products" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">Shop</Link>
+                  <Link href="/inventory" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">Stock</Link>
+                  <Link href="/gallery" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">Gallery</Link>
+                  <Link href="/about" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">About</Link>
+                  <Link href="/contact" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">Contact</Link>
                 </nav>
                 
                 {/* Mobile Cart/Order Buttons */}

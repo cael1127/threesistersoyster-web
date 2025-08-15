@@ -97,10 +97,10 @@ export default function OriginCrew() {
 
                 {/* Member Info */}
                 <div className="text-center">
-                  <h3 className="text-2xl md:text-3xl font-bold text-purple-900 mb-2 group-hover:text-mintBrand transition-colors duration-300">
+                  <h3 className="text-2xl md:text-3xl font-bold text-purple-900 mb-2 group-hover:text-white transition-colors duration-300">
                     {member.name}
                   </h3>
-                  <p className="text-lg md:text-xl text-seafoamBrand font-semibold mb-4">
+                  <p className="text-lg md:text-xl text-white font-semibold mb-4">
                     {member.role}
                   </p>
                   <p className="text-purple-800 text-sm md:text-base leading-relaxed">
@@ -119,7 +119,7 @@ export default function OriginCrew() {
             <p className="text-lg md:text-xl text-purple-800 mb-6">
               Together, we're building the future of sustainable oyster farming in Texas.
             </p>
-            <div className="inline-flex items-center px-6 py-3 bg-mintBrand/20 backdrop-blur-sm border border-mintBrand/30 text-mintBrand font-semibold rounded-full hover:bg-mintBrand/30 transition-all duration-300">
+            <div className="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-full hover:bg-white/30 transition-all duration-300">
               Proud to be part of the Three Sisters family
             </div>
           </div>

@@ -73,31 +73,31 @@ export default function SuccessPage() {
                 <h1 className="text-xl font-bold text-white text-center">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-mintBrand">Premium Texas Oysters</p>
+                <p className="text-xs text-white">Premium Texas Oysters</p>
               </div>
             </div>
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/" className="text-white hover:text-white font-medium text-sm">
                   Home
                 </Link>
-                <Link href="/products" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/products" className="text-white hover:text-white font-medium text-sm">
                   Products
                 </Link>
                 <Link
                   href="/inventory"
-                  className="text-white hover:text-mintBrand font-medium text-sm"
+                  className="text-white hover:text-white font-medium text-sm"
                 >
                   Inventory
                 </Link>
-                <Link href="/gallery" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/gallery" className="text-white hover:text-white font-medium text-sm">
                   Gallery
                 </Link>
-                <Link href="/about" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/about" className="text-white hover:text-white font-medium text-sm">
                   About
                 </Link>
-                <Link href="/contact" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/contact" className="text-white hover:text-white font-medium text-sm">
                   Contact
                 </Link>
               </nav>
@@ -106,19 +106,19 @@ export default function SuccessPage() {
               <div className="flex md:hidden items-center w-full">
                 {/* Mobile Navigation - Compact */}
                 <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-white hover:text-mintBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/products" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Shop
                   </Link>
-                  <Link href="/inventory" className="text-white hover:text-mintBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/inventory" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Stock
                   </Link>
-                  <Link href="/gallery" className="text-white hover:text-mintBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/gallery" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Gallery
                   </Link>
-                  <Link href="/about" className="text-white hover:text-mintBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/about" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     About
                   </Link>
-                  <Link href="/contact" className="text-white hover:text-mintBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/contact" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Contact
                   </Link>
                 </nav>
@@ -133,7 +133,7 @@ export default function SuccessPage() {
           <Card className="border-mintBrand/30 bg-mintBrand/20 backdrop-blur-sm">
             <CardContent className="p-8 text-center">
               <div className="w-16 h-16 bg-mintBrand/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-8 h-8 text-mintBrand" />
+                <CheckCircle className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-3xl font-bold text-purple-900 mb-4 text-center">Order Confirmed!</h1>
               <p className="text-purple-800 mb-6">
@@ -143,23 +143,23 @@ export default function SuccessPage() {
               {/* Order Details */}
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 mb-6">
                 <h3 className="font-semibold text-purple-900 mb-4 flex items-center justify-center text-center">
-                  <CheckCircle className="w-5 h-5 text-mintBrand mr-2" />
+                  <CheckCircle className="w-5 h-5 text-white mr-2" />
                   Order Details
                 </h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-purple-800">Order ID:</span>
-                    <span className="text-mintBrand font-medium">{session?.id || 'N/A'}</span>
+                    <span className="text-white font-medium">{session?.id || 'N/A'}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-purple-800">Amount:</span>
-                    <span className="text-mintBrand font-medium">
+                    <span className="text-white font-medium">
                       ${session?.amount_total ? (session.amount_total / 100).toFixed(2) : 'N/A'}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-purple-800">Status:</span>
-                    <span className="text-mintBrand font-medium">Confirmed</span>
+                    <span className="text-white font-medium">Confirmed</span>
                   </div>
                 </div>
               </div>
@@ -169,19 +169,19 @@ export default function SuccessPage() {
                 <h3 className="font-semibold text-purple-900 mb-3 text-center">What happens next?</h3>
                 <ul className="text-sm text-purple-800 space-y-2 text-left">
                   <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-mintBrand mr-2 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-white mr-2 flex-shrink-0" />
                     We'll review your order within 24 hours
                   </li>
                   <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-mintBrand mr-2 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-white mr-2 flex-shrink-0" />
                     We'll contact you to confirm details
                   </li>
                   <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-mintBrand mr-2 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-white mr-2 flex-shrink-0" />
                     Arrange pickup or delivery
                   </li>
                   <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-mintBrand mr-2 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-white mr-2 flex-shrink-0" />
                     Enjoy your fresh Texas oysters!
                   </li>
                 </ul>
@@ -191,16 +191,16 @@ export default function SuccessPage() {
               <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="text-center">
-                    <Phone className="w-5 h-5 text-mintBrand mx-auto mb-2" />
+                    <Phone className="w-5 h-5 text-white mx-auto mb-2" />
                     <p className="text-sm font-medium text-purple-900">Questions?</p>
-                    <a href="tel:713-854-7427" className="text-mintBrand text-sm hover:underline">
+                    <a href="tel:713-854-7427" className="text-white text-sm hover:underline">
                       713-854-7427
                     </a>
                   </div>
                   <div className="text-center">
-                    <Mail className="w-5 h-5 text-mintBrand mx-auto mb-2" />
+                    <Mail className="w-5 h-5 text-white mx-auto mb-2" />
                     <p className="text-sm font-medium text-purple-900">Email Us</p>
-                    <a href="mailto:info@threesistersoyster.com" className="text-mintBrand text-sm hover:underline">
+                    <a href="mailto:info@threesistersoyster.com" className="text-white text-sm hover:underline">
                       info@threesistersoyster.com
                     </a>
                   </div>

@@ -29,28 +29,28 @@ export default function ContactPage() {
                 <h1 className="text-xl font-bold text-white text-center">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-mintBrand">Premium Texas Oysters</p>
+                <p className="text-xs text-white">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/" className="text-white hover:text-white font-medium text-sm">
                   Home
                 </Link>
-                <Link href="/products" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/products" className="text-white hover:text-white font-medium text-sm">
                   Products
                 </Link>
-                <Link href="/inventory" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/inventory" className="text-white hover:text-white font-medium text-sm">
                   Inventory
                 </Link>
-                <Link href="/gallery" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/gallery" className="text-white hover:text-white font-medium text-sm">
                   Gallery
                 </Link>
-                <Link href="/about" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/about" className="text-white hover:text-white font-medium text-sm">
                   About
                 </Link>
-                <Link href="/contact" className="text-white hover:text-mintBrand font-medium text-sm">
+                <Link href="/contact" className="text-white hover:text-white font-medium text-sm">
                   Contact
                 </Link>
               </nav>
@@ -58,19 +58,19 @@ export default function ContactPage() {
               <div className="flex md:hidden items-center w-full">
                 {/* Mobile Navigation - Compact */}
                 <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">
+                  <Link href="/products" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">
                     Shop
                   </Link>
-                  <Link href="/inventory" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">
+                  <Link href="/inventory" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">
                     Stock
                   </Link>
-                  <Link href="/gallery" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">
+                  <Link href="/gallery" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">
                     Gallery
                   </Link>
-                  <Link href="/about" className="text-white hover:text-mintBrand font-medium text-xs py-3 flex-1 text-center">
+                  <Link href="/about" className="text-white hover:text-white font-medium text-xs py-3 flex-1 text-center">
                     About
                   </Link>
-                  <Link href="/contact" className="text-white hover:text-mintBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/contact" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Contact
                   </Link>
                 </nav>
@@ -120,38 +120,38 @@ export default function ContactPage() {
             <div className="space-y-4">
               <a
                 href="tel:713-854-7427"
-                className="flex items-center text-purple-800 hover:text-mintBrand transition-colors duration-200 group"
+                className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
               >
-                <Phone className="w-5 h-5 text-mintBrand mr-3 group-hover:text-seafoamBrand transition-colors duration-200" />
+                <Phone className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
                 <span className="group-hover:underline">713-854-7427</span>
               </a>
               <a
                 href="mailto:info@threesistersoyster.com"
-                className="flex items-center text-purple-800 hover:text-mintBrand transition-colors duration-200 group"
+                className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
               >
-                <Mail className="w-5 h-5 text-mintBrand mr-3 group-hover:text-seafoamBrand transition-colors duration-200" />
+                <Mail className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
                 <span className="group-hover:underline">info@threesistersoyster.com</span>
               </a>
               <a
                 href="https://maps.google.com/?q=106+Grant+St.+Port+Lavaca,+TX+77979"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-purple-800 hover:text-mintBrand transition-colors duration-200 group"
+                className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
               >
-                <MapPin className="w-5 h-5 text-mintBrand mr-3 group-hover:text-seafoamBrand transition-colors duration-200" />
+                <MapPin className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
                 <span className="group-hover:underline">106 Grant St. Port Lavaca, TX 77979</span>
               </a>
             </div>
             <div className="mt-8">
               <h4 className="text-lg font-semibold text-purple-900 mb-4 text-center">Follow Us</h4>
-              <a
-                href="https://instagram.com/threesistersoysterco"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-purple-800 hover:text-mintBrand transition-colors duration-200 hover:underline"
-              >
-                @threesistersoysterco
-              </a>
+                              <a
+                  href="https://instagram.com/threesistersoysterco"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-purple-800 hover:text-white transition-colors duration-200 hover:underline"
+                >
+                  @threesistersoysterco
+                </a>
             </div>
           </div>
 
@@ -161,7 +161,7 @@ export default function ContactPage() {
         {/* Employment Section */}
         <div className="mt-20">
           <div className="text-center mb-12">
-            <Badge className="mb-4 bg-mintBrand/20 text-mintBrand border border-mintBrand/30 hover:bg-mintBrand/30">
+            <Badge className="mb-4 bg-white/20 text-white border border-white/30 hover:bg-white/30">
               <Users className="w-4 h-4 mr-2" />
               Join Our Team
             </Badge>
@@ -215,7 +215,7 @@ export default function ContactPage() {
                   <div className="p-3 bg-seafoamBrand/10 rounded-lg border border-seafoamBrand/30">
                     <h4 className="font-semibold text-purple-900 mb-1 text-center">Farm Hand</h4>
                     <p className="text-sm text-purple-800">Full-time position working on oyster farm operations</p>
-                    <Badge className="mt-2 bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30">Full-time</Badge>
+                    <Badge className="mt-2 bg-white/20 text-white border border-white/30">Full-time</Badge>
                   </div>
                 </div>
               </CardContent>

@@ -145,7 +145,7 @@ export default function CheckoutPage() {
                 <h1 className="text-xl font-bold text-white text-center">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-mintBrand">Premium Texas Oysters</p>
+                <p className="text-xs text-white">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">
@@ -178,14 +178,14 @@ export default function CheckoutPage() {
             {/* Product Details */}
             <div className="space-y-6">
               <div>
-                <Badge className="bg-seafoamBrand/20 text-seafoamBrand border border-seafoamBrand/30 mb-4">{product.category}</Badge>
+                <Badge className="bg-white/20 text-white border border-white/30 mb-4">{product.category}</Badge>
                 <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">{product.name}</h1>
                 {originalDescription && <p className="text-purple-800 text-lg mb-4">{originalDescription}</p>}
-                {inventory > 0 && <p className="text-mintBrand font-medium mb-4">{inventory} available in stock</p>}
+                                  {inventory > 0 && <p className="text-white font-medium mb-4">{inventory} available in stock</p>}
               </div>
 
               <div className="text-center">
-                <span className="text-4xl font-bold text-mintBrand">
+                <span className="text-4xl font-bold text-white">
                   ${product.price}
                 </span>
                 <span className="text-purple-600 ml-2">per unit</span>
@@ -221,9 +221,9 @@ export default function CheckoutPage() {
                <div className="mb-8 p-4 bg-purple-50 rounded-lg border border-purple-200">
                  <div className="flex justify-between items-center">
                    <span className="text-lg font-medium text-purple-900">Total:</span>
-                   <span className="text-2xl font-bold text-mintBrand">
-                     ${(product.price * quantity).toFixed(2)}
-                   </span>
+                                     <span className="text-2xl font-bold text-white">
+                    ${(product.price * quantity).toFixed(2)}
+                  </span>
                  </div>
                </div>
 

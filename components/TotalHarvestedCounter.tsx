@@ -6,10 +6,10 @@ export default function TotalHarvestedCounter() {
 
   return (
     <div className="text-center">
-      <div className="text-3xl md:text-4xl font-bold text-white mb-2">
-        {totalHarvested.toLocaleString()}
+      <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
+        {totalHarvested}
       </div>
-      <p className="text-sm md:text-base text-white">Total Harvested</p>
+      <p className="text-sm md:text-base text-purple-800">Total Harvested</p>
     </div>
   );
 } 

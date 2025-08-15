@@ -88,7 +88,7 @@ export default function TeamScroller() {
 
   return (
     <div className="py-6 md:py-8 relative">
-      <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center text-mintBrand">Meet Our Team</h2>
+      <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center text-purple-900">Meet Our Team</h2>
       
       {/* Desktop scroll buttons */}
       <div className="hidden md:block">
@@ -124,7 +124,7 @@ export default function TeamScroller() {
         {workers.map((worker, idx) => (
           <div
             key={idx}
-            className="min-w-[200px] sm:min-w-[220px] md:min-w-[240px] bg-purpleBrand rounded-lg shadow-md p-4 md:p-6 flex-shrink-0 hover:shadow-lg transition-shadow duration-300"
+            className="min-w-[200px] sm:min-w-[220px] md:min-w-[240px] bg-white border border-purple-200 rounded-lg shadow-md p-4 md:p-6 flex-shrink-0 hover:shadow-lg transition-shadow duration-300"
           >
             <div className="flex flex-col items-center">
               <div className="relative w-20 h-20 md:w-24 md:h-24 mb-3 md:mb-4 rounded-full overflow-hidden flex items-center justify-center bg-mintBrand/20 border border-mintBrand/30">
@@ -137,9 +137,9 @@ export default function TeamScroller() {
                   quality={100}
                 />
               </div>
-              <h3 className="text-sm md:text-lg font-semibold text-center mb-1 md:mb-2 leading-tight break-words max-w-[8rem] md:max-w-[10rem] text-mintBrand">{worker.name}</h3>
-              <p className="text-xs md:text-sm text-seafoamBrand text-center mb-2 md:mb-3 leading-tight break-words max-w-[8rem] md:max-w-[10rem]">{worker.role}</p>
-              <p className="text-xs md:text-sm text-gray-600 text-center leading-relaxed break-words max-w-[8rem] md:max-w-[10rem]">{worker.description}</p>
+              <h3 className="text-sm md:text-lg font-semibold text-center mb-1 md:mb-2 leading-tight break-words max-w-[8rem] md:max-w-[10rem] text-purple-900">{worker.name}</h3>
+              <p className="text-xs md:text-sm text-white text-center mb-2 md:mb-3 leading-tight break-words max-w-[8rem] md:max-w-[10rem]">{worker.role}</p>
+              <p className="text-xs md:text-sm text-purple-800 text-center leading-relaxed break-words max-w-[8rem] md:max-w-[10rem]">{worker.description}</p>
             </div>
           </div>
         ))}

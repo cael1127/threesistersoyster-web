@@ -38,7 +38,7 @@ About: ${about}`
       <CardContent className="p-8">
         <div className="text-center mb-8">
           <h3 className="text-2xl font-bold text-purple-900 mb-4 text-center">Apply Now</h3>
-          <p className="text-gray-600">
+          <p className="text-purple-800">
             Interested in joining our team? Fill out the application below and we'll get back to you soon.
           </p>
         </div>
@@ -46,52 +46,56 @@ About: ${about}`
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+              <label className="block text-sm font-medium text-purple-900 mb-2">First Name *</label>
               <input
                 name="firstName"
                 type="text"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white text-purple-900 placeholder-purple-600"
+                placeholder="Your first name"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+              <label className="block text-sm font-medium text-purple-900 mb-2">Last Name *</label>
               <input
                 name="lastName"
                 type="text"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white text-purple-900 placeholder-purple-600"
+                placeholder="Your last name"
               />
             </div>
           </div>
           
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+              <label className="block text-sm font-medium text-purple-900 mb-2">Email *</label>
               <input
                 name="email"
                 type="email"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white text-purple-900 placeholder-purple-600"
+                placeholder="your.email@example.com"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
+              <label className="block text-sm font-medium text-purple-900 mb-2">Phone *</label>
               <input
                 name="phone"
                 type="tel"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white text-purple-900 placeholder-purple-600"
+                placeholder="(713) 854-7427"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Availability *</label>
+            <label className="block text-sm font-medium text-purple-900 mb-2">Availability *</label>
             <select 
               name="availability"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white text-purple-900"
             >
               <option value="">Select availability</option>
               <option value="part-time">Part-time</option>
@@ -100,12 +104,12 @@ About: ${about}`
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Tell us about yourself and why you're interested in working with us *</label>
+            <label className="block text-sm font-medium text-purple-900 mb-2">Tell us about yourself and why you're interested in working with us *</label>
             <textarea
               name="about"
               rows={4}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full px-3 py-2 border border-purple-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white text-purple-900 placeholder-purple-600"
               placeholder="Share your experience, interests, and what draws you to sustainable aquaculture..."
             ></textarea>
           </div>
@@ -113,7 +117,7 @@ About: ${about}`
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               type="submit"
-              className="bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 px-8"
+              className="bg-gradient-to-r from-purpleBrand to-seafoamBrand hover:from-lavenderBrand hover:to-blueBrand px-8"
             >
               Submit Application
             </Button>

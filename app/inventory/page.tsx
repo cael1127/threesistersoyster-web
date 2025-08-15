@@ -109,18 +109,18 @@ export default function InventoryPage() {
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
               <div className="flex items-center space-x-2 mb-2">
-                <h3 className="text-xl font-bold text-white group-hover:text-mintBrand transition-colors text-center">
+                <h3 className="text-xl font-bold text-white group-hover:text-white transition-colors text-center">
                   {item.name}
                 </h3>
                 {item.harvestReady && (
-                  <Badge className="bg-mintBrand/20 text-mintBrand border-mintBrand/30 animate-pulse">
+                  <Badge className="bg-white/20 text-white border-white/30 animate-pulse">
                     <Package className="w-3 h-3 mr-1" />
                     Ready
                   </Badge>
                 )}
               </div>
               <div className="flex items-center space-x-2 mb-3">
-                <Badge className={item.type === "farm" ? "bg-purpleBrand/20 text-purpleBrand border-purpleBrand/30" : "bg-seafoamBrand/20 text-seafoamBrand border-seafoamBrand/30"}>
+                <Badge className={item.type === "farm" ? "bg-purpleBrand/20 text-purpleBrand border-purpleBrand/30" : "bg-white/20 text-white border-white/30"}>
                   {item.type === "farm" ? "Farm Stock" : "Nursery Seed"}
                 </Badge>
                 {item.size && (
@@ -131,7 +131,7 @@ export default function InventoryPage() {
               </div>
             </div>
             <div className="text-right">
-              <div className="text-3xl font-bold text-mintBrand">
+              <div className="text-3xl font-bold text-white">
                 {item.count.toLocaleString()}
               </div>
               <p className="text-sm text-white/60">units</p>
@@ -145,7 +145,7 @@ export default function InventoryPage() {
           <div className="grid grid-cols-2 gap-4 mb-4">
             {item.age && (
               <div className="flex items-center text-sm text-white/80">
-                <Calendar className="w-4 h-4 mr-2 text-mintBrand" />
+                <Calendar className="w-4 h-4 mr-2 text-white" />
                 <span className="font-medium">Age:</span>
                 <span className="ml-1">{item.age}</span>
               </div>
@@ -153,7 +153,7 @@ export default function InventoryPage() {
 
             {item.health && (
               <div className="flex items-center text-sm text-white/80">
-                <Heart className="w-4 h-4 mr-2 text-mintBrand" />
+                <Heart className="w-4 h-4 mr-2 text-white" />
                 <span className="font-medium">Health:</span>
                 <span className="ml-1 capitalize">{item.health}</span>
               </div>
@@ -161,7 +161,7 @@ export default function InventoryPage() {
 
             {item.location && (
               <div className="flex items-center text-sm text-white/80">
-                <MapPin className="w-4 h-4 mr-2 text-seafoamBrand" />
+                <MapPin className="w-4 h-4 mr-2 text-white" />
                 <span className="font-medium">Location:</span>
                 <span className="ml-1">{item.location}</span>
               </div>
@@ -169,9 +169,9 @@ export default function InventoryPage() {
 
             {item.pricePerDozen && (
               <div className="flex items-center text-sm text-white/80">
-                <DollarSign className="w-4 h-4 mr-2 text-mintBrand" />
+                <DollarSign className="w-4 h-4 mr-2 text-white" />
                 <span className="font-medium">Per Dozen:</span>
-                <span className="ml-1 font-bold text-seafoamBrand">${item.pricePerDozen.toFixed(2)}</span>
+                <span className="ml-1 font-bold text-white">${item.pricePerDozen.toFixed(2)}</span>
               </div>
             )}
           </div>
@@ -180,16 +180,16 @@ export default function InventoryPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               {item.harvestReady ? (
-                <div className="flex items-center text-mintBrand text-sm font-medium">
-                  <div className="w-2 h-2 bg-mintBrand rounded-full mr-2 animate-pulse"></div>
-                  Ready for harvest
-                </div>
-              ) : (
-                <div className="flex items-center text-seafoamBrand text-sm font-medium">
-                  <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-2"></div>
-                  Growing
-                </div>
-              )}
+                              <div className="flex items-center text-white text-sm font-medium">
+                <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
+                Ready for harvest
+              </div>
+            ) : (
+              <div className="flex items-center text-white text-sm font-medium">
+                <div className="w-2 h-2 bg-white rounded-full mr-2"></div>
+                Growing
+              </div>
+            )}
             </div>
 
             {item.harvestReady && (
@@ -201,8 +201,8 @@ export default function InventoryPage() {
 
           {/* Additional Info */}
           {item.harvestReady && item.type === "farm" && (
-            <div className="mt-4 p-3 bg-mintBrand/20 border border-mintBrand/30 rounded-lg">
-              <p className="text-sm text-mintBrand font-medium">
+            <div className="mt-4 p-3 bg-white/20 border border-white/30 rounded-lg">
+              <p className="text-sm text-white font-medium">
                 <Package className="w-4 h-4 inline mr-2" />
                 This batch is ready for harvest and immediate delivery to restaurants and markets.
               </p>
@@ -210,8 +210,8 @@ export default function InventoryPage() {
           )}
 
           {item.harvestReady && item.type === "nursery" && (
-            <div className="mt-4 p-3 bg-blueBrand/20 border border-blueBrand/30 rounded-lg">
-              <p className="text-sm text-blueBrand font-medium">
+            <div className="mt-4 p-3 bg-white/20 border border-white/30 rounded-lg">
+              <p className="text-sm text-white font-medium">
                 <Leaf className="w-4 h-4 inline mr-2" />
                 These seeds are ready for transfer to grow-out areas or sale to other growers.
               </p>
@@ -240,31 +240,31 @@ export default function InventoryPage() {
                 />
               </div>
               <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-mintBrand text-center">
+                <h1 className="text-xl font-bold text-white text-center">
                   Three Sisters Oyster Co.
                 </h1>
-                <p className="text-xs text-seafoamBrand">Premium Texas Oysters</p>
+                <p className="text-xs text-white">Premium Texas Oysters</p>
               </div>
             </Link>
             <div className="flex items-center space-x-1 md:space-x-4">
               {/* Desktop Navigation */}
               <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
+                <Link href="/" className="text-white hover:text-white font-medium text-sm">
                   Home
                 </Link>
-                <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
+                <Link href="/products" className="text-white hover:text-white font-medium text-sm">
                   Products
                 </Link>
-                <Link href="/inventory" className="text-seafoamBrand font-medium text-sm">
+                <Link href="/inventory" className="text-white font-medium text-sm">
                   Inventory
                 </Link>
-                <Link href="/gallery" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
+                <Link href="/gallery" className="text-white hover:text-white font-medium text-sm">
                   Gallery
                 </Link>
-                <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
+                <Link href="/about" className="text-white hover:text-white font-medium text-sm">
                   About
                 </Link>
-                <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-sm">
+                <Link href="/contact" className="text-white hover:text-white font-medium text-sm">
                   Contact
                 </Link>
               </nav>
@@ -273,19 +273,19 @@ export default function InventoryPage() {
               <div className="flex md:hidden items-center w-full">
                 {/* Mobile Navigation - Compact */}
                 <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/products" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Shop
                   </Link>
-                  <Link href="/inventory" className="text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/inventory" className="text-white font-medium text-xs py-2 flex-1 text-center">
                     Stock
                   </Link>
-                  <Link href="/gallery" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/gallery" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Gallery
                   </Link>
-                  <Link href="/about" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/about" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     About
                   </Link>
-                  <Link href="/contact" className="text-mintBrand hover:text-seafoamBrand font-medium text-xs py-2 flex-1 text-center">
+                  <Link href="/contact" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Contact
                   </Link>
                 </nav>
@@ -337,7 +337,7 @@ export default function InventoryPage() {
             <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand/20 data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-white/10 border-0 m-1 text-white/80 hover:text-white data-[state=inactive]:text-white/80">
               <Leaf className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
               <span className="truncate">Nursery</span>
-              <Badge className="bg-seafoamBrand/20 text-seafoamBrand border-seafoamBrand/30 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
+              <Badge className="bg-white/20 text-white border-white/30 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
             <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-purpleBrand/20 data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-white/10 border-0 m-1 text-white/80 hover:text-white data-[state=inactive]:text-white/80">
               <Fish className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
@@ -353,7 +353,7 @@ export default function InventoryPage() {
                   <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Farm Operations</h2>
                   <p className="text-purple-800 mt-1 text-sm md:text-base">
                     {processedFarmInventory.filter((item) => item.harvestReady).length > 0 ? (
-                      <span className="text-mintBrand font-medium">
+                      <span className="text-white font-medium">
                         {processedFarmInventory
                           .filter((item) => item.harvestReady)
                           .reduce((sum, item) => sum + item.count, 0)
@@ -393,7 +393,7 @@ export default function InventoryPage() {
                   <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Nursery Operations</h2>
                   <p className="text-purple-800 mt-1 text-sm md:text-base">
                     {processedNurseryInventory.filter((item) => item.harvestReady).length > 0 ? (
-                      <span className="text-mintBrand font-medium">
+                      <span className="text-white font-medium">
                         {processedNurseryInventory
                           .filter((item) => item.harvestReady)
                           .reduce((sum, item) => sum + item.count, 0)
@@ -447,7 +447,7 @@ export default function InventoryPage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="border-mintBrand text-mintBrand hover:bg-mintBrand/20 bg-transparent"
+                  className="border-white text-white hover:bg-white/20 bg-transparent"
                 >
                   <a href="tel:713-854-7427">Call 713-854-7427</a>
                 </Button>
