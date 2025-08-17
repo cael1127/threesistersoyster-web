@@ -56,12 +56,12 @@ export function FloatingParticles({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           size: Math.random() * 6 + 3,
-          speedX: (Math.random() - 0.5) * 0.03,
-          speedY: (Math.random() - 0.5) * 0.03,
+          speedX: (Math.random() - 0.5) * 0.008,
+          speedY: (Math.random() - 0.5) * 0.008,
           opacity: Math.random() * 0.8 + 0.4,
           type: Math.random() > 0.7 ? 'leaf' : Math.random() > 0.5 ? 'bubble' : 'dot',
           rotation: Math.random() * 360,
-          rotationSpeed: (Math.random() - 0.5) * 0.2
+          rotationSpeed: (Math.random() - 0.5) * 0.08
         });
       }
       setParticles(newParticles);
