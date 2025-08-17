@@ -11,6 +11,7 @@ import dynamic from "next/dynamic";
 import TeamScroller from "@/components/TeamScroller";
 import { VideoPlayer } from '@/components/ui/video-player';
 import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
+import { FloatingParticles } from "@/components/ui/floating-particles";
 
 
 const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedCounter"));
@@ -18,7 +19,8 @@ const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedC
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
+    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      <FloatingParticles particleCount={20} interactive={true} />
       {/* Header */}
       <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
@@ -202,7 +204,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {/* Nursery Card */}
             <ScrollAnimatedSection animationType="slide-left" delay={400}>
-              <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
+              <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl">
                 <CardContent className="p-6 md:p-8">
                   <div className="flex items-center mb-4 md:mb-6">
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center mr-3 md:mr-4">
@@ -247,7 +249,7 @@ export default function HomePage() {
 
             {/* Farm Card */}
             <ScrollAnimatedSection animationType="slide-right" delay={600}>
-              <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
+              <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl">
                 <CardContent className="p-6 md:p-8">
                   <div className="flex items-center mb-4 md:mb-6">
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center mr-3 md:mr-4">
@@ -360,27 +362,27 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             <ScrollAnimatedSection animationType="slide-left" delay={600}>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-b from-purpleBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Waves className="w-8 h-8 text-white" />
+              <div className="text-center group cursor-pointer transition-all duration-500 hover:scale-110 hover:-translate-y-2">
+                <div className="w-16 h-16 bg-gradient-to-b from-purpleBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4 transition-all duration-500 group-hover:scale-125 group-hover:shadow-lg">
+                  <Waves className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
                 </div>
                 <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Water Quality</h3>
                 <p className="text-purple-800">Improving coastal water quality through natural filtration</p>
               </div>
             </ScrollAnimatedSection>
             <ScrollAnimatedSection animationType="fade-in" delay={800}>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-b from-seafoamBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Leaf className="w-8 h-8 text-white" />
+              <div className="text-center group cursor-pointer transition-all duration-500 hover:scale-110 hover:-translate-y-2">
+                <div className="w-16 h-16 bg-gradient-to-b from-seafoamBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4 transition-all duration-500 group-hover:scale-125 group-hover:shadow-lg">
+                  <Leaf className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
                 </div>
                 <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Carbon Sequestration</h3>
                 <p className="text-purple-800">Capturing and storing carbon to combat climate change</p>
               </div>
             </ScrollAnimatedSection>
             <ScrollAnimatedSection animationType="slide-right" delay={1000}>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-b from-blueBrand to-seafoamBrand rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Fish className="w-8 h-8 text-white" />
+              <div className="text-center group cursor-pointer transition-all duration-500 hover:scale-110 hover:-translate-y-2">
+                <div className="w-16 h-16 bg-gradient-to-b from-blueBrand to-seafoamBrand rounded-full flex items-center justify-center mx-auto mb-4 transition-all duration-500 group-hover:scale-125 group-hover:shadow-lg">
+                  <Fish className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
                 </div>
                 <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Marine Habitat</h3>
                 <p className="text-purple-800">Creating habitat for fish and marine life</p>
@@ -402,30 +404,30 @@ export default function HomePage() {
 
           <div className="grid lg:grid-cols-2 gap-12">
             <ScrollAnimatedSection animationType="slide-left" delay={400}>
-              <div>
+              <div className="p-6 rounded-xl transition-all duration-500 hover:bg-white/10 hover:shadow-lg hover:scale-105">
                 <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Contact Information</h3>
                 <div className="space-y-4">
                   <a
                     href="tel:713-854-7427"
-                    className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
+                    className="flex items-center text-purple-800 hover:text-white transition-all duration-300 group p-2 rounded-lg hover:bg-purple-600/20"
                   >
-                    <Phone className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
+                    <Phone className="w-5 h-5 text-white mr-3 group-hover:text-white transition-all duration-300 group-hover:scale-110" />
                     <span className="group-hover:underline">713-854-7427</span>
                   </a>
                   <a
                     href="mailto:info@threesistersoyster.com"
-                    className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
+                    className="flex items-center text-purple-800 hover:text-white transition-all duration-300 group p-2 rounded-lg hover:bg-purple-600/20"
                   >
-                    <Mail className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
+                    <Mail className="w-5 h-5 text-white mr-3 group-hover:text-white transition-all duration-300 group-hover:scale-110" />
                     <span className="group-hover:underline">info@threesistersoyster.com</span>
                   </a>
                   <a
                     href="https://maps.google.com/?q=106+Grant+St.+Port+Lavaca,+TX+77979"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
+                    className="flex items-center text-purple-800 hover:text-white transition-all duration-300 group p-2 rounded-lg hover:bg-purple-600/20"
                   >
-                    <MapPin className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
+                    <MapPin className="w-5 h-5 text-white mr-3 group-hover:text-white transition-all duration-300 group-hover:scale-110" />
                     <span className="group-hover:underline">106 Grant St. Port Lavaca, TX 77979</span>
                   </a>
                 </div>
@@ -436,7 +438,7 @@ export default function HomePage() {
                     href="https://instagram.com/threesistersoysterco"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-purple-800 hover:text-white transition-colors duration-200 hover:underline"
+                    className="text-purple-800 hover:text-white transition-all duration-300 hover:underline p-2 rounded-lg hover:bg-purple-600/20 inline-block"
                   >
                     @threesistersoysterco
                   </a>
@@ -445,7 +447,7 @@ export default function HomePage() {
             </ScrollAnimatedSection>
 
             <ScrollAnimatedSection animationType="slide-right" delay={600}>
-              <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm">
+              <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl hover:bg-gradient-to-b hover:from-purpleBrand/50 hover:to-blueBrand/50">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Send Us a Message</h3>
                   <form className="space-y-4">

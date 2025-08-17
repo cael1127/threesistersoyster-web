@@ -1,83 +1,211 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface Particle {
   id: number;
   x: number;
   y: number;
   size: number;
-  duration: number;
-  delay: number;
+  speedX: number;
+  speedY: number;
+  opacity: number;
+  type: 'bubble' | 'dot' | 'leaf';
+  rotation: number;
+  rotationSpeed: number;
 }
 
 interface FloatingParticlesProps {
-  count?: number;
   className?: string;
-  color?: string;
-  sizeRange?: [number, number];
-  durationRange?: [number, number];
+  particleCount?: number;
+  interactive?: boolean;
 }
 
-export function FloatingParticles({
-  count = 20,
-  className = "",
-  color = "rgba(255, 255, 255, 0.1)",
-  sizeRange = [2, 6],
-  durationRange = [20, 40]
+export function FloatingParticles({ 
+  className = '', 
+  particleCount = 15,
+  interactive = true 
 }: FloatingParticlesProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const particlesRef = useRef<Particle[]>([]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [particles, setParticles] = useState<Particle[]>([]);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    const container = containerRef.current;
-    const rect = container.getBoundingClientRect();
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    // Generate particles
-    particlesRef.current = Array.from({ length: count }, (_, i) => ({
-      id: i,
-      x: Math.random() * rect.width,
-      y: Math.random() * rect.height,
-      size: Math.random() * (sizeRange[1] - sizeRange[0]) + sizeRange[0],
-      duration: Math.random() * (durationRange[1] - durationRange[0]) + durationRange[0],
-      delay: Math.random() * 5
-    }));
-  }, [count, sizeRange, durationRange]);
+    // Set canvas size
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Initialize particles
+    const initParticles = () => {
+      const newParticles: Particle[] = [];
+      for (let i = 0; i < particleCount; i++) {
+        newParticles.push({
+          id: i,
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 4 + 2,
+          speedX: (Math.random() - 0.5) * 0.5,
+          speedY: (Math.random() - 0.5) * 0.5,
+          opacity: Math.random() * 0.6 + 0.2,
+          type: Math.random() > 0.7 ? 'leaf' : Math.random() > 0.5 ? 'bubble' : 'dot',
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 2
+        });
+      }
+      setParticles(newParticles);
+    };
+
+    initParticles();
+
+    // Mouse move handler
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+
+    // Mouse enter/leave handlers
+    const handleMouseEnter = () => setIsHovering(true);
+    const handleMouseLeave = () => setIsHovering(false);
+
+    if (interactive) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseenter', handleMouseEnter);
+      document.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    // Animation loop
+    let animationId: number;
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      setParticles(prevParticles => 
+        prevParticles.map(particle => {
+          let newX = particle.x + particle.speedX;
+          let newY = particle.y + particle.speedY;
+          let newSpeedX = particle.speedX;
+          let newSpeedY = particle.speedY;
+          let newOpacity = particle.opacity;
+
+          // Mouse interaction
+          if (interactive && isHovering) {
+            const dx = mousePos.x - particle.x;
+            const dy = mousePos.y - particle.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const maxDistance = 150;
+
+            if (distance < maxDistance) {
+              const force = (maxDistance - distance) / maxDistance;
+              const angle = Math.atan2(dy, dx);
+              
+              // Gentle repulsion effect
+              newSpeedX -= Math.cos(angle) * force * 0.02;
+              newSpeedY -= Math.sin(angle) * force * 0.02;
+              
+              // Increase opacity when near mouse
+              newOpacity = Math.min(particle.opacity + force * 0.3, 0.8);
+            }
+          }
+
+          // Bounce off edges
+          if (newX <= 0 || newX >= canvas.width) {
+            newSpeedX *= -0.8;
+            newX = Math.max(0, Math.min(canvas.width, newX));
+          }
+          if (newY <= 0 || newY >= canvas.height) {
+            newSpeedY *= -0.8;
+            newY = Math.max(0, Math.min(canvas.height, newY));
+          }
+
+          // Add some randomness to movement
+          newSpeedX += (Math.random() - 0.5) * 0.001;
+          newSpeedY += (Math.random() - 0.5) * 0.001;
+
+          // Limit speed
+          newSpeedX = Math.max(-1, Math.min(1, newSpeedX));
+          newSpeedY = Math.max(-1, Math.min(1, newSpeedY));
+
+          return {
+            ...particle,
+            x: newX,
+            y: newY,
+            speedX: newSpeedX,
+            speedY: newSpeedY,
+            opacity: newOpacity,
+            rotation: particle.rotation + particle.rotationSpeed
+          };
+        })
+      );
+
+      // Draw particles
+      particles.forEach(particle => {
+        ctx.save();
+        ctx.globalAlpha = particle.opacity;
+        ctx.translate(particle.x, particle.y);
+        ctx.rotate((particle.rotation * Math.PI) / 180);
+
+        if (particle.type === 'bubble') {
+          // Draw bubble
+          ctx.beginPath();
+          ctx.arc(0, 0, particle.size, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          
+          // Inner glow
+          ctx.beginPath();
+          ctx.arc(0, 0, particle.size * 0.7, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+          ctx.fill();
+        } else if (particle.type === 'leaf') {
+          // Draw leaf
+          ctx.fillStyle = 'rgba(144, 238, 144, 0.4)';
+          ctx.beginPath();
+          ctx.ellipse(0, 0, particle.size * 1.5, particle.size * 0.8, 0, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          // Draw dot
+          ctx.beginPath();
+          ctx.arc(0, 0, particle.size, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+          ctx.fill();
+        }
+
+        ctx.restore();
+      });
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', resizeCanvas);
+      if (interactive) {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseenter', handleMouseEnter);
+        document.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, [particleCount, interactive, mousePos, isHovering, particles]);
 
   return (
-    <div
-      ref={containerRef}
-      className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
-    >
-      {particlesRef.current.map((particle) => (
-        <motion.div
-          key={particle.id}
-          className="absolute rounded-full"
-          style={{
-            width: particle.size,
-            height: particle.size,
-            backgroundColor: color,
-            left: particle.x,
-            top: particle.y
-          }}
-          animate={{
-            y: [0, -100, -200, -300],
-            x: [0, Math.random() * 100 - 50, Math.random() * 100 - 50, Math.random() * 100 - 50],
-            opacity: [0, 1, 1, 0],
-            scale: [0, 1, 1, 0]
-          }}
-          transition={{
-            duration: particle.duration,
-            delay: particle.delay,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-      ))}
-    </div>
+    <canvas
+      ref={canvasRef}
+      className={`fixed inset-0 pointer-events-none z-0 ${className}`}
+      style={{ background: 'transparent' }}
+    />
   );
 }
 
