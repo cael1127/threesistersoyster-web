@@ -10,7 +10,39 @@ import { getFarmInventoryCount, getNurseryInventoryCount } from "@/lib/supabase"
 export default function ClientInventoryCounters() {
   const [mounted, setMounted] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
+  const [displayCount, setDisplayCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Animate the counter when totalCount changes
+  useEffect(() => {
+    if (totalCount > 0 && !isAnimating) {
+      setIsAnimating(true);
+      const startCount = 0;
+      const endCount = totalCount;
+      const duration = 1500; // 1.5 second animation
+      const startTime = Date.now();
+
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const currentCount = Math.floor(startCount + (endCount - startCount) * easeOutQuart);
+        
+        setDisplayCount(currentCount);
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          setIsAnimating(false);
+        }
+      };
+
+      requestAnimationFrame(animate);
+    }
+  }, [totalCount, isAnimating]);
 
   useEffect(() => {
     setMounted(true);
@@ -71,7 +103,7 @@ export default function ClientInventoryCounters() {
           {loading ? (
             <span className="animate-pulse">Loading...</span>
           ) : (
-            totalCount.toLocaleString()
+            displayCount.toLocaleString()
           )}
         </div>
         <p className="text-lg md:text-xl text-purple-800">Total Inventory</p>
@@ -91,12 +123,12 @@ export default function ClientInventoryCounters() {
           </div>
           <p className="text-sm md:text-base text-purple-900">Farm Stock</p>
         </div>
-        <div className="text-center">
-          <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
-            <NurseryInventoryCounter />
+                  <div className="text-center">
+            <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
+              <NurseryInventoryCounter />
+            </div>
+            <p className="text-sm md:text-base text-purple-900">Nursery Seed</p>
           </div>
-          <p className="text-sm md:text-base text-purple-900">Nursery Seed</p>
-        </div>
       </div>
     </div>
   );

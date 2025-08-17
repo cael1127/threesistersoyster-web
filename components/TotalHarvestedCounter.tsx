@@ -1,11 +1,42 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function TotalHarvestedCounter() {
   const [count, setCount] = useState(50000);
+  const [displayCount, setDisplayCount] = useState(50000);
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(count.toString());
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Animate the counter when count changes
+  useEffect(() => {
+    if (isAnimating) {
+      const startCount = displayCount;
+      const endCount = count;
+      const duration = 1000; // 1 second animation
+      const startTime = Date.now();
+
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const currentCount = Math.floor(startCount + (endCount - startCount) * easeOutQuart);
+        
+        setDisplayCount(currentCount);
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          setIsAnimating(false);
+        }
+      };
+
+      requestAnimationFrame(animate);
+    }
+  }, [count, displayCount, isAnimating]);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -14,7 +45,10 @@ export default function TotalHarvestedCounter() {
 
   const handleSave = () => {
     const newCount = parseInt(editValue) || 0;
-    setCount(newCount);
+    if (newCount !== count) {
+      setIsAnimating(true);
+      setCount(newCount);
+    }
     setIsEditing(false);
   };
 
@@ -50,7 +84,7 @@ export default function TotalHarvestedCounter() {
           </div>
         ) : (
           <div className="flex items-center justify-center space-x-2">
-            <span>{count.toLocaleString()}+</span>
+            <span>{displayCount.toLocaleString()}+</span>
             <button
               onClick={handleEdit}
               className="ml-2 bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs opacity-70 hover:opacity-100 transition-opacity"
