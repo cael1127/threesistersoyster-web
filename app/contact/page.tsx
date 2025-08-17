@@ -7,6 +7,7 @@ import { CartButton } from "@/components/cart-button"
 import Image from "next/image"
 import ContactForm from "@/components/ContactForm"
 import EmploymentForm from "@/components/EmploymentForm"
+import ScrollAnimatedSection from "@/components/ScrollAnimatedSection"
 
 export default function ContactPage() {
   return (
@@ -107,153 +108,169 @@ export default function ContactPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
 
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 px-2 text-center">Get In Touch</h1>
-          <p className="text-xl text-purple-800 max-w-2xl mx-auto px-4">
-            Ready to order premium oysters or learn more about our operations? Reach out to us below.
-          </p>
-        </div>
+        <ScrollAnimatedSection animationType="fade-in" delay={200}>
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 px-2 text-center">Get In Touch</h1>
+            <p className="text-xl text-purple-800 max-w-2xl mx-auto px-4">
+              Ready to order premium oysters or learn more about our operations? Reach out to us below.
+            </p>
+          </div>
+        </ScrollAnimatedSection>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          <div>
-            <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Contact Information</h3>
-            <div className="space-y-4">
-              <a
-                href="tel:713-854-7427"
-                className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
-              >
-                <Phone className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
-                <span className="group-hover:underline">713-854-7427</span>
-              </a>
-              <a
-                href="mailto:info@threesistersoyster.com"
-                className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
-              >
-                <Mail className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
-                <span className="group-hover:underline">info@threesistersoyster.com</span>
-              </a>
-              <a
-                href="https://maps.google.com/?q=106+Grant+St.+Port+Lavaca,+TX+77979"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
-              >
-                <MapPin className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
-                <span className="group-hover:underline">106 Grant St. Port Lavaca, TX 77979</span>
-              </a>
-            </div>
-            <div className="mt-8">
-              <h4 className="text-lg font-semibold text-purple-900 mb-4 text-center">Follow Us</h4>
-                              <a
-                  href="https://instagram.com/threesistersoysterco"
+          <ScrollAnimatedSection animationType="slide-left" delay={400}>
+            <div>
+              <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Contact Information</h3>
+              <div className="space-y-4">
+                <a
+                  href="tel:713-854-7427"
+                  className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
+                >
+                  <Phone className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
+                  <span className="group-hover:underline">713-854-7427</span>
+                </a>
+                <a
+                  href="mailto:info@threesistersoyster.com"
+                  className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
+                >
+                  <Mail className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
+                  <span className="group-hover:underline">info@threesistersoyster.com</span>
+                </a>
+                <a
+                  href="https://maps.google.com/?q=106+Grant+St.+Port+Lavaca,+TX+77979"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-purple-800 hover:text-white transition-colors duration-200 hover:underline"
+                  className="flex items-center text-purple-800 hover:text-white transition-colors duration-200 group"
                 >
-                  @threesistersoysterco
+                  <MapPin className="w-5 h-5 text-white mr-3 group-hover:text-white transition-colors duration-200" />
+                  <span className="group-hover:underline">106 Grant St. Port Lavaca, TX 77979</span>
                 </a>
+              </div>
+              <div className="mt-8">
+                <h4 className="text-lg font-semibold text-purple-900 mb-4 text-center">Follow Us</h4>
+                                <a
+                    href="https://instagram.com/threesistersoysterco"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-purple-800 hover:text-white transition-colors duration-200 hover:underline"
+                  >
+                    @threesistersoysterco
+                  </a>
+              </div>
             </div>
-          </div>
+          </ScrollAnimatedSection>
 
-          <ContactForm />
+          <ScrollAnimatedSection animationType="slide-right" delay={600}>
+            <ContactForm />
+          </ScrollAnimatedSection>
         </div>
 
         {/* Employment Section */}
         <div className="mt-20">
-          <div className="text-center mb-12">
-            <Badge className="mb-4 bg-white/20 text-white border border-white/30 hover:bg-white/30">
-              <Users className="w-4 h-4 mr-2" />
-              Join Our Team
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-6 text-center">Employment Opportunities</h2>
-            <p className="text-xl text-purple-800 max-w-3xl mx-auto px-4">
-              Join our growing team and be part of sustainable aquaculture in the beautiful Texas Gulf Coast
-            </p>
-          </div>
+          <ScrollAnimatedSection animationType="fade-in" delay={200}>
+            <div className="text-center mb-12">
+              <Badge className="mb-4 bg-white/20 text-white border border-white/30 hover:bg-white/30">
+                <Users className="w-4 h-4 mr-2" />
+                Join Our Team
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-6 text-center">Employment Opportunities</h2>
+              <p className="text-xl text-purple-800 max-w-3xl mx-auto px-4">
+                Join our growing team and be part of sustainable aquaculture in the beautiful Texas Gulf Coast
+              </p>
+            </div>
+          </ScrollAnimatedSection>
 
           <div className="grid lg:grid-cols-3 gap-8 mb-12">
             {/* Why Work With Us */}
-            <Card className="border-purple-200 bg-white">
-              <CardContent className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-mintBrand rounded-full flex items-center justify-center mr-4">
-                    <Heart className="w-6 h-6 text-white" />
+            <ScrollAnimatedSection animationType="slide-left" delay={400}>
+              <Card className="border-purple-200 bg-white">
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-mintBrand rounded-full flex items-center justify-center mr-4">
+                      <Heart className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-purple-900 text-center">Why Work With Us</h3>
                   </div>
-                  <h3 className="text-xl font-bold text-purple-900 text-center">Why Work With Us</h3>
-                </div>
-                <ul className="space-y-3 text-purple-800">
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-mintBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>Family-owned business with a supportive work environment</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-mintBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>Work outdoors in beautiful coastal Texas</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-mintBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>Learn sustainable aquaculture practices</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-mintBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>Contribute to environmental conservation</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+                  <ul className="space-y-3 text-purple-800">
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-mintBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                      <span>Family-owned business with a supportive work environment</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-mintBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                      <span>Work outdoors in beautiful coastal Texas</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-mintBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                      <span>Learn sustainable aquaculture practices</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-mintBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                      <span>Contribute to environmental conservation</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </ScrollAnimatedSection>
 
             {/* Current Positions */}
-            <Card className="border-purple-200 bg-white">
-              <CardContent className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-seafoamBrand rounded-full flex items-center justify-center mr-4">
-                    <Briefcase className="w-6 h-6 text-white" />
+            <ScrollAnimatedSection animationType="fade-in" delay={600}>
+              <Card className="border-purple-200 bg-white">
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-seafoamBrand rounded-full flex items-center justify-center mr-4">
+                      <Briefcase className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-purple-900 text-center">Current Positions</h3>
                   </div>
-                  <h3 className="text-xl font-bold text-purple-900 text-center">Current Positions</h3>
-                </div>
-                <div className="space-y-4">
-                  <div className="p-3 bg-seafoamBrand/10 rounded-lg border border-seafoamBrand/30">
-                    <h4 className="font-semibold text-purple-900 mb-1 text-center">Farm Hand</h4>
-                    <p className="text-sm text-purple-800">Full-time position working on oyster farm operations</p>
-                    <Badge className="mt-2 bg-white/20 text-white border border-white/30">Full-time</Badge>
+                  <div className="space-y-4">
+                    <div className="p-3 bg-seafoamBrand/10 rounded-lg border border-seafoamBrand/30">
+                      <h4 className="font-semibold text-purple-900 mb-1 text-center">Farm Hand</h4>
+                      <p className="text-sm text-purple-800">Full-time position working on oyster farm operations</p>
+                      <Badge className="mt-2 bg-white/20 text-white border border-white/30">Full-time</Badge>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </ScrollAnimatedSection>
 
             {/* Requirements */}
-            <Card className="border-purple-200 bg-white">
-              <CardContent className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-blueBrand rounded-full flex items-center justify-center mr-4">
-                    <Leaf className="w-6 h-6 text-white" />
+            <ScrollAnimatedSection animationType="slide-right" delay={800}>
+              <Card className="border-purple-200 bg-white">
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-blueBrand rounded-full flex items-center justify-center mr-4">
+                      <Leaf className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-purple-900 text-center">Requirements</h3>
                   </div>
-                  <h3 className="text-xl font-bold text-purple-900 text-center">Requirements</h3>
-                </div>
-                <ul className="space-y-3 text-purple-800">
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-blueBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>Comfortable working outdoors in all weather</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-blueBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>Capable of lifting heavy objects</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-blueBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>Reliable transportation to Port Lavaca</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-blueBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>Passion for environmental conservation</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+                  <ul className="space-y-3 text-purple-800">
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-blueBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                      <span>Comfortable working outdoors in all weather</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-blueBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                      <span>Capable of lifting heavy objects</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-blueBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                      <span>Reliable transportation to Port Lavaca</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-blueBrand rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                      <span>Passion for environmental conservation</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </ScrollAnimatedSection>
           </div>
 
           {/* Application Form */}
-          <EmploymentForm />
+          <ScrollAnimatedSection animationType="scale-in" delay={1000}>
+            <EmploymentForm />
+          </ScrollAnimatedSection>
         </div>
       </div>
     </div>

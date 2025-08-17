@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { CartButton } from '@/components/cart-button';
 import OriginCrew from '@/components/OriginCrew';
 import GalleryGrid from '@/components/GalleryGrid';
+import ScrollAnimatedSection from '@/components/ScrollAnimatedSection';
 
 interface GalleryItem {
   id: number;
@@ -155,49 +156,59 @@ export default function GalleryPage() {
       <main className="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-7xl">
           {/* Hero Section */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-purple-900 mb-6 leading-tight text-center">Kathryn's Photo Bomb</h1>
-            <p className="text-xl md:text-2xl text-purple-800 max-w-3xl mx-auto leading-relaxed">
-              A visual journey through our oyster farm, capturing the beauty of nature, 
-              the hard work of our team, and the magic of sustainable aquaculture.
-            </p>
-          </div>
+          <ScrollAnimatedSection animationType="fade-in" delay={200}>
+            <div className="text-center mb-16">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-purple-900 mb-6 leading-tight text-center">Kathryn's Photo Bomb</h1>
+              <p className="text-xl md:text-2xl text-purple-800 max-w-3xl mx-auto leading-relaxed">
+                A visual journey through our oyster farm, capturing the beauty of nature, 
+                the hard work of our team, and the magic of sustainable aquaculture.
+              </p>
+            </div>
+          </ScrollAnimatedSection>
 
           {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {categories.map((category) => (
-              <button
-                key={category}
-                className="px-4 py-2 rounded-full bg-purple-100 border border-purple-200 text-purple-800 hover:bg-purple-200 transition-all duration-200"
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+          <ScrollAnimatedSection animationType="slide-up" delay={400}>
+            <div className="flex flex-wrap justify-center gap-3 mb-12">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  className="px-4 py-2 rounded-full bg-purple-100 border border-purple-200 text-purple-800 hover:bg-purple-200 transition-all duration-200"
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </ScrollAnimatedSection>
 
           {/* Gallery Grid Component */}
-          <GalleryGrid items={galleryItems} />
+          <ScrollAnimatedSection animationType="scale-in" delay={600}>
+            <GalleryGrid items={galleryItems} />
+          </ScrollAnimatedSection>
 
           {/* Origin Crew Section */}
-          <OriginCrew />
+          <ScrollAnimatedSection animationType="fade-in" delay={800}>
+            <OriginCrew />
+          </ScrollAnimatedSection>
 
           {/* Call to Action */}
-          <div className="text-center mt-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-6 text-center">
-              Want to See More?
-            </h2>
-            <p className="text-xl text-purple-800 mb-8 max-w-2xl mx-auto">
-              Follow us on Instagram for daily updates and behind-the-scenes content from the farm.
-            </p>
-            <a
-              href="https://instagram.com/threesistersoysterco"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-mintBrand to-seafoamBrand text-white font-semibold rounded-full hover:from-seafoamBrand hover:to-mintBrand transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              Follow on Instagram
-            </a>
-          </div>
+          <ScrollAnimatedSection animationType="slide-up" delay={1000}>
+            <div className="text-center mt-20">
+              <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-6 text-center">
+                Want to See More?
+              </h2>
+              <p className="text-xl text-purple-800 mb-8 max-w-2xl mx-auto">
+                Follow us on Instagram for daily updates and behind-the-scenes content from the farm.
+              </p>
+              <a
+                href="https://instagram.com/threesistersoysterco"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-mintBrand to-seafoamBrand text-white font-semibold rounded-full hover:from-seafoamBrand hover:to-mintBrand transition-all duration-300 transform hover:scale-105 shadow-lg"
+              >
+                Follow on Instagram
+              </a>
+            </div>
+          </ScrollAnimatedSection>
         </div>
       </main>
     </div>
