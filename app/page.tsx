@@ -10,6 +10,7 @@ import { CartButton } from "@/components/cart-button"
 import dynamic from "next/dynamic";
 import TeamScroller from "@/components/TeamScroller";
 import { VideoPlayer } from '@/components/ui/video-player';
+import EnhancedStats from "@/components/EnhancedStats";
 
 const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedCounter"));
 
@@ -62,6 +63,9 @@ export default function HomePage() {
                 <Link href="/contact" className="text-white hover:text-white font-medium text-sm">
                   Contact
                 </Link>
+                <Link href="/demo" className="text-white hover:text-white font-medium text-sm">
+                  Demo
+                </Link>
               </nav>
               
               {/* Mobile Layout - Restructured for better spacing */}
@@ -82,6 +86,9 @@ export default function HomePage() {
                   </Link>
                   <Link href="/contact" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Contact
+                  </Link>
+                  <Link href="/demo" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
+                    Demo
                   </Link>
                 </nav>
                 
@@ -172,6 +179,13 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Enhanced Statistics Section */}
+      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl">
+          <EnhancedStats />
         </div>
       </section>
 
