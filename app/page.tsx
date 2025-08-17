@@ -10,6 +10,7 @@ import { CartButton } from "@/components/cart-button"
 import dynamic from "next/dynamic";
 import TeamScroller from "@/components/TeamScroller";
 import { VideoPlayer } from '@/components/ui/video-player';
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 
 const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedCounter"));
@@ -189,7 +190,7 @@ export default function HomePage() {
       {/* Services Section */}
       <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20">
         <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-12 md:mb-16">
+          <div className="text-center mb-12 md:mb-16 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-3 md:mb-4 px-2 text-center">Our Operations</h2>
             <p className="text-base sm:text-lg md:text-xl text-purple-800 max-w-2xl mx-auto leading-relaxed px-4">
               From nursery to market, we provide premium oyster solutions for growers and consumers alike.
@@ -198,7 +199,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {/* Nursery Card */}
-            <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
+            <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300 opacity-0 animate-slide-in-left" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
               <CardContent className="p-6 md:p-8">
                 <div className="flex items-center mb-4 md:mb-6">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center mr-3 md:mr-4">
@@ -241,7 +242,7 @@ export default function HomePage() {
             </Card>
 
             {/* Farm Card */}
-            <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
+            <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300 opacity-0 animate-slide-in-right" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>
               <CardContent className="p-6 md:p-8">
                 <div className="flex items-center mb-4 md:mb-6">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center mr-3 md:mr-4">
@@ -285,23 +286,31 @@ export default function HomePage() {
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="text-center lg:text-left">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-4 md:mb-6 leading-tight px-2 text-center">Named After Blake's Three Daughters</h2>
-              <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed px-2">
-                Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
-                daughters, our team strives to create a better coastline for the future.
-              </p>
-              <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed px-2">
-                Blake grew up outdoors, learning to dive in the Thousand Islands in Indonesia and stayed active in wildlife and
-                FFA during his youth. His love of the outdoors led him to oyster farming as a family and lifestyle
-                choice.
-              </p>
-              <p className="text-sm md:text-base text-purple-800 mb-6 md:mb-8 leading-relaxed px-2">
-                With a Range and Wildlife Management degree from Texas A&M Kingsville and eight years in Environmental
-                Consulting, Blake discovered the pristine waters of Keller Bay - an excellent location for growing
-                premium oysters while improving water quality and sequestering nitrogen and carbon.
-              </p>
+              <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-4 md:mb-6 leading-tight px-2 text-center">Named After Blake's Three Daughters</h2>
+              </div>
+              <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
+                <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed px-2">
+                  Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
+                  daughters, our team strives to create a better coastline for the future.
+                </p>
+              </div>
+              <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>
+                <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed px-2">
+                  Blake grew up outdoors, learning to dive in the Thousand Islands in Indonesia and stayed active in wildlife and
+                  FFA during his youth. His love of the outdoors led him to oyster farming as a family and lifestyle
+                  choice.
+                </p>
+              </div>
+              <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
+                <p className="text-sm md:text-base text-purple-800 mb-6 md:mb-8 leading-relaxed px-2">
+                  With a Range and Wildlife Management degree from Texas A&M Kingsville and eight years in Environmental
+                  Consulting, Blake discovered the pristine waters of Keller Bay - an excellent location for growing
+                  premium oysters while improving water quality and sequestering nitrogen and carbon.
+                </p>
+              </div>
             </div>
-            <div className="relative">
+            <div className="relative opacity-0 animate-slide-in-right" style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}>
               <div className="aspect-square bg-gradient-to-b from-purpleBrand/40 to-seafoamBrand/40 rounded-2xl flex items-center justify-center border border-purpleBrand/30">
                 <Image
                   src="/aboutpic.jpg"
@@ -314,41 +323,47 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className="mt-16 text-center">
+          <div className="mt-16 text-center opacity-0 animate-fade-in-up" style={{ animationDelay: '1s', animationFillMode: 'forwards' }}>
             <h2 className="text-4xl font-bold text-white mb-8 text-center">Meet Our Team</h2>
             <p className="text-xl text-white/80 mb-12 max-w-3xl mx-auto">
               The dedicated team behind Three Sisters Oyster Co. - passionate about sustainable aquaculture and premium oysters.
             </p>
           </div>
-          <TeamScroller />
+          <div className="opacity-0 animate-scale-in" style={{ animationDelay: '1.2s', animationFillMode: 'forwards' }}>
+            <TeamScroller />
+          </div>
         </div>
       </section>
 
       {/* Environmental Impact */}
       <section className="py-20 px-4 bg-gradient-to-b from-purpleBrand/40 via-blueBrand/40 to-seafoamBrand/40">
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold text-purple-900 mb-6 text-center">Environmental Stewardship</h2>
-          <p className="text-xl text-purple-800 mb-12 max-w-3xl mx-auto">
-            We take pride in creating the best oysters while helping the environment, improving water quality and
-            sequestering nitrogen and carbon.
-          </p>
+          <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
+            <h2 className="text-4xl font-bold text-purple-900 mb-6 text-center">Environmental Stewardship</h2>
+          </div>
+          <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
+            <p className="text-xl text-purple-800 mb-12 max-w-3xl mx-auto">
+              We take pride in creating the best oysters while helping the environment, improving water quality and
+              sequestering nitrogen and carbon.
+            </p>
+          </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
+            <div className="text-center opacity-0 animate-slide-in-left" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>
               <div className="w-16 h-16 bg-gradient-to-b from-purpleBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4">
                 <Waves className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Water Quality</h3>
               <p className="text-purple-800">Improving coastal water quality through natural filtration</p>
             </div>
-            <div className="text-center">
+            <div className="text-center opacity-0 animate-fade-in-up" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
               <div className="w-16 h-16 bg-gradient-to-b from-seafoamBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4">
                 <Leaf className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Carbon Sequestration</h3>
               <p className="text-purple-800">Capturing and storing carbon to combat climate change</p>
             </div>
-            <div className="text-center">
+            <div className="text-center opacity-0 animate-slide-in-right" style={{ animationDelay: '1s', animationFillMode: 'forwards' }}>
               <div className="w-16 h-16 bg-gradient-to-b from-blueBrand to-seafoamBrand rounded-full flex items-center justify-center mx-auto mb-4">
                 <Fish className="w-8 h-8 text-white" />
               </div>
@@ -362,13 +377,13 @@ export default function HomePage() {
       {/* Contact Section */}
       <section id="contact" className="py-20 px-4 bg-gradient-to-b from-blueBrand/20 to-purpleBrand/20">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
             <h2 className="text-4xl font-bold text-purple-900 mb-4 text-center">Get In Touch</h2>
             <p className="text-xl text-purple-800">Ready to order premium oysters or learn more about our operations?</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            <div>
+            <div className="opacity-0 animate-slide-in-left" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
               <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Contact Information</h3>
               <div className="space-y-4">
                 <a
@@ -409,7 +424,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm">
+            <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm opacity-0 animate-slide-in-right" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Send Us a Message</h3>
                 <form className="space-y-4">
