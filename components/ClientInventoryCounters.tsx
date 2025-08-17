@@ -12,12 +12,12 @@ export default function ClientInventoryCounters() {
   const [totalCount, setTotalCount] = useState(0);
   const [displayCount, setDisplayCount] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
-  // Animate the counter when totalCount changes
+  // Animate the counter when totalCount changes (only once)
   useEffect(() => {
-    if (totalCount > 0 && !isAnimating) {
-      setIsAnimating(true);
+    if (totalCount > 0 && !hasAnimated && !loading) {
+      setHasAnimated(true);
       const startCount = 0;
       const endCount = totalCount;
       const duration = 1500; // 1.5 second animation
@@ -35,14 +35,12 @@ export default function ClientInventoryCounters() {
         
         if (progress < 1) {
           requestAnimationFrame(animate);
-        } else {
-          setIsAnimating(false);
         }
       };
 
       requestAnimationFrame(animate);
     }
-  }, [totalCount, isAnimating]);
+  }, [totalCount, hasAnimated, loading]);
 
   useEffect(() => {
     setMounted(true);
@@ -123,12 +121,12 @@ export default function ClientInventoryCounters() {
           </div>
           <p className="text-sm md:text-base text-purple-900">Farm Stock</p>
         </div>
-                  <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
-              <NurseryInventoryCounter />
-            </div>
-            <p className="text-sm md:text-base text-purple-900">Nursery Seed</p>
+        <div className="text-center">
+          <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
+            <NurseryInventoryCounter />
           </div>
+          <p className="text-sm md:text-base text-purple-900">Nursery Seed</p>
+        </div>
       </div>
     </div>
   );
