@@ -24,6 +24,8 @@ export function SimpleCounter({
   const [count, setCount] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
+  const animationFrameRef = useRef<number | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -32,32 +34,41 @@ export function SimpleCounter({
           if (entry.isIntersecting && !isAnimating) {
             setIsAnimating(true);
             
-            const timer = setTimeout(() => {
+            timerRef.current = setTimeout(() => {
               let startTime: number;
-              let animationFrame: number;
 
               const animate = (currentTime: number) => {
-                if (!startTime) startTime = currentTime;
-                const progress = Math.min((currentTime - startTime) / duration, 1);
-                
-                // Easing function for smooth animation
-                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-                const currentCount = easeOutQuart * end;
-                
-                setCount(Number(currentCount.toFixed(decimals)));
-                
-                if (progress < 1) {
-                  animationFrame = requestAnimationFrame(animate);
+                try {
+                  if (!startTime) startTime = currentTime;
+                  const progress = Math.min((currentTime - startTime) / duration, 1);
+                  
+                  // Easing function for smooth animation
+                  const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                  const currentCount = easeOutQuart * end;
+                  
+                  setCount(Number(currentCount.toFixed(decimals)));
+                  
+                  if (progress < 1) {
+                    animationFrameRef.current = requestAnimationFrame(animate);
+                  }
+                } catch (error) {
+                  console.error('Animation error:', error);
+                  // Fallback to final value
+                  setCount(end);
                 }
               };
 
-              animationFrame = requestAnimationFrame(animate);
+              animationFrameRef.current = requestAnimationFrame(animate);
             }, delay);
 
             return () => {
-              clearTimeout(timer);
-              if (animationFrame) {
-                cancelAnimationFrame(animationFrame);
+              if (timerRef.current) {
+                clearTimeout(timerRef.current);
+                timerRef.current = null;
+              }
+              if (animationFrameRef.current) {
+                cancelAnimationFrame(animationFrameRef.current);
+                animationFrameRef.current = null;
               }
             };
           }
@@ -73,6 +84,15 @@ export function SimpleCounter({
     return () => {
       if (ref.current) {
         observer.unobserve(ref.current);
+      }
+      // Clean up any pending timers and animation frames
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
       }
     };
   }, [end, duration, delay, decimals, isAnimating]);
