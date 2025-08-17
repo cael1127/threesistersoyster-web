@@ -333,8 +333,8 @@ export default function HomePage() {
           </div>
           <ScrollAnimatedSection animationType="fade-in" delay={1000}>
             <div className="mt-16 text-center">
-              <h2 className="text-4xl font-bold text-white mb-8 text-center">Meet Our Team</h2>
-              <p className="text-xl text-white/80 mb-12 max-w-3xl mx-auto">
+              <h2 className="text-4xl font-bold text-purple-900 mb-8 text-center">Meet Our Team</h2>
+              <p className="text-xl text-purple-800 mb-12 max-w-3xl mx-auto">
                 The dedicated team behind Three Sisters Oyster Co. - passionate about sustainable aquaculture and premium oysters.
               </p>
             </div>
