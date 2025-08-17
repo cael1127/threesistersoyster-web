@@ -13,7 +13,7 @@ import { VideoPlayer } from '@/components/ui/video-player';
 
 
 const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedCounter"));
-const InventorySummary = dynamic(() => import("@/components/InventorySummary"));
+
 
 export default function HomePage() {
   return (
@@ -144,10 +144,7 @@ export default function HomePage() {
                 <TotalHarvestedCounter />
               </div>
 
-              {/* Inventory Summary */}
-              <div className="mb-6 md:mb-8">
-                <InventorySummary />
-              </div>
+
 
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
                 <Button

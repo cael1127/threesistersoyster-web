@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import { AnimatedCounter } from './ui/animated-counter';
 
 export default function TotalHarvestedCounter() {
   const [count, setCount] = useState(50000);
@@ -51,12 +50,7 @@ export default function TotalHarvestedCounter() {
           </div>
         ) : (
           <div className="flex items-center justify-center space-x-2">
-            <AnimatedCounter 
-              end={count} 
-              suffix="+" 
-              duration={2000}
-              delay={0.5}
-            />
+            <span>{count.toLocaleString()}+</span>
             <button
               onClick={handleEdit}
               className="ml-2 bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs opacity-70 hover:opacity-100 transition-opacity"
