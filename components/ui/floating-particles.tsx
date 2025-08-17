@@ -56,12 +56,12 @@ export function FloatingParticles({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           size: Math.random() * 4 + 2,
-          speedX: (Math.random() - 0.5) * 0.5,
-          speedY: (Math.random() - 0.5) * 0.5,
+          speedX: (Math.random() - 0.5) * 0.15,
+          speedY: (Math.random() - 0.5) * 0.15,
           opacity: Math.random() * 0.6 + 0.2,
           type: Math.random() > 0.7 ? 'leaf' : Math.random() > 0.5 ? 'bubble' : 'dot',
           rotation: Math.random() * 360,
-          rotationSpeed: (Math.random() - 0.5) * 2
+          rotationSpeed: (Math.random() - 0.5) * 0.8
         });
       }
       setParticles(newParticles);
@@ -109,8 +109,8 @@ export function FloatingParticles({
               const angle = Math.atan2(dy, dx);
               
               // Gentle repulsion effect
-              newSpeedX -= Math.cos(angle) * force * 0.02;
-              newSpeedY -= Math.sin(angle) * force * 0.02;
+              newSpeedX -= Math.cos(angle) * force * 0.008;
+              newSpeedY -= Math.sin(angle) * force * 0.008;
               
               // Increase opacity when near mouse
               newOpacity = Math.min(particle.opacity + force * 0.3, 0.8);
@@ -128,8 +128,8 @@ export function FloatingParticles({
           }
 
           // Add some randomness to movement
-          newSpeedX += (Math.random() - 0.5) * 0.001;
-          newSpeedY += (Math.random() - 0.5) * 0.001;
+          newSpeedX += (Math.random() - 0.5) * 0.0003;
+          newSpeedY += (Math.random() - 0.5) * 0.0003;
 
           // Limit speed
           newSpeedX = Math.max(-1, Math.min(1, newSpeedX));
