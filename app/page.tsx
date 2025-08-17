@@ -10,9 +10,10 @@ import { CartButton } from "@/components/cart-button"
 import dynamic from "next/dynamic";
 import TeamScroller from "@/components/TeamScroller";
 import { VideoPlayer } from '@/components/ui/video-player';
-import EnhancedStats from "@/components/EnhancedStats";
+
 
 const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedCounter"));
+const InventorySummary = dynamic(() => import("@/components/InventorySummary"));
 
 export default function HomePage() {
   return (
@@ -143,6 +144,11 @@ export default function HomePage() {
                 <TotalHarvestedCounter />
               </div>
 
+              {/* Inventory Summary */}
+              <div className="mb-6 md:mb-8">
+                <InventorySummary />
+              </div>
+
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
                 <Button
                   asChild
@@ -182,12 +188,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Enhanced Statistics Section */}
-      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto max-w-7xl">
-          <EnhancedStats />
-        </div>
-      </section>
+
 
       {/* Services Section */}
       <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20">
