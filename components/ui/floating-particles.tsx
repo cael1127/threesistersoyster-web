@@ -51,9 +51,25 @@ export function FloatingParticles({
         this.type = Math.random() > 0.5 ? 'bubble' : 'dot';
       }
 
-      update() {
+      update(mouseX: number, mouseY: number, isMouseMoving: boolean) {
         this.x += this.speedX;
         this.y += this.speedY;
+
+        // Mouse interaction
+        if (interactive && isMouseMoving) {
+          const dx = mouseX - this.x;
+          const dy = mouseY - this.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const maxDistance = 100;
+
+          if (distance < maxDistance) {
+            const force = (maxDistance - distance) / maxDistance;
+            const angle = Math.atan2(dy, dx);
+            
+            this.speedX -= Math.cos(angle) * force * 0.5;
+            this.speedY -= Math.sin(angle) * force * 0.5;
+          }
+        }
 
         // Bounce off edges
         if (this.x <= 0 || this.x >= canvas.width) {
@@ -120,6 +136,7 @@ export function FloatingParticles({
     let mouseX = 0;
     let mouseY = 0;
     let isMouseMoving = false;
+    let mouseTimeout: NodeJS.Timeout;
 
     if (interactive) {
       const handleMouseMove = (e: MouseEvent) => {
@@ -127,31 +144,18 @@ export function FloatingParticles({
         mouseY = e.clientY;
         isMouseMoving = true;
         
+        // Clear existing timeout
+        if (mouseTimeout) {
+          clearTimeout(mouseTimeout);
+        }
+        
         // Reset mouse moving flag after a delay
-        setTimeout(() => {
+        mouseTimeout = setTimeout(() => {
           isMouseMoving = false;
         }, 100);
       };
 
       document.addEventListener('mousemove', handleMouseMove);
-
-      // Apply mouse repulsion to particles
-      particles.forEach(particle => {
-        if (isMouseMoving) {
-          const dx = mouseX - particle.x;
-          const dy = mouseY - particle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          const maxDistance = 100;
-
-          if (distance < maxDistance) {
-            const force = (maxDistance - distance) / maxDistance;
-            const angle = Math.atan2(dy, dx);
-            
-            particle.speedX -= Math.cos(angle) * force * 0.5;
-            particle.speedY -= Math.sin(angle) * force * 0.5;
-          }
-        }
-      });
     }
 
     // Animation loop
@@ -160,7 +164,7 @@ export function FloatingParticles({
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach(particle => {
-        particle.update();
+        particle.update(mouseX, mouseY, isMouseMoving);
         particle.draw();
       });
 
@@ -172,8 +176,8 @@ export function FloatingParticles({
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', resizeCanvas);
-      if (interactive) {
-        document.removeEventListener('mousemove', handleMouseMove);
+      if (interactive && mouseTimeout) {
+        clearTimeout(mouseTimeout);
       }
     };
   }, [particleCount, interactive]);
