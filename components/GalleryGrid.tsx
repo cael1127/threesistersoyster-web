@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { Badge } from '@/components/ui/badge';
+
 import { Card, CardContent } from '@/components/ui/card';
-import { VideoThumbnail } from '@/components/ui/video-thumbnail';
-import { VideoModal } from '@/components/ui/video-modal';
+import { Play } from 'lucide-react';
 
 interface GalleryItem {
   id: number;
@@ -14,7 +13,6 @@ interface GalleryItem {
   alt: string;
   title: string;
   description: string;
-  category: string;
 }
 
 interface GalleryGridProps {
@@ -22,26 +20,11 @@ interface GalleryGridProps {
 }
 
 export default function GalleryGrid({ items }: GalleryGridProps) {
-  const [selectedVideo, setSelectedVideo] = useState<{
-    src: string;
-    alt: string;
-    title: string;
-    description: string;
-  } | null>(null);
-
   const handleVideoClick = (item: GalleryItem) => {
     if (item.type === 'video') {
-      setSelectedVideo({
-        src: item.src,
-        alt: item.alt,
-        title: item.title,
-        description: item.description,
-      });
+      // Open video in a new tab for simplicity
+      window.open(item.src, '_blank');
     }
-  };
-
-  const closeVideoModal = () => {
-    setSelectedVideo(null);
   };
 
   return (
@@ -49,7 +32,7 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
       {/* Gallery Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {items.map((item) => (
-          <Card key={item.id} className="bg-white border border-purple-200 hover:bg-purple-50 transition-all duration-300 overflow-hidden group">
+          <Card key={item.id} className="bg-white border border-purple-200 hover:bg-purple-50 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 overflow-hidden group">
             <CardContent className="p-0">
               <div className="relative aspect-square overflow-hidden">
                 {item.type === 'image' ? (
@@ -65,13 +48,17 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 ) : (
-                  <VideoThumbnail
-                    src={item.src}
-                    alt={item.alt}
-                    className="w-full h-full"
+                  <div 
+                    className="w-full h-full bg-gray-200 flex items-center justify-center cursor-pointer group"
                     onClick={() => handleVideoClick(item)}
-                    showPlayButton={true}
-                  />
+                  >
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <Play className="w-8 h-8 text-gray-800 ml-1" />
+                      </div>
+                      <p className="text-gray-600 text-sm mt-2">Click to play video</p>
+                    </div>
+                  </div>
                 )}
                 
                 {/* Hover Overlay */}
@@ -79,9 +66,6 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                   <h3 className="text-lg font-semibold mb-1 text-center">{item.title}</h3>
                   <p className="text-sm text-white/90">{item.description}</p>
-                  <Badge className="mt-2 bg-purple-600 text-white border-0">
-                    {item.category}
-                  </Badge>
                 </div>
               </div>
             </CardContent>
@@ -89,17 +73,7 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
         ))}
       </div>
 
-      {/* Video Modal */}
-      {selectedVideo && (
-        <VideoModal
-          isOpen={!!selectedVideo}
-          onClose={closeVideoModal}
-          src={selectedVideo.src}
-          alt={selectedVideo.alt}
-          title={selectedVideo.title}
-          description={selectedVideo.description}
-        />
-      )}
+
     </>
   );
 } 

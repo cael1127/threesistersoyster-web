@@ -15,7 +15,6 @@ interface GalleryItem {
   alt: string;
   title: string;
   description: string;
-  category: string;
 }
 
 export default function GalleryPage() {
@@ -27,8 +26,7 @@ export default function GalleryPage() {
       src: '/topFarm.JPG',
       alt: 'Coastside Oyster Farm',
       title: 'Coastside Oyster Farm',
-      description: 'Beautiful view of the oyster farm',
-      category: 'Nature'
+      description: 'Beautiful view of the oyster farm'
     },
     {
       id: 2,
@@ -36,8 +34,7 @@ export default function GalleryPage() {
       src: '/farmlog.jpg',
       alt: 'Farm Operations',
       title: 'Farm Operations',
-      description: 'Daily operations at the oyster farm',
-      category: 'Harvest'
+      description: 'Daily operations at the oyster farm'
     },
     {
       id: 3,
@@ -45,8 +42,7 @@ export default function GalleryPage() {
       src: '/homepage.MP4',
       alt: 'Farm Tour Video',
       title: 'Farm Tour',
-      description: 'Take a tour of our oyster farm',
-      category: 'Tour'
+      description: 'Take a tour of our oyster farm'
     },
     {
       id: 4,
@@ -54,8 +50,7 @@ export default function GalleryPage() {
       src: '/nurserylog.JPEG',
       alt: 'Nursery Operations',
       title: 'Nursery Operations',
-      description: 'Our oyster nursery in action',
-      category: 'Team'
+      description: 'Our oyster nursery in action'
     },
     {
       id: 5,
@@ -63,8 +58,7 @@ export default function GalleryPage() {
       src: '/aboutpic.jpg',
       alt: 'Family at Farm',
       title: 'Family at Farm',
-      description: 'Blake and family at the oyster farm',
-      category: 'Nature'
+      description: 'Blake and family at the oyster farm'
     },
     {
       id: 6,
@@ -72,12 +66,11 @@ export default function GalleryPage() {
       src: '/logo.jpg',
       alt: 'Three Sisters Logo',
       title: 'Three Sisters Brand',
-      description: 'Our company logo and branding',
-      category: 'Process'
+      description: 'Our company logo and branding'
     }
   ];
 
-  const categories = ['All', 'Nature', 'Harvest', 'Tour', 'Team', 'Process'];
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
@@ -168,19 +161,7 @@ export default function GalleryPage() {
             </div>
           </ScrollAnimatedSection>
 
-          {/* Category Filter */}
-          <ScrollAnimatedSection animationType="slide-up" delay={400}>
-            <div className="flex flex-wrap justify-center gap-3 mb-12">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  className="px-4 py-2 rounded-full bg-purple-100 border border-purple-200 text-purple-800 hover:bg-purple-200 hover:scale-105 hover:shadow-lg transition-all duration-300"
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </ScrollAnimatedSection>
+
 
           {/* Gallery Grid Component */}
           <ScrollAnimatedSection animationType="scale-in" delay={600}>
