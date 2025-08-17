@@ -55,10 +55,10 @@ export function FloatingParticles({
           id: i,
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 4 + 2,
+          size: Math.random() * 6 + 3,
           speedX: (Math.random() - 0.5) * 0.15,
           speedY: (Math.random() - 0.5) * 0.15,
-          opacity: Math.random() * 0.6 + 0.2,
+          opacity: Math.random() * 0.8 + 0.4,
           type: Math.random() > 0.7 ? 'leaf' : Math.random() > 0.5 ? 'bubble' : 'dot',
           rotation: Math.random() * 360,
           rotationSpeed: (Math.random() - 0.5) * 0.8
@@ -154,32 +154,52 @@ export function FloatingParticles({
         ctx.translate(particle.x, particle.y);
         ctx.rotate((particle.rotation * Math.PI) / 180);
 
-        if (particle.type === 'bubble') {
-          // Draw bubble
-          ctx.beginPath();
-          ctx.arc(0, 0, particle.size, 0, Math.PI * 2);
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-          ctx.lineWidth = 1;
-          ctx.stroke();
-          
-          // Inner glow
-          ctx.beginPath();
-          ctx.arc(0, 0, particle.size * 0.7, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-          ctx.fill();
-        } else if (particle.type === 'leaf') {
-          // Draw leaf
-          ctx.fillStyle = 'rgba(144, 238, 144, 0.4)';
-          ctx.beginPath();
-          ctx.ellipse(0, 0, particle.size * 1.5, particle.size * 0.8, 0, 0, Math.PI * 2);
-          ctx.fill();
-        } else {
-          // Draw dot
-          ctx.beginPath();
-          ctx.arc(0, 0, particle.size, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-          ctx.fill();
-        }
+                 if (particle.type === 'bubble') {
+           // Draw bubble with enhanced visibility
+           ctx.beginPath();
+           ctx.arc(0, 0, particle.size, 0, Math.PI * 2);
+           ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+           ctx.lineWidth = 2;
+           ctx.stroke();
+           
+           // Enhanced inner glow
+           ctx.beginPath();
+           ctx.arc(0, 0, particle.size * 0.7, 0, Math.PI * 2);
+           ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+           ctx.fill();
+           
+           // Add highlight dot
+           ctx.beginPath();
+           ctx.arc(particle.size * 0.3, -particle.size * 0.3, particle.size * 0.2, 0, Math.PI * 2);
+           ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+           ctx.fill();
+         } else if (particle.type === 'leaf') {
+           // Enhanced leaf with better visibility
+           ctx.fillStyle = 'rgba(144, 238, 144, 0.6)';
+           ctx.beginPath();
+           ctx.ellipse(0, 0, particle.size * 1.5, particle.size * 0.8, 0, 0, Math.PI * 2);
+           ctx.fill();
+           
+           // Add leaf vein
+           ctx.strokeStyle = 'rgba(144, 238, 144, 0.8)';
+           ctx.lineWidth = 1;
+           ctx.beginPath();
+           ctx.moveTo(-particle.size * 0.8, 0);
+           ctx.lineTo(particle.size * 0.8, 0);
+           ctx.stroke();
+         } else {
+           // Enhanced dot with glow effect
+           ctx.beginPath();
+           ctx.arc(0, 0, particle.size, 0, Math.PI * 2);
+           ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+           ctx.fill();
+           
+           // Add outer glow
+           ctx.beginPath();
+           ctx.arc(0, 0, particle.size * 1.3, 0, Math.PI * 2);
+           ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+           ctx.fill();
+         }
 
         ctx.restore();
       });
