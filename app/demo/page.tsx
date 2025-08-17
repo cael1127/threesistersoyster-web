@@ -1,9 +1,15 @@
+"use client";
+
 import React from 'react';
+import { FloatingParticles } from '@/components/ui/floating-particles';
 
 export default function DemoPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
-      <div className="container mx-auto px-4 py-20">
+    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      {/* Floating Background Elements */}
+      <FloatingParticles particleCount={12} interactive={true} />
+      
+      <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="text-center mb-20">
           <h1 className="text-6xl md:text-7xl font-bold text-purple-900 mb-6">
             Interactive Elements Demo
@@ -38,7 +44,8 @@ export default function DemoPage() {
           <div className="bg-white/20 backdrop-blur-sm rounded-xl p-6 hover:scale-105 transition-transform duration-300">
             <h3 className="text-xl font-bold text-purple-900 mb-4">Floating Elements</h3>
             <p className="text-purple-800">
-              Subtle background animations that add life without being distracting.
+              Notice the subtle floating bubbles and dots in the background. 
+              These elements add life without being distracting.
             </p>
           </div>
           
