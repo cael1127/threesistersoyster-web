@@ -7,7 +7,7 @@ export default function DemoPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
       {/* Floating Background Elements */}
-      <FloatingParticles particleCount={12} interactive={true} />
+      <FloatingParticles particleCount={20} interactive={true} />
       
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="text-center mb-20">

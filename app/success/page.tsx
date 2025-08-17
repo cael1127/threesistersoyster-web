@@ -8,6 +8,7 @@ import { CheckCircle, Waves, Package, Phone, Mail } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
+import { FloatingParticles } from "@/components/ui/floating-particles"
 
 export default function SuccessPage() {
   const searchParams = useSearchParams()
@@ -43,7 +44,8 @@ export default function SuccessPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 to-seafoamBrand/20 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 to-seafoamBrand/20 flex items-center justify-center relative">
+        <FloatingParticles particleCount={6} interactive={true} />
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mintBrand mx-auto mb-4"></div>
           <p className="text-white/80">Loading order details...</p>
@@ -53,7 +55,8 @@ export default function SuccessPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
+    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      <FloatingParticles particleCount={10} interactive={true} />
       {/* Header */}
       <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">

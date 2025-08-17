@@ -9,6 +9,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
 import { useRouter } from "next/navigation"
+import { FloatingParticles } from "@/components/ui/floating-particles"
 
 export default function CheckoutPage() {
   const { state, clearCart } = useCart()
@@ -108,7 +109,8 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
+    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      <FloatingParticles particleCount={8} interactive={true} />
       {/* Header */}
       <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">

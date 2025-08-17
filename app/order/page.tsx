@@ -12,6 +12,7 @@ import { ShoppingCart } from "lucide-react"
 import { CartButton } from "@/components/cart-button"
 import Image from "next/image"
 import { Phone, Mail } from "lucide-react"
+import { FloatingParticles } from "@/components/ui/floating-particles"
 
 export default function OrderPage() {
   const [orderItems, setOrderItems] = useState<any[]>([])
@@ -75,7 +76,8 @@ export default function OrderPage() {
 
   if (orderSuccess) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 to-seafoamBrand/20 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 to-seafoamBrand/20 flex items-center justify-center relative">
+        <FloatingParticles particleCount={6} interactive={true} />
         <div className="text-center">
           <div className="w-16 h-16 bg-mintBrand/30 rounded-full flex items-center justify-center mx-auto mb-4">
                             <ShoppingCart className="w-8 h-8 text-white" />
@@ -93,7 +95,8 @@ export default function OrderPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
+    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      <FloatingParticles particleCount={8} interactive={true} />
       {/* Header */}
       <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50">
         <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
