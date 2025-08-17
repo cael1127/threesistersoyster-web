@@ -169,7 +169,6 @@ export default function HomePage() {
               <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl">
                 <VideoPlayer
                   src="/homepage.MP4"
-                  poster="/topFarm.JPG"
                   alt="Three Sisters Oyster Farm Tour"
                   className="w-full h-full"
                   autoPlay={true}

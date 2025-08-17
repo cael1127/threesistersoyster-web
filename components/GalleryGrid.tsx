@@ -11,7 +11,6 @@ interface GalleryItem {
   id: number;
   type: 'image' | 'video';
   src: string;
-  poster?: string;
   alt: string;
   title: string;
   description: string;
@@ -25,7 +24,6 @@ interface GalleryGridProps {
 export default function GalleryGrid({ items }: GalleryGridProps) {
   const [selectedVideo, setSelectedVideo] = useState<{
     src: string;
-    poster?: string;
     alt: string;
     title: string;
     description: string;
@@ -35,7 +33,6 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
     if (item.type === 'video') {
       setSelectedVideo({
         src: item.src,
-        poster: item.poster,
         alt: item.alt,
         title: item.title,
         description: item.description,
@@ -70,7 +67,6 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
                 ) : (
                   <VideoThumbnail
                     src={item.src}
-                    poster={item.poster}
                     alt={item.alt}
                     className="w-full h-full"
                     onClick={() => handleVideoClick(item)}
@@ -99,7 +95,6 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
           isOpen={!!selectedVideo}
           onClose={closeVideoModal}
           src={selectedVideo.src}
-          poster={selectedVideo.poster}
           alt={selectedVideo.alt}
           title={selectedVideo.title}
           description={selectedVideo.description}

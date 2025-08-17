@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils';
 
 interface VideoPlayerProps {
   src: string;
-  poster?: string;
   alt: string;
   className?: string;
   autoPlay?: boolean;
@@ -23,7 +22,6 @@ interface VideoPlayerProps {
 
 export function VideoPlayer({
   src,
-  poster,
   alt,
   className,
   autoPlay = false,
@@ -179,7 +177,6 @@ export function VideoPlayer({
       <video
         ref={videoRef}
         className="w-full h-full object-cover"
-        poster={poster}
         autoPlay={autoPlay}
         muted={muted}
         loop={loop}

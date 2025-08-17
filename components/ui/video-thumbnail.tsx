@@ -6,7 +6,6 @@ import { cn } from '@/lib/utils';
 
 interface VideoThumbnailProps {
   src: string;
-  poster?: string;
   alt: string;
   className?: string;
   width?: number;
@@ -17,7 +16,6 @@ interface VideoThumbnailProps {
 
 export function VideoThumbnail({
   src,
-  poster,
   alt,
   className,
   width = 400,
@@ -25,7 +23,7 @@ export function VideoThumbnail({
   onClick,
   showPlayButton = true,
 }: VideoThumbnailProps) {
-  const [thumbnailSrc, setThumbnailSrc] = useState<string | null>(poster || null);
+  const [thumbnailSrc, setThumbnailSrc] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [hasError, setHasError] = useState(false);
   
@@ -33,11 +31,6 @@ export function VideoThumbnail({
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (poster) {
-      setThumbnailSrc(poster);
-      return;
-    }
-
     // Generate thumbnail from video
     const generateThumbnail = async () => {
       if (!videoRef.current || !canvasRef.current) return;
@@ -88,7 +81,7 @@ export function VideoThumbnail({
     };
 
     generateThumbnail();
-  }, [src, poster, width, height]);
+  }, [src, width, height]);
 
   if (hasError) {
     return (

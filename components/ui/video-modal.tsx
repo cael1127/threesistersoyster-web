@@ -9,7 +9,6 @@ interface VideoModalProps {
   isOpen: boolean;
   onClose: () => void;
   src: string;
-  poster?: string;
   alt: string;
   title?: string;
   description?: string;
@@ -19,7 +18,6 @@ export function VideoModal({
   isOpen,
   onClose,
   src,
-  poster,
   alt,
   title,
   description,
@@ -143,7 +141,6 @@ export function VideoModal({
         <video
           ref={videoRef}
           className="w-full h-full object-contain"
-          poster={poster}
           autoPlay
           muted={isMuted}
           playsInline

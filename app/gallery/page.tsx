@@ -41,7 +41,6 @@ export default function GalleryPage() {
       id: 3,
       type: 'video',
       src: '/homepage.MP4',
-      poster: '/topFarm.JPG',
       alt: 'Farm Tour Video',
       title: 'Farm Tour',
       description: 'Take a tour of our oyster farm',
