@@ -174,7 +174,7 @@ export default function GalleryPage() {
               {categories.map((category) => (
                 <button
                   key={category}
-                  className="px-4 py-2 rounded-full bg-purple-100 border border-purple-200 text-purple-800 hover:bg-purple-200 transition-all duration-200"
+                  className="px-4 py-2 rounded-full bg-purple-100 border border-purple-200 text-purple-800 hover:bg-purple-200 hover:scale-105 hover:shadow-lg transition-all duration-300"
                 >
                   {category}
                 </button>

@@ -34,7 +34,7 @@ About: ${about}`
   };
 
   return (
-    <Card className="border-purple-200 max-w-4xl mx-auto">
+    <Card className="border-purple-200 max-w-4xl mx-auto hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
       <CardContent className="p-8">
         <div className="text-center mb-8">
           <h3 className="text-2xl font-bold text-purple-900 mb-4 text-center">Apply Now</h3>

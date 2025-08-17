@@ -198,7 +198,7 @@ export default function OrderPage() {
       <main className="flex-1 py-8 px-4">
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-4xl mx-auto">
-            <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/20 to-blueBrand/20 backdrop-blur-sm">
+            <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/20 to-blueBrand/20 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
               <CardContent className="p-8">
                 <h2 className="text-2xl font-bold text-purple-900 mb-4 text-center">Order Information</h2>
                 <p className="text-purple-800 mb-6 text-center">

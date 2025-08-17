@@ -67,9 +67,6 @@ export default function HomePage() {
                 <Link href="/contact" className="text-white hover:text-white font-medium text-sm">
                   Contact
                 </Link>
-                <Link href="/demo" className="text-white hover:text-white font-medium text-sm">
-                  Demo
-                </Link>
               </nav>
               
               {/* Mobile Layout - Restructured for better spacing */}
@@ -90,9 +87,6 @@ export default function HomePage() {
                   </Link>
                   <Link href="/contact" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
                     Contact
-                  </Link>
-                  <Link href="/demo" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
-                    Demo
                   </Link>
                 </nav>
                 

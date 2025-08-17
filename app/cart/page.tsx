@@ -109,7 +109,7 @@ export default function CartPage() {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               {state.items.map((item) => (
-                <Card key={item.id} className="border-purpleBrand/30 bg-white">
+                <Card key={item.id} className="border-purpleBrand/30 bg-white hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                   <CardContent className="p-6">
                     <div className="flex items-center space-x-4">
                       <div className="w-20 h-20 bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 rounded-lg overflow-hidden flex-shrink-0">
@@ -194,7 +194,7 @@ export default function CartPage() {
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <Card className="border-purpleBrand/30 bg-white sticky top-24">
+              <Card className="border-purpleBrand/30 bg-white sticky top-24 hover:shadow-2xl transition-all duration-500 hover:scale-105">
                 <CardContent className="p-6">
                   <h2 className="text-xl font-bold text-purple-900 mb-4 text-center">Order Summary</h2>
                   

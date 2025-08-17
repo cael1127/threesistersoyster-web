@@ -105,7 +105,7 @@ export default function InventoryPage() {
 
   function InventoryCard({ item }: { item: any }) {
     return (
-      <Card className="border-purpleBrand/30 hover:shadow-lg transition-all duration-300 group bg-purpleBrand/40">
+      <Card className="border-purpleBrand/30 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 group bg-purpleBrand/40">
         <CardContent className="p-6">
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">

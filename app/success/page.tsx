@@ -133,7 +133,7 @@ export default function SuccessPage() {
 
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto">
-          <Card className="border-mintBrand/30 bg-mintBrand/20 backdrop-blur-sm">
+          <Card className="border-mintBrand/30 bg-mintBrand/20 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
             <CardContent className="p-8 text-center">
               <div className="w-16 h-16 bg-mintBrand/30 rounded-full flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="w-8 h-8 text-white" />

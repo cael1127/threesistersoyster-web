@@ -185,7 +185,7 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-3 gap-8 mb-12">
             {/* Why Work With Us */}
             <ScrollAnimatedSection animationType="slide-left" delay={400}>
-              <Card className="border-purple-200 bg-white">
+              <Card className="border-purple-200 bg-white hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
                     <div className="w-12 h-12 bg-mintBrand rounded-full flex items-center justify-center mr-4">
@@ -217,7 +217,7 @@ export default function ContactPage() {
 
             {/* Current Positions */}
             <ScrollAnimatedSection animationType="fade-in" delay={600}>
-              <Card className="border-purple-200 bg-white">
+              <Card className="border-purple-200 bg-white hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
                     <div className="w-12 h-12 bg-seafoamBrand rounded-full flex items-center justify-center mr-4">
@@ -238,7 +238,7 @@ export default function ContactPage() {
 
             {/* Requirements */}
             <ScrollAnimatedSection animationType="slide-right" delay={800}>
-              <Card className="border-purple-200 bg-white">
+              <Card className="border-purple-200 bg-white hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
                     <div className="w-12 h-12 bg-blueBrand rounded-full flex items-center justify-center mr-4">

@@ -20,7 +20,7 @@ export default function ContactForm() {
   };
 
   return (
-    <Card className="border-purple-200 bg-white">
+    <Card className="border-purple-200 bg-white hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
       <CardContent className="p-8">
         <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Send Us a Message</h3>
         <form className="space-y-4" onSubmit={handleSubmit}>

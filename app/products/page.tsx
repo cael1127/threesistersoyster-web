@@ -64,7 +64,7 @@ export default function ProductsPage() {
     const { originalDescription, inventory } = parseProductDescription(product.description)
 
     return (
-      <Card className="border-purpleBrand/30 bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 hover:shadow-xl transition-all duration-300 group">
+      <Card className="border-purpleBrand/30 bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 group">
         <CardContent className="p-6">
           {/* Product Image */}
           <div className="aspect-square bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 rounded-lg overflow-hidden mb-4">

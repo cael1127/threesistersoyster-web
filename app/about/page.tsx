@@ -144,7 +144,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Sustainability */}
             <ScrollAnimatedSection animationType="slide-left" delay={200}>
-              <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm">
+              <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-purpleBrand to-lavenderBrand rounded-full flex items-center justify-center mx-auto mb-4">
                     <Leaf className="w-8 h-8 text-white" />
@@ -159,7 +159,7 @@ export default function AboutPage() {
 
             {/* Quality */}
             <ScrollAnimatedSection animationType="fade-in" delay={400}>
-              <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm">
+              <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-seafoamBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4">
                     <Star className="w-8 h-8 text-white" />
@@ -174,7 +174,7 @@ export default function AboutPage() {
 
             {/* Community */}
             <ScrollAnimatedSection animationType="slide-right" delay={600}>
-              <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-seafoamBrand/40 backdrop-blur-sm">
+              <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-seafoamBrand/40 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-purpleBrand to-seafoamBrand rounded-full flex items-center justify-center mx-auto mb-4">
                     <Users className="w-8 h-8 text-white" />

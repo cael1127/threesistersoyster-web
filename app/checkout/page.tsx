@@ -155,7 +155,7 @@ export default function CheckoutPage() {
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Order Summary */}
             <div className="space-y-6">
-              <Card className="border-purpleBrand/30 bg-white">
+              <Card className="border-purpleBrand/30 bg-white hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                 <CardContent className="p-6">
                   <h2 className="text-xl font-bold text-purple-900 mb-4 text-center">Order Summary</h2>
 
@@ -207,7 +207,7 @@ export default function CheckoutPage() {
               </Card>
 
               {/* Contact Info */}
-              <Card className="border-purpleBrand/30 bg-white">
+              <Card className="border-purpleBrand/30 bg-white hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                 <CardContent className="p-6">
                   <h3 className="text-lg font-bold text-purple-900 mb-4 text-center">Need Help?</h3>
                   <div className="space-y-2 text-sm">
@@ -230,7 +230,7 @@ export default function CheckoutPage() {
 
             {/* Payment Section */}
             <div className="space-y-6">
-              <Card className="border-purpleBrand/30 bg-white">
+              <Card className="border-purpleBrand/30 bg-white hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                 <CardContent className="p-6">
                   <h2 className="text-xl font-bold text-purple-900 mb-6 text-center">Payment Information</h2>
 
