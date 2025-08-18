@@ -15,7 +15,15 @@ import { FloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
 
 export default function CheckoutPage() {
-  const { state, clearCart } = useCart()
+  const cartContext = useCart()
+  console.log("Cart context:", cartContext)
+  
+  if (!cartContext) {
+    console.error("Cart context is null!")
+    return <div>Error: Cart context not available</div>
+  }
+  
+  const { state, clearCart } = cartContext
   const router = useRouter()
   const [checkingOut, setCheckingOut] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -24,10 +32,13 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     setMounted(true)
-  }, [])
+    console.log("Checkout page mounted")
+    console.log("Cart state on mount:", state)
+  }, [state])
 
   // Show loading state until mounted
   if (!mounted) {
+    console.log("Showing loading state")
     return (
       <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 to-seafoamBrand/20 flex items-center justify-center overflow-hidden">
         <div className="text-center">
@@ -40,6 +51,7 @@ export default function CheckoutPage() {
 
   // Redirect to cart if empty
   if (state.items.length === 0) {
+    console.log("Cart is empty, redirecting to empty cart view")
     return (
       <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 to-seafoamBrand/20 overflow-hidden">
         <Navigation />
@@ -60,7 +72,25 @@ export default function CheckoutPage() {
     )
   }
 
+  console.log("Rendering checkout form with cart items:", state.items.length)
 
+  // Debug: Show cart state
+  console.log("Full cart state:", JSON.stringify(state, null, 2))
+
+  // Test function to add item to cart
+  const testAddItem = () => {
+    console.log("Testing add item...")
+    if (cartContext) {
+      cartContext.addItem({
+        id: "test-item",
+        name: "Test Oyster",
+        price: 9.99,
+        quantity: 1,
+        category: "Test"
+      })
+      console.log("Test item added!")
+    }
+  }
 
   const handleCheckout = async () => {
     console.log("Checkout button clicked!")
@@ -117,6 +147,14 @@ export default function CheckoutPage() {
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative overflow-hidden">
       <FloatingParticles particleCount={8} interactive={true} />
       <Navigation />
+
+      {/* Debug info - remove this later */}
+      <div className="bg-red-500 text-white p-4 text-center">
+        DEBUG: Cart has {state.items.length} items, Total: ${state.total}
+        <button onClick={testAddItem} className="ml-4 bg-blue-500 px-2 py-1 rounded">
+          Test Add Item
+        </button>
+      </div>
 
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
@@ -289,6 +327,13 @@ export default function CheckoutPage() {
                   >
                     Test Button
                   </Button>
+
+                  <button
+                    onClick={() => console.log("Native button clicked!")}
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white text-lg py-3 mt-2 rounded-lg"
+                  >
+                    Native Button Test
+                  </button>
 
                   <p className="text-xs text-purple-600 mt-4 text-center">
                     By completing your order, you agree to our terms of service and privacy policy.

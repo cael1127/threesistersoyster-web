@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { createContext, useContext, useReducer, useEffect, useCallback, useRef } from "react"
+import { useState } from "react"
 
 export type CartItem = {
   id: string
@@ -103,6 +104,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     total: 0,
     itemCount: 0,
   })
+  const [mounted, setMounted] = useState(false)
 
   // Debounced localStorage save
   const saveTimeoutRef = useRef<NodeJS.Timeout>()
@@ -114,28 +116,41 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     
     saveTimeoutRef.current = setTimeout(() => {
       try {
-        localStorage.setItem("three-sisters-cart", JSON.stringify(items))
+        if (typeof window !== 'undefined') {
+          localStorage.setItem("three-sisters-cart", JSON.stringify(items))
+        }
       } catch (error) {
         console.error("Error saving cart to localStorage:", error)
       }
     }, 100) // 100ms debounce
   }, [])
 
-  // Load cart from localStorage on mount
+  // Set mounted state
   useEffect(() => {
-    const savedCart = localStorage.getItem("three-sisters-cart")
-    if (savedCart) {
-      try {
-        const cartItems = JSON.parse(savedCart)
-        dispatch({ type: "LOAD_CART", payload: cartItems })
-      } catch (error) {
-        console.error("Error loading cart from localStorage:", error)
-      }
-    }
+    setMounted(true)
   }, [])
+
+  // Load cart from localStorage on mount (only on client)
+  useEffect(() => {
+    if (!mounted) return
+    
+    try {
+      if (typeof window !== 'undefined') {
+        const savedCart = localStorage.getItem("three-sisters-cart")
+        if (savedCart) {
+          const cartItems = JSON.parse(savedCart)
+          dispatch({ type: "LOAD_CART", payload: cartItems })
+        }
+      }
+    } catch (error) {
+      console.error("Error loading cart from localStorage:", error)
+    }
+  }, [mounted])
 
   // Save cart to localStorage whenever it changes (debounced)
   useEffect(() => {
+    if (!mounted) return
+    
     saveToLocalStorage(state.items)
     
     // Cleanup timeout on unmount
@@ -144,7 +159,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         clearTimeout(saveTimeoutRef.current)
       }
     }
-  }, [state.items, saveToLocalStorage])
+  }, [state.items, saveToLocalStorage, mounted])
 
   const addItem = useCallback((item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
     dispatch({ type: "ADD_ITEM", payload: item })
