@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Rate limiting
-    const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
     if (!checkoutRateLimiter.isAllowed(ip)) {
       console.log(`Rate limit exceeded for IP: ${ip}`)
       return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
@@ -40,27 +40,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Payment service unavailable' }, { status: 503 })
     }
 
-    // Parse and validate request body
+    // Parse request body
     const body = await request.json()
+    const { items, total_amount, customer_name, customer_email } = body
     
-    // Validate input using schema
-    const validationResult = orderSchema.safeParse(body)
-    if (!validationResult.success) {
-      console.log(`Validation failed: ${JSON.stringify(validationResult.error.errors)}`)
-      return NextResponse.json({ 
-        error: 'Invalid order data',
-        details: validationResult.error.errors 
-      }, { status: 400 })
-    }
-
-    const { items, total_amount } = validationResult.data
-
-    // Additional security checks
-    if (items.length === 0) {
+    // Basic validation
+    if (!items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json({ error: 'No items in order' }, { status: 400 })
     }
 
-    if (total_amount <= 0) {
+    if (!total_amount || total_amount <= 0) {
       return NextResponse.json({ error: 'Invalid total amount' }, { status: 400 })
     }
 
@@ -85,13 +74,14 @@ export async function POST(request: NextRequest) {
       quantity: item.quantity,
     }))
 
-    // Create Stripe checkout session with enhanced security
+    // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: sanitizedItems,
       mode: "payment",
       success_url: `${request.nextUrl.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${request.nextUrl.origin}/cart`,
+      customer_email: customer_email || undefined, // Optional customer email
       shipping_address_collection: {
         allowed_countries: ["US"], // Restrict to US only
       },
@@ -120,14 +110,10 @@ export async function POST(request: NextRequest) {
       metadata: {
         orderTotal: total_amount.toString(),
         itemCount: items.length.toString(),
+        customerName: customer_name || 'Not provided',
+        customerEmail: customer_email || 'Not provided',
         customerIP: ip,
         timestamp: new Date().toISOString(),
-      },
-      // Security settings
-      customer_creation: "always",
-      payment_method_collection: "always",
-      invoice_creation: {
-        enabled: false,
       },
     })
 
@@ -136,6 +122,8 @@ export async function POST(request: NextRequest) {
       sessionId: session.id,
       amount: total_amount,
       itemCount: items.length,
+      customerName: customer_name,
+      customerEmail: customer_email,
       ip,
       timestamp: new Date().toISOString()
     })
@@ -145,8 +133,11 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Error creating checkout session:", error)
     
-    // Don't expose internal errors to client
-    return NextResponse.json({ error: 'Failed to create checkout session' }, { status: 500 })
+    // Return more specific error for debugging
+    return NextResponse.json({ 
+      error: 'Failed to create checkout session',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 })
   }
 }
 

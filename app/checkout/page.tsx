@@ -21,7 +21,6 @@ export default function CheckoutPage() {
   const [mounted, setMounted] = useState(false)
   const [customerName, setCustomerName] = useState("")
   const [customerEmail, setCustomerEmail] = useState("")
-  const [formErrors, setFormErrors] = useState<{ name?: string; email?: string }>({})
 
   useEffect(() => {
     setMounted(true)
@@ -61,28 +60,9 @@ export default function CheckoutPage() {
     )
   }
 
-  const validateForm = () => {
-    const errors: { name?: string; email?: string } = {}
-    
-    if (!customerName.trim()) {
-      errors.name = "Name is required"
-    }
-    
-    if (!customerEmail.trim()) {
-      errors.email = "Email is required"
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
-      errors.email = "Please enter a valid email address"
-    }
-    
-    setFormErrors(errors)
-    return Object.keys(errors).length === 0
-  }
+
 
   const handleCheckout = async () => {
-    if (!validateForm()) {
-      return
-    }
-
     setCheckingOut(true)
 
     try {
@@ -93,8 +73,8 @@ export default function CheckoutPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          customer_name: customerName.trim(),
-          customer_email: customerEmail.trim(),
+          customer_name: customerName.trim() || undefined,
+          customer_email: customerEmail.trim() || undefined,
           items: state.items,
           total_amount: state.total,
         }),
@@ -216,7 +196,7 @@ export default function CheckoutPage() {
                   <div className="space-y-4 mb-6">
                     <div>
                       <Label htmlFor="customerName" className="text-sm font-medium text-purple-900">
-                        Full Name *
+                        Full Name (Optional)
                       </Label>
                       <Input
                         id="customerName"
@@ -224,16 +204,13 @@ export default function CheckoutPage() {
                         value={customerName}
                         onChange={(e) => setCustomerName(e.target.value)}
                         placeholder="Enter your full name"
-                        className={`mt-1 ${formErrors.name ? 'border-red-500' : 'border-purple-200'}`}
+                        className="mt-1 border-purple-200"
                       />
-                      {formErrors.name && (
-                        <p className="text-red-500 text-xs mt-1">{formErrors.name}</p>
-                      )}
                     </div>
 
                     <div>
                       <Label htmlFor="customerEmail" className="text-sm font-medium text-purple-900">
-                        Email Address *
+                        Email Address (Optional)
                       </Label>
                       <Input
                         id="customerEmail"
@@ -241,11 +218,8 @@ export default function CheckoutPage() {
                         value={customerEmail}
                         onChange={(e) => setCustomerEmail(e.target.value)}
                         placeholder="Enter your email address"
-                        className={`mt-1 ${formErrors.email ? 'border-red-500' : 'border-purple-200'}`}
+                        className="mt-1 border-purple-200"
                       />
-                      {formErrors.email && (
-                        <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>
-                      )}
                     </div>
                   </div>
 
