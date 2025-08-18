@@ -266,39 +266,53 @@ export default function InventoryPage() {
                 <Link href="/about" className="text-white hover:text-white font-medium text-sm">
                   About
                 </Link>
-                <Link href="/contact" className="text-white hover:text-white font-medium text-sm">
-                  Contact
-                </Link>
+
               </nav>
               
-              {/* Mobile Layout - Restructured for better spacing */}
+              {/* Mobile Layout - Improved spacing and touch targets */}
               <div className="flex md:hidden items-center w-full">
-                {/* Mobile Navigation - Compact */}
-                <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
+                {/* Mobile Navigation - Better spaced and larger touch targets */}
+                <nav className="flex items-center justify-between flex-1 px-2 space-x-1">
+                  <Link 
+                    href="/" 
+                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
+                  >
+                    Home
+                  </Link>
+                  <Link 
+                    href="/products" 
+                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
+                  >
                     Shop
                   </Link>
-                  <Link href="/inventory" className="text-white font-medium text-xs py-2 flex-1 text-center">
+                  <Link 
+                    href="/inventory" 
+                    className="text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center bg-white/10"
+                  >
                     Stock
                   </Link>
-                  <Link href="/gallery" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
+                  <Link 
+                    href="/gallery" 
+                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
+                  >
                     Gallery
                   </Link>
-                  <Link href="/about" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
+                  <Link 
+                    href="/about" 
+                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
+                  >
                     About
                   </Link>
-                  <Link href="/contact" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
-                    Contact
-                  </Link>
+
                 </nav>
                 
-                {/* Mobile Cart/Order Buttons */}
-                <div className="flex items-center space-x-1 px-2">
+                {/* Mobile Cart/Order Buttons - Better spaced */}
+                <div className="flex items-center space-x-2 px-3">
                   <CartButton />
                   <Button
                     asChild
                     size="sm"
-                    className="bg-mintBrand hover:bg-seafoamBrand text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+                    className="bg-mintBrand hover:bg-seafoamBrand text-white text-sm px-3 min-h-[44px] focus-visible:ring-0 focus-visible:ring-offset-0"
                   >
                     <Link href="/order">Order</Link>
                   </Button>
@@ -440,7 +454,7 @@ export default function InventoryPage() {
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold text-purple-900 mb-4 text-center">Ready to Order?</h3>
               <p className="text-purple-800 mb-6 max-w-2xl mx-auto">
-                Contact us directly for custom orders, bulk pricing, or to discuss your specific aquaculture needs.
+                For custom orders, bulk pricing, or to discuss your specific aquaculture needs, please call 713-854-7427.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild className="bg-gradient-to-r from-purpleBrand to-seafoamBrand">

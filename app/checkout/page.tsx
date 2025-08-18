@@ -102,7 +102,7 @@ export default function CheckoutPage() {
       }
     } catch (error) {
       console.error("Error creating checkout session:", error)
-      alert("Failed to start checkout. Please try again or contact us directly.")
+      alert("Failed to start checkout. Please try again or call 713-854-7427 for assistance.")
     } finally {
       setCheckingOut(false)
     }

@@ -44,7 +44,6 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     quality={75}
                     loading="lazy"
-                    placeholder="blur"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 ) : (

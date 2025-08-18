@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Phone, Mail, MapPin, Waves, Fish, Leaf } from "lucide-react"
+import { Waves, Fish, Leaf } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { CartButton } from "@/components/cart-button"
@@ -64,39 +64,47 @@ export default function HomePage() {
                 <Link href="/about" className="text-white hover:text-white font-medium text-sm">
                   About
                 </Link>
-                <Link href="/contact" className="text-white hover:text-white font-medium text-sm">
-                  Contact
-                </Link>
+
               </nav>
               
-              {/* Mobile Layout - Restructured for better spacing */}
+              {/* Mobile Layout - Improved spacing and touch targets */}
               <div className="flex md:hidden items-center w-full">
-                {/* Mobile Navigation - Compact */}
-                <nav className="flex items-center flex-1 px-4">
-                  <Link href="/products" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
+                {/* Mobile Navigation - Better spaced and larger touch targets */}
+                <nav className="flex items-center justify-between flex-1 px-2 space-x-1">
+                  <Link 
+                    href="/products" 
+                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
+                  >
                     Shop
                   </Link>
-                  <Link href="/inventory" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
+                  <Link 
+                    href="/inventory" 
+                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
+                  >
                     Stock
                   </Link>
-                  <Link href="/gallery" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
+                  <Link 
+                    href="/gallery" 
+                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
+                  >
                     Gallery
                   </Link>
-                  <Link href="/about" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
+                  <Link 
+                    href="/about" 
+                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
+                  >
                     About
                   </Link>
-                  <Link href="/contact" className="text-white hover:text-white font-medium text-xs py-2 flex-1 text-center">
-                    Contact
-                  </Link>
+
                 </nav>
                 
-                {/* Mobile Cart/Order Buttons */}
-                <div className="flex items-center space-x-1 px-2">
+                {/* Mobile Cart/Order Buttons - Better spaced */}
+                <div className="flex items-center space-x-2 px-3">
                   <CartButton />
                   <Button
                     asChild
                     size="sm"
-                    className="bg-mintBrand text-white hover:bg-seafoamBrand text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+                    className="bg-mintBrand text-white hover:bg-seafoamBrand text-sm px-3 min-h-[44px] focus-visible:ring-0 focus-visible:ring-offset-0"
                   >
                     <Link href="/order">Order</Link>
                   </Button>
@@ -386,102 +394,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 bg-gradient-to-b from-blueBrand/20 to-purpleBrand/20">
-        <div className="container mx-auto">
-          <ScrollAnimatedSection animationType="fade-in" delay={200}>
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-purple-900 mb-4 text-center">Get In Touch</h2>
-              <p className="text-xl text-purple-800">Ready to order premium oysters or learn more about our operations?</p>
-            </div>
-          </ScrollAnimatedSection>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            <ScrollAnimatedSection animationType="slide-left" delay={400}>
-              <div className="p-6 rounded-xl transition-all duration-500 hover:bg-white/10 hover:shadow-lg hover:scale-105">
-                <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Contact Information</h3>
-                <div className="space-y-4">
-                  <a
-                    href="tel:713-854-7427"
-                    className="flex items-center text-purple-800 hover:text-white transition-all duration-300 group p-2 rounded-lg hover:bg-purple-600/20"
-                  >
-                    <Phone className="w-5 h-5 text-white mr-3 group-hover:text-white transition-all duration-300 group-hover:scale-110" />
-                    <span className="group-hover:underline">713-854-7427</span>
-                  </a>
-                  <a
-                    href="mailto:info@threesistersoyster.com"
-                    className="flex items-center text-purple-800 hover:text-white transition-all duration-300 group p-2 rounded-lg hover:bg-purple-600/20"
-                  >
-                    <Mail className="w-5 h-5 text-white mr-3 group-hover:text-white transition-all duration-300 group-hover:scale-110" />
-                    <span className="group-hover:underline">info@threesistersoyster.com</span>
-                  </a>
-                  <a
-                    href="https://maps.google.com/?q=106+Grant+St.+Port+Lavaca,+TX+77979"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center text-purple-800 hover:text-white transition-all duration-300 group p-2 rounded-lg hover:bg-purple-600/20"
-                  >
-                    <MapPin className="w-5 h-5 text-white mr-3 group-hover:text-white transition-all duration-300 group-hover:scale-110" />
-                    <span className="group-hover:underline">106 Grant St. Port Lavaca, TX 77979</span>
-                  </a>
-                </div>
-
-                <div className="mt-8">
-                  <h4 className="text-lg font-semibold text-purple-900 mb-4 text-center">Follow Us</h4>
-                  <a
-                    href="https://instagram.com/threesistersoysterco"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-purple-800 hover:text-white transition-all duration-300 hover:underline p-2 rounded-lg hover:bg-purple-600/20 inline-block"
-                  >
-                    @threesistersoysterco
-                  </a>
-                </div>
-              </div>
-            </ScrollAnimatedSection>
-
-            <ScrollAnimatedSection animationType="slide-right" delay={600}>
-              <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl hover:bg-gradient-to-b hover:from-purpleBrand/50 hover:to-blueBrand/50">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-purple-900 mb-6 text-center">Send Us a Message</h3>
-                  <form className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-purple-900 mb-2">Name</label>
-                      <input
-                        type="text"
-                        className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-purple-900 placeholder-purple-600"
-                        placeholder="Your name"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-purple-900 mb-2">Email</label>
-                      <input
-                        type="email"
-                        className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-purple-900 placeholder-purple-600"
-                        placeholder="your.email@example.com"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-purple-900 mb-2">Message</label>
-                      <textarea
-                        rows={4}
-                        className="w-full px-3 py-2 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-mintBrand bg-white/10 text-purple-900 placeholder-purple-600"
-                        placeholder="Tell us about your inquiry..."
-                      />
-                    </div>
-                    <Button
-                      type="submit"
-                      className="w-full bg-mintBrand hover:bg-seafoamBrand text-white"
-                    >
-                      Send Message
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-            </ScrollAnimatedSection>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="bg-purpleBrand text-white py-12 px-4">
@@ -516,13 +429,13 @@ export default function HomePage() {
                 <li><Link href="/products" className="hover:text-white transition-colors">Products</Link></li>
                 <li><Link href="/inventory" className="hover:text-white transition-colors">Inventory</Link></li>
                 <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+
               </ul>
             </div>
 
-            {/* Contact Info */}
+            {/* Company Info */}
             <div>
-              <h4 className="font-semibold mb-4 text-white">Contact</h4>
+              <h4 className="font-semibold mb-4 text-white">Company</h4>
               <ul className="space-y-2 text-white text-sm">
                 <li>713-854-7427</li>
                 <li>info@threesistersoyster.com</li>
