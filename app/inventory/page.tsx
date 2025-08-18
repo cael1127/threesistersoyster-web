@@ -110,32 +110,32 @@ export default function InventoryPage() {
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
               <div className="flex items-center space-x-2 mb-2">
-                <h3 className="text-xl font-bold text-purple-900 group-hover:text-mintBrand transition-colors text-center">
+                <h3 className="text-xl font-bold text-purple-900 group-hover:text-purple-700 transition-colors text-center">
                   {item.name}
                 </h3>
                 {item.harvestReady && (
-                  <Badge className="bg-mintBrand/20 text-mintBrand border-mintBrand/30 animate-pulse">
+                  <Badge className="bg-mintBrand/20 text-purple-800 border-mintBrand/30 animate-pulse">
                     <Package className="w-3 h-3 mr-1" />
                     Ready
                   </Badge>
                 )}
               </div>
               <div className="flex items-center space-x-2 mb-3">
-                <Badge className={item.type === "farm" ? "bg-white/20 text-white border-white/30" : "bg-white/20 text-white border-white/30"}>
+                <Badge className={item.type === "farm" ? "bg-purpleBrand/20 text-purple-800 border-purpleBrand/30" : "bg-blueBrand/20 text-blue-800 border-blueBrand/30"}>
                   {item.type === "farm" ? "Farm Stock" : "Nursery Seed"}
                 </Badge>
                 {item.size && (
-                  <Badge className="bg-white/20 text-white font-semibold border border-white/30 px-3 py-1 text-sm shadow-sm">
+                  <Badge className="bg-mintBrand/20 text-purple-800 font-semibold border border-mintBrand/30 px-3 py-1 text-sm shadow-sm">
                     {item.size}
                   </Badge>
                 )}
               </div>
             </div>
             <div className="text-right">
-              <div className="text-3xl font-bold text-mintBrand">
+              <div className="text-3xl font-bold text-purple-900">
                 {item.count.toLocaleString()}
               </div>
-              <p className="text-sm text-mintBrand">units</p>
+              <p className="text-sm text-purple-700">units</p>
             </div>
           </div>
 
@@ -146,7 +146,7 @@ export default function InventoryPage() {
           <div className="grid grid-cols-2 gap-4 mb-4">
             {item.age && (
               <div className="flex items-center text-sm text-purple-800">
-                <Calendar className="w-4 h-4 mr-2 text-mintBrand" />
+                <Calendar className="w-4 h-4 mr-2 text-purple-600" />
                 <span className="font-medium">Age:</span>
                 <span className="ml-1">{item.age}</span>
               </div>
@@ -154,7 +154,7 @@ export default function InventoryPage() {
 
             {item.health && (
               <div className="flex items-center text-sm text-purple-800">
-                <Heart className="w-4 h-4 mr-2 text-mintBrand" />
+                <Heart className="w-4 h-4 mr-2 text-purple-600" />
                 <span className="font-medium">Health:</span>
                 <span className="ml-1 capitalize">{item.health}</span>
               </div>
@@ -170,7 +170,7 @@ export default function InventoryPage() {
 
             {item.pricePerDozen && (
               <div className="flex items-center text-sm text-purple-800">
-                <DollarSign className="w-4 h-4 mr-2 text-mintBrand" />
+                <DollarSign className="w-4 h-4 mr-2 text-purple-600" />
                 <span className="font-medium">Per Dozen:</span>
                 <span className="ml-1 font-bold text-seafoamBrand">${item.pricePerDozen.toFixed(2)}</span>
               </div>
@@ -181,7 +181,7 @@ export default function InventoryPage() {
           <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2">
                 {item.harvestReady ? (
-                  <div className="flex items-center text-mintBrand text-sm font-medium">
+                  <div className="flex items-center text-purple-800 text-sm font-medium">
                     <div className="w-2 h-2 bg-mintBrand rounded-full mr-2 animate-pulse"></div>
                     Ready for harvest
                   </div>
@@ -203,7 +203,7 @@ export default function InventoryPage() {
           {/* Additional Info */}
           {item.harvestReady && item.type === "farm" && (
             <div className="mt-4 p-3 bg-mintBrand/20 border border-mintBrand/30 rounded-lg">
-              <p className="text-sm text-mintBrand font-medium">
+              <p className="text-sm text-purple-800 font-medium">
                 <Package className="w-4 h-4 inline mr-2" />
                 This batch is ready for harvest and immediate delivery to restaurants and markets.
               </p>
@@ -263,7 +263,7 @@ export default function InventoryPage() {
                   <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Farm Operations</h2>
                   <p className="text-purple-800 mt-1 text-sm md:text-base">
                     {processedFarmInventory.filter((item) => item.harvestReady).length > 0 ? (
-                      <span className="text-mintBrand font-medium">
+                      <span className="text-purple-800 font-medium">
                         {processedFarmInventory
                           .filter((item) => item.harvestReady)
                           .reduce((sum, item) => sum + item.count, 0)
@@ -303,7 +303,7 @@ export default function InventoryPage() {
                   <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Nursery Operations</h2>
                   <p className="text-purple-800 mt-1 text-sm md:text-base">
                     {processedNurseryInventory.filter((item) => item.harvestReady).length > 0 ? (
-                      <span className="text-mintBrand font-medium">
+                      <span className="text-purple-800 font-medium">
                         {processedNurseryInventory
                           .filter((item) => item.harvestReady)
                           .reduce((sum, item) => sum + item.count, 0)
@@ -348,7 +348,8 @@ export default function InventoryPage() {
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold text-purple-900 mb-4 text-center">Ready to Order?</h3>
               <p className="text-purple-800 mb-6 max-w-2xl mx-auto">
-                For custom orders, bulk pricing, or to discuss your specific aquaculture needs, please call 713-854-7427.
+                For custom orders, bulk pricing, or to discuss your specific aquaculture needs, please call{" "}
+                <span className="font-semibold text-purple-900">713-854-7427</span>.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild className="bg-gradient-to-r from-purpleBrand to-seafoamBrand">
@@ -357,7 +358,7 @@ export default function InventoryPage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="border-mintBrand text-mintBrand hover:bg-mintBrand/20 bg-transparent"
+                  className="border-purpleBrand text-purple-900 hover:bg-purpleBrand/20 bg-white"
                 >
                   <a href="tel:713-854-7427">Call 713-854-7427</a>
                 </Button>

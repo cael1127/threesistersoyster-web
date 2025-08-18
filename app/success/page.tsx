@@ -9,6 +9,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
 import { FloatingParticles } from "@/components/ui/floating-particles"
+import Navigation from "@/components/Navigation"
 
 export default function SuccessPage() {
   const searchParams = useSearchParams()
@@ -55,95 +56,9 @@ export default function SuccessPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative overflow-hidden">
       <FloatingParticles particleCount={10} interactive={true} />
-      {/* Header */}
-      <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50">
-        <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 md:space-x-3">
-              <div className="w-8 h-8 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center">
-                <Image
-                  src="/logo.jpg"
-                  alt="Three Sisters Oyster Co. Logo"
-                  width={96}
-                  height={96}
-                  className="w-full h-full object-cover"
-                  quality={100}
-                />
-              </div>
-              <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-white text-center">
-                  Three Sisters Oyster Co.
-                </h1>
-                <p className="text-xs text-white">Premium Texas Oysters</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-1 md:space-x-4">
-              {/* Desktop Navigation */}
-              <nav className="hidden md:flex space-x-4">
-                <Link href="/" className="text-white hover:text-white font-medium text-sm">
-                  Home
-                </Link>
-                <Link href="/products" className="text-white hover:text-white font-medium text-sm">
-                  Products
-                </Link>
-                <Link
-                  href="/inventory"
-                  className="text-white hover:text-white font-medium text-sm"
-                >
-                  Inventory
-                </Link>
-                <Link href="/gallery" className="text-white hover:text-white font-medium text-sm">
-                  Gallery
-                </Link>
-                <Link href="/about" className="text-white hover:text-white font-medium text-sm">
-                  About
-                </Link>
-
-              </nav>
-              
-              {/* Mobile Layout - Improved spacing and touch targets */}
-              <div className="flex md:hidden items-center w-full">
-                {/* Mobile Navigation - Better spaced and larger touch targets */}
-                <nav className="flex items-center justify-between flex-1 px-2 space-x-1">
-                  <Link 
-                    href="/" 
-                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
-                  >
-                    Home
-                  </Link>
-                  <Link 
-                    href="/products" 
-                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
-                  >
-                    Shop
-                  </Link>
-                  <Link 
-                    href="/inventory" 
-                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
-                  >
-                    Stock
-                  </Link>
-                  <Link 
-                    href="/gallery" 
-                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
-                  >
-                    Gallery
-                  </Link>
-                  <Link 
-                    href="/about" 
-                    className="text-white hover:text-white font-medium text-sm py-3 px-2 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[44px] flex items-center justify-center"
-                  >
-                    About
-                  </Link>
-
-                </nav>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navigation />
 
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto">
@@ -160,23 +75,23 @@ export default function SuccessPage() {
               {/* Order Details */}
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 mb-6">
                 <h3 className="font-semibold text-purple-900 mb-4 flex items-center justify-center text-center">
-                  <CheckCircle className="w-5 h-5 text-white mr-2" />
+                  <CheckCircle className="w-5 h-5 text-mintBrand mr-2" />
                   Order Details
                 </h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-purple-800">Order ID:</span>
-                    <span className="text-white font-medium">{session?.id || 'N/A'}</span>
+                    <span className="text-purple-900 font-medium">{session?.id || 'N/A'}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-purple-800">Amount:</span>
-                    <span className="text-white font-medium">
+                    <span className="text-purple-900 font-medium">
                       ${session?.amount_total ? (session.amount_total / 100).toFixed(2) : 'N/A'}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-purple-800">Status:</span>
-                    <span className="text-white font-medium">Confirmed</span>
+                    <span className="text-purple-900 font-medium">Confirmed</span>
                   </div>
                 </div>
               </div>
@@ -186,19 +101,19 @@ export default function SuccessPage() {
                 <h3 className="font-semibold text-purple-900 mb-3 text-center">What happens next?</h3>
                 <ul className="text-sm text-purple-800 space-y-2 text-left">
                   <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-white mr-2 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-mintBrand mr-2 flex-shrink-0" />
                     We'll review your order within 24 hours
                   </li>
                   <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-white mr-2 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-mintBrand mr-2 flex-shrink-0" />
                     We'll contact you to confirm details
                   </li>
                   <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-white mr-2 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-mintBrand mr-2 flex-shrink-0" />
                     Arrange pickup or delivery
                   </li>
                   <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-white mr-2 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-mintBrand mr-2 flex-shrink-0" />
                     Enjoy your fresh Texas oysters!
                   </li>
                 </ul>
@@ -208,16 +123,16 @@ export default function SuccessPage() {
               <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="text-center">
-                    <Phone className="w-5 h-5 text-white mx-auto mb-2" />
+                    <Phone className="w-5 h-5 text-mintBrand mx-auto mb-2" />
                     <p className="text-sm font-medium text-purple-900">Questions?</p>
-                    <a href="tel:713-854-7427" className="text-white text-sm hover:underline">
+                    <a href="tel:713-854-7427" className="text-purple-700 text-sm hover:text-purple-900 hover:underline">
                       713-854-7427
                     </a>
                   </div>
                   <div className="text-center">
-                    <Mail className="w-5 h-5 text-white mx-auto mb-2" />
+                    <Mail className="w-5 h-5 text-mintBrand mx-auto mb-2" />
                     <p className="text-sm font-medium text-purple-900">Email Us</p>
-                    <a href="mailto:info@threesistersoyster.com" className="text-white text-sm hover:underline">
+                    <a href="mailto:info@threesistersoyster.com" className="text-purple-700 text-sm hover:text-purple-900 hover:underline">
                       info@threesistersoyster.com
                     </a>
                   </div>
@@ -228,7 +143,7 @@ export default function SuccessPage() {
                 <Button asChild className="bg-gradient-to-r from-purpleBrand to-seafoamBrand">
                   <Link href="/products">Continue Shopping</Link>
                 </Button>
-                <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10 ml-3">
+                <Button asChild variant="outline" className="border-purpleBrand/30 text-purple-700 hover:bg-purpleBrand/10 ml-3">
                   <Link href="/">Back to Home</Link>
                 </Button>
               </div>

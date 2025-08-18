@@ -5,8 +5,15 @@ export const SECURITY_CONFIG = {
   MAX_REQUEST_SIZE: 1024 * 1024, // 1MB
   MAX_STRING_LENGTH: 1000,
   ALLOWED_EMAIL_DOMAINS: ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com'],
-  BLOCKED_IPS: [], // Add IPs to block
-  ALLOWED_ORIGINS: ['https://threesistersoyster.com', 'https://www.threesistersoyster.com'],
+  BLOCKED_IPS: [] as string[], // Add IPs to block
+  ALLOWED_ORIGINS: [
+    'https://threesistersoyster.com', 
+    'https://www.threesistersoyster.com',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://localhost:3000',
+    'https://localhost:3001'
+  ],
 }
 
 // Input validation schemas
@@ -91,7 +98,28 @@ export function sanitizeInput(input: string): string {
 
 export function validateOrigin(origin: string | null): boolean {
   if (!origin) return false
-  return SECURITY_CONFIG.ALLOWED_ORIGINS.includes(origin)
+  
+  // Allow exact matches from allowed origins
+  if (SECURITY_CONFIG.ALLOWED_ORIGINS.includes(origin)) {
+    return true
+  }
+  
+  // Allow localhost for development
+  if (origin.includes('localhost:')) {
+    return true
+  }
+  
+  // Allow Netlify preview URLs
+  if (origin.includes('netlify.app') || origin.includes('netlify.com')) {
+    return true
+  }
+  
+  // Allow Vercel preview URLs
+  if (origin.includes('vercel.app')) {
+    return true
+  }
+  
+  return false
 }
 
 export function validateIP(ip: string): boolean {

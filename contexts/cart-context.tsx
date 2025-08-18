@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { createContext, useContext, useReducer, useEffect } from "react"
+import { createContext, useContext, useReducer, useEffect, useCallback, useRef } from "react"
 
 export type CartItem = {
   id: string
@@ -104,6 +104,23 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     itemCount: 0,
   })
 
+  // Debounced localStorage save
+  const saveTimeoutRef = useRef<NodeJS.Timeout>()
+  
+  const saveToLocalStorage = useCallback((items: CartItem[]) => {
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current)
+    }
+    
+    saveTimeoutRef.current = setTimeout(() => {
+      try {
+        localStorage.setItem("three-sisters-cart", JSON.stringify(items))
+      } catch (error) {
+        console.error("Error saving cart to localStorage:", error)
+      }
+    }, 100) // 100ms debounce
+  }, [])
+
   // Load cart from localStorage on mount
   useEffect(() => {
     const savedCart = localStorage.getItem("three-sisters-cart")
@@ -117,26 +134,33 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  // Save cart to localStorage whenever it changes
+  // Save cart to localStorage whenever it changes (debounced)
   useEffect(() => {
-    localStorage.setItem("three-sisters-cart", JSON.stringify(state.items))
-  }, [state.items])
+    saveToLocalStorage(state.items)
+    
+    // Cleanup timeout on unmount
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current)
+      }
+    }
+  }, [state.items, saveToLocalStorage])
 
-  const addItem = (item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
+  const addItem = useCallback((item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
     dispatch({ type: "ADD_ITEM", payload: item })
-  }
+  }, [])
 
-  const removeItem = (id: string) => {
+  const removeItem = useCallback((id: string) => {
     dispatch({ type: "REMOVE_ITEM", payload: id })
-  }
+  }, [])
 
-  const updateQuantity = (id: string, quantity: number) => {
+  const updateQuantity = useCallback((id: string, quantity: number) => {
     dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } })
-  }
+  }, [])
 
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     dispatch({ type: "CLEAR_CART" })
-  }
+  }, [])
 
   return (
     <CartContext.Provider

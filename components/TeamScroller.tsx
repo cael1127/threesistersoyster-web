@@ -38,7 +38,7 @@ const workers = [
     name: "Lorenzo",
     role: "Farm Hand",
     description: "Lorenzo is skilled in oyster handling and grading. His expertise in shellfish care helps maintain the high quality standards Three Sisters is known for.",
-    image: "/lorenzo.jpg",
+    image: "/lorenzo.JPEG",
   },
   {
     name: "Macie Kolodziejczyk",
@@ -86,7 +86,7 @@ export default function TeamScroller() {
   };
 
   return (
-    <div className="py-6 md:py-8 relative">
+    <div className="py-6 md:py-8 relative w-full overflow-hidden">
       <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center text-purple-900">Meet Our Team</h2>
       
       {/* Desktop scroll buttons */}
@@ -114,43 +114,45 @@ export default function TeamScroller() {
         </button>
       </div>
 
-      <div 
-        ref={scrollContainerRef}
-        onScroll={checkScrollButtons}
-        className="flex overflow-x-auto space-x-4 md:space-x-6 pb-4 md:pb-6 md:px-16 scrollbar-thin scrollbar-thumb-purple-300 scrollbar-track-transparent hover:scrollbar-thumb-purple-400"
-        style={{ scrollbarWidth: 'thin', scrollbarColor: '#c084fc transparent' }}
-      >
-        {workers.map((worker, idx) => (
-          <div
-            key={idx}
-            className="min-w-[220px] sm:min-w-[240px] md:min-w-[260px] bg-white border border-purple-200 rounded-xl shadow-lg p-4 md:p-6 flex-shrink-0 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 group relative overflow-hidden"
-          >
-            <div className="flex flex-col items-center">
-              <div className="relative w-20 h-20 md:w-24 md:h-24 mb-3 md:mb-4 rounded-full overflow-hidden flex items-center justify-center bg-mintBrand/20 border border-mintBrand/30 group-hover:border-mintBrand/50 transition-all duration-300">
-                <Image
-                  src={worker.image}
-                  alt={worker.name}
-                  width={96}
-                  height={96}
-                  className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300"
-                  quality={100}
-                />
+      <div className="w-full overflow-hidden">
+        <div 
+          ref={scrollContainerRef}
+          onScroll={checkScrollButtons}
+          className="flex overflow-x-auto space-x-4 md:space-x-6 pb-4 md:pb-6 md:px-16 scrollbar-thin scrollbar-thumb-purple-300 scrollbar-track-transparent hover:scrollbar-thumb-purple-400 max-w-full"
+          style={{ scrollbarWidth: 'thin', scrollbarColor: '#c084fc transparent' }}
+        >
+          {workers.map((worker, idx) => (
+            <div
+              key={idx}
+              className="min-w-[200px] sm:min-w-[220px] md:min-w-[260px] bg-white border border-purple-200 rounded-xl shadow-lg p-3 md:p-6 flex-shrink-0 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 group relative overflow-hidden"
+            >
+              <div className="flex flex-col items-center">
+                <div className="relative w-20 h-20 md:w-24 md:h-24 mb-3 md:mb-4 rounded-full overflow-hidden flex items-center justify-center bg-mintBrand/20 border border-mintBrand/30 group-hover:border-mintBrand/50 transition-all duration-300">
+                  <Image
+                    src={worker.image}
+                    alt={worker.name}
+                    width={96}
+                    height={96}
+                    className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300"
+                    quality={100}
+                  />
+                </div>
+                <h3 className="text-sm md:text-lg font-semibold text-center mb-1 md:mb-2 leading-tight break-words max-w-[8rem] md:max-w-[10rem] text-purple-900 group-hover:text-purple-800 transition-colors duration-300">
+                  {worker.name}
+                </h3>
+                <p className="text-xs md:text-sm text-purple-700 text-center mb-2 md:mb-3 leading-tight break-words max-w-[8rem] md:max-w-[10rem] font-medium">
+                  {worker.role}
+                </p>
+                <p className="text-xs md:text-sm text-purple-800 text-center leading-relaxed break-words max-w-[8rem] md:max-w-[10rem]">
+                  {worker.description}
+                </p>
               </div>
-              <h3 className="text-sm md:text-lg font-semibold text-center mb-1 md:mb-2 leading-tight break-words max-w-[8rem] md:max-w-[10rem] text-purple-900 group-hover:text-purple-800 transition-colors duration-300">
-                {worker.name}
-              </h3>
-              <p className="text-xs md:text-sm text-purple-700 text-center mb-2 md:mb-3 leading-tight break-words max-w-[8rem] md:max-w-[10rem] font-medium">
-                {worker.role}
-              </p>
-              <p className="text-xs md:text-sm text-purple-800 text-center leading-relaxed break-words max-w-[8rem] md:max-w-[10rem]">
-                {worker.description}
-              </p>
-            </div>
 
-            {/* Simple hover effect overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-purple-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
-          </div>
-        ))}
+              {/* Simple hover effect overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-purple-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+            </div>
+          ))}
+        </div>
       </div>
       
       {/* Simple scroll indicator for mobile */}

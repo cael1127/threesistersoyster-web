@@ -8,7 +8,7 @@ import { Minus, Plus, ArrowLeft, Waves } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { supabase, type Product } from "../../lib/supabase"
-import { CartButton } from "@/components/cart-button"
+import Navigation from "@/components/Navigation"
 
 
 export default function CheckoutPage() {
@@ -124,36 +124,8 @@ export default function CheckoutPage() {
   const totalPrice = product.price * quantity
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand">
-      {/* Header */}
-      <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50">
-        <div className="container mx-auto px-3 md:px-4 py-2 md:py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2 md:space-x-3">
-              <div className="w-8 h-8 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-purpleBrand to-seafoamBrand rounded-full flex items-center justify-center">
-                  <Image
-                    src="/logo.jpg"
-                    alt="Three Sisters Oyster Co. Logo"
-                    width={48}
-                    height={48}
-                    className="rounded-full object-cover"
-                  />
-                </div>
-              </div>
-              <div className="hidden md:block">
-                <h1 className="text-xl font-bold text-white text-center">
-                  Three Sisters Oyster Co.
-                </h1>
-                <p className="text-xs text-white">Premium Texas Oysters</p>
-              </div>
-            </Link>
-            <div className="flex items-center space-x-1 md:space-x-4">
-              <CartButton />
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand overflow-hidden">
+      <Navigation />
 
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
@@ -178,14 +150,14 @@ export default function CheckoutPage() {
             {/* Product Details */}
             <div className="space-y-6">
               <div>
-                <Badge className="bg-white/20 text-white border border-white/30 mb-4">{product.category}</Badge>
+                <Badge className="bg-purpleBrand/20 text-purple-800 border border-purpleBrand/30 mb-4">{product.category}</Badge>
                 <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">{product.name}</h1>
                 {originalDescription && <p className="text-purple-800 text-lg mb-4">{originalDescription}</p>}
-                                  {inventory > 0 && <p className="text-white font-medium mb-4">{inventory} available in stock</p>}
+                {inventory > 0 && <p className="text-purple-800 font-medium mb-4">{inventory} available in stock</p>}
               </div>
 
               <div className="text-center">
-                <span className="text-4xl font-bold text-white">
+                <span className="text-4xl font-bold text-purple-900">
                   ${product.price}
                 </span>
                 <span className="text-purple-600 ml-2">per unit</span>
@@ -221,7 +193,7 @@ export default function CheckoutPage() {
                <div className="mb-8 p-4 bg-purple-50 rounded-lg border border-purple-200">
                  <div className="flex justify-between items-center">
                    <span className="text-lg font-medium text-purple-900">Total:</span>
-                                     <span className="text-2xl font-bold text-white">
+                   <span className="text-2xl font-bold text-purple-900">
                     ${(product.price * quantity).toFixed(2)}
                   </span>
                  </div>

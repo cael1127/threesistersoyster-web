@@ -86,7 +86,7 @@ export default function ProductsPage() {
           {/* Product Info */}
           <div className="text-center">
             <h3 className="text-xl font-bold text-purple-900 mb-2">{product.name}</h3>
-                            <Badge className="bg-white/20 text-white border border-white/30 hover:bg-white/30 mb-3">
+                            <Badge className="bg-purpleBrand/20 text-purple-800 border border-purpleBrand/30 hover:bg-purpleBrand/30 mb-3">
                   {product.category}
                 </Badge>
             {originalDescription && <p className="text-purple-800 mb-4 text-sm">{originalDescription}</p>}
@@ -100,7 +100,7 @@ export default function ProductsPage() {
 
             {/* Inventory Status */}
             {inventory > 0 ? (
-              <p className="text-white text-sm font-medium mb-4">{inventory} in stock</p>
+              <p className="text-purple-800 text-sm font-medium mb-4">{inventory} in stock</p>
             ) : (
               <p className="text-purple-600 text-sm mb-4">Contact for availability</p>
             )}

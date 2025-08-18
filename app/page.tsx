@@ -17,14 +17,14 @@ const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedC
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+    <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative overflow-x-hidden">
       <FloatingParticles particleCount={15} interactive={true} />
       
       {/* Header */}
       <Navigation />
 
       {/* Hero Section */}
-      <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20">
+      <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20 overflow-hidden">
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left Side - Text Content */}
@@ -84,7 +84,7 @@ export default function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20">
+      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20 overflow-hidden">
         <div className="container mx-auto max-w-7xl">
           <ScrollAnimatedSection animationType="fade-in" delay={200}>
             <div className="text-center mb-12 md:mb-16">
@@ -236,7 +236,7 @@ export default function HomePage() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blueBrand/20 to-purpleBrand/20">
+      <section id="about" className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blueBrand/20 to-purpleBrand/20 overflow-hidden">
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="text-center lg:text-left">
@@ -294,7 +294,7 @@ export default function HomePage() {
       </section>
 
       {/* Environmental Impact */}
-      <section className="py-20 px-4 bg-gradient-to-b from-purpleBrand/40 via-blueBrand/40 to-seafoamBrand/40">
+      <section className="py-20 px-4 bg-gradient-to-b from-purpleBrand/40 via-blueBrand/40 to-seafoamBrand/40 overflow-hidden">
         <div className="container mx-auto text-center">
           <ScrollAnimatedSection animationType="fade-in" delay={200}>
             <h2 className="text-4xl font-bold text-purple-900 mb-6 text-center">Environmental Stewardship</h2>
