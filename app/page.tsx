@@ -6,12 +6,12 @@ import { Badge } from "@/components/ui/badge"
 import { Waves, Fish, Leaf } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { CartButton } from "@/components/cart-button"
 import dynamic from "next/dynamic";
 import TeamScroller from "@/components/TeamScroller";
 import { VideoPlayer } from '@/components/ui/video-player';
 import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import { FloatingParticles } from "@/components/ui/floating-particles";
+import Navigation from "@/components/Navigation";
 
 
 const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedCounter"));
@@ -203,8 +203,9 @@ export default function HomePage() {
             </div>
           </ScrollAnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {/* Nursery Card */}
+          {/* First Row: Nursery Card (Left) + Picture (Right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center mb-12 md:mb-16">
+            {/* Nursery Card - Left Side */}
             <ScrollAnimatedSection animationType="slide-left" delay={400}>
               <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl">
                 <CardContent className="p-6 md:p-8">
@@ -241,16 +242,67 @@ export default function HomePage() {
                   </ul>
                   <p className="text-xs md:text-sm text-purple-800">
                     For pricing and ordering information, please call{" "}
-                                    <a href="tel:713-854-7427" className="font-semibold text-white hover:text-white transition-colors duration-200">
-                    713-854-7427
-                  </a>
+                    <a href="tel:713-854-7427" className="font-semibold text-white hover:text-white transition-colors duration-200">
+                      713-854-7427
+                    </a>
                   </p>
                 </CardContent>
               </Card>
             </ScrollAnimatedSection>
 
-            {/* Farm Card */}
-            <ScrollAnimatedSection animationType="slide-right" delay={600}>
+            {/* Nursery Picture - Right Side */}
+            <ScrollAnimatedSection animationType="slide-right" delay={500}>
+              <div className="relative">
+                <div className="aspect-square bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 rounded-2xl flex items-center justify-center border border-seafoamBrand/30 overflow-hidden">
+                  <div className="w-full h-full bg-gradient-to-br from-seafoamBrand/20 to-blueBrand/20 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-seafoamBrand/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Image
+                          src="/nurserylog.JPEG"
+                          alt="Nursery Operations"
+                          width={64}
+                          height={64}
+                          className="rounded-full object-cover"
+                          quality={90}
+                        />
+                      </div>
+                      <p className="text-purple-800 font-medium">Nursery Operations</p>
+                      <p className="text-purple-700 text-sm">Seed Production & Cultivation</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollAnimatedSection>
+          </div>
+
+          {/* Second Row: Picture (Left) + Farm Card (Right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Farm Picture - Left Side */}
+            <ScrollAnimatedSection animationType="slide-left" delay={700}>
+              <div className="relative">
+                <div className="aspect-square bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 rounded-2xl flex items-center justify-center border border-purpleBrand/30 overflow-hidden">
+                  <div className="w-full h-full bg-gradient-to-br from-purpleBrand/20 to-blueBrand/20 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-purpleBrand/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Image
+                          src="/farmlog.jpg"
+                          alt="Farm Operations"
+                          width={64}
+                          height={64}
+                          className="rounded-full object-cover"
+                          quality={90}
+                        />
+                      </div>
+                      <p className="text-purple-800 font-medium">Farm Operations</p>
+                      <p className="text-purple-700 text-sm">Grow-out & Harvest</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollAnimatedSection>
+
+            {/* Farm Card - Right Side */}
+            <ScrollAnimatedSection animationType="slide-right" delay={800}>
               <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl">
                 <CardContent className="p-6 md:p-8">
                   <div className="flex items-center mb-4 md:mb-6">

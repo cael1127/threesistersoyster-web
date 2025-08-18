@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ShoppingCart, Check, Minus, Plus } from "lucide-react"
 import { useCart, type CartItem } from "@/contexts/cart-context"
+import { useRouter } from "next/navigation"
 
 type AddToCartButtonProps = {
   product: Omit<CartItem, "quantity">
@@ -12,6 +13,7 @@ type AddToCartButtonProps = {
 
 export function AddToCartButton({ product, className }: AddToCartButtonProps) {
   const { addItem } = useCart()
+  const router = useRouter()
   const [quantity, setQuantity] = useState(1)
   const [isAdded, setIsAdded] = useState(false)
 
@@ -19,10 +21,10 @@ export function AddToCartButton({ product, className }: AddToCartButtonProps) {
     addItem({ ...product, quantity })
     setIsAdded(true)
 
-    // Reset the button state after 2 seconds
+    // Redirect to cart page after a brief delay to show success message
     setTimeout(() => {
-      setIsAdded(false)
-    }, 2000)
+      router.push('/cart?added=true')
+    }, 1500)
   }
 
   const incrementQuantity = () => {
@@ -67,7 +69,7 @@ export function AddToCartButton({ product, className }: AddToCartButtonProps) {
       {/* Add to Cart Button */}
       <Button
         onClick={handleAddToCart}
-        className="w-full bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 transition-all duration-200"
+        className="w-full bg-gradient-to-r from-mintBrand to-seafoamBrand hover:from-seafoamBrand hover:to-blueBrand text-white transition-all duration-200"
         disabled={isAdded}
       >
         {isAdded ? (
