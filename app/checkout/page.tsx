@@ -63,9 +63,15 @@ export default function CheckoutPage() {
 
 
   const handleCheckout = async () => {
+    console.log("Checkout button clicked!")
+    console.log("Cart state:", state)
+    console.log("Customer name:", customerName)
+    console.log("Customer email:", customerEmail)
+    
     setCheckingOut(true)
 
     try {
+      console.log("Creating checkout session...")
       // Create Stripe checkout session with cart items
       const response = await fetch("/api/create-checkout-session", {
         method: "POST",
@@ -80,14 +86,20 @@ export default function CheckoutPage() {
         }),
       })
 
+      console.log("Response status:", response.status)
+      console.log("Response ok:", response.ok)
+
       if (!response.ok) {
         const errorData = await response.json()
+        console.error("API error:", errorData)
         throw new Error(errorData.error || "Failed to create checkout session")
       }
 
       const data = await response.json()
+      console.log("Checkout session data:", data)
 
       if (data.url) {
+        console.log("Redirecting to:", data.url)
         // Don't clear cart until payment is successful
         window.location.href = data.url
       } else {
@@ -269,6 +281,13 @@ export default function CheckoutPage() {
                     className="w-full bg-gradient-to-r from-purpleBrand to-seafoamBrand hover:from-lavenderBrand hover:to-blueBrand text-lg py-6"
                   >
                     {checkingOut ? "Processing..." : "Complete Order"}
+                  </Button>
+
+                  <Button
+                    onClick={() => alert("Test button works!")}
+                    className="w-full bg-red-500 hover:bg-red-600 text-white text-lg py-3 mt-2"
+                  >
+                    Test Button
                   </Button>
 
                   <p className="text-xs text-purple-600 mt-4 text-center">
