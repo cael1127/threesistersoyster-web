@@ -42,7 +42,19 @@ export async function POST(request: NextRequest) {
 
     // Parse request body
     const body = await request.json()
-    const { items, total_amount, customer_name, customer_email } = body
+    console.log('Checkout request body:', body)
+    
+    // Validate request body using order schema
+    const validationResult = orderSchema.safeParse(body)
+    if (!validationResult.success) {
+      console.error('Validation error:', validationResult.error.errors)
+      return NextResponse.json({ 
+        error: 'Invalid request data',
+        details: validationResult.error.errors 
+      }, { status: 400 })
+    }
+    
+    const { items, total_amount, customer_name, customer_email } = validationResult.data
     
     // Basic validation
     if (!items || !Array.isArray(items) || items.length === 0) {
@@ -73,6 +85,8 @@ export async function POST(request: NextRequest) {
       },
       quantity: item.quantity,
     }))
+
+    console.log('Creating Stripe checkout session with items:', sanitizedItems)
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({

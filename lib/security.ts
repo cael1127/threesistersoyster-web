@@ -12,7 +12,17 @@ export const SECURITY_CONFIG = {
     'http://localhost:3000',
     'http://localhost:3001',
     'https://localhost:3000',
-    'https://localhost:3001'
+    'https://localhost:3001',
+    // Add more development origins
+    'http://127.0.0.1:3000',
+    'https://127.0.0.1:3000',
+    'http://localhost:3002',
+    'https://localhost:3002',
+    // Allow any localhost for development
+    'http://localhost:*',
+    'https://localhost:*',
+    'http://127.0.0.1:*',
+    'https://127.0.0.1:*'
   ],
 }
 
@@ -46,10 +56,12 @@ export const orderSchema = z.object({
     .email('Invalid email address')
     .max(254, 'Email too long'),
   items: z.array(z.object({
-    id: z.string().uuid('Invalid product ID'),
+    id: z.string().min(1, 'Product ID is required'), // Relaxed from UUID requirement
     name: z.string().max(200, 'Product name too long'),
     quantity: z.number().int().positive('Quantity must be positive'),
     price: z.number().positive('Price must be positive'),
+    category: z.string().optional(), // Make category optional
+    image_url: z.string().optional(), // Make image_url optional
   })).min(1, 'At least one item required'),
   total_amount: z.number().positive('Total amount must be positive'),
 })
@@ -104,8 +116,8 @@ export function validateOrigin(origin: string | null): boolean {
     return true
   }
   
-  // Allow localhost for development
-  if (origin.includes('localhost:')) {
+  // Allow localhost for development (more permissive)
+  if (origin.includes('localhost:') || origin.includes('127.0.0.1:')) {
     return true
   }
   
@@ -116,6 +128,16 @@ export function validateOrigin(origin: string | null): boolean {
   
   // Allow Vercel preview URLs
   if (origin.includes('vercel.app')) {
+    return true
+  }
+  
+  // Allow any localhost for development
+  if (origin.match(/^https?:\/\/localhost:\d+$/)) {
+    return true
+  }
+  
+  // Allow any 127.0.0.1 for development
+  if (origin.match(/^https?:\/\/127\.0\.0\.1:\d+$/)) {
     return true
   }
   

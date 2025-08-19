@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Minus, Plus, Trash2, ArrowLeft, Waves, ShoppingBag } from "lucide-react"
+import { Minus, Plus, Trash2, ArrowLeft, Waves, ShoppingBag, Loader2 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
@@ -14,6 +14,8 @@ import Navigation from "@/components/Navigation"
 export default function CartPage() {
   const { state, updateQuantity, removeItem, clearCart } = useCart()
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
+  const [checkoutError, setCheckoutError] = useState<string | null>(null)
 
   // Check if user just added items to cart
   useEffect(() => {
@@ -26,6 +28,78 @@ export default function CartPage() {
       setTimeout(() => setShowSuccessMessage(false), 5000)
     }
   }, [])
+
+  const handleCheckout = async () => {
+    if (state.items.length === 0) return
+
+    setCheckoutLoading(true)
+    setCheckoutError(null)
+
+    try {
+      console.log('Starting checkout process with items:', state.items)
+      console.log('Total amount:', state.total)
+      
+      // Create Stripe checkout session
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: state.items,
+          total_amount: state.total,
+          customer_name: "Customer", // You can add a form to collect this
+          customer_email: "customer@example.com", // You can add a form to collect this
+        }),
+      })
+
+      console.log('Checkout response status:', response.status)
+      const data = await response.json()
+      console.log('Checkout response data:', data)
+
+      if (data.error) {
+        throw new Error(data.error)
+      }
+
+      if (data.url) {
+        console.log('Redirecting to Stripe checkout:', data.url)
+        // Redirect to Stripe checkout
+        window.location.href = data.url
+      } else {
+        throw new Error("No checkout URL received")
+      }
+    } catch (error) {
+      console.error("Checkout error:", error)
+      setCheckoutError(error instanceof Error ? error.message : "Failed to start checkout")
+    } finally {
+      setCheckoutLoading(false)
+    }
+  }
+
+  const testCheckout = async () => {
+    console.log('Testing checkout with debug endpoint...')
+    try {
+      const response = await fetch("/api/debug-checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: state.items,
+          total_amount: state.total,
+          customer_name: "Test Customer",
+          customer_email: "test@example.com",
+        }),
+      })
+      
+      const data = await response.json()
+      console.log('Debug endpoint response:', data)
+      alert('Check console for debug info')
+    } catch (error) {
+      console.error('Debug endpoint error:', error)
+      alert('Debug endpoint error - check console')
+    }
+  }
 
   if (state.items.length === 0) {
     return (
@@ -86,6 +160,21 @@ export default function CartPage() {
           {showSuccessMessage && (
             <div className="mb-6 p-4 bg-gradient-to-r from-mintBrand/20 to-seafoamBrand/20 border border-mintBrand/30 rounded-lg text-center">
               <p className="text-purple-800 font-medium">✅ Items successfully added to cart!</p>
+            </div>
+          )}
+
+          {/* Error Message */}
+          {checkoutError && (
+            <div className="mb-6 p-4 bg-gradient-to-r from-red-500/20 to-red-600/20 border border-red-500/30 rounded-lg text-center">
+              <p className="text-red-800 font-medium">❌ {checkoutError}</p>
+              <Button 
+                onClick={() => setCheckoutError(null)}
+                variant="ghost"
+                size="sm"
+                className="mt-2 text-red-700 hover:text-red-800 hover:bg-red-100"
+              >
+                Dismiss
+              </Button>
             </div>
           )}
           
@@ -181,6 +270,7 @@ export default function CartPage() {
                     variant="outline"
                     size="lg"
                     className="border-purpleBrand/30 text-purple-700 hover:bg-purpleBrand/10 hover:border-purpleBrand/50 transition-all duration-300 min-h-[48px] px-8"
+                    disabled={checkoutLoading}
                   >
                     <Link href="/products" className="flex items-center space-x-2">
                       <ArrowLeft className="w-5 h-5" />
@@ -190,9 +280,18 @@ export default function CartPage() {
                   
                   <Button 
                     size="lg"
-                    className="bg-gradient-to-r from-purpleBrand to-lavenderBrand hover:from-lavenderBrand hover:to-purpleBrand text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 min-h-[48px] px-8"
+                    onClick={handleCheckout}
+                    disabled={checkoutLoading}
+                    className="bg-gradient-to-r from-purpleBrand to-lavenderBrand hover:from-lavenderBrand hover:to-purpleBrand text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 min-h-[48px] px-8 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   >
-                    Proceed to Checkout
+                    {checkoutLoading ? (
+                      <>
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        Processing...
+                      </>
+                    ) : (
+                      "Proceed to Checkout"
+                    )}
                   </Button>
                 </div>
               </div>
@@ -200,14 +299,28 @@ export default function CartPage() {
           </Card>
 
           {/* Clear Cart */}
-          <div className="text-center">
+          <div className="text-center space-y-4">
             <Button
               onClick={clearCart}
               variant="ghost"
               className="text-red-600 hover:text-red-700 hover:bg-red-50 transition-all duration-200"
+              disabled={checkoutLoading}
             >
               Clear Cart
             </Button>
+            
+            {/* Debug Test Button */}
+            <div className="pt-4">
+              <Button
+                onClick={testCheckout}
+                variant="outline"
+                size="sm"
+                className="border-blue-300 text-blue-700 hover:bg-blue-50 transition-all duration-200"
+                disabled={checkoutLoading}
+              >
+                Test Checkout (Debug)
+              </Button>
+            </div>
           </div>
         </div>
       </main>

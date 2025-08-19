@@ -87,6 +87,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
   
+  // Skip middleware for debug endpoints in development
+  if (process.env.NODE_ENV === 'development' && pathname.startsWith('/api/debug-')) {
+    return NextResponse.next()
+  }
+  
   // Security checks - only block obviously malicious requests
   if (!validateRequest(request)) {
     console.log(`Security violation blocked from IP: ${ip}, Path: ${pathname}`)

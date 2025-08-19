@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, Waves, Package, Phone, Mail } from "lucide-react"
+import { CheckCircle, Waves, Package, Phone, Mail, Loader2 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
@@ -15,7 +15,9 @@ export default function SuccessPage() {
   const searchParams = useSearchParams()
   const sessionId = searchParams.get("session_id")
   const [loading, setLoading] = useState(true)
+  const [processingOrder, setProcessingOrder] = useState(false)
   const [session, setSession] = useState<any>(null)
+  const [orderProcessed, setOrderProcessed] = useState(false)
   const { state: cartState, clearCart } = useCart() || { state: { items: [] }, clearCart: () => {} }
 
   useEffect(() => {
@@ -26,10 +28,9 @@ export default function SuccessPage() {
         .then(async (data) => {
           setSession(data)
           
-          // Clear the cart after successful order completion
-          if (cartState.items && cartState.items.length > 0) {
-            console.log('Clearing cart after successful order');
-            clearCart();
+          // Process order completion if we have cart items
+          if (cartState.items && cartState.items.length > 0 && !orderProcessed) {
+            await processOrderCompletion()
           }
           
           setLoading(false)
@@ -41,7 +42,47 @@ export default function SuccessPage() {
     } else {
       setLoading(false)
     }
-  }, [sessionId, cartState.items, cartState.total, clearCart])
+  }, [sessionId, cartState.items, orderProcessed])
+
+  const processOrderCompletion = async () => {
+    if (orderProcessed || !cartState.items || cartState.items.length === 0) return
+
+    setProcessingOrder(true)
+    try {
+      console.log('Processing order completion with items:', cartState.items)
+      
+      // Call the order completion API
+      const response = await fetch('/api/order-complete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: cartState.items,
+          total_amount: cartState.total,
+        }),
+      })
+
+      const result = await response.json()
+      
+      if (result.success) {
+        console.log('Order completion successful:', result)
+        setOrderProcessed(true)
+        
+        // Clear the cart after successful order completion
+        clearCart()
+        
+        // Show success message
+        console.log('Cart cleared and order processed successfully')
+      } else {
+        console.error('Order completion failed:', result.error)
+      }
+    } catch (error) {
+      console.error('Error processing order completion:', error)
+    } finally {
+      setProcessingOrder(false)
+    }
+  }
 
   if (loading) {
     return (
@@ -72,6 +113,16 @@ export default function SuccessPage() {
                 Thank you for your order! We've received your request and will be in touch soon.
               </p>
 
+              {/* Order Processing Status */}
+              {processingOrder && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                  <div className="flex items-center justify-center space-x-2">
+                    <Loader2 className="w-5 h-5 text-blue-600 animate-spin" />
+                    <span className="text-blue-800 font-medium">Processing your order and updating inventory...</span>
+                  </div>
+                </div>
+              )}
+
               {/* Order Details */}
               <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 mb-6">
                 <h3 className="font-semibold text-purple-900 mb-4 flex items-center justify-center text-center">
@@ -93,6 +144,12 @@ export default function SuccessPage() {
                     <span className="text-purple-800">Status:</span>
                     <span className="text-purple-900 font-medium">Confirmed</span>
                   </div>
+                  {orderProcessed && (
+                    <div className="flex justify-between">
+                      <span className="text-purple-800">Inventory:</span>
+                      <span className="text-green-600 font-medium">✓ Updated</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
