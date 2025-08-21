@@ -10,14 +10,14 @@ import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
 import { FloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
-import { CheckoutForm } from "@/components/checkout-form"
+
 
 export default function CartPage() {
   const { state, updateQuantity, removeItem, clearCart } = useCart()
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const [checkoutLoading, setCheckoutLoading] = useState(false)
   const [checkoutError, setCheckoutError] = useState<string | null>(null)
-  const [showCheckoutForm, setShowCheckoutForm] = useState(false)
+
 
   // Check if user just added items to cart
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function CartPage() {
     }
   }, [])
 
-  const handleCheckout = async (customerInfo: { name: string; email: string; phone: string; address: string }) => {
+  const handleCheckout = async () => {
     if (state.items.length === 0) return
 
     setCheckoutLoading(true)
@@ -40,7 +40,6 @@ export default function CartPage() {
     try {
       console.log('Starting checkout process with items:', state.items)
       console.log('Total amount:', state.total)
-      console.log('Customer info:', customerInfo)
       
       // Create Stripe checkout session
       const response = await fetch("/api/create-checkout-session", {
@@ -51,8 +50,6 @@ export default function CartPage() {
         body: JSON.stringify({
           items: state.items,
           total_amount: state.total,
-          customer_name: customerInfo.name,
-          customer_email: customerInfo.email,
         }),
       })
 
@@ -283,12 +280,14 @@ export default function CartPage() {
                   
                   <Button 
                     size="lg"
-                    onClick={() => setShowCheckoutForm(true)}
+                    asChild
                     disabled={checkoutLoading}
                     className="bg-gradient-to-r from-purpleBrand to-lavenderBrand hover:from-lavenderBrand hover:to-purpleBrand text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 min-h-[48px] px-8 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   >
-                    <CreditCard className="w-5 h-5 mr-2" />
-                    Proceed to Checkout
+                    <Link href="/checkout">
+                      <CreditCard className="w-5 h-5 mr-2" />
+                      Proceed to Checkout
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -321,18 +320,7 @@ export default function CartPage() {
           </div>
         </div>
 
-        {/* Checkout Form Modal */}
-        {showCheckoutForm && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="w-full max-w-md">
-              <CheckoutForm
-                onSubmit={handleCheckout}
-                onCancel={() => setShowCheckoutForm(false)}
-                isLoading={checkoutLoading}
-              />
-            </div>
-          </div>
-        )}
+
       </main>
     </div>
   )

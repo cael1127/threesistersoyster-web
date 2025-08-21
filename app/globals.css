@@ -2,6 +2,185 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Three Sisters Brand Colors */
+:root {
+  --purple-brand: #8B5CF6;
+  --lavender-brand: #A78BFA;
+  --blue-brand: #3B82F6;
+  --mint-brand: #10B981;
+  --seafoam-brand: #06B6D4;
+}
+
+/* Stripe Checkout Customization */
+.stripe-checkout {
+  /* Custom Stripe checkout styling */
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--purple-brand), var(--lavender-brand));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--lavender-brand), var(--blue-brand));
+}
+
+/* Floating particles animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--purple-brand), var(--lavender-brand), var(--blue-brand));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom button animations */
+.btn-hover-effect {
+  transition: all 0.3s ease;
+}
+
+.btn-hover-effect:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
+}
+
+/* Loading spinner */
+.spinner {
+  border: 3px solid #f3f4f6;
+  border-top: 3px solid var(--purple-brand);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Custom focus styles */
+.focus-ring:focus {
+  outline: 2px solid var(--purple-brand);
+  outline-offset: 2px;
+}
+
+/* Gradient backgrounds */
+.bg-gradient-brand {
+  background: linear-gradient(135deg, var(--purple-brand), var(--lavender-brand), var(--blue-brand));
+}
+
+.bg-gradient-ocean {
+  background: linear-gradient(135deg, var(--blue-brand), var(--mint-brand), var(--seafoam-brand));
+}
+
+/* Text shadows */
+.text-shadow-brand {
+  text-shadow: 0 2px 4px rgba(139, 92, 246, 0.3);
+}
+
+/* Border gradients */
+.border-gradient-brand {
+  border: 2px solid;
+  border-image: linear-gradient(135deg, var(--purple-brand), var(--lavender-brand)) 1;
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  .text-responsive {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+  }
+}
+
+/* Custom form styling */
+.form-input-brand {
+  @apply border-2 border-gray-300 rounded-lg px-4 py-2 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200;
+}
+
+.form-input-brand:focus {
+  @apply outline-none;
+}
+
+/* Button variants */
+.btn-primary-brand {
+  @apply bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105;
+}
+
+.btn-secondary-brand {
+  @apply bg-gradient-to-r from-lavender-600 to-lavender-700 hover:from-lavender-700 hover:to-lavender-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105;
+}
+
+/* Success/Error states */
+.success-state {
+  @apply bg-green-50 border-green-200 text-green-800;
+}
+
+.error-state {
+  @apply bg-red-50 border-red-200 text-red-800;
+}
+
+/* Loading states */
+.loading-state {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Custom shadows */
+.shadow-brand {
+  box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.1), 0 2px 4px -1px rgba(139, 92, 246, 0.06);
+}
+
+.shadow-brand-lg {
+  box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.1), 0 4px 6px -2px rgba(139, 92, 246, 0.05);
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden; /* Prevent horizontal scroll on mobile */

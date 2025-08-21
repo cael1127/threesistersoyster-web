@@ -38,32 +38,67 @@ export async function POST(request: NextRequest) {
       const customerName = session.metadata?.customerName || "Unknown"
       const customerEmail = session.metadata?.customerEmail || "Unknown"
       
-      // Get line items to update inventory
-      if (session.line_items?.data) {
-        const supabase = createSupabaseClient()
-        
-        for (const item of session.line_items.data) {
-          if (item.price?.product_data?.name) {
-            const productName = item.price.product_data.name
+      // Get line items to update inventory - try multiple methods
+      const supabase = createSupabaseClient()
+      let itemsToUpdate: Array<{name: string, quantity: number}> = []
+
+      // Method 1: Try to get items from metadata (most reliable)
+      if (session.metadata?.items) {
+        try {
+          const metadataItems = JSON.parse(session.metadata.items)
+          itemsToUpdate = metadataItems.map((item: any) => ({
+            name: item.name,
+            quantity: item.quantity
+          }))
+          console.log("Using items from metadata:", itemsToUpdate)
+        } catch (error) {
+          console.error("Error parsing items from metadata:", error)
+        }
+      }
+
+      // Method 2: If metadata doesn't work, fetch line items from Stripe
+      if (itemsToUpdate.length === 0) {
+        try {
+          const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
+            expand: ['data.price.product']
+          })
+          
+          console.log("Retrieved line items from Stripe:", lineItems.data.length)
+          
+          for (const item of lineItems.data) {
+            const productName = item.price?.product_data?.name || item.description
             const quantity = item.quantity || 0
             
-            console.log(`Updating inventory for ${productName}: -${quantity}`)
-            
-            // Update inventory in the products table
-            const { error: updateError } = await supabase
-              .from("products")
-              .update({ 
-                inventory_count: supabase.raw(`inventory_count - ${quantity}`)
-              })
-              .eq("name", productName)
-              .gte("inventory_count", quantity) // Ensure we don't go below 0
-            
-            if (updateError) {
-              console.error("Error updating inventory:", updateError)
-            } else {
-              console.log(`Successfully updated inventory for ${productName}`)
+            if (productName && quantity > 0) {
+              itemsToUpdate.push({ name: productName, quantity })
             }
           }
+        } catch (lineItemError) {
+          console.error("Error fetching line items:", lineItemError)
+        }
+      }
+
+      // Update inventory for all items
+      for (const item of itemsToUpdate) {
+        try {
+          console.log(`Updating inventory for "${item.name}": -${item.quantity}`)
+          
+          // Update inventory in the products table
+          const { data: updateResult, error: updateError } = await supabase
+            .from("products")
+            .update({ 
+              inventory_count: supabase.raw(`GREATEST(inventory_count - ${item.quantity}, 0)`)
+            })
+            .eq("name", item.name)
+            .select()
+          
+          if (updateError) {
+            console.error(`Error updating inventory for ${item.name}:`, updateError)
+          } else {
+            console.log(`Successfully updated inventory for ${item.name}:`, updateResult)
+          }
+        } catch (error) {
+          console.error(`Error processing item ${item.name}:`, error)
         }
       }
       

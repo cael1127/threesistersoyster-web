@@ -49,36 +49,41 @@ export default function SuccessPage() {
 
     setProcessingOrder(true)
     try {
-      console.log('Processing order completion with items:', cartState.items)
+      console.log('Processing inventory update with items:', cartState.items)
       
-      // Call the order completion API
-      const response = await fetch('/api/order-complete', {
+      // Call the inventory update API as a backup to the webhook
+      const response = await fetch('/api/update-inventory', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           items: cartState.items,
-          total_amount: cartState.total,
+          session_id: sessionId,
         }),
       })
 
       const result = await response.json()
       
       if (result.success) {
-        console.log('Order completion successful:', result)
+        console.log('Inventory update successful:', result)
         setOrderProcessed(true)
         
-        // Clear the cart after successful order completion
+        // Clear the cart after successful inventory update
         clearCart()
         
-        // Show success message
-        console.log('Cart cleared and order processed successfully')
+        console.log('Cart cleared and inventory updated successfully')
       } else {
-        console.error('Order completion failed:', result.error)
+        console.error('Inventory update failed:', result.error)
+        // Still clear the cart since payment was successful
+        clearCart()
+        setOrderProcessed(true)
       }
     } catch (error) {
-      console.error('Error processing order completion:', error)
+      console.error('Error updating inventory:', error)
+      // Still clear the cart since payment was successful
+      clearCart()
+      setOrderProcessed(true)
     } finally {
       setProcessingOrder(false)
     }
