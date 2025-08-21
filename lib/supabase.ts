@@ -1,7 +1,15 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js"
 
+// Singleton pattern to prevent multiple client instances
+let supabaseInstance: SupabaseClient | null = null
+
 // Create a function to get Supabase client with proper error handling
 function createSupabaseClient(): SupabaseClient {
+  // Return existing instance if available
+  if (supabaseInstance) {
+    return supabaseInstance
+  }
+
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -17,25 +25,28 @@ function createSupabaseClient(): SupabaseClient {
       
       // Always return a mock client to prevent crashes
       console.log("Using mock Supabase client")
-      return createClient(
+      supabaseInstance = createClient(
         "https://placeholder.supabase.co",
         "placeholder-key"
       )
+      return supabaseInstance
     }
 
     // Create real client if variables are available
     console.log("Creating Supabase client with configured credentials")
-    return createClient(supabaseUrl, supabaseAnonKey)
+    supabaseInstance = createClient(supabaseUrl, supabaseAnonKey)
+    return supabaseInstance
     
   } catch (error) {
     console.error("Error creating Supabase client:", error)
     
     // Fallback to mock client
     console.log("Falling back to mock Supabase client")
-    return createClient(
+    supabaseInstance = createClient(
       "https://placeholder.supabase.co",
       "placeholder-key"
     )
+    return supabaseInstance
   }
 }
 
