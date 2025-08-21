@@ -1,21 +1,51 @@
-import { createClient } from "@supabase/supabase-js"
+import { createClient, SupabaseClient } from "@supabase/supabase-js"
 
-// Create Supabase client with environment variables
-// These must be prefixed with NEXT_PUBLIC_ to be available on the client side
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+// Create a function to get Supabase client with proper error handling
+function createSupabaseClient(): SupabaseClient {
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-// Validate environment variables
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    "Missing Supabase environment variables. Please check your .env.local file:\n" +
-    "NEXT_PUBLIC_SUPABASE_URL=your-project-url.supabase.co\n" +
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here"
-  )
+    // Check if environment variables are available
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.warn(
+        "Missing Supabase environment variables. Using mock client.\n" +
+        "Please check your .env.local file:\n" +
+        "NEXT_PUBLIC_SUPABASE_URL=your-project-url.supabase.co\n" +
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here"
+      )
+      
+      // Always return a mock client to prevent crashes
+      console.log("Using mock Supabase client")
+      return createClient(
+        "https://placeholder.supabase.co",
+        "placeholder-key"
+      )
+    }
+
+    // Create real client if variables are available
+    console.log("Creating Supabase client with configured credentials")
+    return createClient(supabaseUrl, supabaseAnonKey)
+    
+  } catch (error) {
+    console.error("Error creating Supabase client:", error)
+    
+    // Fallback to mock client
+    console.log("Falling back to mock Supabase client")
+    return createClient(
+      "https://placeholder.supabase.co",
+      "placeholder-key"
+    )
+  }
 }
 
-// Create Supabase client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Create the client immediately
+export const supabase = createSupabaseClient()
+
+// Export the function for dynamic client creation
+export function getSupabaseClient(): SupabaseClient {
+  return supabase
+}
 
 export type Product = {
   id: string
@@ -97,8 +127,24 @@ function parseDescriptionFields(description: string | null) {
   }
 }
 
+// Helper function to check if Supabase is properly configured
+export function isSupabaseConfigured(): boolean {
+  try {
+    return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && 
+             process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY &&
+             process.env.NEXT_PUBLIC_SUPABASE_URL !== "https://placeholder.supabase.co")
+  } catch (error) {
+    return false
+  }
+}
+
 // Get ALL inventory (both farm and nursery)
 export async function getAllInventory() {
+  if (!isSupabaseConfigured()) {
+    console.log("Supabase not configured, returning empty array")
+    return []
+  }
+
   const { data, error } = await supabase.from("inventory").select("*").order("created_at", { ascending: false })
 
   if (error) {
@@ -115,7 +161,7 @@ export async function getHarvestReadyInventoryCount() {
     console.log("=== DEBUGGING HARVEST READY COUNT ===")
 
     // Check if we have valid Supabase credentials
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+    if (!isSupabaseConfigured()) {
       console.log("Supabase not configured, returning fallback value")
       return 0
     }
@@ -180,7 +226,7 @@ export async function getFarmInventoryCount() {
     console.log("Querying farm inventory...")
     
     // Check if we have valid Supabase credentials
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+    if (!isSupabaseConfigured()) {
       console.log("Supabase not configured, returning fallback value")
       return 0
     }
@@ -209,7 +255,7 @@ export async function getNurseryInventoryCount() {
     console.log("Querying nursery inventory...")
     
     // Check if we have valid Supabase credentials
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+    if (!isSupabaseConfigured()) {
       console.log("Supabase not configured, returning fallback value")
       return 0
     }
@@ -235,6 +281,11 @@ export async function getNurseryInventoryCount() {
 // Get all products
 export async function getProducts() {
   try {
+    if (!isSupabaseConfigured()) {
+      console.log("Supabase not configured, returning empty array")
+      return []
+    }
+
     const { data, error } = await supabase.from("products").select("*").order("created_at", { ascending: false })
 
     if (error) {
