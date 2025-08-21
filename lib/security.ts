@@ -56,12 +56,13 @@ export const orderSchema = z.object({
     .email('Invalid email address')
     .max(254, 'Email too long'),
   items: z.array(z.object({
-    id: z.string().min(1, 'Product ID is required'), // Relaxed from UUID requirement
+    id: z.string().min(1, 'Product ID is required'),
     name: z.string().max(200, 'Product name too long'),
     quantity: z.number().int().positive('Quantity must be positive'),
     price: z.number().positive('Price must be positive'),
-    category: z.string().optional(), // Make category optional
-    image_url: z.string().optional(), // Make image_url optional
+    category: z.string().optional(),
+    image_url: z.string().optional(),
+    maxInventory: z.number().optional(),
   })).min(1, 'At least one item required'),
   total_amount: z.number().positive('Total amount must be positive'),
 })

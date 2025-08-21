@@ -4,18 +4,20 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Minus, Plus, Trash2, ArrowLeft, Waves, ShoppingBag, Loader2 } from "lucide-react"
+import { Minus, Plus, Trash2, ArrowLeft, Waves, ShoppingBag, Loader2, CreditCard } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
 import { FloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
+import { CheckoutForm } from "@/components/checkout-form"
 
 export default function CartPage() {
   const { state, updateQuantity, removeItem, clearCart } = useCart()
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const [checkoutLoading, setCheckoutLoading] = useState(false)
   const [checkoutError, setCheckoutError] = useState<string | null>(null)
+  const [showCheckoutForm, setShowCheckoutForm] = useState(false)
 
   // Check if user just added items to cart
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function CartPage() {
     }
   }, [])
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (customerInfo: { name: string; email: string; phone: string; address: string }) => {
     if (state.items.length === 0) return
 
     setCheckoutLoading(true)
@@ -38,6 +40,7 @@ export default function CartPage() {
     try {
       console.log('Starting checkout process with items:', state.items)
       console.log('Total amount:', state.total)
+      console.log('Customer info:', customerInfo)
       
       // Create Stripe checkout session
       const response = await fetch("/api/create-checkout-session", {
@@ -48,8 +51,8 @@ export default function CartPage() {
         body: JSON.stringify({
           items: state.items,
           total_amount: state.total,
-          customer_name: "Customer", // You can add a form to collect this
-          customer_email: "customer@example.com", // You can add a form to collect this
+          customer_name: customerInfo.name,
+          customer_email: customerInfo.email,
         }),
       })
 
@@ -110,7 +113,7 @@ export default function CartPage() {
 
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="w-24 h-24 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-24 h-24 bg-gradient-to-br from-purpleBrand/20 to-lavenderBrand/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6">
               <Waves className="w-12 h-12 text-white/40" />
             </div>
             <h1 className="text-3xl font-bold text-white mb-4 text-center">Your Cart is Empty</h1>
@@ -183,7 +186,7 @@ export default function CartPage() {
           {/* Cart Items */}
           <div className="space-y-4 mb-8">
             {state.items.map((item) => (
-              <Card key={item.id} className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm">
+              <Card key={item.id} className="border-purpleBrand/30 bg-gradient-to-br from-purpleBrand/10 to-lavenderBrand/10 backdrop-blur-sm">
                 <CardContent className="p-4 md:p-6">
                   <div className="flex flex-col md:flex-row items-center gap-4">
                     {/* Product Image */}
@@ -210,7 +213,7 @@ export default function CartPage() {
                     </div>
                     
                     {/* Quantity Controls - Improved for better UX */}
-                    <div className="flex items-center space-x-2 bg-white/50 rounded-lg p-2 border border-purpleBrand/20">
+                    <div className="flex items-center space-x-2 bg-gradient-to-r from-purpleBrand/20 to-lavenderBrand/20 rounded-lg p-2 border border-purpleBrand/20">
                       <Button
                         onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
                         variant="ghost"
@@ -251,7 +254,7 @@ export default function CartPage() {
           </div>
 
           {/* Cart Summary */}
-          <Card className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm mb-8">
+          <Card className="border-purpleBrand/30 bg-gradient-to-br from-purpleBrand/10 to-lavenderBrand/10 backdrop-blur-sm mb-8">
             <CardContent className="p-6">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div className="text-center md:text-left">
@@ -280,18 +283,12 @@ export default function CartPage() {
                   
                   <Button 
                     size="lg"
-                    onClick={handleCheckout}
+                    onClick={() => setShowCheckoutForm(true)}
                     disabled={checkoutLoading}
                     className="bg-gradient-to-r from-purpleBrand to-lavenderBrand hover:from-lavenderBrand hover:to-purpleBrand text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 min-h-[48px] px-8 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   >
-                    {checkoutLoading ? (
-                      <>
-                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                        Processing...
-                      </>
-                    ) : (
-                      "Proceed to Checkout"
-                    )}
+                    <CreditCard className="w-5 h-5 mr-2" />
+                    Proceed to Checkout
                   </Button>
                 </div>
               </div>
@@ -323,6 +320,19 @@ export default function CartPage() {
             </div>
           </div>
         </div>
+
+        {/* Checkout Form Modal */}
+        {showCheckoutForm && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="w-full max-w-md">
+              <CheckoutForm
+                onSubmit={handleCheckout}
+                onCancel={() => setShowCheckoutForm(false)}
+                isLoading={checkoutLoading}
+              />
+            </div>
+          </div>
+        )}
       </main>
     </div>
   )
