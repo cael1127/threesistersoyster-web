@@ -4,7 +4,7 @@ import { createClient, SupabaseClient } from "@supabase/supabase-js"
 let supabaseInstance: SupabaseClient | null = null
 
 // Create a function to get Supabase client with proper error handling
-function createSupabaseClient(): SupabaseClient {
+export function createSupabaseClient(): SupabaseClient {
   // Return existing instance if available
   if (supabaseInstance) {
     return supabaseInstance

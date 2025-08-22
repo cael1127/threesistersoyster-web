@@ -83,11 +83,23 @@ export async function POST(request: NextRequest) {
         try {
           console.log(`Updating inventory for "${item.name}": -${item.quantity}`)
           
+          // First get current inventory count
+          const { data: currentData, error: selectError } = await supabase
+            .from("products")
+            .select("inventory_count")
+            .eq("name", item.name)
+            .single()
+          
+          if (selectError) {
+            console.error(`Error getting current inventory for ${item.name}:`, selectError)
+            continue
+          }
+          
           // Update inventory in the products table
           const { data: updateResult, error: updateError } = await supabase
             .from("products")
             .update({ 
-              inventory_count: supabase.raw(`GREATEST(inventory_count - ${item.quantity}, 0)`)
+              inventory_count: Math.max(0, (currentData.inventory_count || 0) - item.quantity)
             })
             .eq("name", item.name)
             .select()
