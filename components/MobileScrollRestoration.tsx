@@ -1,29 +1,8 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 
-export function useMobile() {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-
-    // Check on mount
-    checkMobile()
-
-    // Add resize listener
-    window.addEventListener('resize', checkMobile)
-
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  return isMobile
-}
-
-// Mobile scroll restoration hook
-export function useMobileScrollRestoration() {
+export function MobileScrollRestoration() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // Ensure page starts at top on mobile
@@ -63,12 +42,25 @@ export function useMobileScrollRestoration() {
       
       window.addEventListener('focus', handleFocus)
       
+      // Handle page visibility changes (mobile app switching)
+      const handleVisibilityChange = () => {
+        if (window.innerWidth <= 768 && !document.hidden) {
+          scrollToTop()
+        }
+      }
+      
+      document.addEventListener('visibilitychange', handleVisibilityChange)
+      
       // Cleanup
       return () => {
         window.removeEventListener('resize', handleResize)
         window.removeEventListener('focus', handleFocus)
+        document.removeEventListener('visibilitychange', handleVisibilityChange)
         clearTimeout(timeoutId)
       }
     }
   }, [])
+
+  // This component doesn't render anything
+  return null
 }

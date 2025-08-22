@@ -2,12 +2,14 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import { CartProvider } from "@/contexts/cart-context"
+import { MobileScrollRestoration } from "@/components/MobileScrollRestoration"
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: 'cover',
 }
 
 export const metadata: Metadata = {
@@ -46,7 +48,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand text-white min-h-screen">
-        <CartProvider>{children}</CartProvider>
+        <CartProvider>
+          <MobileScrollRestoration />
+          {children}
+        </CartProvider>
       </body>
     </html>
   )

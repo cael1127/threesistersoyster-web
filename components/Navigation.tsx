@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 
 export default function Navigation() {
   return (
-    <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50">
+    <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50 w-full">
       <div className="container mx-auto px-2 md:px-4 py-2 md:py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">

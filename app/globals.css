@@ -2,6 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile Viewport Fixes */
+html {
+  /* Ensure proper mobile viewport */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+  
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Prevent mobile scroll issues */
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  
+  /* Ensure proper mobile rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile-specific scroll fixes */
+@media (max-width: 768px) {
+  html, body {
+    /* Force scroll to top on mobile */
+    scroll-behavior: auto;
+    
+    /* Prevent mobile zoom issues */
+    touch-action: manipulation;
+    
+    /* Ensure proper mobile viewport */
+    width: 100%;
+    min-height: 100vh;
+    
+    /* Fix mobile scroll position */
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  /* Fix mobile navigation scroll issues */
+  header {
+    /* Ensure header stays at top */
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    
+    /* Prevent mobile header issues */
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+  
+  /* Fix mobile content positioning */
+  main {
+    /* Ensure content starts at proper position */
+    padding-top: 0;
+    margin-top: 0;
+    
+    /* Fix mobile layout issues */
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+  /* Fix mobile container issues */
+  .container {
+    /* Ensure proper mobile width */
+    width: 100%;
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Fix mobile card positioning */
+  .card {
+    /* Ensure cards don't cause horizontal scroll */
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+}
+
 /* Custom Three Sisters Brand Colors */
 :root {
   --purple-brand: #8B5CF6;
