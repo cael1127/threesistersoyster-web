@@ -251,21 +251,21 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return sessionIdRef.current
   }, [])
 
-      return (
-      <CartContext.Provider
-        value={{
-          state,
-          dispatch,
-          addItem,
-          removeItem,
-          updateQuantity,
-          clearCart,
-          getSessionId,
-        }}
-      >
-        {children}
-      </CartContext.Provider>
-    )
+  return (
+    <CartContext.Provider
+      value={{
+        state,
+        dispatch,
+        addItem,
+        removeItem,
+        updateQuantity,
+        clearCart,
+        getSessionId,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  )
 }
 
 export function useCart() {
