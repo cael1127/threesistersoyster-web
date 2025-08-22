@@ -34,6 +34,7 @@ const CartContext = createContext<{
   removeItem: (id: string) => void
   updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
+  getSessionId: () => string | undefined
 } | null>(null)
 
 function cartReducer(state: CartState, action: CartAction): CartState {
@@ -106,6 +107,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   })
   const [mounted, setMounted] = useState(false)
 
+  // Generate a unique session ID for this cart session
+  const sessionIdRef = useRef<string>()
+
   // Debounced localStorage save
   const saveTimeoutRef = useRef<NodeJS.Timeout>()
   
@@ -125,9 +129,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }, 100) // 100ms debounce
   }, [])
 
-  // Set mounted state
+  // Set mounted state and generate session ID
   useEffect(() => {
     setMounted(true)
+    
+    // Generate a unique session ID for this cart session
+    if (!sessionIdRef.current) {
+      sessionIdRef.current = `cart_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    }
   }, [])
 
   // Load cart from localStorage on mount (only on client)
@@ -161,36 +170,102 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [state.items, saveToLocalStorage, mounted])
 
-  const addItem = useCallback((item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
+  const addItem = useCallback(async (item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
+    try {
+      // Reserve inventory when adding to cart
+      if (sessionIdRef.current && item.maxInventory && item.maxInventory > 0) {
+        const response = await fetch('/api/reserve-inventory', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            items: [{ name: item.name, quantity: item.quantity || 1 }],
+            session_id: sessionIdRef.current
+          })
+        })
+
+        if (!response.ok) {
+          const errorData = await response.json()
+          console.error('Failed to reserve inventory:', errorData)
+          // Still add to cart but log the error
+        }
+      }
+    } catch (error) {
+      console.error('Error reserving inventory:', error)
+      // Still add to cart even if reservation fails
+    }
+
     dispatch({ type: "ADD_ITEM", payload: item })
   }, [])
 
-  const removeItem = useCallback((id: string) => {
+  const removeItem = useCallback(async (id: string) => {
+    // Find the item being removed to release its reservation
+    const itemToRemove = state.items.find(item => item.id === id)
+    
+    if (sessionIdRef.current && itemToRemove) {
+      try {
+        await fetch('/api/reserve-inventory', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            session_id: sessionIdRef.current
+          })
+        })
+      } catch (error) {
+        console.error('Error releasing reservations:', error)
+      }
+    }
+    
     dispatch({ type: "REMOVE_ITEM", payload: id })
-  }, [])
+  }, [state.items])
 
   const updateQuantity = useCallback((id: string, quantity: number) => {
     dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } })
   }, [])
 
-  const clearCart = useCallback(() => {
+  const clearCart = useCallback(async () => {
+    // Release all reservations when clearing cart
+    if (sessionIdRef.current) {
+      try {
+        await fetch('/api/reserve-inventory', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            session_id: sessionIdRef.current
+          })
+        })
+      } catch (error) {
+        console.error('Error releasing reservations:', error)
+      }
+    }
+    
     dispatch({ type: "CLEAR_CART" })
-  }, [])
+  }, []
 
-  return (
-    <CartContext.Provider
-      value={{
-        state,
-        dispatch,
-        addItem,
-        removeItem,
-        updateQuantity,
-        clearCart,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  )
+  const getSessionId = useCallback(() => {
+    return sessionIdRef.current
+  }, []))
+
+      return (
+      <CartContext.Provider
+        value={{
+          state,
+          dispatch,
+          addItem,
+          removeItem,
+          updateQuantity,
+          clearCart,
+          getSessionId,
+        }}
+      >
+        {children}
+      </CartContext.Provider>
+    )
 }
 
 export function useCart() {

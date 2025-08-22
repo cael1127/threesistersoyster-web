@@ -108,6 +108,12 @@ export async function POST(request: NextRequest) {
         businessName: "Three Sisters Oyster Co.",
         productType: "Fresh Texas Oysters",
         orderSource: "Website",
+        items: JSON.stringify(items.map(item => ({
+          id: item.id,
+          name: item.name,
+          quantity: item.quantity
+        }))),
+        session_id: body.session_id || 'unknown'
       },
       // Expire session after 30 minutes
       expires_at: Math.floor(Date.now() / 1000) + (30 * 60),
@@ -115,21 +121,7 @@ export async function POST(request: NextRequest) {
 
     console.log("Checkout session created:", session.id)
 
-    // Store the items in session metadata for inventory tracking
-    // This helps the webhook know exactly what to decrease
-    const itemsMetadata = items.map(item => ({
-      id: item.id,
-      name: item.name,
-      quantity: item.quantity
-    }))
-
-    // Add items to session metadata
-    await stripe.checkout.sessions.update(session.id, {
-      metadata: {
-        ...session.metadata,
-        items: JSON.stringify(itemsMetadata)
-      }
-    })
+    // Items metadata is now included in the initial session creation
 
     return NextResponse.json({ url: session.url })
 

@@ -34,19 +34,23 @@ export default function ProductsPage() {
     fetchProducts()
   }, [])
 
-  // Helper function to parse product description
-  function parseProductDescription(description: string | null) {
-    if (!description) return { originalDescription: "", inventory: 0 }
-
-    try {
-      const parsed = JSON.parse(description)
-      return {
-        originalDescription: parsed.originalDescription || "",
-        inventory: parsed.inventory || 0,
+  // Helper function to parse product description and get inventory
+  function parseProductDescription(description: string | null, inventory_count: number | null) {
+    let originalDescription = ""
+    
+    if (description) {
+      try {
+        const parsed = JSON.parse(description)
+        originalDescription = parsed.originalDescription || description
+      } catch (error) {
+        // If it's not JSON, treat as plain text
+        originalDescription = description
       }
-    } catch (error) {
-      // If it's not JSON, treat as plain text
-      return { originalDescription: description, inventory: 0 }
+    }
+    
+    return {
+      originalDescription,
+      inventory: inventory_count || 0,
     }
   }
 
@@ -61,7 +65,7 @@ export default function ProductsPage() {
   )
 
   function ProductCard({ product }: { product: Product }) {
-    const { originalDescription, inventory } = parseProductDescription(product.description)
+    const { originalDescription, inventory } = parseProductDescription(product.description, product.inventory_count)
 
     return (
       <Card className="border-purpleBrand/30 bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 group">
@@ -142,7 +146,7 @@ export default function ProductsPage() {
           {/* Products Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {products.map((product) => {
-              const { originalDescription, inventory } = parseProductDescription(product.description)
+              const { originalDescription, inventory } = parseProductDescription(product.description, product.inventory_count)
               return (
                 <ProductCard key={product.id} product={product} />
               )

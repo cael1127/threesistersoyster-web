@@ -102,6 +102,32 @@ export async function POST(request: NextRequest) {
         }
       }
       
+      // Release inventory reservations for this session
+      if (session.metadata?.session_id) {
+        try {
+          console.log(`Releasing reservations for session: ${session.metadata.session_id}`)
+          
+          const releaseResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/reserve-inventory`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              session_id: session.metadata.session_id
+            })
+          })
+          
+          if (releaseResponse.ok) {
+            const releaseData = await releaseResponse.json()
+            console.log(`Released ${releaseData.releasedCount} reservations`)
+          } else {
+            console.error('Failed to release reservations:', await releaseResponse.text())
+          }
+        } catch (releaseError) {
+          console.error('Error releasing reservations:', releaseError)
+        }
+      }
+      
       // You could also save the order to a separate orders table here
       console.log(`Order completed: ${customerName} (${customerEmail}) - $${orderTotal}`)
     }

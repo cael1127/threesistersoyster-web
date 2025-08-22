@@ -13,7 +13,7 @@ import Navigation from "@/components/Navigation"
 
 
 export default function CartPage() {
-  const { state, updateQuantity, removeItem, clearCart } = useCart()
+  const { state, updateQuantity, removeItem, clearCart, getSessionId } = useCart()
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const [checkoutLoading, setCheckoutLoading] = useState(false)
   const [checkoutError, setCheckoutError] = useState<string | null>(null)
@@ -50,6 +50,7 @@ export default function CartPage() {
         body: JSON.stringify({
           items: state.items,
           total_amount: state.total,
+          session_id: getSessionId(),
         }),
       })
 
