@@ -9,6 +9,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
 
+// In-memory store to prevent duplicate webhook processing
+// In production, use Redis or database for this
+const processedWebhooks = new Set<string>()
+
 export async function POST(request: NextRequest) {
   try {
     console.log("=== WEBHOOK RECEIVED ===")
@@ -36,6 +40,22 @@ export async function POST(request: NextRequest) {
     } catch (err) {
       console.error("Webhook signature verification failed:", err)
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 })
+    }
+
+    // Check if we've already processed this webhook
+    if (processedWebhooks.has(event.id)) {
+      console.log(`⚠️ Webhook ${event.id} already processed, skipping...`)
+      return NextResponse.json({ received: true, alreadyProcessed: true })
+    }
+
+    // Mark this webhook as processed
+    processedWebhooks.add(event.id)
+    
+    // Clean up old webhook IDs (keep last 1000)
+    if (processedWebhooks.size > 1000) {
+      const webhookArray = Array.from(processedWebhooks)
+      processedWebhooks.clear()
+      webhookArray.slice(-500).forEach(id => processedWebhooks.add(id))
     }
 
     if (event.type === "checkout.session.completed") {
@@ -67,11 +87,18 @@ export async function POST(request: NextRequest) {
       if (session.metadata?.items) {
         try {
           const metadataItems = JSON.parse(session.metadata.items)
-          itemsToUpdate = metadataItems.map((item: any) => ({
-            id: item.id,
-            name: item.name,
-            quantity: item.quantity
-          }))
+          console.log("🔍 Raw metadata items:", metadataItems)
+          
+          itemsToUpdate = metadataItems.map((item: any) => {
+            const processedItem = {
+              id: item.id,
+              name: item.name,
+              quantity: parseInt(item.quantity) || 0
+            }
+            console.log(`📝 Processing item: ${processedItem.name} (ID: ${processedItem.id}) - Quantity: ${processedItem.quantity}`)
+            return processedItem
+          })
+          
           console.log("✅ Using items from metadata:", itemsToUpdate)
         } catch (error) {
           console.error("❌ Error parsing items from metadata:", error)
@@ -127,59 +154,59 @@ export async function POST(request: NextRequest) {
         try {
           console.log(`🔄 Updating inventory for "${item.name}" (ID: ${item.id}): -${item.quantity}`)
           
-          // Use the force inventory update endpoint for maximum reliability
-          const updateResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/force-inventory-update`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              product_id: item.id,
-              quantity: item.quantity
-            })
-          })
+          // Direct database update to avoid recursive API calls
+          const { data: currentData, error: selectError } = await supabase
+            .from("products")
+            .select("id, name, inventory_count")
+            .eq("id", item.id)
+            .single()
           
-          if (updateResponse.ok) {
-            const updateResult = await updateResponse.json()
-            console.log(`✅ Force inventory update successful for ${item.name}:`, updateResult)
-            
-            if (updateResult.verification && updateResult.verification.match) {
-              console.log(`✅ INVENTORY VERIFICATION PASSED: ${item.name} is now ${updateResult.verification.actual}`)
-            } else {
-              console.error(`❌ INVENTORY VERIFICATION FAILED: ${item.name} expected ${updateResult.verification.expected}, got ${updateResult.verification.actual}`)
-            }
+          if (selectError) {
+            console.error(`❌ Error getting current product data for ${item.name}:`, selectError)
+            continue
+          }
+          
+          if (!currentData) {
+            console.error(`❌ Product not found with ID: ${item.id}`)
+            continue
+          }
+          
+          // Calculate new inventory count
+          const currentCount = currentData.inventory_count || 0
+          const newCount = Math.max(0, currentCount - item.quantity)
+          
+          console.log(`📊 Updating ${currentData.name} inventory: ${currentCount} → ${newCount}`)
+          
+          // Update the product with new inventory count
+          const { data: updateResult, error: updateError } = await supabase
+            .from("products")
+            .update({ inventory_count: newCount })
+            .eq("id", item.id)
+            .select()
+          
+          if (updateError) {
+            console.error(`❌ Error updating inventory for ${currentData.name}:`, updateError)
           } else {
-            const errorData = await updateResponse.json()
-            console.error(`❌ Force inventory update failed for ${item.name}:`, errorData)
+            console.log(`✅ Successfully updated inventory for ${currentData.name}:`, updateResult)
             
-            // Fallback to direct database update
-            console.log(`🔄 Trying fallback direct update...`)
-            const supabase = createSupabaseClient()
-            
-            const { data: currentData, error: selectError } = await supabase
+            // Verify the update actually happened
+            const { data: verifyData, error: verifyError } = await supabase
               .from("products")
-              .select("id, name, inventory_count")
+              .select("inventory_count")
               .eq("id", item.id)
               .single()
             
-            if (selectError) {
-              console.error(`❌ Fallback select failed:`, selectError)
-              continue
-            }
-            
-            const currentCount = currentData.inventory_count || 0
-            const newCount = Math.max(0, currentCount - item.quantity)
-            
-            const { data: fallbackResult, error: fallbackError } = await supabase
-              .from("products")
-              .update({ inventory_count: newCount })
-              .eq("id", item.id)
-              .select()
-            
-            if (fallbackError) {
-              console.error(`❌ Fallback update also failed:`, fallbackError)
+            if (verifyError) {
+              console.error(`❌ Could not verify update for ${currentData.name}:`, verifyError)
             } else {
-              console.log(`✅ Fallback update successful:`, fallbackResult)
+              const actualCount = verifyData.inventory_count || 0
+              console.log(`🔍 Verification: ${currentData.name} inventory is now ${actualCount}`)
+              
+              if (actualCount !== newCount) {
+                console.error(`❌ INVENTORY UPDATE FAILED: Expected ${newCount}, got ${actualCount}`)
+              } else {
+                console.log(`✅ INVENTORY UPDATE SUCCESSFUL: ${currentData.name} is now ${actualCount}`)
+              }
             }
           }
           
