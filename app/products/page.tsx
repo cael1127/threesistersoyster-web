@@ -67,36 +67,7 @@ export default function ProductsPage() {
   function ProductCard({ product }: { product: Product }) {
     const { originalDescription, inventory } = parseProductDescription(product.description, product.inventory_count)
 
-    const testInventoryUpdate = async () => {
-      try {
-        console.log(`Testing inventory update for ${product.name} (ID: ${product.id})`)
-        
-        const response = await fetch('/api/force-inventory-update', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            product_id: product.id,
-            quantity: 1
-          })
-        })
-        
-        const result = await response.json()
-        console.log('Force update test result:', result)
-        
-        if (result.success) {
-          alert(`✅ Inventory updated successfully!\n${product.name}: ${result.product.oldInventory} → ${result.product.newInventory}\nVerification: ${result.verification.match ? 'PASSED' : 'FAILED'}`)
-          // Refresh the page to show updated inventory
-          window.location.reload()
-        } else {
-          alert(`❌ Test failed: ${result.error}`)
-        }
-      } catch (error) {
-        console.error('Test error:', error)
-        alert(`❌ Test error: ${error}`)
-      }
-    }
+
 
     return (
       <Card className="border-purpleBrand/30 bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 group">
@@ -152,19 +123,7 @@ export default function ProductsPage() {
               }}
             />
 
-            {/* Debug Test Button - Only show in development */}
-            {process.env.NODE_ENV === 'development' && (
-              <div className="mt-3">
-                <Button
-                  onClick={testInventoryUpdate}
-                  variant="outline"
-                  size="sm"
-                  className="text-xs border-blue-300 text-blue-700 hover:bg-blue-50"
-                >
-                  🧪 Force Inventory Update
-                </Button>
-              </div>
-            )}
+
           </div>
         </CardContent>
       </Card>
