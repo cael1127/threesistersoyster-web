@@ -9,7 +9,7 @@ import Navigation from '@/components/Navigation';
 
 interface GalleryItem {
   id: number;
-  type: 'image' | 'video';
+  type: 'image';
   src: string;
   poster?: string;
   alt: string;
@@ -70,14 +70,6 @@ export default function GalleryPage() {
     },
     {
       id: 7,
-      type: 'video',
-      src: '/homepage.MP4',
-      alt: 'Farm Tour Video',
-      title: 'Farm Tour',
-      description: 'Experience the beauty and operations of our oyster farm through this immersive video tour'
-    },
-    {
-      id: 8,
       type: 'image',
       src: '/nurserylog.JPEG',
       alt: 'Nursery Operations',
@@ -85,7 +77,7 @@ export default function GalleryPage() {
       description: 'Our oyster nursery in action'
     },
     {
-      id: 9,
+      id: 8,
       type: 'image',
       src: '/aboutpic.jpg',
       alt: 'Family at Farm',
@@ -93,7 +85,7 @@ export default function GalleryPage() {
       description: 'Blake and family at the oyster farm'
     },
     {
-      id: 10,
+      id: 9,
       type: 'image',
       src: '/logo.jpg',
       alt: 'Three Sisters Logo',
@@ -116,10 +108,10 @@ export default function GalleryPage() {
           {/* Hero Section */}
           <ScrollAnimatedSection animationType="fade-in" delay={200}>
             <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-purple-900 mb-6 leading-tight text-center">Kathryn's Photo Bomb</h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-purple-900 mb-6 leading-tight text-center">Kathryn's Photo Gallery</h1>
               <p className="text-xl md:text-2xl text-purple-800 max-w-3xl mx-auto leading-relaxed">
                 A visual journey through our oyster farm, capturing the beauty of nature, 
-                the hard work of our team, and the magic of sustainable aquaculture.
+                the hard work of our team, and the magic of sustainable aquaculture through stunning photography.
               </p>
             </div>
           </ScrollAnimatedSection>
