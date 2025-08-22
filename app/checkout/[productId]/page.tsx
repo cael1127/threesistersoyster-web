@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Minus, Plus, ArrowLeft, Waves } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { supabase, type Product } from "../../lib/supabase"
+import { supabase, type Product } from "@/lib/supabase"
 import Navigation from "@/components/Navigation"
 
 

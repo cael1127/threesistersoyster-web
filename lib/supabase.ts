@@ -166,6 +166,28 @@ export async function getAllInventory() {
   return data as Inventory[]
 }
 
+// Get total inventory count for counter
+export async function getInventoryCount() {
+  try {
+    if (!isSupabaseConfigured()) {
+      console.log("Supabase not configured, returning fallback value")
+      return 0
+    }
+
+    const { data, error } = await supabase.from("inventory").select("count").eq("harvestReady", true)
+
+    if (error) {
+      console.error("Error fetching inventory:", error)
+      return 0
+    }
+
+    return data?.reduce((total, item) => total + item.count, 0) || 0
+  } catch (error) {
+    console.error("Supabase connection error:", error)
+    return 0
+  }
+}
+
 // Get harvest ready inventory count - parsing from description JSON (ALL inventory)
 export async function getHarvestReadyInventoryCount() {
   try {
