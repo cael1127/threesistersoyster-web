@@ -249,7 +249,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const getSessionId = useCallback(() => {
     return sessionIdRef.current
-  }, []))
+  }, [])
 
       return (
       <CartContext.Provider
