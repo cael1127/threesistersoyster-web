@@ -1,10 +1,11 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Play } from 'lucide-react';
+import { VideoModal } from '@/components/ui/video-modal';
 
 interface GalleryItem {
   id: number;
@@ -20,11 +21,25 @@ interface GalleryGridProps {
 }
 
 export default function GalleryGrid({ items }: GalleryGridProps) {
+  const [selectedVideo, setSelectedVideo] = useState<GalleryItem | null>(null);
+  const [videoLoading, setVideoLoading] = useState(false);
+
   const handleVideoClick = (item: GalleryItem) => {
     if (item.type === 'video') {
-      // Open video in a new tab for simplicity
-      window.open(item.src, '_blank');
+      console.log('Opening video:', item.src);
+      setVideoLoading(true);
+      setSelectedVideo(item);
     }
+  };
+
+  const closeVideoModal = () => {
+    setSelectedVideo(null);
+    setVideoLoading(false);
+  };
+
+  const handleVideoError = (error: any) => {
+    console.error('Video playback error:', error);
+    setVideoLoading(false);
   };
 
   return (
@@ -48,14 +63,16 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
                   />
                 ) : (
                   <div 
-                    className="w-full h-full bg-gray-200 flex items-center justify-center cursor-pointer group"
+                    className="w-full h-full bg-gray-200 flex items-center justify-center cursor-pointer group hover:bg-gray-300 transition-colors duration-300"
                     onClick={() => handleVideoClick(item)}
                   >
                     <div className="text-center">
                       <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                         <Play className="w-8 h-8 text-gray-800 ml-1" />
                       </div>
-                      <p className="text-gray-600 text-sm mt-2">Click to play video</p>
+                      <p className="text-gray-600 text-sm mt-2 group-hover:text-gray-800 transition-colors duration-300">
+                        {videoLoading && selectedVideo?.id === item.id ? 'Loading...' : 'Click to play video'}
+                      </p>
                     </div>
                   </div>
                 )}
@@ -72,7 +89,17 @@ export default function GalleryGrid({ items }: GalleryGridProps) {
         ))}
       </div>
 
-
+      {/* Video Modal */}
+      {selectedVideo && (
+        <VideoModal
+          isOpen={!!selectedVideo}
+          onClose={closeVideoModal}
+          src={selectedVideo.src}
+          alt={selectedVideo.alt}
+          title={selectedVideo.title}
+          description={selectedVideo.description}
+        />
+      )}
     </>
   );
 } 

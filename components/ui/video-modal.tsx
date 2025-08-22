@@ -150,8 +150,17 @@ export function VideoModal({
           onDurationChange={() => setDuration(videoRef.current?.duration || 0)}
           onLoadStart={() => setIsLoading(true)}
           onLoadedData={() => setIsLoading(false)}
+          onCanPlay={() => {
+            console.log('Video can play');
+            setIsLoading(false);
+          }}
+          onLoadedMetadata={() => {
+            console.log('Video metadata loaded');
+            setIsLoading(false);
+          }}
         >
           <source src={src} type="video/mp4" />
+          <source src={src} type="video/MP4" />
           Your browser does not support the video tag.
         </video>
 

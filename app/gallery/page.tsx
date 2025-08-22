@@ -23,13 +23,45 @@ export default function GalleryPage() {
     {
       id: 1,
       type: 'image',
+      src: '/gal.jpg',
+      alt: 'Gallery Collection 1',
+      title: 'Gallery Collection 1',
+      description: 'A beautiful moment captured at Three Sisters Oyster Co.'
+    },
+    {
+      id: 2,
+      type: 'image',
+      src: '/gal1.jpg',
+      alt: 'Gallery Collection 2',
+      title: 'Gallery Collection 2',
+      description: 'Another stunning view from our oyster farm collection'
+    },
+    {
+      id: 3,
+      type: 'image',
+      src: '/gal2.jpg',
+      alt: 'Gallery Collection 3',
+      title: 'Gallery Collection 3',
+      description: 'Capturing the natural beauty and essence of our farm'
+    },
+    {
+      id: 4,
+      type: 'image',
+      src: '/gal3.jpg',
+      alt: 'Gallery Collection 4',
+      title: 'Gallery Collection 4',
+      description: 'A special moment in time at Three Sisters Oyster Co.'
+    },
+    {
+      id: 5,
+      type: 'image',
       src: '/topFarm.JPG',
       alt: 'Coastside Oyster Farm',
       title: 'Coastside Oyster Farm',
       description: 'Beautiful view of the oyster farm'
     },
     {
-      id: 2,
+      id: 6,
       type: 'image',
       src: '/farmlog.jpg',
       alt: 'Farm Operations',
@@ -37,15 +69,15 @@ export default function GalleryPage() {
       description: 'Daily operations at the oyster farm'
     },
     {
-      id: 3,
+      id: 7,
       type: 'video',
       src: '/homepage.MP4',
       alt: 'Farm Tour Video',
       title: 'Farm Tour',
-      description: 'Take a tour of our oyster farm'
+      description: 'Experience the beauty and operations of our oyster farm through this immersive video tour'
     },
     {
-      id: 4,
+      id: 8,
       type: 'image',
       src: '/nurserylog.JPEG',
       alt: 'Nursery Operations',
@@ -53,7 +85,7 @@ export default function GalleryPage() {
       description: 'Our oyster nursery in action'
     },
     {
-      id: 5,
+      id: 9,
       type: 'image',
       src: '/aboutpic.jpg',
       alt: 'Family at Farm',
@@ -61,7 +93,7 @@ export default function GalleryPage() {
       description: 'Blake and family at the oyster farm'
     },
     {
-      id: 6,
+      id: 10,
       type: 'image',
       src: '/logo.jpg',
       alt: 'Three Sisters Logo',
