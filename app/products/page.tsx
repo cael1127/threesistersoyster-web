@@ -71,7 +71,7 @@ export default function ProductsPage() {
       try {
         console.log(`Testing inventory update for ${product.name} (ID: ${product.id})`)
         
-        const response = await fetch('/api/test-inventory-update', {
+        const response = await fetch('/api/force-inventory-update', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -83,10 +83,10 @@ export default function ProductsPage() {
         })
         
         const result = await response.json()
-        console.log('Test result:', result)
+        console.log('Force update test result:', result)
         
         if (result.success) {
-          alert(`✅ Inventory updated successfully!\n${product.name}: ${result.product.oldInventory} → ${result.product.newInventory}`)
+          alert(`✅ Inventory updated successfully!\n${product.name}: ${result.product.oldInventory} → ${result.product.newInventory}\nVerification: ${result.verification.match ? 'PASSED' : 'FAILED'}`)
           // Refresh the page to show updated inventory
           window.location.reload()
         } else {
@@ -161,7 +161,7 @@ export default function ProductsPage() {
                   size="sm"
                   className="text-xs border-blue-300 text-blue-700 hover:bg-blue-50"
                 >
-                  🧪 Test Inventory Update
+                  🧪 Force Inventory Update
                 </Button>
               </div>
             )}

@@ -122,60 +122,67 @@ export async function POST(request: NextRequest) {
 
       console.log(`📦 Total items to update: ${itemsToUpdate.length}`)
 
-      // Update inventory for all items
+      // Update inventory for all items using direct SQL for reliability
       for (const item of itemsToUpdate) {
         try {
           console.log(`🔄 Updating inventory for "${item.name}" (ID: ${item.id}): -${item.quantity}`)
           
-          // First get current product data including description
-          const { data: currentData, error: selectError } = await supabase
-            .from("products")
-            .select("id, name, inventory_count, description")
-            .eq("id", item.id)
-            .single()
+          // Use the force inventory update endpoint for maximum reliability
+          const updateResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/force-inventory-update`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              product_id: item.id,
+              quantity: item.quantity
+            })
+          })
           
-          if (selectError) {
-            console.error(`❌ Error getting current product data for ${item.name}:`, selectError)
-            continue
-          }
-          
-          if (!currentData) {
-            console.error(`❌ Product not found with ID: ${item.id}`)
-            continue
-          }
-          
-          // Calculate new inventory count
-          const currentCount = currentData.inventory_count || 0
-          const newCount = Math.max(0, currentCount - item.quantity)
-          
-          console.log(`📊 Updating ${currentData.name} inventory: ${currentCount} → ${newCount}`)
-          
-          // Update both inventory_count and description JSON if it exists
-          let updateData: any = { inventory_count: newCount }
-          
-          try {
-            if (currentData.description) {
-              const parsedDesc = JSON.parse(currentData.description)
-              parsedDesc.inventory = newCount
-              updateData.description = JSON.stringify(parsedDesc)
-              console.log(`✅ Updated description JSON with new inventory: ${newCount}`)
+          if (updateResponse.ok) {
+            const updateResult = await updateResponse.json()
+            console.log(`✅ Force inventory update successful for ${item.name}:`, updateResult)
+            
+            if (updateResult.verification && updateResult.verification.match) {
+              console.log(`✅ INVENTORY VERIFICATION PASSED: ${item.name} is now ${updateResult.verification.actual}`)
+            } else {
+              console.error(`❌ INVENTORY VERIFICATION FAILED: ${item.name} expected ${updateResult.verification.expected}, got ${updateResult.verification.actual}`)
             }
-          } catch (parseError) {
-            console.log("ℹ️ Description is not JSON, updating only inventory_count")
-          }
-          
-          // Update the product with new inventory count
-          const { data: updateResult, error: updateError } = await supabase
-            .from("products")
-            .update(updateData)
-            .eq("id", item.id)
-            .select()
-          
-          if (updateError) {
-            console.error(`❌ Error updating inventory for ${currentData.name}:`, updateError)
           } else {
-            console.log(`✅ Successfully updated inventory for ${currentData.name}:`, updateResult)
+            const errorData = await updateResponse.json()
+            console.error(`❌ Force inventory update failed for ${item.name}:`, errorData)
+            
+            // Fallback to direct database update
+            console.log(`🔄 Trying fallback direct update...`)
+            const supabase = createSupabaseClient()
+            
+            const { data: currentData, error: selectError } = await supabase
+              .from("products")
+              .select("id, name, inventory_count")
+              .eq("id", item.id)
+              .single()
+            
+            if (selectError) {
+              console.error(`❌ Fallback select failed:`, selectError)
+              continue
+            }
+            
+            const currentCount = currentData.inventory_count || 0
+            const newCount = Math.max(0, currentCount - item.quantity)
+            
+            const { data: fallbackResult, error: fallbackError } = await supabase
+              .from("products")
+              .update({ inventory_count: newCount })
+              .eq("id", item.id)
+              .select()
+            
+            if (fallbackError) {
+              console.error(`❌ Fallback update also failed:`, fallbackError)
+            } else {
+              console.log(`✅ Fallback update successful:`, fallbackResult)
+            }
           }
+          
         } catch (error) {
           console.error(`❌ Error processing item ${item.name}:`, error)
         }
