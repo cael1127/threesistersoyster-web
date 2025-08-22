@@ -54,7 +54,7 @@ const originCrew = [
     name: "Cael Findley",
     role: "Software Developer",
     description: "Cael develops and maintains our digital infrastructure, including inventory tracking systems and our e-commerce platform. He helps modernize our operations through technology.",
-    image: "/logo.jpg",
+    image: "/cael.JPEG",
   },
 ];
 
