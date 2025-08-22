@@ -17,18 +17,18 @@ export async function POST(request: NextRequest) {
     const updateResults = []
 
     for (const item of items) {
-      if (item.name && item.quantity > 0) {
-        console.log(`Updating inventory for "${item.name}": -${item.quantity}`)
+      if (item.id && item.quantity > 0) {
+        console.log(`Updating inventory for "${item.name}" (ID: ${item.id}): -${item.quantity}`)
         
-        // First get current inventory count
+        // First get current product data including description
         const { data: currentData, error: selectError } = await supabase
           .from("products")
-          .select("inventory_count")
-          .eq("name", item.name)
+          .select("id, name, inventory_count, description")
+          .eq("id", item.id)
           .single()
         
         if (selectError) {
-          console.error(`Error getting current inventory for ${item.name}:`, selectError)
+          console.error(`Error getting current product data for ${item.name}:`, selectError)
           updateResults.push({
             item: item.name,
             success: false,
@@ -37,30 +37,65 @@ export async function POST(request: NextRequest) {
           continue
         }
         
-        // Update inventory in the products table
+        if (!currentData) {
+          console.error(`Product not found with ID: ${item.id}`)
+          updateResults.push({
+            item: item.name,
+            success: false,
+            error: `Product not found with ID: ${item.id}`
+          })
+          continue
+        }
+        
+        // Calculate new inventory count
+        const currentCount = currentData.inventory_count || 0
+        const newCount = Math.max(0, currentCount - item.quantity)
+        
+        console.log(`Updating ${currentData.name} inventory: ${currentCount} → ${newCount}`)
+        
+        // Update both inventory_count and description JSON if it exists
+        let updateData: any = { inventory_count: newCount }
+        
+        try {
+          if (currentData.description) {
+            const parsedDesc = JSON.parse(currentData.description)
+            parsedDesc.inventory = newCount
+            updateData.description = JSON.stringify(parsedDesc)
+            console.log(`Updated description JSON with new inventory: ${newCount}`)
+          }
+        } catch (parseError) {
+          console.log("Description is not JSON, updating only inventory_count")
+        }
+        
+        // Update the product with new inventory count
         const { data: updateResult, error: updateError } = await supabase
           .from("products")
-          .update({ 
-            inventory_count: Math.max(0, (currentData.inventory_count || 0) - item.quantity)
-          })
-          .eq("name", item.name)
+          .update(updateData)
+          .eq("id", item.id)
           .select()
         
         if (updateError) {
-          console.error(`Error updating inventory for ${item.name}:`, updateError)
+          console.error(`Error updating inventory for ${currentData.name}:`, updateError)
           updateResults.push({
-            item: item.name,
+            item: currentData.name,
             success: false,
             error: updateError.message
           })
         } else {
-          console.log(`Successfully updated inventory for ${item.name}:`, updateResult)
+          console.log(`Successfully updated inventory for ${currentData.name}:`, updateResult)
           updateResults.push({
-            item: item.name,
+            item: currentData.name,
             success: true,
             newCount: updateResult[0]?.inventory_count
           })
         }
+      } else {
+        console.error(`Invalid item data:`, item)
+        updateResults.push({
+          item: item.name || 'Unknown',
+          success: false,
+          error: 'Missing ID or invalid quantity'
+        })
       }
     }
 

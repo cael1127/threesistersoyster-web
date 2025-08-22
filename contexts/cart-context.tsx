@@ -180,7 +180,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            items: [{ name: item.name, quantity: item.quantity || 1 }],
+            items: [{ 
+              id: item.id,
+              name: item.name, 
+              quantity: item.quantity || 1 
+            }],
             session_id: sessionIdRef.current
           })
         })

@@ -11,10 +11,18 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
 
 export async function POST(request: NextRequest) {
   try {
+    console.log("=== WEBHOOK RECEIVED ===")
+    const headersList = await headers()
+    console.log("Request headers:", Object.fromEntries(headersList.entries()))
+    
     const body = await request.text()
-    const signature = headers().get("stripe-signature")
+    const signature = headersList.get("stripe-signature")
+
+    console.log("Webhook body length:", body.length)
+    console.log("Stripe signature present:", !!signature)
 
     if (!signature) {
+      console.error("No signature provided")
       return NextResponse.json({ error: "No signature" }, { status: 400 })
     }
 
@@ -22,6 +30,9 @@ export async function POST(request: NextRequest) {
 
     try {
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
+      console.log("Webhook signature verified successfully")
+      console.log("Event type:", event.type)
+      console.log("Event ID:", event.id)
     } catch (err) {
       console.error("Webhook signature verification failed:", err)
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 })
@@ -30,7 +41,10 @@ export async function POST(request: NextRequest) {
     if (event.type === "checkout.session.completed") {
       const session = event.data.object as Stripe.Checkout.Session
       
-      console.log("Processing completed checkout session:", session.id)
+      console.log("=== PROCESSING COMPLETED CHECKOUT SESSION ===")
+      console.log("Session ID:", session.id)
+      console.log("Session metadata:", session.metadata)
+      console.log("Session amount total:", session.amount_total)
       
       // Extract order details from metadata
       const orderTotal = parseFloat(session.metadata?.orderTotal || "0")
@@ -38,27 +52,36 @@ export async function POST(request: NextRequest) {
       const customerName = session.metadata?.customerName || "Unknown"
       const customerEmail = session.metadata?.customerEmail || "Unknown"
       
+      console.log("Extracted metadata:", {
+        orderTotal,
+        itemCount,
+        customerName,
+        customerEmail
+      })
+      
       // Get line items to update inventory - try multiple methods
       const supabase = createSupabaseClient()
-      let itemsToUpdate: Array<{name: string, quantity: number}> = []
+      let itemsToUpdate: Array<{id: string, name: string, quantity: number}> = []
 
       // Method 1: Try to get items from metadata (most reliable)
       if (session.metadata?.items) {
         try {
           const metadataItems = JSON.parse(session.metadata.items)
           itemsToUpdate = metadataItems.map((item: any) => ({
+            id: item.id,
             name: item.name,
             quantity: item.quantity
           }))
-          console.log("Using items from metadata:", itemsToUpdate)
+          console.log("✅ Using items from metadata:", itemsToUpdate)
         } catch (error) {
-          console.error("Error parsing items from metadata:", error)
+          console.error("❌ Error parsing items from metadata:", error)
         }
       }
 
       // Method 2: If metadata doesn't work, fetch line items from Stripe
       if (itemsToUpdate.length === 0) {
         try {
+          console.log("🔄 Metadata items not available, fetching from Stripe...")
           const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
             expand: ['data.price.product']
           })
@@ -66,58 +89,102 @@ export async function POST(request: NextRequest) {
           console.log("Retrieved line items from Stripe:", lineItems.data.length)
           
           for (const item of lineItems.data) {
-            const productName = item.price?.product_data?.name || item.description
+            // Handle both old and new Stripe API versions
+            const productName = (item.price as any)?.product_data?.name || 
+                               (item.price as any)?.product?.name || 
+                               item.description
             const quantity = item.quantity || 0
             
             if (productName && quantity > 0) {
-              itemsToUpdate.push({ name: productName, quantity })
+              // Try to find product by name to get ID
+              const { data: productData, error: productError } = await supabase
+                .from("products")
+                .select("id")
+                .eq("name", productName)
+                .single()
+              
+              if (productData && !productError) {
+                itemsToUpdate.push({ 
+                  id: productData.id, 
+                  name: productName, 
+                  quantity 
+                })
+                console.log(`✅ Found product by name: ${productName} → ID: ${productData.id}`)
+              } else {
+                console.error(`❌ Could not find product with name: ${productName}`)
+              }
             }
           }
         } catch (lineItemError) {
-          console.error("Error fetching line items:", lineItemError)
+          console.error("❌ Error fetching line items:", lineItemError)
         }
       }
+
+      console.log(`📦 Total items to update: ${itemsToUpdate.length}`)
 
       // Update inventory for all items
       for (const item of itemsToUpdate) {
         try {
-          console.log(`Updating inventory for "${item.name}": -${item.quantity}`)
+          console.log(`🔄 Updating inventory for "${item.name}" (ID: ${item.id}): -${item.quantity}`)
           
-          // First get current inventory count
+          // First get current product data including description
           const { data: currentData, error: selectError } = await supabase
             .from("products")
-            .select("inventory_count")
-            .eq("name", item.name)
+            .select("id, name, inventory_count, description")
+            .eq("id", item.id)
             .single()
           
           if (selectError) {
-            console.error(`Error getting current inventory for ${item.name}:`, selectError)
+            console.error(`❌ Error getting current product data for ${item.name}:`, selectError)
             continue
           }
           
-          // Update inventory in the products table
+          if (!currentData) {
+            console.error(`❌ Product not found with ID: ${item.id}`)
+            continue
+          }
+          
+          // Calculate new inventory count
+          const currentCount = currentData.inventory_count || 0
+          const newCount = Math.max(0, currentCount - item.quantity)
+          
+          console.log(`📊 Updating ${currentData.name} inventory: ${currentCount} → ${newCount}`)
+          
+          // Update both inventory_count and description JSON if it exists
+          let updateData: any = { inventory_count: newCount }
+          
+          try {
+            if (currentData.description) {
+              const parsedDesc = JSON.parse(currentData.description)
+              parsedDesc.inventory = newCount
+              updateData.description = JSON.stringify(parsedDesc)
+              console.log(`✅ Updated description JSON with new inventory: ${newCount}`)
+            }
+          } catch (parseError) {
+            console.log("ℹ️ Description is not JSON, updating only inventory_count")
+          }
+          
+          // Update the product with new inventory count
           const { data: updateResult, error: updateError } = await supabase
             .from("products")
-            .update({ 
-              inventory_count: Math.max(0, (currentData.inventory_count || 0) - item.quantity)
-            })
-            .eq("name", item.name)
+            .update(updateData)
+            .eq("id", item.id)
             .select()
           
           if (updateError) {
-            console.error(`Error updating inventory for ${item.name}:`, updateError)
+            console.error(`❌ Error updating inventory for ${currentData.name}:`, updateError)
           } else {
-            console.log(`Successfully updated inventory for ${item.name}:`, updateResult)
+            console.log(`✅ Successfully updated inventory for ${currentData.name}:`, updateResult)
           }
         } catch (error) {
-          console.error(`Error processing item ${item.name}:`, error)
+          console.error(`❌ Error processing item ${item.name}:`, error)
         }
       }
       
       // Release inventory reservations for this session
       if (session.metadata?.session_id) {
         try {
-          console.log(`Releasing reservations for session: ${session.metadata.session_id}`)
+          console.log(`🔄 Releasing reservations for session: ${session.metadata.session_id}`)
           
           const releaseResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/reserve-inventory`, {
             method: 'DELETE',
@@ -131,22 +198,25 @@ export async function POST(request: NextRequest) {
           
           if (releaseResponse.ok) {
             const releaseData = await releaseResponse.json()
-            console.log(`Released ${releaseData.releasedCount} reservations`)
+            console.log(`✅ Released ${releaseData.releasedCount} reservations`)
           } else {
-            console.error('Failed to release reservations:', await releaseResponse.text())
+            console.error('❌ Failed to release reservations:', await releaseResponse.text())
           }
         } catch (releaseError) {
-          console.error('Error releasing reservations:', releaseError)
+          console.error('❌ Error releasing reservations:', releaseError)
         }
       }
       
       // You could also save the order to a separate orders table here
-      console.log(`Order completed: ${customerName} (${customerEmail}) - $${orderTotal}`)
+      console.log(`🎉 Order completed: ${customerName} (${customerEmail}) - $${orderTotal}`)
+      console.log("=== WEBHOOK PROCESSING COMPLETE ===")
+    } else {
+      console.log(`ℹ️ Webhook event type not handled: ${event.type}`)
     }
 
     return NextResponse.json({ received: true })
   } catch (error) {
-    console.error("Webhook error:", error)
+    console.error("❌ Webhook error:", error)
     return NextResponse.json(
       { error: "Webhook handler failed" },
       { status: 500 }

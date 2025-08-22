@@ -3,6 +3,7 @@ import { getSupabaseClient } from "@/lib/supabase"
 
 // In-memory storage for reservations (in production, consider Redis or similar)
 const activeReservations = new Map<string, {
+  product_id: string
   product_name: string
   session_id: string
   quantity: number
@@ -40,15 +41,15 @@ export async function POST(request: NextRequest) {
     const expiresAt = new Date(now.getTime() + 2 * 60 * 1000) // 2 minutes from now
 
     for (const item of items) {
-      if (item.name && item.quantity > 0) {
+      if (item.id && item.name && item.quantity > 0) {
         try {
-          console.log(`Reserving inventory for "${item.name}": ${item.quantity}`)
+          console.log(`Reserving inventory for "${item.name}" (ID: ${item.id}): ${item.quantity}`)
           
           // Check current inventory and existing reservations
           const { data: currentData, error: selectError } = await supabase
             .from("products")
-            .select("inventory_count")
-            .eq("name", item.name)
+            .select("id, name, inventory_count")
+            .eq("id", item.id)
             .single()
 
           if (selectError) {
@@ -61,12 +62,22 @@ export async function POST(request: NextRequest) {
             continue
           }
 
+          if (!currentData) {
+            console.error(`Product not found with ID: ${item.id}`)
+            reservationResults.push({
+              item: item.name,
+              success: false,
+              error: `Product not found with ID: ${item.id}`
+            })
+            continue
+          }
+
           const currentInventory = currentData.inventory_count || 0
           
           // Calculate how much is already reserved by other sessions
           let reservedQuantity = 0
           for (const reservation of activeReservations.values()) {
-            if (reservation.product_name === item.name && reservation.session_id !== session_id) {
+            if (reservation.product_id === item.id && reservation.session_id !== session_id) {
               reservedQuantity += reservation.quantity
             }
           }
@@ -83,15 +94,16 @@ export async function POST(request: NextRequest) {
           }
 
           // Create reservation in memory
-          const reservationKey = `${session_id}_${item.name}`
+          const reservationKey = `${session_id}_${item.id}`
           activeReservations.set(reservationKey, {
+            product_id: item.id,
             product_name: item.name,
             session_id: session_id,
             quantity: item.quantity,
             expires_at: expiresAt
           })
 
-          console.log(`Successfully reserved ${item.quantity} of ${item.name}`)
+          console.log(`Successfully reserved ${item.quantity} of ${item.name} (ID: ${item.id})`)
           reservationResults.push({
             item: item.name,
             success: true,
@@ -108,6 +120,13 @@ export async function POST(request: NextRequest) {
             error: 'Internal server error'
           })
         }
+      } else {
+        console.error(`Invalid item data:`, item)
+        reservationResults.push({
+          item: item.name || 'Unknown',
+          success: false,
+          error: 'Missing ID, name, or invalid quantity'
+        })
       }
     }
 
@@ -171,6 +190,7 @@ export async function GET() {
   cleanupExpiredReservations()
   
   const reservations = Array.from(activeReservations.values()).map(reservation => ({
+    product_id: reservation.product_id,
     product_name: reservation.product_name,
     session_id: reservation.session_id,
     quantity: reservation.quantity,

@@ -3,76 +3,98 @@ import { createSupabaseClient } from "@/lib/supabase"
 
 export async function POST(request: NextRequest) {
   try {
-    // Test inventory update with sample data
-    const testItems = [
-      { name: "ONLY CAEL ORDER", quantity: 1 }
-    ]
+    const body = await request.json()
+    const { product_id, quantity } = body
 
-    console.log("TEST: Updating inventory with test items:", testItems)
-
-    const supabase = createSupabaseClient()
-    const updateResults = []
-
-    for (const item of testItems) {
-      console.log(`TEST: Updating inventory for "${item.name}": -${item.quantity}`)
-      
-      // First, check current inventory
-      const { data: currentData, error: selectError } = await supabase
-        .from("products")
-        .select("inventory_count")
-        .eq("name", item.name)
-        .single()
-
-      if (selectError) {
-        console.error(`Error checking current inventory for ${item.name}:`, selectError)
-        updateResults.push({
-          item: item.name,
-          success: false,
-          error: `Product not found: ${selectError.message}`
-        })
-        continue
-      }
-
-      console.log(`Current inventory for ${item.name}:`, currentData.inventory_count)
-      
-      // Update inventory in the products table
-      const { data: updateResult, error: updateError } = await supabase
-        .from("products")
-        .update({ 
-          inventory_count: Math.max(0, (currentData.inventory_count || 0) - item.quantity)
-        })
-        .eq("name", item.name)
-        .select()
-      
-      if (updateError) {
-        console.error(`Error updating inventory for ${item.name}:`, updateError)
-        updateResults.push({
-          item: item.name,
-          success: false,
-          error: updateError.message
-        })
-      } else {
-        console.log(`Successfully updated inventory for ${item.name}:`, updateResult)
-        updateResults.push({
-          item: item.name,
-          success: true,
-          oldCount: currentData.inventory_count,
-          newCount: updateResult[0]?.inventory_count,
-          decreased: item.quantity
-        })
-      }
+    if (!product_id || !quantity) {
+      return NextResponse.json({ 
+        error: 'Product ID and quantity required',
+        received: { product_id, quantity }
+      }, { status: 400 })
     }
 
+    console.log(`Testing inventory update for product ${product_id}, quantity: ${quantity}`)
+
+    const supabase = createSupabaseClient()
+
+    // First, get current product data
+    const { data: currentData, error: selectError } = await supabase
+      .from("products")
+      .select("id, name, inventory_count, description")
+      .eq("id", product_id)
+      .single()
+
+    if (selectError) {
+      console.error(`Error fetching product:`, selectError)
+      return NextResponse.json({ 
+        error: 'Product not found',
+        details: selectError.message
+      }, { status: 404 })
+    }
+
+    if (!currentData) {
+      return NextResponse.json({ 
+        error: 'Product not found',
+        product_id 
+      }, { status: 404 })
+    }
+
+    console.log(`Current product data:`, currentData)
+
+    // Calculate new inventory count
+    const currentCount = currentData.inventory_count || 0
+    const newCount = Math.max(0, currentCount - quantity)
+
+    console.log(`Updating inventory: ${currentCount} → ${newCount}`)
+
+    // Update both inventory_count and description JSON if it exists
+    let updateData: any = { inventory_count: newCount }
+    
+    try {
+      if (currentData.description) {
+        const parsedDesc = JSON.parse(currentData.description)
+        parsedDesc.inventory = newCount
+        updateData.description = JSON.stringify(parsedDesc)
+        console.log(`Updated description JSON with new inventory: ${newCount}`)
+      }
+    } catch (parseError) {
+      console.log("Description is not JSON, updating only inventory_count")
+    }
+
+    // Update the product
+    const { data: updateResult, error: updateError } = await supabase
+      .from("products")
+      .update(updateData)
+      .eq("id", product_id)
+      .select()
+
+    if (updateError) {
+      console.error(`Error updating product:`, updateError)
+      return NextResponse.json({ 
+        error: 'Failed to update product',
+        details: updateError.message
+      }, { status: 500 })
+    }
+
+    console.log(`Successfully updated product:`, updateResult)
+
     return NextResponse.json({ 
-      success: true, 
-      message: "Test inventory update completed",
-      results: updateResults
+      success: true,
+      message: 'Inventory updated successfully',
+      product: {
+        id: currentData.id,
+        name: currentData.name,
+        oldInventory: currentCount,
+        newInventory: newCount,
+        quantityReduced: quantity
+      },
+      updateResult: updateResult[0]
     })
 
   } catch (error) {
-    console.error("Error in test inventory update:", error)
+    console.error("Test inventory update error:", error)
     return NextResponse.json(
-      { error: "Failed to test inventory update" },
+      { error: "Test failed", details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }
@@ -80,6 +102,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   return NextResponse.json({ 
-    message: "Test inventory update endpoint. Use POST to trigger a test update." 
+    message: 'Test inventory update endpoint',
+    usage: 'POST with { product_id: "string", quantity: number }'
   })
 }
