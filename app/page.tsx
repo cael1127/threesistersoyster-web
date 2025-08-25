@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 import TeamScroller from "@/components/TeamScroller";
 import { VideoPlayer } from '@/components/ui/video-player';
 import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
-import { FloatingParticles } from "@/components/ui/floating-particles";
+import { SeasonalFloatingParticles } from "@/components/ui/floating-particles";
 import Navigation from "@/components/Navigation";
 
 const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedCounter"));
@@ -18,7 +18,7 @@ const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedC
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative overflow-x-hidden">
-      <FloatingParticles particleCount={15} interactive={true} />
+      <SeasonalFloatingParticles count={15} />
       
       {/* Header */}
       <Navigation />

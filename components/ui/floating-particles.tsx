@@ -8,6 +8,29 @@ interface FloatingParticlesProps {
   interactive?: boolean;
 }
 
+// Season detection function
+function getCurrentSeason(): 'spring' | 'summer' | 'fall' | 'winter' {
+  const month = new Date().getMonth();
+  const day = new Date().getDate();
+  
+  // Spring: March 20 - June 20
+  if ((month === 2 && day >= 20) || month === 3 || month === 4 || (month === 5 && day <= 20)) {
+    return 'spring';
+  }
+  // Summer: June 21 - September 22
+  else if ((month === 5 && day >= 21) || month === 6 || month === 7 || (month === 8 && day <= 22)) {
+    return 'summer';
+  }
+  // Fall: September 23 - December 20
+  else if ((month === 8 && day >= 23) || month === 9 || month === 10 || (month === 11 && day <= 20)) {
+    return 'fall';
+  }
+  // Winter: December 21 - March 19
+  else {
+    return 'winter';
+  }
+}
+
 export function FloatingParticles({ 
   className = '', 
   particleCount = 8,
@@ -31,6 +54,8 @@ export function FloatingParticles({
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
+    const currentSeason = getCurrentSeason();
+
     // Particle class
     class Particle {
       x: number;
@@ -39,7 +64,9 @@ export function FloatingParticles({
       speedX: number;
       speedY: number;
       opacity: number;
-      type: 'bubble' | 'dot';
+      rotation: number;
+      rotationSpeed: number;
+      type: 'bubble' | 'leaf' | 'snowflake' | 'flower' | 'dot';
 
       constructor() {
         this.x = Math.random() * canvas.width;
@@ -48,12 +75,32 @@ export function FloatingParticles({
         this.speedX = (Math.random() - 0.5) * 0.3;
         this.speedY = (Math.random() - 0.5) * 0.3;
         this.opacity = Math.random() * 0.4 + 0.1;
-        this.type = Math.random() > 0.5 ? 'bubble' : 'dot';
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+        
+        // Set particle type based on season
+        switch (currentSeason) {
+          case 'spring':
+            this.type = Math.random() > 0.3 ? 'flower' : 'dot';
+            break;
+          case 'summer':
+            this.type = Math.random() > 0.3 ? 'bubble' : 'dot';
+            break;
+          case 'fall':
+            this.type = Math.random() > 0.3 ? 'leaf' : 'dot';
+            break;
+          case 'winter':
+            this.type = Math.random() > 0.3 ? 'snowflake' : 'dot';
+            break;
+          default:
+            this.type = 'dot';
+        }
       }
 
       update(mouseX: number, mouseY: number, isMouseMoving: boolean) {
         this.x += this.speedX;
         this.y += this.speedY;
+        this.rotation += this.rotationSpeed;
 
         // Mouse interaction
         if (interactive && isMouseMoving) {
@@ -94,35 +141,117 @@ export function FloatingParticles({
         ctx.save();
         ctx.globalAlpha = this.opacity;
         ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
 
-        if (this.type === 'bubble') {
-          // Draw bubble
-          ctx.beginPath();
-          ctx.arc(0, 0, this.size, 0, Math.PI * 2);
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-          ctx.lineWidth = 1;
-          ctx.stroke();
-          
-          // Inner glow
-          ctx.beginPath();
-          ctx.arc(0, 0, this.size * 0.7, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-          ctx.fill();
-          
-          // Highlight
-          ctx.beginPath();
-          ctx.arc(this.size * 0.3, -this.size * 0.3, this.size * 0.2, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-          ctx.fill();
-        } else {
-          // Draw dot
-          ctx.beginPath();
-          ctx.arc(0, 0, this.size, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-          ctx.fill();
+        switch (this.type) {
+          case 'bubble':
+            this.drawBubble();
+            break;
+          case 'leaf':
+            this.drawLeaf();
+            break;
+          case 'snowflake':
+            this.drawSnowflake();
+            break;
+          case 'flower':
+            this.drawFlower();
+            break;
+          default:
+            this.drawDot();
         }
 
         ctx.restore();
+      }
+
+      drawBubble() {
+        // Draw bubble
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        
+        // Inner glow
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size * 0.7, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.fill();
+        
+        // Highlight
+        ctx.beginPath();
+        ctx.arc(this.size * 0.3, -this.size * 0.3, this.size * 0.2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.fill();
+      }
+
+      drawLeaf() {
+        // Draw leaf shape
+        ctx.beginPath();
+        ctx.ellipse(0, 0, this.size * 1.5, this.size * 0.8, 0, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(139, 69, 19, 0.6)'; // Brown color for leaves
+        ctx.fill();
+        
+        // Leaf vein
+        ctx.beginPath();
+        ctx.moveTo(-this.size * 1.5, 0);
+        ctx.lineTo(this.size * 1.5, 0);
+        ctx.strokeStyle = 'rgba(160, 82, 45, 0.8)';
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+
+      drawSnowflake() {
+        // Draw snowflake
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.lineWidth = 0.5;
+        
+        // Main cross
+        ctx.beginPath();
+        ctx.moveTo(-this.size, 0);
+        ctx.lineTo(this.size, 0);
+        ctx.moveTo(0, -this.size);
+        ctx.lineTo(0, this.size);
+        ctx.stroke();
+        
+        // Diagonal lines
+        ctx.beginPath();
+        ctx.moveTo(-this.size * 0.7, -this.size * 0.7);
+        ctx.lineTo(this.size * 0.7, this.size * 0.7);
+        ctx.moveTo(-this.size * 0.7, this.size * 0.7);
+        ctx.lineTo(this.size * 0.7, -this.size * 0.7);
+        ctx.stroke();
+      }
+
+      drawFlower() {
+        // Draw flower petals
+        const petalCount = 5;
+        const petalSize = this.size * 1.2;
+        
+        ctx.fillStyle = 'rgba(255, 182, 193, 0.7)'; // Pink color for flowers
+        
+        for (let i = 0; i < petalCount; i++) {
+          const angle = (i / petalCount) * Math.PI * 2;
+          const x = Math.cos(angle) * petalSize;
+          const y = Math.sin(angle) * petalSize;
+          
+          ctx.beginPath();
+          ctx.arc(x, y, this.size * 0.6, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        
+        // Flower center
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size * 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 215, 0, 0.8)'; // Gold center
+        ctx.fill();
+      }
+
+      drawDot() {
+        // Draw simple dot
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.fill();
       }
     }
 
@@ -191,7 +320,24 @@ export function FloatingParticles({
   );
 }
 
-// Specialized floating elements for different themes
+// Seasonal floating elements
+export function SeasonalFloatingParticles({ 
+  count = 8, 
+  className = "" 
+}: { 
+  count?: number; 
+  className?: string 
+}) {
+  return (
+    <FloatingParticles
+      particleCount={count}
+      className={className}
+      interactive={true}
+    />
+  );
+}
+
+// Legacy specialized components (kept for backward compatibility)
 export function FloatingBubbles({ count = 8, className = "" }: { count?: number; className?: string }) {
   return (
     <FloatingParticles

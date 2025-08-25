@@ -11,7 +11,7 @@ import { Waves, Fish, ShoppingBag } from "lucide-react"
 import { AddToCartButton } from "@/components/add-to-cart-button"
 import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
-import { FloatingParticles } from "@/components/ui/floating-particles"
+import { SeasonalFloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
 
 export default function ProductsPage() {
@@ -133,7 +133,7 @@ export default function ProductsPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
-        <FloatingParticles particleCount={10} interactive={true} />
+        <SeasonalFloatingParticles count={10} />
         <Navigation />
         <div className="container mx-auto px-4 py-12">
           <div className="text-center">
@@ -147,7 +147,7 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
-      <FloatingParticles particleCount={10} interactive={true} />
+      <SeasonalFloatingParticles count={10} />
       {/* Header */}
       <Navigation />
 
@@ -165,12 +165,12 @@ export default function ProductsPage() {
           {/* Products Tabs */}
           <Tabs defaultValue="oysters" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-8">
-              <TabsTrigger value="oysters" className="flex items-center justify-center space-x-2 text-purple-900">
+              <TabsTrigger value="oysters" className="flex items-center justify-center space-x-2 text-purple-900 data-[state=active]:text-purple-900">
                 <Fish className="w-5 h-5" />
                 <span>Fresh Oysters</span>
                 <Badge variant="secondary">{oysterProducts.length}</Badge>
               </TabsTrigger>
-              <TabsTrigger value="merchandise" className="flex items-center justify-center space-x-2 text-purple-900">
+              <TabsTrigger value="merchandise" className="flex items-center justify-center space-x-2 text-purple-900 data-[state=active]:text-purple-900">
                 <ShoppingBag className="w-5 h-5" />
                 <span>Merchandise</span>
                 <Badge variant="secondary">{merchProducts.length}</Badge>

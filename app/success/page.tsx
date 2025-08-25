@@ -8,7 +8,7 @@ import { CheckCircle, Waves, Package, Phone, Mail, Loader2 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
-import { FloatingParticles } from "@/components/ui/floating-particles"
+import { SeasonalFloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
 
 export default function SuccessPage() {
@@ -92,7 +92,7 @@ export default function SuccessPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 to-seafoamBrand/20 flex items-center justify-center relative">
-        <FloatingParticles particleCount={6} interactive={true} />
+        <SeasonalFloatingParticles count={6} />
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mintBrand mx-auto mb-4"></div>
           <p className="text-white/80">Loading order details...</p>
@@ -103,7 +103,7 @@ export default function SuccessPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative overflow-hidden">
-      <FloatingParticles particleCount={10} interactive={true} />
+              <SeasonalFloatingParticles count={10} />
       <Navigation />
 
       <div className="container mx-auto px-4 py-12">

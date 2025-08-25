@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import OriginCrew from '@/components/OriginCrew';
 import GalleryGrid from '@/components/GalleryGrid';
 import ScrollAnimatedSection from '@/components/ScrollAnimatedSection';
-import { FloatingParticles } from '@/components/ui/floating-particles';
+import { SeasonalFloatingParticles } from '@/components/ui/floating-particles';
 import Navigation from '@/components/Navigation';
 
 interface GalleryItem {
@@ -98,7 +98,7 @@ export default function GalleryPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
-      <FloatingParticles particleCount={12} interactive={true} />
+              <SeasonalFloatingParticles count={12} />
       {/* Header */}
       <Navigation />
 

@@ -10,7 +10,7 @@ import { Fish, Leaf, MapPin, Calendar, Heart, DollarSign, Waves, TrendingUp, Pac
 import { useState, useEffect } from "react"
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { FloatingParticles } from "@/components/ui/floating-particles"
+import { SeasonalFloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
 
 const ClientInventoryCounters = dynamic(() => import("@/components/ClientInventoryCounters"));
@@ -225,7 +225,7 @@ export default function InventoryPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
-      <FloatingParticles particleCount={10} interactive={true} />
+      <SeasonalFloatingParticles count={10} />
       {/* Header */}
       <Navigation />
 
@@ -244,12 +244,12 @@ export default function InventoryPage() {
 
         <Tabs defaultValue="nursery" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8">
-            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-2 text-purple-900">
+            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-2 text-purple-900 data-[state=active]:text-purple-900">
               <Leaf className="w-4 h-4" />
               <span>Nursery</span>
               <Badge variant="secondary">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="farm" className="flex items-center justify-center space-x-2 text-purple-900">
+            <TabsTrigger value="farm" className="flex items-center justify-center space-x-2 text-purple-900 data-[state=active]:text-purple-900">
               <Fish className="w-4 h-4" />
               <span>Farm</span>
               <Badge variant="secondary">{processedFarmInventory.length}</Badge>

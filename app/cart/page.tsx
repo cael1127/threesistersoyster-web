@@ -8,7 +8,7 @@ import { Minus, Plus, Trash2, ArrowLeft, Waves, ShoppingBag, Loader2, CreditCard
 import Link from "next/link"
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
-import { FloatingParticles } from "@/components/ui/floating-particles"
+import { SeasonalFloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
 
 
@@ -105,7 +105,7 @@ export default function CartPage() {
   if (state.items.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative overflow-hidden">
-        <FloatingParticles particleCount={8} interactive={true} />
+        <SeasonalFloatingParticles count={8} />
         {/* Header */}
         <Navigation />
 
@@ -150,7 +150,7 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative overflow-hidden">
-      <FloatingParticles particleCount={8} interactive={true} />
+              <SeasonalFloatingParticles count={8} />
       {/* Header */}
       <Navigation />
 

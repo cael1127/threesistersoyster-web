@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Waves, ShoppingBag, Clock, MapPin, Shield, Leaf } from "lucide-react"
 import Link from "next/link"
 import { useCart } from "@/contexts/cart-context"
-import { FloatingParticles } from "@/components/ui/floating-particles"
+import { SeasonalFloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
 
 function CheckoutContent() {
@@ -69,7 +69,7 @@ function CheckoutContent() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 via-lavenderBrand/20 via-blueBrand/20 via-mintBrand/20 to-seafoamBrand/20 flex items-center justify-center relative">
-        <FloatingParticles particleCount={8} interactive={true} />
+        <SeasonalFloatingParticles count={8} />
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mintBrand mx-auto mb-4"></div>
           <p className="text-purple-800 font-medium">Preparing your checkout...</p>
@@ -81,7 +81,7 @@ function CheckoutContent() {
   if (error) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 via-lavenderBrand/20 via-blueBrand/20 via-mintBrand/20 to-seafoamBrand/20 relative overflow-hidden">
-        <FloatingParticles particleCount={8} interactive={true} />
+        <SeasonalFloatingParticles count={8} />
         <Navigation />
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-2xl mx-auto text-center">
@@ -102,7 +102,7 @@ function CheckoutContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 via-lavenderBrand/20 via-blueBrand/20 via-mintBrand/20 to-seafoamBrand/20 relative overflow-hidden">
-      <FloatingParticles particleCount={8} interactive={true} />
+      <SeasonalFloatingParticles count={8} />
       <Navigation />
 
       <div className="container mx-auto px-4 py-8">
@@ -220,7 +220,7 @@ export default function CheckoutPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-gradient-to-b from-purpleBrand/20 via-lavenderBrand/20 via-blueBrand/20 via-mintBrand/20 to-seafoamBrand/20 flex items-center justify-center relative">
-        <FloatingParticles particleCount={8} interactive={true} />
+        <SeasonalFloatingParticles count={8} />
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mintBrand mx-auto mb-4"></div>
           <p className="text-purple-800 font-medium">Loading checkout...</p>

@@ -7,14 +7,14 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { ShoppingCart, Phone, Mail, MapPin, ArrowRight, Star, Clock, Truck, Users, Award, Leaf, Fish } from "lucide-react"
-import { FloatingParticles } from "@/components/ui/floating-particles"
+import { SeasonalFloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
 import ScrollAnimatedSection from "@/components/ScrollAnimatedSection"
 
 export default function OrderPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative overflow-hidden">
-      <FloatingParticles particleCount={12} interactive={true} />
+              <SeasonalFloatingParticles count={12} />
       <Navigation />
 
       {/* Main Content */}
