@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface ScrollAnimatedSectionProps {
   children: React.ReactNode;
-  animationType: 'fade-in' | 'slide-left' | 'slide-right' | 'slide-up' | 'slide-down' | 'scale-in' | 'bounce-in';
+  animationType: 'fade-in' | 'slide-left' | 'slide-right' | 'slide-up' | 'slide-down' | 'scale-in' | 'bounce-in' | 'slide-up-far' | 'slide-left-far' | 'slide-right-far' | 'zoom-in' | 'rotate-in';
   delay?: number;
   className?: string;
   threshold?: number;
@@ -15,7 +15,7 @@ export default function ScrollAnimatedSection({
   animationType,
   delay = 0,
   className = '',
-  threshold = 0.1
+  threshold = 0.15
 }: ScrollAnimatedSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
@@ -51,17 +51,27 @@ export default function ScrollAnimatedSection({
         case 'fade-in':
           return `${baseClasses} opacity-0`;
         case 'slide-left':
-          return `${baseClasses} opacity-0 transform translate-x-12`;
+          return `${baseClasses} opacity-0 transform translate-x-24`;
         case 'slide-right':
-          return `${baseClasses} opacity-0 transform -translate-x-12`;
+          return `${baseClasses} opacity-0 transform -translate-x-24`;
         case 'slide-up':
-          return `${baseClasses} opacity-0 transform translate-y-12`;
+          return `${baseClasses} opacity-0 transform translate-y-24`;
         case 'slide-down':
-          return `${baseClasses} opacity-0 transform -translate-y-12`;
+          return `${baseClasses} opacity-0 transform -translate-y-24`;
+        case 'slide-up-far':
+          return `${baseClasses} opacity-0 transform translate-y-48`;
+        case 'slide-left-far':
+          return `${baseClasses} opacity-0 transform translate-x-48`;
+        case 'slide-right-far':
+          return `${baseClasses} opacity-0 transform -translate-x-48`;
         case 'scale-in':
-          return `${baseClasses} opacity-0 transform scale-95`;
-        case 'bounce-in':
+          return `${baseClasses} opacity-0 transform scale-90`;
+        case 'zoom-in':
           return `${baseClasses} opacity-0 transform scale-75`;
+        case 'bounce-in':
+          return `${baseClasses} opacity-0 transform scale-50`;
+        case 'rotate-in':
+          return `${baseClasses} opacity-0 transform rotate-12 scale-90`;
         default:
           return baseClasses;
       }
@@ -71,17 +81,21 @@ export default function ScrollAnimatedSection({
       case 'fade-in':
         return `${baseClasses} opacity-100`;
       case 'slide-left':
+      case 'slide-left-far':
         return `${baseClasses} opacity-100 transform translate-x-0`;
       case 'slide-right':
+      case 'slide-right-far':
         return `${baseClasses} opacity-100 transform translate-x-0`;
       case 'slide-up':
+      case 'slide-up-far':
         return `${baseClasses} opacity-100 transform translate-y-0`;
       case 'slide-down':
         return `${baseClasses} opacity-100 transform translate-y-0`;
       case 'scale-in':
-        return `${baseClasses} opacity-100 transform scale-100`;
+      case 'zoom-in':
       case 'bounce-in':
-        return `${baseClasses} opacity-100 transform scale-100`;
+      case 'rotate-in':
+        return `${baseClasses} opacity-100 transform scale-100 rotate-0`;
       default:
         return baseClasses;
     }

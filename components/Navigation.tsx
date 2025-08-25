@@ -12,7 +12,7 @@ export default function Navigation() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY
-      setIsScrolled(scrollTop > 10)
+      setIsScrolled(scrollTop > 20)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -21,50 +21,88 @@ export default function Navigation() {
 
   return (
     <header 
-      className={`bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled ? 'shadow-lg backdrop-blur-sm bg-purpleBrand/95' : 'bg-purpleBrand'
+      className={`sticky top-0 z-50 w-full transition-all duration-700 ease-out ${
+        isScrolled 
+          ? 'bg-white/90 backdrop-blur-xl shadow-2xl border-b border-purpleBrand/20' 
+          : 'bg-purpleBrand border-b border-transparent'
       }`}
       data-scrolled={isScrolled}
     >
       <div className="container mx-auto px-2 md:px-4 py-2 md:py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
-            <div className="w-8 h-8 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center">
+          <Link href="/" className="flex items-center space-x-2 md:space-x-3 flex-shrink-0 group">
+            <div className={`w-8 h-8 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center transition-all duration-500 ${
+              isScrolled ? 'ring-2 ring-purpleBrand/30 shadow-lg' : ''
+            }`}>
               <Image
                 src="/logo.jpg"
                 alt="Three Sisters Oyster Co. Logo"
                 width={96}
                 height={96}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 quality={100}
               />
             </div>
-            <div className="hidden md:block">
-              <h1 className="text-xl font-bold text-white text-center">
+            <div className={`hidden md:block transition-all duration-500 ${
+              isScrolled ? 'text-purple-900' : 'text-white'
+            }`}>
+              <h1 className="text-xl font-bold text-center">
                 Three Sisters Oyster Co.
               </h1>
-              <p className="text-xs text-white">Premium Texas Oysters</p>
+              <p className="text-xs opacity-80">Premium Texas Oysters</p>
             </div>
           </Link>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-4">
-            <Link href="/" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
+            <Link 
+              href="/" 
+              className={`font-medium text-sm transition-all duration-300 hover:scale-105 px-3 py-2 rounded-lg ${
+                isScrolled 
+                  ? 'text-purple-900 hover:text-purple-700 hover:bg-purpleBrand/10' 
+                  : 'text-white hover:text-white hover:bg-white/20'
+              }`}
+            >
               Home
             </Link>
-            <Link href="/products" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
+            <Link 
+              href="/products" 
+              className={`font-medium text-sm transition-all duration-300 hover:scale-105 px-3 py-2 rounded-lg ${
+                isScrolled 
+                  ? 'text-purple-900 hover:text-purple-700 hover:bg-purpleBrand/10' 
+                  : 'text-white hover:text-white hover:bg-white/20'
+              }`}
+            >
               Products
             </Link>
             <Link
               href="/inventory"
-              className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105"
+              className={`font-medium text-sm transition-all duration-300 hover:scale-105 px-3 py-2 rounded-lg ${
+                isScrolled 
+                  ? 'text-purple-900 hover:text-purple-700 hover:bg-purpleBrand/10' 
+                  : 'text-white hover:text-white hover:bg-white/20'
+              }`}
             >
               Inventory
             </Link>
-            <Link href="/gallery" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
+            <Link 
+              href="/gallery" 
+              className={`font-medium text-sm transition-all duration-300 hover:scale-105 px-3 py-2 rounded-lg ${
+                isScrolled 
+                  ? 'text-purple-900 hover:text-purple-700 hover:bg-purpleBrand/10' 
+                  : 'text-white hover:text-white hover:bg-white/20'
+              }`}
+            >
               Gallery
             </Link>
-            <Link href="/about" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
+            <Link 
+              href="/about" 
+              className={`font-medium text-sm transition-all duration-300 hover:scale-105 px-3 py-2 rounded-lg ${
+                isScrolled 
+                  ? 'text-purple-900 hover:text-purple-700 hover:bg-purpleBrand/10' 
+                  : 'text-white hover:text-white hover:bg-white/20'
+              }`}
+            >
               About
             </Link>
           </nav>
@@ -75,7 +113,11 @@ export default function Navigation() {
             <Button
               asChild
               size="sm"
-              className="bg-mintBrand hover:bg-seafoamBrand text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+              className={`transition-all duration-300 hover:scale-105 text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0 ${
+                isScrolled 
+                  ? 'bg-purpleBrand hover:bg-purple-800 text-white shadow-lg' 
+                  : 'bg-mintBrand hover:bg-seafoamBrand text-white'
+              }`}
             >
               <Link href="/order">Order</Link>
             </Button>
@@ -87,25 +129,41 @@ export default function Navigation() {
             <nav className="flex items-center justify-between flex-1 min-w-0">
               <Link 
                 href="/products" 
-                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105"
+                className={`font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg transition-all duration-300 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105 ${
+                  isScrolled 
+                    ? 'text-purple-900 hover:text-purple-700 hover:bg-purpleBrand/10' 
+                    : 'text-white hover:text-white hover:bg-white/20'
+                }`}
               >
                 Shop
               </Link>
               <Link 
                 href="/inventory" 
-                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105"
+                className={`font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg transition-all duration-300 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105 ${
+                  isScrolled 
+                    ? 'text-purple-900 hover:text-purple-700 hover:bg-purpleBrand/10' 
+                    : 'text-white hover:text-white hover:bg-white/20'
+                }`}
               >
                 Stock
               </Link>
               <Link 
                 href="/gallery" 
-                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105"
+                className={`font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg transition-all duration-300 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105 ${
+                  isScrolled 
+                    ? 'text-purple-900 hover:text-purple-700 hover:bg-purpleBrand/10' 
+                    : 'text-white hover:text-white hover:bg-white/20'
+                }`}
               >
                 Gallery
               </Link>
               <Link 
                 href="/about" 
-                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105"
+                className={`font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg transition-all duration-300 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105 ${
+                  isScrolled 
+                    ? 'text-purple-900 hover:text-purple-700 hover:bg-purpleBrand/10' 
+                    : 'text-white hover:text-white hover:bg-white/20'
+                }`}
               >
                 About
               </Link>
@@ -117,7 +175,11 @@ export default function Navigation() {
               <Button
                 asChild
                 size="sm"
-                className="bg-mintBrand text-white hover:bg-seafoamBrand text-xs px-2 min-h-[40px] focus-visible:ring-0 focus-visible:ring-offset-0"
+                className={`transition-all duration-300 hover:scale-105 text-xs px-2 min-h-[40px] focus-visible:ring-0 focus-visible:ring-offset-0 ${
+                  isScrolled 
+                    ? 'bg-purpleBrand hover:bg-purple-800 text-white shadow-lg' 
+                    : 'bg-mintBrand text-white hover:bg-seafoamBrand'
+                }`}
               >
                 <Link href="/order">Order</Link>
               </Button>

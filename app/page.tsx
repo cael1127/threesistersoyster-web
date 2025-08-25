@@ -98,7 +98,7 @@ export default function HomePage() {
           {/* First Row: Nursery Card (Left) + Picture (Right) */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center mb-12 md:mb-16">
             {/* Nursery Card - Left Side */}
-            <ScrollAnimatedSection animationType="slide-left" delay={400}>
+            <ScrollAnimatedSection animationType="slide-left-far" delay={400}>
               <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl">
                 <CardContent className="p-6 md:p-8">
                   <div className="flex items-center mb-4 md:mb-6">
@@ -143,7 +143,7 @@ export default function HomePage() {
             </ScrollAnimatedSection>
 
             {/* Nursery Picture - Right Side */}
-            <ScrollAnimatedSection animationType="slide-right" delay={500}>
+            <ScrollAnimatedSection animationType="slide-right-far" delay={500}>
               <div className="relative">
                 <div className="aspect-square bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 rounded-2xl flex items-center justify-center border border-seafoamBrand/30 overflow-hidden">
                   <div className="w-full h-full bg-gradient-to-br from-seafoamBrand/20 to-blueBrand/20 flex items-center justify-center">
@@ -170,7 +170,7 @@ export default function HomePage() {
           {/* Second Row: Picture (Left) + Farm Card (Right) */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Farm Picture - Left Side */}
-            <ScrollAnimatedSection animationType="slide-left" delay={700}>
+            <ScrollAnimatedSection animationType="slide-left-far" delay={700}>
               <div className="relative">
                 <div className="aspect-square bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 rounded-2xl flex items-center justify-center border border-purpleBrand/30 overflow-hidden">
                   <div className="w-full h-full bg-gradient-to-br from-purpleBrand/20 to-blueBrand/20 flex items-center justify-center">
@@ -194,7 +194,7 @@ export default function HomePage() {
             </ScrollAnimatedSection>
 
             {/* Farm Card - Right Side */}
-            <ScrollAnimatedSection animationType="slide-right" delay={800}>
+            <ScrollAnimatedSection animationType="slide-right-far" delay={800}>
               <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl">
                 <CardContent className="p-6 md:p-8">
                   <div className="flex items-center mb-4 md:mb-6">
@@ -264,7 +264,7 @@ export default function HomePage() {
                 </p>
               </ScrollAnimatedSection>
             </div>
-            <ScrollAnimatedSection animationType="slide-right" delay={300}>
+            <ScrollAnimatedSection animationType="slide-right-far" delay={300}>
               <div className="relative">
                 <div className="aspect-square bg-gradient-to-b from-purpleBrand/40 to-seafoamBrand/40 rounded-2xl flex items-center justify-center border border-purpleBrand/30">
                   <Image
@@ -307,7 +307,7 @@ export default function HomePage() {
           </ScrollAnimatedSection>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <ScrollAnimatedSection animationType="slide-left" delay={600}>
+            <ScrollAnimatedSection animationType="slide-left-far" delay={600}>
               <div className="text-center group cursor-pointer transition-all duration-500 hover:scale-110 hover:-translate-y-2">
                 <div className="w-16 h-16 bg-gradient-to-b from-purpleBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4 transition-all duration-500 group-hover:scale-125 group-hover:shadow-lg">
                   <Waves className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
@@ -316,7 +316,7 @@ export default function HomePage() {
                 <p className="text-purple-800">Improving coastal water quality through natural filtration</p>
               </div>
             </ScrollAnimatedSection>
-            <ScrollAnimatedSection animationType="fade-in" delay={800}>
+            <ScrollAnimatedSection animationType="zoom-in" delay={800}>
               <div className="text-center group cursor-pointer transition-all duration-500 hover:scale-110 hover:-translate-y-2">
                 <div className="w-16 h-16 bg-gradient-to-b from-seafoamBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4 transition-all duration-500 group-hover:scale-125 group-hover:shadow-lg">
                   <Leaf className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
@@ -325,7 +325,7 @@ export default function HomePage() {
                 <p className="text-purple-800">Capturing and storing carbon to combat climate change</p>
               </div>
             </ScrollAnimatedSection>
-            <ScrollAnimatedSection animationType="slide-right" delay={1000}>
+            <ScrollAnimatedSection animationType="slide-right-far" delay={1000}>
               <div className="text-center group cursor-pointer transition-all duration-500 hover:scale-110 hover:-translate-y-2">
                 <div className="w-16 h-16 bg-gradient-to-b from-blueBrand to-seafoamBrand rounded-full flex items-center justify-center mx-auto mb-4 transition-all duration-500 group-hover:scale-125 group-hover:shadow-lg">
                   <Fish className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
