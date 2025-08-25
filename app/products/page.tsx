@@ -164,31 +164,16 @@ export default function ProductsPage() {
 
           {/* Products Tabs */}
           <Tabs defaultValue="oysters" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8 bg-gradient-to-r from-purpleBrand/20 via-lavenderBrand/20 to-blueBrand/20 border border-purpleBrand/30 p-1.5 rounded-xl h-auto shadow-lg backdrop-blur-sm relative overflow-hidden">
-              {/* Morphing background indicator */}
-              <div className="absolute inset-0 bg-gradient-to-r from-seafoamBrand to-mintBrand rounded-lg transition-all duration-500 ease-out transform translate-x-0 data-[state=merchandise]:translate-x-full" data-state="oysters"></div>
-              
-              <TabsTrigger 
-                value="oysters" 
-                className="flex items-center justify-center space-x-2 data-[state=active]:bg-transparent data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 text-sm px-6 py-4 rounded-lg transition-all duration-500 ease-out bg-transparent border-0 m-1 text-purple-900 hover:text-purple-900 hover:bg-white/20 hover:scale-105 group relative overflow-hidden z-10"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-seafoamBrand/10 to-mintBrand/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-                <Fish className="w-5 h-5 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" />
-                <span className="font-semibold transition-all duration-300">Fresh Oysters</span>
-                <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-2.5 py-1 font-medium shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:bg-purple-900/30">
-                  {oysterProducts.length}
-                </Badge>
+            <TabsList className="grid w-full grid-cols-2 mb-8">
+              <TabsTrigger value="oysters" className="flex items-center justify-center space-x-2">
+                <Fish className="w-5 h-5" />
+                <span>Fresh Oysters</span>
+                <Badge variant="secondary">{oysterProducts.length}</Badge>
               </TabsTrigger>
-              <TabsTrigger 
-                value="merchandise" 
-                className="flex items-center justify-center space-x-2 data-[state=active]:bg-transparent data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 text-sm px-6 py-4 rounded-lg transition-all duration-500 ease-out bg-transparent border-0 m-1 text-purple-900 hover:text-purple-900 hover:bg-white/20 hover:scale-105 group relative overflow-hidden z-10"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-seafoamBrand/10 to-mintBrand/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-                <ShoppingBag className="w-5 h-5 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" />
-                <span className="font-semibold transition-all duration-300">Merchandise</span>
-                <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-2.5 py-1 font-medium shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:bg-purple-900/30">
-                  {merchProducts.length}
-                </Badge>
+              <TabsTrigger value="merchandise" className="flex items-center justify-center space-x-2">
+                <ShoppingBag className="w-5 h-5" />
+                <span>Merchandise</span>
+                <Badge variant="secondary">{merchProducts.length}</Badge>
               </TabsTrigger>
             </TabsList>
 

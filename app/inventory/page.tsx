@@ -243,21 +243,16 @@ export default function InventoryPage() {
         <ClientInventoryCounters />
 
         <Tabs defaultValue="nursery" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8 bg-gradient-to-r from-purpleBrand/20 via-lavenderBrand/20 to-blueBrand/20 border border-purpleBrand/30 p-1.5 rounded-xl h-auto shadow-lg backdrop-blur-sm relative overflow-hidden">
-            {/* Morphing background indicator */}
-            <div className="absolute inset-0 bg-gradient-to-r from-seafoamBrand to-mintBrand rounded-lg transition-all duration-500 ease-out transform translate-x-0 data-[state=farm]:translate-x-full" data-state="nursery"></div>
-            
-            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-transparent data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 text-xs md:text-sm px-4 py-3 md:px-5 md:py-4 rounded-lg transition-all duration-500 ease-out bg-transparent border-0 m-1 text-purple-900 hover:text-purple-900 hover:bg-white/20 hover:scale-105 group relative overflow-hidden z-10">
-              <div className="absolute inset-0 bg-gradient-to-r from-seafoamBrand/10 to-mintBrand/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-              <Leaf className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" />
-              <span className="truncate font-semibold transition-all duration-300">Nursery</span>
-              <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-2 py-1 flex-shrink-0 font-medium shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:bg-purple-900/30">{processedNurseryInventory.length}</Badge>
+          <TabsList className="grid w-full grid-cols-2 mb-8">
+            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-2">
+              <Leaf className="w-4 h-4" />
+              <span>Nursery</span>
+              <Badge variant="secondary">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-transparent data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 text-xs md:text-sm px-4 py-3 md:px-5 md:py-4 rounded-lg transition-all duration-500 ease-out bg-transparent border-0 m-1 text-purple-900 hover:text-purple-900 hover:bg-white/20 hover:scale-105 group relative overflow-hidden z-10">
-              <div className="absolute inset-0 bg-gradient-to-r from-seafoamBrand/10 to-mintBrand/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
-              <Fish className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" />
-              <span className="truncate font-semibold transition-all duration-300">Farm</span>
-              <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-2 py-1 flex-shrink-0 font-medium shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:bg-purple-900/30">{processedFarmInventory.length}</Badge>
+            <TabsTrigger value="farm" className="flex items-center justify-center space-x-2">
+              <Fish className="w-4 h-4" />
+              <span>Farm</span>
+              <Badge variant="secondary">{processedFarmInventory.length}</Badge>
             </TabsTrigger>
           </TabsList>
 
