@@ -1,65 +1,67 @@
 "use client"
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 
 export function MobileScrollRestoration() {
+  const pathname = usePathname()
+  const lastPathname = useRef<string>(pathname)
+  const userScrolling = useRef<boolean>(false)
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
+
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Ensure page starts at top on mobile
-      const scrollToTop = () => {
-        // Use multiple methods to ensure scroll works on all mobile devices
-        window.scrollTo(0, 0)
-        document.documentElement.scrollTop = 0
-        document.body.scrollTop = 0
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+      // Track user scroll activity
+      const handleScroll = () => {
+        userScrolling.current = true
         
-        // Force a reflow to ensure scroll position is set
-        document.body.offsetHeight
-      }
-      
-      // Call immediately
-      scrollToTop()
-      
-      // Call again after a short delay to handle any delayed rendering
-      const timeoutId = setTimeout(scrollToTop, 100)
-      
-      // Handle mobile viewport issues
-      const handleResize = () => {
-        // Force scroll to top on mobile orientation change
-        if (window.innerWidth <= 768) {
-          scrollToTop()
+        // Clear existing timeout
+        if (scrollTimeout.current) {
+          clearTimeout(scrollTimeout.current)
         }
+        
+        // Reset user scrolling flag after user stops scrolling
+        scrollTimeout.current = setTimeout(() => {
+          userScrolling.current = false
+        }, 150) // Wait 150ms after user stops scrolling
       }
       
-      // Add resize listener for mobile orientation changes
-      window.addEventListener('resize', handleResize)
+      // Add scroll listener
+      window.addEventListener('scroll', handleScroll, { passive: true })
       
-      // Handle focus events (common mobile issue)
-      const handleFocus = () => {
-        if (window.innerWidth <= 768) {
-          scrollToTop()
+      // Only scroll to top when pathname changes (new page navigation)
+      if (lastPathname.current !== pathname) {
+        const scrollToTop = () => {
+          // Only scroll if user is not actively scrolling
+          if (!userScrolling.current) {
+            window.scrollTo(0, 0)
+            document.documentElement.scrollTop = 0
+            document.body.scrollTop = 0
+          }
         }
+        
+        // Call immediately when pathname changes
+        scrollToTop()
+        
+        // Call again after a short delay to handle any delayed rendering
+        const timeoutId = setTimeout(scrollToTop, 100)
+        
+        // Update last pathname
+        lastPathname.current = pathname
+        
+        // Cleanup timeout
+        return () => clearTimeout(timeoutId)
       }
       
-      window.addEventListener('focus', handleFocus)
-      
-      // Handle page visibility changes (mobile app switching)
-      const handleVisibilityChange = () => {
-        if (window.innerWidth <= 768 && !document.hidden) {
-          scrollToTop()
-        }
-      }
-      
-      document.addEventListener('visibilitychange', handleVisibilityChange)
-      
-      // Cleanup
+      // Cleanup scroll listener
       return () => {
-        window.removeEventListener('resize', handleResize)
-        window.removeEventListener('focus', handleFocus)
-        document.removeEventListener('visibilitychange', handleVisibilityChange)
-        clearTimeout(timeoutId)
+        window.removeEventListener('scroll', handleScroll)
+        if (scrollTimeout.current) {
+          clearTimeout(scrollTimeout.current)
+        }
       }
     }
-  }, [])
+  }, [pathname])
 
   // This component doesn't render anything
   return null

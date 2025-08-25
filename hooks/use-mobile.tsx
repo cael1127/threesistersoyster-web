@@ -22,53 +22,24 @@ export function useMobile() {
   return isMobile
 }
 
-// Mobile scroll restoration hook
-export function useMobileScrollRestoration() {
+// Mobile scroll restoration hook - only for initial page load
+export function useInitialMobileScroll() {
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Ensure page starts at top on mobile
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+      // Only scroll to top once on initial load
       const scrollToTop = () => {
-        // Use multiple methods to ensure scroll works on all mobile devices
         window.scrollTo(0, 0)
         document.documentElement.scrollTop = 0
         document.body.scrollTop = 0
-        
-        // Force a reflow to ensure scroll position is set
-        document.body.offsetHeight
       }
       
       // Call immediately
       scrollToTop()
       
-      // Call again after a short delay to handle any delayed rendering
+      // Call once more after a short delay for any delayed rendering
       const timeoutId = setTimeout(scrollToTop, 100)
       
-      // Handle mobile viewport issues
-      const handleResize = () => {
-        // Force scroll to top on mobile orientation change
-        if (window.innerWidth <= 768) {
-          scrollToTop()
-        }
-      }
-      
-      // Add resize listener for mobile orientation changes
-      window.addEventListener('resize', handleResize)
-      
-      // Handle focus events (common mobile issue)
-      const handleFocus = () => {
-        if (window.innerWidth <= 768) {
-          scrollToTop()
-        }
-      }
-      
-      window.addEventListener('focus', handleFocus)
-      
-      // Cleanup
-      return () => {
-        window.removeEventListener('resize', handleResize)
-        window.removeEventListener('focus', handleFocus)
-        clearTimeout(timeoutId)
-      }
+      return () => clearTimeout(timeoutId)
     }
-  }, [])
+  }, []) // Only run once on mount
 }

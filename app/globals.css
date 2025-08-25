@@ -29,7 +29,7 @@ body {
 /* Mobile-specific scroll fixes */
 @media (max-width: 768px) {
   html, body {
-    /* Force scroll to top on mobile */
+    /* Allow natural scrolling on mobile */
     scroll-behavior: auto;
     
     /* Prevent mobile zoom issues */
@@ -42,6 +42,9 @@ body {
     /* Fix mobile scroll position */
     position: relative;
     overflow-x: hidden;
+    
+    /* Allow vertical scrolling */
+    overflow-y: auto;
   }
   
   /* Fix mobile navigation scroll issues */
@@ -66,6 +69,9 @@ body {
     /* Fix mobile layout issues */
     width: 100%;
     overflow-x: hidden;
+    
+    /* Allow vertical scrolling */
+    overflow-y: visible;
   }
   
   /* Fix mobile container issues */
@@ -83,6 +89,12 @@ body {
     width: 100%;
     max-width: 100%;
     overflow: hidden;
+  }
+  
+  /* Ensure proper mobile scrolling */
+  * {
+    /* Allow natural scroll behavior */
+    scroll-behavior: auto;
   }
 }
 
