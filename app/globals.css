@@ -58,6 +58,12 @@ body {
     width: 100%;
     left: 0;
     right: 0;
+    
+    /* Enhanced sticky behavior for mobile */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
   
   /* Fix mobile content positioning */
@@ -96,6 +102,55 @@ body {
     /* Allow natural scroll behavior */
     scroll-behavior: auto;
   }
+}
+
+/* Enhanced Sticky Navigation */
+header {
+  /* Ensure sticky behavior works across all browsers */
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  
+  /* Hardware acceleration for smooth scrolling */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  
+  /* Ensure proper stacking context */
+  isolation: isolate;
+  
+  /* Smooth transitions */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sticky navigation scroll effect */
+header[data-scrolled="true"] {
+  /* Enhanced shadow when scrolled */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 2px 10px rgba(0, 0, 0, 0.05);
+  
+  /* Subtle backdrop blur */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Ensure content flows properly under sticky header */
+main {
+  /* Prevent content from hiding under sticky header */
+  position: relative;
+  z-index: 1;
+}
+
+/* Smooth scroll behavior for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced focus states for navigation */
+header a:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+  border-radius: 0.375rem;
 }
 
 /* Custom Three Sisters Brand Colors */

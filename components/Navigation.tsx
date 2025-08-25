@@ -4,10 +4,28 @@ import Link from "next/link"
 import Image from "next/image"
 import { CartButton } from "@/components/cart-button"
 import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react"
 
 export default function Navigation() {
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY
+      setIsScrolled(scrollTop > 10)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <header className="bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50 w-full">
+    <header 
+      className={`bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled ? 'shadow-lg backdrop-blur-sm bg-purpleBrand/95' : 'bg-purpleBrand'
+      }`}
+      data-scrolled={isScrolled}
+    >
       <div className="container mx-auto px-2 md:px-4 py-2 md:py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
@@ -31,22 +49,22 @@ export default function Navigation() {
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-4">
-            <Link href="/" className="text-white hover:text-white font-medium text-sm">
+            <Link href="/" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
               Home
             </Link>
-            <Link href="/products" className="text-white hover:text-white font-medium text-sm">
+            <Link href="/products" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
               Products
             </Link>
             <Link
               href="/inventory"
-              className="text-white hover:text-white font-medium text-sm"
+              className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105"
             >
               Inventory
             </Link>
-            <Link href="/gallery" className="text-white hover:text-white font-medium text-sm">
+            <Link href="/gallery" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
               Gallery
             </Link>
-            <Link href="/about" className="text-white hover:text-white font-medium text-sm">
+            <Link href="/about" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
               About
             </Link>
           </nav>
@@ -69,25 +87,25 @@ export default function Navigation() {
             <nav className="flex items-center justify-between flex-1 min-w-0">
               <Link 
                 href="/products" 
-                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[40px] flex items-center justify-center mx-0.5"
+                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105"
               >
                 Shop
               </Link>
               <Link 
                 href="/inventory" 
-                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[40px] flex items-center justify-center mx-0.5"
+                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105"
               >
                 Stock
               </Link>
               <Link 
                 href="/gallery" 
-                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[40px] flex items-center justify-center mx-0.5"
+                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105"
               >
                 Gallery
               </Link>
               <Link 
                 href="/about" 
-                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-colors duration-200 min-h-[40px] flex items-center justify-center mx-0.5"
+                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105"
               >
                 About
               </Link>
