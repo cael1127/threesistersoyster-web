@@ -243,21 +243,23 @@ export default function InventoryPage() {
         <ClientInventoryCounters />
 
         <Tabs defaultValue="nursery" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8 bg-purpleBrand/40 border border-purpleBrand/30 p-1 rounded-lg h-auto">
-            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-purpleBrand/40 border-0 m-1 text-purple-900 hover:text-purple-900 data-[state=inactive]:text-purple-900">
-              <Leaf className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
-              <span className="truncate">Nursery</span>
-              <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-1 flex-shrink-0">{processedNurseryInventory.length}</Badge>
+          <TabsList className="grid w-full grid-cols-2 mb-8 bg-gradient-to-r from-purpleBrand/20 via-lavenderBrand/20 to-blueBrand/20 border border-purpleBrand/30 p-1.5 rounded-xl h-auto shadow-lg backdrop-blur-sm">
+            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-seafoamBrand data-[state=active]:to-mintBrand data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 text-xs md:text-sm px-4 py-3 md:px-5 md:py-4 rounded-lg transition-all duration-300 bg-transparent border-0 m-1 text-purple-900 hover:text-purple-900 hover:bg-white/20 data-[state=inactive]:text-purple-900 hover:scale-105 group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-seafoamBrand/10 to-mintBrand/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+              <Leaf className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110" />
+              <span className="truncate font-semibold">Nursery</span>
+              <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-2 py-1 flex-shrink-0 font-medium shadow-sm transition-all duration-300 group-hover:scale-110">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-xs md:text-sm px-2 py-3 md:px-3 md:py-4 rounded-md transition-all bg-purpleBrand/40 border-0 m-1 text-purple-900 hover:text-purple-900 data-[state=inactive]:text-purple-900">
-              <Fish className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
-              <span className="truncate">Farm</span>
-              <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-1 flex-shrink-0">{processedFarmInventory.length}</Badge>
+            <TabsTrigger value="farm" className="flex items-center justify-center space-x-1 md:space-x-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-seafoamBrand data-[state=active]:to-mintBrand data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 text-xs md:text-sm px-4 py-3 md:px-5 md:py-4 rounded-lg transition-all duration-300 bg-transparent border-0 m-1 text-purple-900 hover:text-purple-900 hover:bg-white/20 data-[state=inactive]:text-purple-900 hover:scale-105 group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-seafoamBrand/10 to-mintBrand/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+              <Fish className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110" />
+              <span className="truncate font-semibold">Farm</span>
+              <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-2 py-1 flex-shrink-0 font-medium shadow-sm transition-all duration-300 group-hover:scale-110">{processedFarmInventory.length}</Badge>
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="farm">
-            <div className="mb-6">
+          <TabsContent value="farm" className="animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
+            <div className="mb-6 p-6 bg-gradient-to-r from-purpleBrand/10 via-lavenderBrand/10 to-blueBrand/10 rounded-2xl border border-purpleBrand/20">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                   <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Farm Operations</h2>
@@ -275,29 +277,31 @@ export default function InventoryPage() {
                     )}
                   </p>
                 </div>
-                <Button asChild className="bg-gradient-to-r from-purpleBrand to-seafoamBrand text-xs md:text-sm px-3 md:px-4 py-2 flex-shrink-0 w-fit">
+                <Button asChild className="bg-gradient-to-r from-purpleBrand to-seafoamBrand text-xs md:text-sm px-3 md:px-4 py-2 flex-shrink-0 w-fit hover:scale-105 transition-transform duration-300 shadow-lg">
                   <Link href="/products">Shop Farm Products</Link>
                 </Button>
               </div>
             </div>
 
             {processedFarmInventory.length === 0 ? (
-              <div className="text-center py-12">
+              <div className="text-center py-12 bg-gradient-to-br from-purpleBrand/5 to-seafoamBrand/5 rounded-2xl border border-purpleBrand/20">
                 <Fish className="w-16 h-16 text-purple-400 mx-auto mb-4" />
                 <p className="text-purple-800 text-lg">No farm inventory available at the moment.</p>
                 <p className="text-purple-600 mt-2">Check back soon for updates on our growing operations.</p>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {processedFarmInventory.map((item) => (
-                  <InventoryCard key={item.id} item={item} />
+                {processedFarmInventory.map((item, index) => (
+                  <div key={item.id} className="animate-in fade-in-0 slide-in-from-bottom-4 duration-500" style={{ animationDelay: `${index * 100}ms` }}>
+                    <InventoryCard key={item.id} item={item} />
+                  </div>
                 ))}
               </div>
             )}
           </TabsContent>
 
-          <TabsContent value="nursery">
-            <div className="mb-6">
+          <TabsContent value="nursery" className="animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
+            <div className="mb-6 p-6 bg-gradient-to-r from-purpleBrand/10 via-lavenderBrand/10 to-blueBrand/10 rounded-2xl border border-purpleBrand/20">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                   <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Nursery Operations</h2>
@@ -319,7 +323,7 @@ export default function InventoryPage() {
                 </div>
                 <Button
                   asChild
-                  className="bg-gradient-to-r from-seafoamBrand to-blueBrand hover:from-mintBrand hover:to-blueBrand text-white text-xs md:text-sm px-3 md:px-4 py-2 flex-shrink-0 w-fit"
+                  className="bg-gradient-to-r from-seafoamBrand to-blueBrand hover:from-mintBrand hover:to-blueBrand text-white text-xs md:text-sm px-3 md:px-4 py-2 flex-shrink-0 w-fit hover:scale-105 transition-transform duration-300 shadow-lg"
                 >
                   <a href="tel:713-854-7427">Contact for Pricing</a>
                 </Button>
@@ -327,15 +331,17 @@ export default function InventoryPage() {
             </div>
 
             {processedNurseryInventory.length === 0 ? (
-              <div className="text-center py-12">
+              <div className="text-center py-12 bg-gradient-to-br from-purpleBrand/5 to-seafoamBrand/5 rounded-2xl border border-purpleBrand/20">
                 <Leaf className="w-16 h-16 text-purple-400 mx-auto mb-4" />
                 <p className="text-purple-800 text-lg">No nursery inventory available at the moment.</p>
                 <p className="text-purple-600 mt-2">Check back soon for updates on our seed stock.</p>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {processedNurseryInventory.map((item) => (
-                  <InventoryCard key={item.id} item={item} />
+                {processedNurseryInventory.map((item, index) => (
+                  <div key={item.id} className="animate-in fade-in-0 slide-in-from-bottom-4 duration-500" style={{ animationDelay: `${index * 100}ms` }}>
+                    <InventoryCard key={item.id} item={item} />
+                  </div>
                 ))}
               </div>
             )}

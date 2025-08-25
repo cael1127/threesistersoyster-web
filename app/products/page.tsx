@@ -164,32 +164,34 @@ export default function ProductsPage() {
 
           {/* Products Tabs */}
           <Tabs defaultValue="oysters" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8 bg-purpleBrand/40 border border-purpleBrand/30 p-1 rounded-lg h-auto">
+            <TabsList className="grid w-full grid-cols-2 mb-8 bg-gradient-to-r from-purpleBrand/20 via-lavenderBrand/20 to-blueBrand/20 border border-purpleBrand/30 p-1.5 rounded-xl h-auto shadow-lg backdrop-blur-sm">
               <TabsTrigger 
                 value="oysters" 
-                className="flex items-center justify-center space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-sm px-4 py-3 rounded-md transition-all bg-purpleBrand/40 border-0 m-1 text-purple-900 hover:text-purple-900 data-[state=inactive]:text-purple-900"
+                className="flex items-center justify-center space-x-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-seafoamBrand data-[state=active]:to-mintBrand data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 text-sm px-6 py-4 rounded-lg transition-all duration-300 bg-transparent border-0 m-1 text-purple-900 hover:text-purple-900 hover:bg-white/20 data-[state=inactive]:text-purple-900 hover:scale-105 group relative overflow-hidden"
               >
-                <Fish className="w-4 h-4" />
-                <span>Fresh Oysters</span>
-                <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-2">
+                <div className="absolute inset-0 bg-gradient-to-r from-seafoamBrand/10 to-mintBrand/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                <Fish className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                <span className="font-semibold">Fresh Oysters</span>
+                <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-2.5 py-1 font-medium shadow-sm transition-all duration-300 group-hover:scale-110">
                   {oysterProducts.length}
                 </Badge>
               </TabsTrigger>
               <TabsTrigger 
                 value="merchandise" 
-                className="flex items-center justify-center space-x-2 data-[state=active]:bg-seafoamBrand data-[state=active]:text-white data-[state=active]:shadow-sm text-sm px-4 py-3 rounded-md transition-all bg-purpleBrand/40 border-0 m-1 text-purple-900 hover:text-purple-900 data-[state=inactive]:text-purple-900"
+                className="flex items-center justify-center space-x-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-seafoamBrand data-[state=active]:to-mintBrand data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105 text-sm px-6 py-4 rounded-lg transition-all duration-300 bg-transparent border-0 m-1 text-purple-900 hover:text-purple-900 hover:bg-white/20 data-[state=inactive]:text-purple-900 hover:scale-105 group relative overflow-hidden"
               >
-                <ShoppingBag className="w-4 h-4" />
-                <span>Merchandise</span>
-                <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-2">
+                <div className="absolute inset-0 bg-gradient-to-r from-seafoamBrand/10 to-mintBrand/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                <ShoppingBag className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                <span className="font-semibold">Merchandise</span>
+                <Badge className="bg-purple-900/20 text-purple-900 border-purple-900/30 text-xs px-2.5 py-1 font-medium shadow-sm transition-all duration-300 group-hover:scale-110">
                   {merchProducts.length}
                 </Badge>
               </TabsTrigger>
             </TabsList>
 
             {/* Oysters Tab */}
-            <TabsContent value="oysters" className="space-y-8">
-              <div className="text-center mb-8">
+            <TabsContent value="oysters" className="space-y-8 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
+              <div className="text-center mb-8 p-6 bg-gradient-to-r from-purpleBrand/10 via-lavenderBrand/10 to-blueBrand/10 rounded-2xl border border-purpleBrand/20">
                 <h2 className="text-2xl font-bold text-purple-900 mb-4">Premium Texas Oysters</h2>
                 <p className="text-purple-800 max-w-2xl mx-auto">
                   Carefully cultivated for exceptional taste and quality from the pristine waters of Keller Bay.
@@ -197,9 +199,9 @@ export default function ProductsPage() {
               </div>
 
               {oysterProducts.length === 0 ? (
-                <div className="text-center py-16">
-                  <div className="w-24 h-24 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Fish className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+                <div className="text-center py-16 bg-gradient-to-br from-purpleBrand/5 to-seafoamBrand/5 rounded-2xl border border-purpleBrand/20">
+                  <div className="w-24 h-24 bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 border border-purpleBrand/30">
+                    <Fish className="w-16 h-16 text-purple-400 mx-auto" />
                   </div>
                   <h2 className="text-2xl font-bold text-purple-900 text-center">Fresh Oysters & Related Products</h2>
                   <p className="text-purple-800 mt-1">
@@ -212,16 +214,18 @@ export default function ProductsPage() {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                  {oysterProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                  {oysterProducts.map((product, index) => (
+                    <div key={product.id} className="animate-in fade-in-0 slide-in-from-bottom-4 duration-500" style={{ animationDelay: `${index * 100}ms` }}>
+                      <ProductCard product={product} />
+                    </div>
                   ))}
                 </div>
               )}
             </TabsContent>
 
             {/* Merchandise Tab */}
-            <TabsContent value="merchandise" className="space-y-8">
-              <div className="text-center mb-8">
+            <TabsContent value="merchandise" className="space-y-8 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
+              <div className="text-center mb-8 p-6 bg-gradient-to-r from-purpleBrand/10 via-lavenderBrand/10 to-blueBrand/10 rounded-2xl border border-purpleBrand/20">
                 <h2 className="text-2xl font-bold text-purple-900 mb-4">Three Sisters Merchandise</h2>
                 <p className="text-purple-800 max-w-2xl mx-auto">
                   Branded apparel and accessories to show your support for sustainable aquaculture.
@@ -229,9 +233,9 @@ export default function ProductsPage() {
               </div>
 
               {merchProducts.length === 0 ? (
-                <div className="text-center py-16">
-                  <div className="w-24 h-24 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6">
-                    <ShoppingBag className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+                <div className="text-center py-16 bg-gradient-to-br from-purpleBrand/5 to-seafoamBrand/5 rounded-2xl border border-purpleBrand/20">
+                  <div className="w-24 h-24 bg-gradient-to-br from-purpleBrand/20 to-seafoamBrand/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 border border-purpleBrand/30">
+                    <ShoppingBag className="w-16 h-16 text-purple-400 mx-auto" />
                   </div>
                   <h2 className="text-2xl font-bold text-purple-900 text-center">Three Sisters Merchandise</h2>
                   <p className="text-purple-800 mt-1">
@@ -242,8 +246,10 @@ export default function ProductsPage() {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                  {merchProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                  {merchProducts.map((product, index) => (
+                    <div key={product.id} className="animate-in fade-in-0 slide-in-from-bottom-4 duration-500" style={{ animationDelay: `${index * 100}ms` }}>
+                      <ProductCard product={product} />
+                    </div>
                   ))}
                 </div>
               )}

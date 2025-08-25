@@ -386,7 +386,7 @@ export default function HomePage() {
           </div>
 
           <div className="border-t border-white/30 mt-8 pt-8 text-center text-white text-sm">
-            <p>&copy; 2024 Three Sisters Oyster Co. All rights reserved.</p>
+            <p>&copy; 2024 Three Sisters Oyster Co. All rights reserved. | Designed and built by Cael Findley</p>
           </div>
         </div>
       </footer>
