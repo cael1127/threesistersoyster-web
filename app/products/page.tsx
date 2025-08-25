@@ -165,12 +165,12 @@ export default function ProductsPage() {
           {/* Products Tabs */}
           <Tabs defaultValue="oysters" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-8">
-              <TabsTrigger value="oysters" className="flex items-center justify-center space-x-2">
+              <TabsTrigger value="oysters" className="flex items-center justify-center space-x-2 text-purple-900">
                 <Fish className="w-5 h-5" />
                 <span>Fresh Oysters</span>
                 <Badge variant="secondary">{oysterProducts.length}</Badge>
               </TabsTrigger>
-              <TabsTrigger value="merchandise" className="flex items-center justify-center space-x-2">
+              <TabsTrigger value="merchandise" className="flex items-center justify-center space-x-2 text-purple-900">
                 <ShoppingBag className="w-5 h-5" />
                 <span>Merchandise</span>
                 <Badge variant="secondary">{merchProducts.length}</Badge>

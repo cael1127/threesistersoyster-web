@@ -244,12 +244,12 @@ export default function InventoryPage() {
 
         <Tabs defaultValue="nursery" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8">
-            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-2">
+            <TabsTrigger value="nursery" className="flex items-center justify-center space-x-2 text-purple-900">
               <Leaf className="w-4 h-4" />
               <span>Nursery</span>
               <Badge variant="secondary">{processedNurseryInventory.length}</Badge>
             </TabsTrigger>
-            <TabsTrigger value="farm" className="flex items-center justify-center space-x-2">
+            <TabsTrigger value="farm" className="flex items-center justify-center space-x-2 text-purple-900">
               <Fish className="w-4 h-4" />
               <span>Farm</span>
               <Badge variant="secondary">{processedFarmInventory.length}</Badge>
