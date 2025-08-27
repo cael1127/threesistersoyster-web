@@ -15,7 +15,7 @@ const processedWebhooks = new Set<string>()
 
 export async function POST(request: NextRequest) {
   try {
-    console.log("=== WEBHOOK RECEIVED ===")
+
     const headersList = await headers()
     
     const body = await request.text()
@@ -30,9 +30,7 @@ export async function POST(request: NextRequest) {
 
     try {
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
-      console.log("Webhook signature verified successfully")
-      console.log("Event type:", event.type)
-      console.log("Event ID:", event.id)
+
     } catch (err) {
       console.error("Webhook signature verification failed:", err)
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 })
@@ -40,7 +38,6 @@ export async function POST(request: NextRequest) {
 
     // Check if we've already processed this webhook
     if (processedWebhooks.has(event.id)) {
-      console.log(`⚠️ Webhook ${event.id} already processed, skipping...`)
       return NextResponse.json({ received: true, alreadyProcessed: true })
     }
 
@@ -57,9 +54,7 @@ export async function POST(request: NextRequest) {
     if (event.type === "checkout.session.completed") {
       const session = event.data.object as Stripe.Checkout.Session
       
-      console.log("=== PROCESSING COMPLETED CHECKOUT SESSION ===")
-      console.log("Session ID:", session.id)
-      console.log("Session amount total:", session.amount_total)
+
       
       // Extract order details from metadata
       const orderTotal = parseFloat(session.metadata?.orderTotal || "0")
@@ -67,12 +62,7 @@ export async function POST(request: NextRequest) {
       const customerName = session.metadata?.customerName || "Unknown"
       const customerEmail = session.metadata?.customerEmail || "Unknown"
       
-      console.log("Order details:", {
-        orderTotal,
-        itemCount,
-        customerName,
-        customerEmail
-      })
+
       
       // Get line items to update inventory - try multiple methods
       const supabase = createSupabaseClient()
@@ -89,7 +79,7 @@ export async function POST(request: NextRequest) {
             quantity: parseInt(item.quantity) || 0
           }))
           
-          console.log("✅ Using items from metadata:", itemsToUpdate.length, "items")
+
         } catch (error) {
           console.error("❌ Error parsing items from metadata:", error)
         }
@@ -98,12 +88,11 @@ export async function POST(request: NextRequest) {
       // Method 2: If metadata doesn't work, fetch line items from Stripe
       if (itemsToUpdate.length === 0) {
         try {
-          console.log("🔄 Metadata items not available, fetching from Stripe...")
           const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
             expand: ['data.price.product']
           })
           
-          console.log("Retrieved line items from Stripe:", lineItems.data.length)
+
           
           for (const item of lineItems.data) {
             // Handle both old and new Stripe API versions
@@ -126,7 +115,7 @@ export async function POST(request: NextRequest) {
                   name: productName, 
                   quantity 
                 })
-                console.log(`✅ Found product by name: ${productName} → ID: ${productData.id}`)
+
               } else {
                 console.error(`❌ Could not find product with name: ${productName}`)
               }
@@ -137,12 +126,12 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      console.log(`📦 Total items to update: ${itemsToUpdate.length}`)
+
 
       // Update inventory for all items using direct SQL for reliability
       for (const item of itemsToUpdate) {
         try {
-          console.log(`🔄 Updating inventory for "${item.name}": -${item.quantity}`)
+
           
           // Direct database update to avoid recursive API calls
           const { data: currentData, error: selectError } = await supabase
@@ -165,7 +154,7 @@ export async function POST(request: NextRequest) {
           const currentCount = currentData.inventory_count || 0
           const newCount = Math.max(0, currentCount - item.quantity)
           
-          console.log(`📊 ${currentData.name}: ${currentCount} → ${newCount}`)
+
           
           // Update the product with new inventory count
           const { data: updateResult, error: updateError } = await supabase
@@ -177,7 +166,7 @@ export async function POST(request: NextRequest) {
           if (updateError) {
             console.error(`❌ Error updating inventory for ${currentData.name}:`, updateError)
           } else {
-            console.log(`✅ Successfully updated inventory for ${currentData.name}`)
+
             
             // Verify the update actually happened
             const { data: verifyData, error: verifyError } = await supabase
@@ -194,7 +183,7 @@ export async function POST(request: NextRequest) {
               if (actualCount !== newCount) {
                 console.error(`❌ INVENTORY UPDATE FAILED: Expected ${newCount}, got ${actualCount}`)
               } else {
-                console.log(`✅ INVENTORY UPDATE SUCCESSFUL: ${currentData.name} is now ${actualCount}`)
+
               }
             }
           }
@@ -207,8 +196,6 @@ export async function POST(request: NextRequest) {
       // Release inventory reservations for this session
       if (session.metadata?.session_id) {
         try {
-          console.log(`🔄 Releasing reservations for session: ${session.metadata.session_id}`)
-          
           const releaseResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/reserve-inventory`, {
             method: 'DELETE',
             headers: {
@@ -221,7 +208,6 @@ export async function POST(request: NextRequest) {
           
           if (releaseResponse.ok) {
             const releaseData = await releaseResponse.json()
-            console.log(`✅ Released ${releaseData.releasedCount} reservations`)
           } else {
             console.error('❌ Failed to release reservations:', await releaseResponse.text())
           }
@@ -231,10 +217,9 @@ export async function POST(request: NextRequest) {
       }
       
       // You could also save the order to a separate orders table here
-      console.log(`🎉 Order completed: ${customerName} (${customerEmail}) - $${orderTotal}`)
-      console.log("=== WEBHOOK PROCESSING COMPLETE ===")
+
     } else {
-      console.log(`ℹ️ Webhook event type not handled: ${event.type}`)
+
     }
 
     return NextResponse.json({ received: true })

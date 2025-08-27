@@ -158,13 +158,6 @@ function CheckoutContent() {
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <Clock className="w-5 h-5 text-mintBrand mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-medium text-purple-900">Fresh Daily</p>
-                    <p className="text-sm text-purple-700">Harvested fresh each morning for maximum quality</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
                   <MapPin className="w-5 h-5 text-mintBrand mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-medium text-purple-900">Local Texas Oysters</p>

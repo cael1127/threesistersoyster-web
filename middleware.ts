@@ -47,7 +47,6 @@ function validateRequest(request: NextRequest): boolean {
   
   // Only block obviously malicious requests
   if (url.includes('javascript:') || url.includes('vbscript:')) {
-    console.log(`Blocked malicious URL: ${url}`)
     return false
   }
   
@@ -58,7 +57,6 @@ function validateRequest(request: NextRequest): boolean {
   for (const header of suspiciousHeaders) {
     const headerValue = request.headers.get(header)
     if (headerValue && (headerValue.includes('javascript:') || headerValue.includes('vbscript:'))) {
-      console.log(`Blocked malicious header ${header}: ${headerValue}`)
       return false
     }
   }
@@ -66,9 +64,7 @@ function validateRequest(request: NextRequest): boolean {
   // Log bot requests but don't block them (many are legitimate)
   const userAgent = request.headers.get('user-agent') || ''
   const suspiciousUserAgents = ['bot', 'crawler', 'spider', 'scraper', 'curl', 'wget']
-  if (suspiciousUserAgents.some(agent => userAgent.toLowerCase().includes(agent))) {
-    console.log('Bot request detected:', userAgent)
-  }
+
   
   return true
 }
@@ -94,26 +90,22 @@ export function middleware(request: NextRequest) {
   
   // Security checks - only block obviously malicious requests
   if (!validateRequest(request)) {
-    console.log(`Security violation blocked from IP: ${ip}, Path: ${pathname}`)
     return new NextResponse('Forbidden', { status: 403 })
   }
   
   // Rate limiting - only for API routes to avoid blocking legitimate users
   if (pathname.startsWith('/api/') && !checkRateLimit(ip, pathname)) {
-    console.log(`Rate limit exceeded for IP: ${ip}, Path: ${pathname}`)
     return new NextResponse('Too Many Requests', { status: 429 })
   }
   
   // Block access to sensitive files
   if (pathname.includes('.env') || pathname.includes('.git') || pathname.includes('package.json')) {
-    console.log(`Blocked access to sensitive file: ${pathname}`)
     return new NextResponse('Not Found', { status: 404 })
   }
   
   // Block access to development files in production
   if (process.env.NODE_ENV === 'production' && 
       (pathname.includes('.map') || pathname.includes('__nextjs'))) {
-    console.log(`Blocked access to dev file in production: ${pathname}`)
     return new NextResponse('Not Found', { status: 404 })
   }
   

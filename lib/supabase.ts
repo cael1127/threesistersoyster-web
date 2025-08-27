@@ -24,7 +24,7 @@ export function createSupabaseClient(): SupabaseClient {
       )
       
       // Always return a mock client to prevent crashes
-      console.log("Using mock Supabase client")
+
       supabaseInstance = createClient(
         "https://placeholder.supabase.co",
         "placeholder-key"
@@ -33,7 +33,7 @@ export function createSupabaseClient(): SupabaseClient {
     }
 
     // Create real client if variables are available
-    console.log("Creating Supabase client with configured credentials")
+    
     supabaseInstance = createClient(supabaseUrl, supabaseAnonKey)
     return supabaseInstance
     
@@ -41,7 +41,7 @@ export function createSupabaseClient(): SupabaseClient {
     console.error("Error creating Supabase client:", error)
     
     // Fallback to mock client
-    console.log("Falling back to mock Supabase client")
+    
     supabaseInstance = createClient(
       "https://placeholder.supabase.co",
       "placeholder-key"
@@ -113,7 +113,7 @@ function parseHarvestReady(description: string | null): boolean {
     const parsed = JSON.parse(description)
     return parsed.harvestReady === true
   } catch (error) {
-    console.log("Could not parse description as JSON:", description)
+
     return false
   }
 }
@@ -152,7 +152,7 @@ export function isSupabaseConfigured(): boolean {
 // Get ALL inventory (both farm and nursery)
 export async function getAllInventory() {
   if (!isSupabaseConfigured()) {
-    console.log("Supabase not configured, returning empty array")
+    
     return []
   }
 
@@ -170,7 +170,6 @@ export async function getAllInventory() {
 export async function getInventoryCount() {
   try {
     if (!isSupabaseConfigured()) {
-      console.log("Supabase not configured, returning fallback value")
       return 0
     }
 
@@ -191,18 +190,13 @@ export async function getInventoryCount() {
 // Get harvest ready inventory count - parsing from description JSON (ALL inventory)
 export async function getHarvestReadyInventoryCount() {
   try {
-    console.log("=== DEBUGGING HARVEST READY COUNT ===")
-
     // Check if we have valid Supabase credentials
     if (!isSupabaseConfigured()) {
-      console.log("Supabase not configured, returning fallback value")
       return 0
     }
 
     // Get ALL inventory data with descriptions (both farm and nursery)
     const { data: allData, error: allError } = await supabase.from("inventory").select("*")
-
-    console.log("Raw inventory data from database:", allData)
 
     if (allError) {
       console.error("Database error:", allError)
@@ -210,7 +204,6 @@ export async function getHarvestReadyInventoryCount() {
     }
 
     if (!allData || allData.length === 0) {
-      console.log("No inventory data found in database")
       return 0
     }
 
@@ -223,11 +216,7 @@ export async function getHarvestReadyInventoryCount() {
       totalItems++
       const isHarvestReady = parseHarvestReady(item.description)
 
-      console.log(`Item ${item.name} (${item.type}):`, {
-        count: item.count,
-        description: item.description,
-        parsedHarvestReady: isHarvestReady,
-      })
+
 
       if (isHarvestReady) {
         harvestReadyCount += item.count || 0
@@ -243,8 +232,7 @@ export async function getHarvestReadyInventoryCount() {
       }
     })
 
-    console.log("Harvest ready breakdown:", breakdown)
-    console.log("Total harvest ready count:", harvestReadyCount)
+
 
     return harvestReadyCount
   } catch (error) {
@@ -256,17 +244,12 @@ export async function getHarvestReadyInventoryCount() {
 // Get farm inventory count (all farm inventory, regardless of harvest ready status)
 export async function getFarmInventoryCount() {
   try {
-    console.log("Querying farm inventory...")
-    
     // Check if we have valid Supabase credentials
     if (!isSupabaseConfigured()) {
-      console.log("Supabase not configured, returning fallback value")
       return 0
     }
     
     const { data, error } = await supabase.from("inventory").select("count").eq("type", "farm")
-
-    console.log("Farm query result:", { data, error })
 
     if (error) {
       console.error("Error fetching farm inventory:", error)
@@ -274,7 +257,6 @@ export async function getFarmInventoryCount() {
     }
 
     const total = data?.reduce((total, item) => total + item.count, 0) || 0
-    console.log("Calculated farm total:", total)
     return total
   } catch (error) {
     console.error("Supabase connection error:", error)
@@ -285,17 +267,12 @@ export async function getFarmInventoryCount() {
 // Get nursery inventory count (all nursery inventory, regardless of harvest ready status)
 export async function getNurseryInventoryCount() {
   try {
-    console.log("Querying nursery inventory...")
-    
     // Check if we have valid Supabase credentials
     if (!isSupabaseConfigured()) {
-      console.log("Supabase not configured, returning fallback value")
       return 0
     }
     
     const { data, error } = await supabase.from("inventory").select("count").eq("type", "nursery")
-
-    console.log("Nursery query result:", { data, error })
 
     if (error) {
       console.error("Error fetching nursery inventory:", error)
@@ -303,7 +280,6 @@ export async function getNurseryInventoryCount() {
     }
 
     const total = data?.reduce((total, item) => total + item.count, 0) || 0
-    console.log("Calculated nursery total:", total)
     return total
   } catch (error) {
     console.error("Supabase connection error:", error)
@@ -315,7 +291,7 @@ export async function getNurseryInventoryCount() {
 export async function getProducts() {
   try {
     if (!isSupabaseConfigured()) {
-      console.log("Supabase not configured, returning empty array")
+
       return []
     }
 
@@ -396,15 +372,14 @@ export async function createOrder(orderData: {
 // Get total harvested count
 export async function getTotalHarvested(): Promise<number> {
   try {
-    console.log("=== FETCHING TOTAL HARVESTED ===");
-    console.log("Querying harvested_counts table...");
+
 
     const { data, error } = await supabase
       .from("harvested_counts")
       .select("total_harvested")
       .single()
 
-    console.log("Supabase response:", { data, error });
+
 
     if (error) {
       console.error("Error fetching total harvested:", error)
@@ -412,7 +387,6 @@ export async function getTotalHarvested(): Promise<number> {
     }
 
     const result = data?.total_harvested || 0;
-    console.log("Total harvested result:", result);
     return result;
   } catch (error) {
     console.error("Supabase connection error:", error)
@@ -423,22 +397,17 @@ export async function getTotalHarvested(): Promise<number> {
 // Update total harvested count (increment by amount)
 export async function incrementHarvestedCount(amount: number): Promise<void> {
   try {
-    console.log("=== INCREMENTING HARVESTED COUNT ===");
-    console.log("Amount to add:", amount);
-    
+
     // First try to get existing record
-    console.log("Fetching existing harvested count record...");
     const { data: existingData, error: fetchError } = await supabase
       .from("harvested_counts")
       .select("id, total_harvested")
       .single()
 
-    console.log("Fetch result:", { existingData, fetchError });
+
 
     if (existingData) {
-      console.log("Updating existing record:", existingData);
       const newTotal = existingData.total_harvested + amount;
-      console.log("New total will be:", newTotal);
       
       // Update existing record
       const { error } = await supabase
@@ -453,9 +422,9 @@ export async function incrementHarvestedCount(amount: number): Promise<void> {
         console.error("Error updating harvested count:", error)
         throw error
       }
-      console.log("Successfully updated harvested count to:", newTotal);
+
     } else {
-      console.log("No existing record found, creating new one...");
+
       // Create new record if none exists
       const { error } = await supabase
         .from("harvested_counts")
@@ -468,7 +437,7 @@ export async function incrementHarvestedCount(amount: number): Promise<void> {
         console.error("Error creating harvested count:", error)
         throw error
       }
-      console.log("Successfully created new harvested count record with:", amount);
+
     }
   } catch (error) {
     console.error("Error incrementing harvested count:", error)
@@ -479,13 +448,10 @@ export async function incrementHarvestedCount(amount: number): Promise<void> {
 // Update product inventory counts when orders are placed
 export async function updateProductInventoryCounts(orderItems: any[]): Promise<void> {
   try {
-    console.log("=== UPDATING PRODUCT INVENTORY COUNTS ===");
-    console.log("Order items:", orderItems);
-    
+
     // Process each order item
     for (const item of orderItems) {
       if (item.id && item.quantity && item.quantity > 0) {
-        console.log(`Processing item: ${item.name} (ID: ${item.id}), Quantity: ${item.quantity}`);
         
         // Get current product with description to parse inventory
         const { data: product, error: fetchError } = await supabase
@@ -508,17 +474,17 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
             if (product.description) {
               parsedDesc = JSON.parse(product.description);
               currentCount = parsedDesc.inventory || 0;
-              console.log(`Parsed inventory from description: ${currentCount}`);
+
             }
           } catch (e) {
-            console.log("Could not parse description JSON, using inventory_count");
+
             currentCount = product.inventory_count || 0;
           }
           
-          console.log(`Current inventory for ${product.name}: ${currentCount}`);
+
           const newCount = Math.max(0, currentCount - item.quantity)
           
-          console.log(`Updating ${product.name} inventory: ${currentCount} → ${newCount}`);
+
           
           // Update both the description JSON and inventory_count field
           let newDescription = product.description;
@@ -526,10 +492,10 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
             if (parsedDesc) {
               parsedDesc.inventory = newCount;
               newDescription = JSON.stringify(parsedDesc);
-              console.log(`New description JSON: ${newDescription}`);
+
             }
           } catch (error) {
-            console.log("Could not update description JSON");
+
           }
           
           // Update the product with new inventory count and description
@@ -538,7 +504,7 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
             updateData.description = newDescription;
           }
           
-          console.log(`Updating product with data:`, updateData);
+
           
           const { error: updateError } = await supabase
             .from("products")
@@ -548,10 +514,10 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
           if (updateError) {
             console.error(`Error updating product inventory for ${product.name}:`, updateError)
           } else {
-            console.log(`Successfully updated ${product.name} inventory to: ${newCount}`)
+
           }
         } else {
-          console.log(`Product not found with ID: ${item.id}`)
+
         }
       }
     }

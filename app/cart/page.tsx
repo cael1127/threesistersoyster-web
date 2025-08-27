@@ -38,8 +38,7 @@ export default function CartPage() {
     setCheckoutError(null)
 
     try {
-      console.log('Starting checkout process with items:', state.items)
-      console.log('Total amount:', state.total)
+
       
       // Create Stripe checkout session
       const response = await fetch("/api/create-checkout-session", {
@@ -54,16 +53,13 @@ export default function CartPage() {
         }),
       })
 
-      console.log('Checkout response status:', response.status)
       const data = await response.json()
-      console.log('Checkout response data:', data)
 
       if (data.error) {
         throw new Error(data.error)
       }
 
       if (data.url) {
-        console.log('Redirecting to Stripe checkout:', data.url)
         // Redirect to Stripe checkout
         window.location.href = data.url
       } else {
@@ -77,30 +73,7 @@ export default function CartPage() {
     }
   }
 
-  const testCheckout = async () => {
-    console.log('Testing checkout with debug endpoint...')
-    try {
-      const response = await fetch("/api/debug-checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          items: state.items,
-          total_amount: state.total,
-          customer_name: "Test Customer",
-          customer_email: "test@example.com",
-        }),
-      })
-      
-      const data = await response.json()
-      console.log('Debug endpoint response:', data)
-      alert('Check console for debug info')
-    } catch (error) {
-      console.error('Debug endpoint error:', error)
-      alert('Debug endpoint error - check console')
-    }
-  }
+
 
   if (state.items.length === 0) {
     return (
@@ -306,18 +279,7 @@ export default function CartPage() {
               Clear Cart
             </Button>
             
-            {/* Debug Test Button */}
-            <div className="pt-4">
-              <Button
-                onClick={testCheckout}
-                variant="outline"
-                size="sm"
-                className="border-blue-300 text-blue-700 hover:bg-blue-50 transition-all duration-200"
-                disabled={checkoutLoading}
-              >
-                Test Checkout (Debug)
-              </Button>
-            </div>
+
           </div>
         </div>
 

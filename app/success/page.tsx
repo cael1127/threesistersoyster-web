@@ -49,7 +49,7 @@ export default function SuccessPage() {
 
     setProcessingOrder(true)
     try {
-      console.log('Processing inventory update with items:', cartState.items)
+  
       
       // Call the inventory update API as a backup to the webhook
       const response = await fetch('/api/update-inventory', {
@@ -66,13 +66,13 @@ export default function SuccessPage() {
       const result = await response.json()
       
       if (result.success) {
-        console.log('Inventory update successful:', result)
+
         setOrderProcessed(true)
         
         // Clear the cart after successful inventory update
         clearCart()
         
-        console.log('Cart cleared and inventory updated successfully')
+
       } else {
         console.error('Inventory update failed:', result.error)
         // Still clear the cart since payment was successful

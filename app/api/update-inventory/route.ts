@@ -10,15 +10,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No items provided' }, { status: 400 })
     }
 
-    console.log("Manual inventory update for session:", session_id)
-    console.log("Items to update:", items)
+
 
     const supabase = createSupabaseClient()
     const updateResults = []
 
     for (const item of items) {
       if (item.id && item.quantity > 0) {
-        console.log(`Updating inventory for "${item.name}" (ID: ${item.id}): -${item.quantity}`)
+
         
         // First get current product data including description
         const { data: currentData, error: selectError } = await supabase
@@ -51,7 +50,7 @@ export async function POST(request: NextRequest) {
         const currentCount = currentData.inventory_count || 0
         const newCount = Math.max(0, currentCount - item.quantity)
         
-        console.log(`Updating ${currentData.name} inventory: ${currentCount} → ${newCount}`)
+
         
         // Update both inventory_count and description JSON if it exists
         let updateData: any = { inventory_count: newCount }
@@ -61,10 +60,10 @@ export async function POST(request: NextRequest) {
             const parsedDesc = JSON.parse(currentData.description)
             parsedDesc.inventory = newCount
             updateData.description = JSON.stringify(parsedDesc)
-            console.log(`Updated description JSON with new inventory: ${newCount}`)
+
           }
         } catch (parseError) {
-          console.log("Description is not JSON, updating only inventory_count")
+
         }
         
         // Update the product with new inventory count
@@ -82,7 +81,7 @@ export async function POST(request: NextRequest) {
             error: updateError.message
           })
         } else {
-          console.log(`Successfully updated inventory for ${currentData.name}:`, updateResult)
+
           updateResults.push({
             item: currentData.name,
             success: true,

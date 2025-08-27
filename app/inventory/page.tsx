@@ -83,25 +83,12 @@ export default function InventoryPage() {
     ...parseInventoryDescription(item.description),
   }))
 
-  // Debug logging
-  console.log("=== INVENTORY DEBUG ===")
-  console.log("Farm inventory items:", processedFarmInventory.length)
-  console.log("Nursery inventory items:", processedNurseryInventory.length)
-  console.log("All inventory items:", processedAllInventory.length)
+
 
   const farmHarvestReady = processedFarmInventory.filter((item) => item.harvestReady === true)
   const nurseryHarvestReady = processedNurseryInventory.filter((item) => item.harvestReady === true)
 
-  console.log(
-    "Farm harvest ready items:",
-    farmHarvestReady.map((item) => ({ name: item.name, count: item.count, harvestReady: item.harvestReady })),
-  )
-  console.log(
-    "Nursery harvest ready items:",
-    nurseryHarvestReady.map((item) => ({ name: item.name, count: item.count, harvestReady: item.harvestReady })),
-  )
   const totalCount = processedAllInventory.filter((item) => item.harvestReady).length;
-  console.log("Total harvest ready count:", totalCount);
 
   function InventoryCard({ item }: { item: any }) {
     return (

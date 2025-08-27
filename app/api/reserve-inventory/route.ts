@@ -29,8 +29,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No items provided' }, { status: 400 })
     }
 
-    console.log("Reserving inventory for session:", session_id)
-    console.log("Items to reserve:", items)
+
 
     // Clean up expired reservations first
     cleanupExpiredReservations()
@@ -43,7 +42,7 @@ export async function POST(request: NextRequest) {
     for (const item of items) {
       if (item.id && item.name && item.quantity > 0) {
         try {
-          console.log(`Reserving inventory for "${item.name}" (ID: ${item.id}): ${item.quantity}`)
+  
           
           // Check current inventory and existing reservations
           const { data: currentData, error: selectError } = await supabase
@@ -103,7 +102,7 @@ export async function POST(request: NextRequest) {
             expires_at: expiresAt
           })
 
-          console.log(`Successfully reserved ${item.quantity} of ${item.name} (ID: ${item.id})`)
+  
           reservationResults.push({
             item: item.name,
             success: true,
@@ -156,7 +155,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Session ID required' }, { status: 400 })
     }
 
-    console.log("Releasing reservations for session:", session_id)
+
 
     // Remove all reservations for this session
     let releasedCount = 0
@@ -167,7 +166,7 @@ export async function DELETE(request: NextRequest) {
       }
     }
 
-    console.log(`Released ${releasedCount} reservations for session ${session_id}`)
+    
 
     return NextResponse.json({ 
       success: true, 

@@ -9,10 +9,10 @@ const originCrew = [
     image: "/blake.jpg",
   },
   {
-    name: "Dan Whitney",
-    role: "Senior Advisor",
-    description: "Dan oversees daily farm operations and logistics. His expertise in coastal operations ensures smooth coordination between our nursery and farm sites in Keller Bay.",
-    image: "/danc.jpg",
+    name: "Dan & Suzanne Whitney",
+    role: "Business Advisor & Office Manager",
+    description: "Dan & Suzanne enjoy working together to help make the farm successful! Dan is an Owner, principal investor, business advisor and coach. Suzanne is the Office Manager, supporting accounting, tax, payroll and marketing.",
+    image: "/DanS.jpg",
   },
   {
     name: "Hayden Warren",
