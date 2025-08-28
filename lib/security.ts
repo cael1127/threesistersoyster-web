@@ -110,7 +110,7 @@ export function sanitizeInput(input: string): string {
 }
 
 export function validateOrigin(origin: string | null): boolean {
-  if (!origin) return false
+  if (!origin) return true // Allow same-origin requests (no origin header)
   
   // Allow exact matches from allowed origins
   if (SECURITY_CONFIG.ALLOWED_ORIGINS.includes(origin)) {

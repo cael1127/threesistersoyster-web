@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useEffect, ReactNode } from 'react'
+import { createContext, useContext, useEffect, ReactNode, useState } from 'react'
 import { useAnalytics, usePageTracking, useErrorTracking, useClickTracking } from '@/hooks/use-analytics'
 
 interface AnalyticsContextType {
@@ -18,15 +18,33 @@ interface AnalyticsContextType {
 const AnalyticsContext = createContext<AnalyticsContextType | null>(null)
 
 export function AnalyticsProvider({ children }: { children: ReactNode }) {
+  const [isClient, setIsClient] = useState(false)
   const analytics = useAnalytics()
 
-  // Initialize automatic tracking
+  // Initialize automatic tracking only on client side
   usePageTracking()
   useErrorTracking()
   useClickTracking()
 
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  // Provide a fallback context during SSR
+  const contextValue = isClient ? analytics : {
+    trackPageView: () => {},
+    trackClick: () => {},
+    trackFormSubmit: () => {},
+    trackCartAction: () => {},
+    trackCheckoutStep: () => {},
+    trackAPICall: () => {},
+    trackError: () => {},
+    trackPerformance: () => {},
+    sessionId: ''
+  }
+
   return (
-    <AnalyticsContext.Provider value={analytics}>
+    <AnalyticsContext.Provider value={contextValue}>
       {children}
     </AnalyticsContext.Provider>
   )

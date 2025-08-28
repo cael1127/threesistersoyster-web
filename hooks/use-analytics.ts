@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import { analyticsMonitor } from '@/lib/analytics-monitor'
 
 // Generate a unique session ID
@@ -35,51 +35,63 @@ function getUserAgent(): string {
 export function useAnalytics() {
   const sessionId = useRef<string>('')
   const pageStartTime = useRef<number>(0)
+  const [isInitialized, setIsInitialized] = useState(false)
 
   // Initialize session
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    sessionId.current = getSessionId()
-    pageStartTime.current = Date.now()
+    try {
+      sessionId.current = getSessionId()
+      pageStartTime.current = Date.now()
 
-    // Create session
-    analyticsMonitor.createSession(
-      sessionId.current,
-      getClientIP(),
-      getUserAgent(),
-      document.referrer
-    )
+      // Create session
+      analyticsMonitor.createSession(
+        sessionId.current,
+        getClientIP(),
+        getUserAgent(),
+        document.referrer
+      )
 
-    // Track initial page view
-    trackPageView(window.location.href, document.referrer)
+      setIsInitialized(true)
+    } catch (error) {
+      console.warn('Analytics initialization failed:', error)
+    }
   }, [])
 
   // Track page views
   const trackPageView = useCallback((url: string, referrer?: string) => {
-    if (!sessionId.current) return
+    if (!sessionId.current || !isInitialized) return
 
-    const duration = Date.now() - pageStartTime.current
-    analyticsMonitor.trackPageView(sessionId.current, url, referrer, duration)
-    pageStartTime.current = Date.now()
-  }, [])
+    try {
+      const duration = Date.now() - pageStartTime.current
+      analyticsMonitor.trackPageView(sessionId.current, url, referrer, duration)
+      pageStartTime.current = Date.now()
+    } catch (error) {
+      console.warn('Page view tracking failed:', error)
+    }
+  }, [isInitialized])
 
   // Track clicks
   const trackClick = useCallback((element: string, category: string = 'interaction', details?: Record<string, any>) => {
-    if (!sessionId.current) return
+    if (!sessionId.current || !isInitialized) return
 
-    analyticsMonitor.trackEvent({
-      sessionId: sessionId.current,
-      ip: getClientIP(),
-      userAgent: getUserAgent(),
-      type: 'CLICK',
-      category,
-      action: 'click',
-      details: { element, ...details },
-      url: window.location.href,
-      success: true
-    })
-  }, [])
+    try {
+      analyticsMonitor.trackEvent({
+        sessionId: sessionId.current,
+        ip: getClientIP(),
+        userAgent: getUserAgent(),
+        type: 'CLICK',
+        category,
+        action: 'click',
+        details: { element, ...details },
+        url: window.location.href,
+        success: true
+      })
+    } catch (error) {
+      console.warn('Click tracking failed:', error)
+    }
+  }, [isInitialized])
 
   // Track form submissions
   const trackFormSubmit = useCallback((formName: string, success: boolean, details?: Record<string, any>) => {

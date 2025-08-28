@@ -241,7 +241,7 @@ export class AnalyticsMonitor {
       category: 'ecommerce',
       action: `cart_${action}`,
       details: { productId, quantity },
-      url: window?.location?.href || 'unknown',
+      url: typeof window !== 'undefined' ? window.location.href : 'unknown',
       success: true
     })
   }
@@ -259,7 +259,7 @@ export class AnalyticsMonitor {
       category: 'ecommerce',
       action: `checkout_${step}`,
       details: details || {},
-      url: window?.location?.href || 'unknown',
+      url: typeof window !== 'undefined' ? window.location.href : 'unknown',
       success
     })
   }
@@ -277,7 +277,7 @@ export class AnalyticsMonitor {
       category: 'api',
       action: `${method.toLowerCase()}_${endpoint}`,
       details: { endpoint, method, duration, error },
-      url: window?.location?.href || 'unknown',
+      url: typeof window !== 'undefined' ? window.location.href : 'unknown',
       duration,
       success
     })
