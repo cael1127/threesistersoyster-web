@@ -12,10 +12,18 @@ function generateSessionId(): string {
 function getSessionId(): string {
   if (typeof window === 'undefined') return ''
   
-  let sessionId = sessionStorage.getItem('analytics_session_id')
+  // Try sessionStorage first, then localStorage as fallback
+  let sessionId = sessionStorage.getItem('analytics_session_id') || localStorage.getItem('analytics_session_id')
   if (!sessionId) {
     sessionId = generateSessionId()
-    sessionStorage.setItem('analytics_session_id', sessionId)
+    try {
+      sessionStorage.setItem('analytics_session_id', sessionId)
+      // Also store in localStorage as backup for private browsing
+      localStorage.setItem('analytics_session_id', sessionId)
+    } catch (error) {
+      // If storage fails (private browsing), use in-memory only
+      console.warn('Analytics: Storage not available, using in-memory session')
+    }
   }
   return sessionId
 }
@@ -54,6 +62,15 @@ export function useAnalytics() {
       )
 
       setIsInitialized(true)
+      
+      // Debug logging
+      if (process.env.NODE_ENV === 'development') {
+        console.log('🔍 Analytics initialized:', {
+          sessionId: sessionId.current,
+          userAgent: getUserAgent(),
+          url: window.location.href
+        })
+      }
     } catch (error) {
       console.warn('Analytics initialization failed:', error)
     }
@@ -67,6 +84,16 @@ export function useAnalytics() {
       const duration = Date.now() - pageStartTime.current
       analyticsMonitor.trackPageView(sessionId.current, url, referrer, duration)
       pageStartTime.current = Date.now()
+      
+      // Debug logging
+      if (process.env.NODE_ENV === 'development') {
+        console.log('📊 Page view tracked:', {
+          sessionId: sessionId.current,
+          url,
+          referrer,
+          duration
+        })
+      }
     } catch (error) {
       console.warn('Page view tracking failed:', error)
     }
@@ -185,8 +212,17 @@ export function usePageTracking() {
   const { trackPageView } = useAnalytics()
 
   useEffect(() => {
-    // Track page view on mount
-    trackPageView(window.location.href, document.referrer)
+    // Track page view on mount with a small delay to ensure analytics is initialized
+    const trackInitialPageView = () => {
+      trackPageView(window.location.href, document.referrer)
+    }
+    
+    // Use requestIdleCallback or setTimeout to ensure analytics is ready
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      requestIdleCallback(trackInitialPageView)
+    } else {
+      setTimeout(trackInitialPageView, 100)
+    }
 
     // Track page view on route change (for SPA)
     const handleRouteChange = () => {

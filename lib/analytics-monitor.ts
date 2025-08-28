@@ -108,7 +108,9 @@ export class AnalyticsMonitor {
         category: event.category,
         action: event.action,
         url: event.url,
-        success: event.success
+        success: event.success,
+        sessionId: event.sessionId,
+        totalEvents: userEvents.size
       })
     }
   }
@@ -190,6 +192,15 @@ export class AnalyticsMonitor {
     }
 
     userSessions.set(sessionId, session)
+    
+    // Debug logging
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🔍 Analytics session created:', {
+        sessionId,
+        totalSessions: userSessions.size,
+        userAgent: userAgent.substring(0, 50) + '...'
+      })
+    }
   }
 
   // Update session data
@@ -204,7 +215,10 @@ export class AnalyticsMonitor {
   // Track page view
   trackPageView(sessionId: string, url: string, referrer?: string, duration?: number): void {
     const session = userSessions.get(sessionId)
-    if (!session) return
+    if (!session) {
+      console.warn('Analytics: Session not found for page view:', sessionId)
+      return
+    }
 
     this.trackEvent({
       sessionId,
