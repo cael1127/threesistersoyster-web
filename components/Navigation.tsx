@@ -67,6 +67,14 @@ export default function Navigation() {
             <Link href="/about" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
               About
             </Link>
+            {/* Admin/Development Links */}
+            {(process.env.NODE_ENV === 'development' || (typeof window !== 'undefined' && localStorage.getItem('admin_access') === 'true')) && (
+              <>
+                <Link href="/monitoring" className="text-white hover:text-white font-medium text-xs transition-all duration-200 hover:bg-white/10 px-2 py-2 rounded-lg hover:scale-105 border border-white/20">
+                  Monitoring
+                </Link>
+              </>
+            )}
           </nav>
           
           {/* Desktop Cart/Order Buttons */}

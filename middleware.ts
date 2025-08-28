@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { securityMonitor } from '@/lib/security-monitor'
 
 // In-memory rate limiting store (use Redis in production)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -69,10 +70,10 @@ function validateRequest(request: NextRequest): boolean {
   return true
 }
 
-// Security middleware - RE-ENABLED WITH PROPER CONFIGURATION
+// Security middleware - ENHANCED WITH SECURITY MONITORING
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+  const ip = securityMonitor.getClientIP(request)
   
   // Skip middleware for static assets and public files
   if (pathname.startsWith('/_next/') || 
@@ -88,13 +89,45 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
   
-  // Security checks - only block obviously malicious requests
-  if (!validateRequest(request)) {
+  // Check if IP is blocked
+  if (securityMonitor.isIPBlocked(ip)) {
+    securityMonitor.logEvent({
+      type: 'SUSPICIOUS_ACTIVITY',
+      severity: 'HIGH',
+      ip,
+      endpoint: pathname,
+      details: { reason: 'IP_BLOCKED' },
+      blocked: true
+    })
     return new NextResponse('Forbidden', { status: 403 })
   }
   
-  // Rate limiting - only for API routes to avoid blocking legitimate users
-  if (pathname.startsWith('/api/') && !checkRateLimit(ip, pathname)) {
+  // Analyze request for suspicious patterns
+  const analysis = securityMonitor.analyzeRequest(request)
+  if (analysis.suspicious) {
+    securityMonitor.logEvent({
+      type: 'MALICIOUS_REQUEST',
+      severity: analysis.reasons.some(r => r.includes('Malicious pattern')) ? 'CRITICAL' : 'HIGH',
+      ip,
+      endpoint: pathname,
+      details: { reasons: analysis.reasons, userAgent: request.headers.get('user-agent') },
+      blocked: true
+    })
+    
+    // Block IP if multiple suspicious requests
+    const recentSuspicious = Array.from(securityMonitor.getSecurityStats().recentEvents)
+      .filter(event => event.ip === ip && event.type === 'MALICIOUS_REQUEST')
+      .filter(event => event.timestamp.getTime() > Date.now() - 300000) // Last 5 minutes
+    
+    if (recentSuspicious.length >= 3) {
+      securityMonitor.blockIP(ip)
+    }
+    
+    return new NextResponse('Forbidden', { status: 403 })
+  }
+  
+  // Enhanced rate limiting with security monitoring
+  if (pathname.startsWith('/api/') && !securityMonitor.checkRateLimit(ip, pathname)) {
     return new NextResponse('Too Many Requests', { status: 429 })
   }
   

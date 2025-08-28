@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import { CartProvider } from "@/contexts/cart-context"
 import { MobileScrollRestoration } from "@/components/MobileScrollRestoration"
+import { AnalyticsProvider } from "@/components/AnalyticsProvider"
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -48,10 +49,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand text-white min-h-screen">
-        <CartProvider>
-          <MobileScrollRestoration />
-          {children}
-        </CartProvider>
+        <AnalyticsProvider>
+          <CartProvider>
+            <MobileScrollRestoration />
+            {children}
+          </CartProvider>
+        </AnalyticsProvider>
       </body>
     </html>
   )

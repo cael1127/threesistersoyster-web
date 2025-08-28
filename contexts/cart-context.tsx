@@ -3,6 +3,7 @@
 import type React from "react"
 import { createContext, useContext, useReducer, useEffect, useCallback, useRef } from "react"
 import { useState } from "react"
+import { useAnalyticsContext } from "@/components/AnalyticsProvider"
 
 export type CartItem = {
   id: string
@@ -106,6 +107,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     itemCount: 0,
   })
   const [mounted, setMounted] = useState(false)
+  
+  // Get analytics context (with fallback for when not available)
+  let analytics: any = null
+  try {
+    analytics = useAnalyticsContext()
+  } catch (error) {
+    // Analytics not available, continue without tracking
+  }
 
   // Generate a unique session ID for this cart session
   const sessionIdRef = useRef<string>()
@@ -201,7 +210,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
 
     dispatch({ type: "ADD_ITEM", payload: item })
-  }, [])
+    
+    // Track cart action
+    if (analytics) {
+      analytics.trackCartAction('add', item.id, item.quantity || 1)
+    }
+  }, [analytics])
 
   const removeItem = useCallback(async (id: string) => {
     // Find the item being removed to release its reservation
@@ -224,11 +238,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
     
     dispatch({ type: "REMOVE_ITEM", payload: id })
-  }, [state.items])
+    
+    // Track cart action
+    if (analytics && itemToRemove) {
+      analytics.trackCartAction('remove', itemToRemove.id, itemToRemove.quantity)
+    }
+  }, [state.items, analytics])
 
   const updateQuantity = useCallback((id: string, quantity: number) => {
+    const item = state.items.find(item => item.id === id)
     dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } })
-  }, [])
+    
+    // Track cart action
+    if (analytics && item) {
+      analytics.trackCartAction('update', item.id, quantity)
+    }
+  }, [state.items, analytics])
 
   const clearCart = useCallback(async () => {
     // Release all reservations when clearing cart
@@ -249,7 +274,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
     
     dispatch({ type: "CLEAR_CART" })
-  }, [])
+    
+    // Track cart action
+    if (analytics) {
+      analytics.trackCartAction('clear', 'all', state.items.length)
+    }
+  }, [analytics, state.items.length])
 
   const getSessionId = useCallback(() => {
     return sessionIdRef.current
