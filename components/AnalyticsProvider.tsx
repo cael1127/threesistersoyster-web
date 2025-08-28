@@ -19,9 +19,9 @@ const AnalyticsContext = createContext<AnalyticsContextType | null>(null)
 
 export function AnalyticsProvider({ children }: { children: ReactNode }) {
   const [isClient, setIsClient] = useState(false)
+  
+  // Always call hooks, but they handle client-side checks internally
   const analytics = useAnalytics()
-
-  // Initialize automatic tracking hooks (they handle client-side checks internally)
   usePageTracking()
   useErrorTracking()
   useClickTracking()

@@ -82,8 +82,12 @@ export class AnalyticsMonitor {
 
   // Generate unique ID
   private generateId(): string {
-    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
-      return crypto.randomUUID()
+    try {
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID()
+      }
+    } catch (error) {
+      console.warn('Crypto.randomUUID failed, using fallback:', error)
     }
     // Fallback for environments without crypto.randomUUID
     return `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
@@ -128,7 +132,7 @@ export class AnalyticsMonitor {
   trackError(error: Omit<ErrorEvent, 'id' | 'timestamp'>): void {
     const errorEvent: ErrorEvent = {
       ...error,
-      id: crypto.randomUUID(),
+      id: this.generateId(),
       timestamp: new Date(),
     }
 
@@ -164,7 +168,7 @@ export class AnalyticsMonitor {
   trackPerformance(performance: Omit<PerformanceEvent, 'id' | 'timestamp'>): void {
     const performanceEvent: PerformanceEvent = {
       ...performance,
-      id: crypto.randomUUID(),
+      id: this.generateId(),
       timestamp: new Date(),
     }
 

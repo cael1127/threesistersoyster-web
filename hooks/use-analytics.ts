@@ -73,6 +73,8 @@ export function useAnalytics() {
       }
     } catch (error) {
       console.warn('Analytics initialization failed:', error)
+      // Set initialized to true even if there's an error to prevent infinite retries
+      setIsInitialized(true)
     }
   }, [])
 
@@ -298,14 +300,16 @@ export function useClickTracking() {
       // Get element identifier
       const element = target.tagName.toLowerCase()
       const id = target.id ? `#${target.id}` : ''
-      const className = target.className ? `.${target.className.split(' ')[0]}` : ''
+      const className = target.className && typeof target.className === 'string' 
+        ? `.${target.className.split(' ')[0]}` 
+        : ''
       const elementId = `${element}${id}${className}`
 
       // Track click
       trackClick(elementId, 'interaction', {
         tagName: target.tagName,
         id: target.id,
-        className: target.className,
+        className: typeof target.className === 'string' ? target.className : String(target.className),
         textContent: target.textContent?.substring(0, 100)
       })
     }
