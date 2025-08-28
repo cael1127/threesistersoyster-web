@@ -21,10 +21,20 @@ export default function ProductsPage() {
   const fetchProducts = async () => {
     setLoading(true)
     try {
+      // Check if Supabase is configured first
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
+        console.warn("Supabase not configured, using empty products")
+        setProducts([])
+        setLoading(false)
+        return
+      }
+
       const productsData = await getProducts()
       setProducts(productsData)
     } catch (error) {
       console.error("Error fetching products:", error)
+      // Set empty array on error to prevent crashes
+      setProducts([])
     } finally {
       setLoading(false)
     }

@@ -37,6 +37,17 @@ export function FloatingParticles({
   interactive = true 
 }: FloatingParticlesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  // Detect mobile for performance optimization
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -287,16 +298,24 @@ export function FloatingParticles({
       document.addEventListener('mousemove', handleMouseMove);
     }
 
-    // Animation loop
+    // Animation loop with mobile optimization
     let animationId: number;
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let lastFrameTime = 0;
+    const targetFPS = isMobile ? 30 : 60; // Reduce FPS on mobile
+    const frameInterval = 1000 / targetFPS;
+    
+    const animate = (currentTime: number) => {
+      if (currentTime - lastFrameTime >= frameInterval) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach(particle => {
-        particle.update(mouseX, mouseY, isMouseMoving);
-        particle.draw();
-      });
+        particles.forEach(particle => {
+          particle.update(mouseX, mouseY, isMouseMoving && !isMobile); // Disable mouse interaction on mobile
+          particle.draw();
+        });
 
+        lastFrameTime = currentTime;
+      }
+      
       animationId = requestAnimationFrame(animate);
     };
 
@@ -309,7 +328,7 @@ export function FloatingParticles({
         clearTimeout(mouseTimeout);
       }
     };
-  }, [particleCount, interactive]);
+  }, [particleCount, interactive, isMobile]);
 
   return (
     <canvas

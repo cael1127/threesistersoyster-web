@@ -77,20 +77,10 @@ const nextConfig = {
             key: 'Strict-Transport-Security',
             value: 'max-age=31536000; includeSubDomains; preload',
           },
-          // Cache Control for sensitive pages
+          // Cache Control for sensitive pages (less aggressive for mobile)
           {
             key: 'Cache-Control',
-            value: 'no-store, no-cache, must-revalidate, proxy-revalidate',
-          },
-          // Prevent caching of sensitive data
-          {
-            key: 'Pragma',
-            value: 'no-cache',
-          },
-          // Expires header
-          {
-            key: 'Expires',
-            value: '0',
+            value: 'public, max-age=60, s-maxage=60, stale-while-revalidate=300',
           },
         ],
       },

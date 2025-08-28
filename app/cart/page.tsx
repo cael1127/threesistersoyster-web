@@ -21,6 +21,8 @@ export default function CartPage() {
 
   // Check if user just added items to cart
   useEffect(() => {
+    if (typeof window === 'undefined') return
+    
     const urlParams = new URLSearchParams(window.location.search)
     if (urlParams.get('added') === 'true') {
       setShowSuccessMessage(true)

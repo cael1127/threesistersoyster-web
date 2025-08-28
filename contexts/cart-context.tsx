@@ -107,6 +107,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     itemCount: 0,
   })
   const [mounted, setMounted] = useState(false)
+  const [isClient, setIsClient] = useState(false)
   
   // Get analytics context (with fallback for when not available)
   // let analytics: any = null
@@ -140,6 +141,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   // Set mounted state and generate session ID
   useEffect(() => {
+    setIsClient(true)
     setMounted(true)
     
     // Generate a unique session ID for this cart session
@@ -148,26 +150,37 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  // Load cart from localStorage on mount (only on client)
+  // Load cart from localStorage on mount (only on client) - optimized for performance
   useEffect(() => {
-    if (!mounted) return
+    if (!mounted || !isClient) return
     
-    try {
-      if (typeof window !== 'undefined') {
-        const savedCart = localStorage.getItem("three-sisters-cart")
-        if (savedCart) {
-          const cartItems = JSON.parse(savedCart)
-          dispatch({ type: "LOAD_CART", payload: cartItems })
+    // Use requestIdleCallback for non-critical cart loading to avoid blocking initial render
+    const loadCart = () => {
+      try {
+        if (typeof window !== 'undefined') {
+          const savedCart = localStorage.getItem("three-sisters-cart")
+          if (savedCart) {
+            const cartItems = JSON.parse(savedCart)
+            dispatch({ type: "LOAD_CART", payload: cartItems })
+          }
         }
+      } catch (error) {
+        console.error("Error loading cart from localStorage:", error)
       }
-    } catch (error) {
-      console.error("Error loading cart from localStorage:", error)
     }
-  }, [mounted])
+    
+    // Load cart when browser is idle to avoid blocking initial render
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      requestIdleCallback(loadCart)
+    } else {
+      // Fallback for browsers without requestIdleCallback
+      setTimeout(loadCart, 100)
+    }
+  }, [mounted, isClient])
 
   // Save cart to localStorage whenever it changes (debounced)
   useEffect(() => {
-    if (!mounted) return
+    if (!mounted || !isClient) return
     
     saveToLocalStorage(state.items)
     
@@ -177,7 +190,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         clearTimeout(saveTimeoutRef.current)
       }
     }
-  }, [state.items, saveToLocalStorage, mounted])
+  }, [state.items, saveToLocalStorage, mounted, isClient])
 
   const addItem = useCallback(async (item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
     try {

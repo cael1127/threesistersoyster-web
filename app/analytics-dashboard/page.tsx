@@ -41,7 +41,7 @@ function AccessControl() {
     const checkAccess = async () => {
       try {
         // Check if user has admin access (implement your own logic)
-        const isAdmin = localStorage.getItem('admin_access') === 'true' || 
+        const isAdmin = (typeof window !== 'undefined' && localStorage.getItem('admin_access') === 'true') || 
                        process.env.NODE_ENV === 'development'
         
         setHasAccess(isAdmin)

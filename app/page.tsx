@@ -8,20 +8,46 @@ import Link from "next/link"
 import Image from "next/image"
 import dynamic from "next/dynamic";
 import TeamScroller from "@/components/TeamScroller";
-import { VideoPlayer } from '@/components/ui/video-player';
+// import { VideoPlayer } from '@/components/ui/video-player'; // Now using LazyVideoPlayer
 import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import { SeasonalFloatingParticles } from "@/components/ui/floating-particles";
 import Navigation from "@/components/Navigation";
+import EnvVarChecker from "@/components/EnvVarChecker";
+import { useState, useEffect } from "react";
 
 const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedCounter"));
+const LazyVideoPlayer = dynamic(() => import("@/components/ui/video-player").then(mod => ({ default: mod.VideoPlayer })), {
+  ssr: false,
+  loading: () => <div className="w-full h-64 bg-gray-200 animate-pulse rounded-lg" />
+});
 
 export default function HomePage() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative overflow-x-hidden">
-      <SeasonalFloatingParticles count={15} />
+      <SeasonalFloatingParticles count={isMobile ? 5 : 15} />
       
       {/* Header */}
       <Navigation />
+      
+      {/* Environment Status (Development Only) */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="container mx-auto px-4 py-4">
+          <EnvVarChecker />
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20 overflow-hidden">
@@ -66,7 +92,7 @@ export default function HomePage() {
             {/* Right Side - Video */}
             <div className="relative">
               <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl">
-                <VideoPlayer
+                <LazyVideoPlayer
                   src="/homepage.MP4"
                   alt="Three Sisters Oyster Farm Tour"
                   className="w-full h-full"
