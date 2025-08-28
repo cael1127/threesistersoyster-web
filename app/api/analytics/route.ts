@@ -8,11 +8,22 @@ export async function GET(request: NextRequest) {
     // Only allow from trusted origins
     const origin = request.headers.get('origin')
     if (!validateOrigin(origin)) {
+      console.warn('Analytics API: Unauthorized origin:', origin)
       return NextResponse.json({ error: 'Unauthorized origin' }, { status: 403 })
     }
 
     // Get analytics data
     const analyticsData = analyticsMonitor.getAnalyticsData()
+
+    // Debug logging
+    if (process.env.NODE_ENV === 'development') {
+      console.log('📊 Analytics API called:', {
+        totalSessions: analyticsData.totalSessions,
+        totalEvents: analyticsData.totalEvents,
+        activeSessions: analyticsData.activeSessions,
+        origin
+      })
+    }
 
     return NextResponse.json({
       success: true,

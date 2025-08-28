@@ -13,6 +13,7 @@ import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import { SeasonalFloatingParticles } from "@/components/ui/floating-particles";
 import Navigation from "@/components/Navigation";
 import EnvVarChecker from "@/components/EnvVarChecker";
+import { AnalyticsTestButton } from "@/components/AnalyticsTestButton";
 import { useState, useEffect } from "react";
 
 const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedCounter"));
@@ -46,6 +47,7 @@ export default function HomePage() {
       {process.env.NODE_ENV === 'development' && (
         <div className="container mx-auto px-4 py-4">
           <EnvVarChecker />
+          <AnalyticsTestButton />
         </div>
       )}
 

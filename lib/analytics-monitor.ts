@@ -80,11 +80,20 @@ export class AnalyticsMonitor {
     return AnalyticsMonitor.instance
   }
 
+  // Generate unique ID
+  private generateId(): string {
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+      return crypto.randomUUID()
+    }
+    // Fallback for environments without crypto.randomUUID
+    return `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+  }
+
   // Track user events
   trackEvent(event: Omit<UserEvent, 'id' | 'timestamp'>): void {
     const userEvent: UserEvent = {
       ...event,
-      id: crypto.randomUUID(),
+      id: this.generateId(),
       timestamp: new Date(),
     }
 
@@ -468,6 +477,11 @@ export class AnalyticsMonitor {
 
 // Export singleton instance
 export const analyticsMonitor = AnalyticsMonitor.getInstance()
+
+// Debug: Log when analytics monitor is created
+if (process.env.NODE_ENV === 'development') {
+  console.log('🔍 Analytics Monitor initialized')
+}
 
 // Cleanup every 10 minutes
 setInterval(() => {

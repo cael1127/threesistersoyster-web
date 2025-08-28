@@ -57,17 +57,24 @@ export default function AnalyticsDashboard() {
   const fetchAnalyticsData = async () => {
     try {
       setLoading(true)
+      console.log('🔍 Fetching analytics data...')
+      
       const response = await fetch('/api/analytics')
       
       if (!response.ok) {
+        const errorText = await response.text()
+        console.error('Analytics API error:', response.status, errorText)
         throw new Error(`HTTP ${response.status}: ${response.statusText}`)
       }
       
       const result = await response.json()
+      console.log('📊 Analytics data received:', result.data)
+      
       setAnalyticsData(result.data)
       setLastUpdated(new Date())
       setError(null)
     } catch (err) {
+      console.error('Analytics fetch error:', err)
       setError(err instanceof Error ? err.message : 'Failed to fetch analytics data')
     } finally {
       setLoading(false)
