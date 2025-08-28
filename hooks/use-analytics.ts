@@ -212,28 +212,39 @@ export function usePageTracking() {
   const { trackPageView } = useAnalytics()
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return
+
     // Track page view on mount with a small delay to ensure analytics is initialized
     const trackInitialPageView = () => {
-      trackPageView(window.location.href, document.referrer)
+      if (typeof window !== 'undefined') {
+        trackPageView(window.location.href, document.referrer)
+      }
     }
     
     // Use requestIdleCallback or setTimeout to ensure analytics is ready
     if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
       requestIdleCallback(trackInitialPageView)
-    } else {
+    } else if (typeof window !== 'undefined') {
       setTimeout(trackInitialPageView, 100)
     }
 
     // Track page view on route change (for SPA)
     const handleRouteChange = () => {
-      trackPageView(window.location.href, document.referrer)
+      if (typeof window !== 'undefined') {
+        trackPageView(window.location.href, document.referrer)
+      }
     }
 
     // Listen for popstate events (back/forward navigation)
-    window.addEventListener('popstate', handleRouteChange)
+    if (typeof window !== 'undefined') {
+      window.addEventListener('popstate', handleRouteChange)
+    }
 
     return () => {
-      window.removeEventListener('popstate', handleRouteChange)
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('popstate', handleRouteChange)
+      }
     }
   }, [trackPageView])
 }
@@ -243,6 +254,9 @@ export function useErrorTracking() {
   const { trackError } = useAnalytics()
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return
+
     // Global error handler
     const handleError = (event: ErrorEvent) => {
       trackError(new Error(event.message), 'global', {
@@ -274,6 +288,9 @@ export function useClickTracking() {
   const { trackClick } = useAnalytics()
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return
+
     const handleClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement
       if (!target) return

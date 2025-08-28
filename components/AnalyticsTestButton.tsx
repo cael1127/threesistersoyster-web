@@ -1,18 +1,33 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { useAnalyticsContext } from '@/components/AnalyticsProvider'
 
 export function AnalyticsTestButton() {
   const [testResults, setTestResults] = useState<string[]>([])
-  const analytics = useAnalyticsContext()
+  const [analytics, setAnalytics] = useState<any>(null)
+
+  useEffect(() => {
+    try {
+      const analyticsInstance = useAnalyticsContext()
+      setAnalytics(analyticsInstance)
+    } catch (error) {
+      console.warn('Analytics context not available:', error)
+    }
+  }, [])
 
   const runAnalyticsTest = async () => {
     const results: string[] = []
     
     try {
+      if (!analytics) {
+        results.push('❌ Analytics not available - check console for errors')
+        setTestResults(results)
+        return
+      }
+
       // Test 1: Track a click event
       analytics.trackClick('test-button', 'testing', { test: 'manual-click' })
       results.push('✅ Click event tracked')
@@ -71,9 +86,16 @@ export function AnalyticsTestButton() {
           onClick={runAnalyticsTest}
           className="mb-3"
           variant="outline"
+          disabled={!analytics}
         >
-          Run Analytics Test
+          {analytics ? 'Run Analytics Test' : 'Analytics Not Available'}
         </Button>
+        
+        {analytics && (
+          <div className="text-sm text-green-700 mb-2">
+            ✅ Analytics available - Session ID: {analytics.sessionId || 'Loading...'}
+          </div>
+        )}
         
         {testResults.length > 0 && (
           <div className="space-y-1">

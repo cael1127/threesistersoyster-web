@@ -21,7 +21,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
   const [isClient, setIsClient] = useState(false)
   const analytics = useAnalytics()
 
-  // Initialize automatic tracking only on client side
+  // Initialize automatic tracking hooks (they handle client-side checks internally)
   usePageTracking()
   useErrorTracking()
   useClickTracking()
