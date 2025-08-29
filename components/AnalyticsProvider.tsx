@@ -4,14 +4,14 @@ import { createContext, useContext, useEffect, ReactNode, useState } from 'react
 import { useAnalytics, usePageTracking, useErrorTracking, useClickTracking } from '@/hooks/use-analytics'
 
 interface AnalyticsContextType {
-  trackPageView: (url: string, referrer?: string) => void
-  trackClick: (element: string, category?: string, details?: Record<string, any>) => void
-  trackFormSubmit: (formName: string, success: boolean, details?: Record<string, any>) => void
-  trackCartAction: (action: 'add' | 'remove' | 'update' | 'clear', productId: string, quantity?: number) => void
-  trackCheckoutStep: (step: string, success: boolean, details?: Record<string, any>) => void
-  trackAPICall: (endpoint: string, method: string, success: boolean, duration?: number, error?: string) => void
-  trackError: (error: Error, component?: string, details?: Record<string, any>) => void
-  trackPerformance: (metric: string, value: number, unit?: 'ms' | 'bytes' | 'count', details?: Record<string, any>) => void
+  trackPageView: (url: string, referrer?: string) => Promise<void>
+  trackClick: (element: string, category?: string, details?: Record<string, any>) => Promise<void>
+  trackFormSubmit: (formName: string, success: boolean, details?: Record<string, any>) => Promise<void>
+  trackCartAction: (action: 'add' | 'remove' | 'update' | 'clear', productId: string, quantity?: number) => Promise<void>
+  trackCheckoutStep: (step: string, success: boolean, details?: Record<string, any>) => Promise<void>
+  trackAPICall: (endpoint: string, method: string, success: boolean, duration?: number, error?: string) => Promise<void>
+  trackError: (error: Error, component?: string, details?: Record<string, any>) => Promise<void>
+  trackPerformance: (metric: string, value: number, unit?: 'ms' | 'bytes' | 'count', details?: Record<string, any>) => Promise<void>
   sessionId: string
 }
 
@@ -32,14 +32,14 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
 
   // Provide a fallback context during SSR
   const contextValue = isClient ? analytics : {
-    trackPageView: () => {},
-    trackClick: () => {},
-    trackFormSubmit: () => {},
-    trackCartAction: () => {},
-    trackCheckoutStep: () => {},
-    trackAPICall: () => {},
-    trackError: () => {},
-    trackPerformance: () => {},
+    trackPageView: async () => {},
+    trackClick: async () => {},
+    trackFormSubmit: async () => {},
+    trackCartAction: async () => {},
+    trackCheckoutStep: async () => {},
+    trackAPICall: async () => {},
+    trackError: async () => {},
+    trackPerformance: async () => {},
     sessionId: ''
   }
 

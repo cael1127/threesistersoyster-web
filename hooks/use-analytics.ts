@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useCallback, useState } from 'react'
-import { analyticsMonitor } from '@/lib/analytics-monitor'
 
 // Generate a unique session ID
 function generateSessionId(): string {
@@ -53,13 +52,26 @@ export function useAnalytics() {
       sessionId.current = getSessionId()
       pageStartTime.current = Date.now()
 
-      // Create session
-      analyticsMonitor.createSession(
-        sessionId.current,
-        getClientIP(),
-        getUserAgent(),
-        document.referrer
-      )
+      // Create session via API
+      try {
+        await fetch('/api/analytics', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            type: 'create_session',
+            data: {
+              sessionId: sessionId.current,
+              ip: getClientIP(),
+              userAgent: getUserAgent(),
+              referrer: document.referrer
+            }
+          })
+        })
+      } catch (error) {
+        console.warn('Session creation failed:', error)
+      }
 
       setIsInitialized(true)
       
@@ -79,12 +91,29 @@ export function useAnalytics() {
   }, [])
 
   // Track page views
-  const trackPageView = useCallback((url: string, referrer?: string) => {
+  const trackPageView = useCallback(async (url: string, referrer?: string) => {
     if (!sessionId.current || !isInitialized) return
 
     try {
       const duration = Date.now() - pageStartTime.current
-      analyticsMonitor.trackPageView(sessionId.current, url, referrer, duration)
+      
+      // Send to API instead of direct server call
+      await fetch('/api/analytics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'page_view',
+          data: {
+            sessionId: sessionId.current,
+            url,
+            referrer,
+            duration
+          }
+        })
+      })
+      
       pageStartTime.current = Date.now()
       
       // Debug logging
@@ -102,20 +131,26 @@ export function useAnalytics() {
   }, [isInitialized])
 
   // Track clicks
-  const trackClick = useCallback((element: string, category: string = 'interaction', details?: Record<string, any>) => {
+  const trackClick = useCallback(async (element: string, category: string = 'interaction', details?: Record<string, any>) => {
     if (!sessionId.current || !isInitialized) return
 
     try {
-      analyticsMonitor.trackEvent({
-        sessionId: sessionId.current,
-        ip: getClientIP(),
-        userAgent: getUserAgent(),
-        type: 'CLICK',
-        category,
-        action: 'click',
-        details: { element, ...details },
-        url: window.location.href,
-        success: true
+      await fetch('/api/analytics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'click',
+          data: {
+            sessionId: sessionId.current,
+            ip: getClientIP(),
+            userAgent: getUserAgent(),
+            category,
+            details: { element, ...details },
+            url: window.location.href
+          }
+        })
       })
     } catch (error) {
       console.warn('Click tracking failed:', error)
@@ -123,77 +158,169 @@ export function useAnalytics() {
   }, [isInitialized])
 
   // Track form submissions
-  const trackFormSubmit = useCallback((formName: string, success: boolean, details?: Record<string, any>) => {
+  const trackFormSubmit = useCallback(async (formName: string, success: boolean, details?: Record<string, any>) => {
     if (!sessionId.current) return
 
-    analyticsMonitor.trackEvent({
-      sessionId: sessionId.current,
-      ip: getClientIP(),
-      userAgent: getUserAgent(),
-      type: 'FORM_SUBMIT',
-      category: 'form',
-      action: 'submit',
-      details: { formName, ...details },
-      url: window.location.href,
-      success
-    })
+    try {
+      await fetch('/api/analytics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'form_submit',
+          data: {
+            sessionId: sessionId.current,
+            ip: getClientIP(),
+            userAgent: getUserAgent(),
+            formName,
+            success,
+            details: { formName, ...details },
+            url: window.location.href
+          }
+        })
+      })
+    } catch (error) {
+      console.warn('Form submission tracking failed:', error)
+    }
   }, [])
 
   // Track cart actions
-  const trackCartAction = useCallback((action: 'add' | 'remove' | 'update' | 'clear', productId: string, quantity?: number) => {
+  const trackCartAction = useCallback(async (action: 'add' | 'remove' | 'update' | 'clear', productId: string, quantity?: number) => {
     if (!sessionId.current) return
 
-    analyticsMonitor.trackCartAction(sessionId.current, action, productId, quantity)
+    try {
+      await fetch('/api/analytics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'cart_action',
+          data: {
+            sessionId: sessionId.current,
+            action,
+            productId,
+            quantity
+          }
+        })
+      })
+    } catch (error) {
+      console.warn('Cart action tracking failed:', error)
+    }
   }, [])
 
   // Track checkout steps
-  const trackCheckoutStep = useCallback((step: string, success: boolean, details?: Record<string, any>) => {
+  const trackCheckoutStep = useCallback(async (step: string, success: boolean, details?: Record<string, any>) => {
     if (!sessionId.current) return
 
-    analyticsMonitor.trackCheckoutStep(sessionId.current, step, success, details)
+    try {
+      await fetch('/api/analytics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'checkout_step',
+          data: {
+            sessionId: sessionId.current,
+            step,
+            success,
+            details
+          }
+        })
+      })
+    } catch (error) {
+      console.warn('Checkout step tracking failed:', error)
+    }
   }, [])
 
   // Track API calls
-  const trackAPICall = useCallback((endpoint: string, method: string, success: boolean, duration?: number, error?: string) => {
+  const trackAPICall = useCallback(async (endpoint: string, method: string, success: boolean, duration?: number, error?: string) => {
     if (!sessionId.current) return
 
-    analyticsMonitor.trackAPICall(sessionId.current, endpoint, method, success, duration, error)
+    try {
+      await fetch('/api/analytics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'api_call',
+          data: {
+            sessionId: sessionId.current,
+            endpoint,
+            method,
+            success,
+            duration,
+            error
+          }
+        })
+      })
+    } catch (err) {
+      console.warn('API call tracking failed:', err)
+    }
   }, [])
 
   // Track errors
-  const trackError = useCallback((error: Error, component?: string, details?: Record<string, any>) => {
+  const trackError = useCallback(async (error: Error, component?: string, details?: Record<string, any>) => {
     if (!sessionId.current) return
 
-    analyticsMonitor.trackError({
-      sessionId: sessionId.current,
-      ip: getClientIP(),
-      userAgent: getUserAgent(),
-      type: 'CLIENT_ERROR',
-      severity: 'MEDIUM',
-      message: error.message,
-      stack: error.stack,
-      url: window.location.href,
-      component,
-      details: details || {},
-      resolved: false
-    })
+    try {
+      await fetch('/api/analytics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'error',
+          data: {
+            sessionId: sessionId.current,
+            ip: getClientIP(),
+            userAgent: getUserAgent(),
+            errorType: 'CLIENT_ERROR',
+            severity: 'MEDIUM',
+            message: error.message,
+            stack: error.stack,
+            url: window.location.href,
+            component,
+            details: details || {}
+          }
+        })
+      })
+    } catch (err) {
+      console.warn('Error tracking failed:', err)
+    }
   }, [])
 
   // Track performance
-  const trackPerformance = useCallback((metric: string, value: number, unit: 'ms' | 'bytes' | 'count' = 'ms', details?: Record<string, any>) => {
+  const trackPerformance = useCallback(async (metric: string, value: number, unit: 'ms' | 'bytes' | 'count' = 'ms', details?: Record<string, any>) => {
     if (!sessionId.current) return
 
-    analyticsMonitor.trackPerformance({
-      sessionId: sessionId.current,
-      ip: getClientIP(),
-      userAgent: getUserAgent(),
-      type: 'COMPONENT_RENDER',
-      metric,
-      value,
-      unit,
-      url: window.location.href,
-      details: details || {}
-    })
+    try {
+      await fetch('/api/analytics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'performance',
+          data: {
+            sessionId: sessionId.current,
+            ip: getClientIP(),
+            userAgent: getUserAgent(),
+            performanceType: 'COMPONENT_RENDER',
+            metric,
+            value,
+            unit,
+            url: window.location.href,
+            details: details || {}
+          }
+        })
+      })
+    } catch (error) {
+      console.warn('Performance tracking failed:', error)
+    }
   }, [])
 
   return {

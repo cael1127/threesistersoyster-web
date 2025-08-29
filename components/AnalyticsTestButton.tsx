@@ -29,27 +29,27 @@ export function AnalyticsTestButton() {
       }
 
       // Test 1: Track a click event
-      analytics.trackClick('test-button', 'testing', { test: 'manual-click' })
+      await analytics.trackClick('test-button', 'testing', { test: 'manual-click' })
       results.push('✅ Click event tracked')
       
       // Test 2: Track a page view
-      analytics.trackPageView(window.location.href, 'test-referrer')
+      await analytics.trackPageView(window.location.href, 'test-referrer')
       results.push('✅ Page view tracked')
       
       // Test 3: Track a form submission
-      analytics.trackFormSubmit('test-form', true, { test: 'manual-form' })
+      await analytics.trackFormSubmit('test-form', true, { test: 'manual-form' })
       results.push('✅ Form submission tracked')
       
       // Test 4: Track a cart action
-      analytics.trackCartAction('add', 'test-product', 1)
+      await analytics.trackCartAction('add', 'test-product', 1)
       results.push('✅ Cart action tracked')
       
       // Test 5: Track an API call
-      analytics.trackAPICall('/api/test', 'GET', true, 100)
+      await analytics.trackAPICall('/api/test', 'GET', true, 100)
       results.push('✅ API call tracked')
       
       // Test 6: Track performance
-      analytics.trackPerformance('test-metric', 50, 'ms', { test: 'manual-performance' })
+      await analytics.trackPerformance('test-metric', 50, 'ms', { test: 'manual-performance' })
       results.push('✅ Performance metric tracked')
       
       // Test 7: Check session ID

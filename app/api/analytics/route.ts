@@ -53,6 +53,15 @@ export async function POST(request: NextRequest) {
 
     // Track different types of events
     switch (type) {
+      case 'create_session':
+        analyticsMonitor.createSession(
+          data.sessionId,
+          data.ip,
+          data.userAgent,
+          data.referrer
+        )
+        break
+
       case 'page_view':
         analyticsMonitor.trackPageView(
           data.sessionId,
