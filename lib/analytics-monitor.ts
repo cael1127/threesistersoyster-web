@@ -60,6 +60,10 @@ const userSessions = new Map<string, {
   userId?: string
   ip: string
   userAgent: string
+  deviceFingerprint?: string
+  screenResolution?: string
+  timezone?: string
+  language?: string
   pageViews: number
   events: number
   errors: number
@@ -191,13 +195,22 @@ export class AnalyticsMonitor {
   }
 
   // Create or update user session
-  createSession(sessionId: string, ip: string, userAgent: string, referrer?: string): void {
+  createSession(sessionId: string, ip: string, userAgent: string, referrer?: string, additionalData?: {
+    deviceFingerprint?: string
+    screenResolution?: string
+    timezone?: string
+    language?: string
+  }): void {
     const session = {
       sessionId,
       startTime: new Date(),
       lastActivity: new Date(),
       ip,
       userAgent,
+      deviceFingerprint: additionalData?.deviceFingerprint,
+      screenResolution: additionalData?.screenResolution,
+      timezone: additionalData?.timezone,
+      language: additionalData?.language,
       pageViews: 0,
       events: 0,
       errors: 0,
@@ -211,7 +224,9 @@ export class AnalyticsMonitor {
       console.log('🔍 Analytics session created:', {
         sessionId,
         totalSessions: userSessions.size,
-        userAgent: userAgent.substring(0, 50) + '...'
+        userAgent: userAgent.substring(0, 50) + '...',
+        deviceFingerprint: additionalData?.deviceFingerprint,
+        ip
       })
     }
   }
@@ -415,6 +430,49 @@ export class AnalyticsMonitor {
       events: events.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()),
       errors: errors.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()),
       performance: performance.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
+    }
+  }
+
+  // Get sessions by IP address
+  getSessionsByIP(ip: string): Array<typeof userSessions.values extends Map<string, infer U> ? U : never> {
+    return Array.from(userSessions.values()).filter(session => session.ip === ip)
+  }
+
+  // Get sessions by device fingerprint
+  getSessionsByDevice(deviceFingerprint: string): Array<typeof userSessions.values extends Map<string, infer U> ? U : never> {
+    return Array.from(userSessions.values()).filter(session => session.deviceFingerprint === deviceFingerprint)
+  }
+
+  // Get user journey across multiple sessions (by IP or device)
+  getUserJourney(identifier: string, type: 'ip' | 'device' = 'ip'): {
+    sessions: Array<typeof userSessions.values extends Map<string, infer U> ? U : never>
+    allEvents: UserEvent[]
+    totalPageViews: number
+    totalEvents: number
+    firstVisit: Date | null
+    lastVisit: Date | null
+  } {
+    const sessions = type === 'ip' 
+      ? this.getSessionsByIP(identifier)
+      : this.getSessionsByDevice(identifier)
+
+    const sessionIds = sessions.map(s => s.sessionId)
+    const allEvents = Array.from(userEvents.values()).filter(e => sessionIds.includes(e.sessionId))
+    
+    const totalPageViews = sessions.reduce((sum, s) => sum + s.pageViews, 0)
+    const totalEvents = sessions.reduce((sum, s) => sum + s.events, 0)
+    
+    const timestamps = sessions.map(s => s.startTime)
+    const firstVisit = timestamps.length > 0 ? new Date(Math.min(...timestamps.map(t => t.getTime()))) : null
+    const lastVisit = timestamps.length > 0 ? new Date(Math.max(...timestamps.map(t => t.getTime()))) : null
+
+    return {
+      sessions,
+      allEvents: allEvents.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()),
+      totalPageViews,
+      totalEvents,
+      firstVisit,
+      lastVisit
     }
   }
 

@@ -2,6 +2,19 @@ import { NextRequest, NextResponse } from "next/server"
 import { analyticsMonitor } from "@/lib/analytics-monitor"
 import { validateOrigin } from "@/lib/security"
 
+// Get client IP from request headers
+function getClientIP(request: NextRequest): string {
+  const forwarded = request.headers.get('x-forwarded-for')
+  const realIP = request.headers.get('x-real-ip')
+  const cfConnectingIP = request.headers.get('cf-connecting-ip')
+  
+  if (cfConnectingIP) return cfConnectingIP
+  if (realIP) return realIP
+  if (forwarded) return forwarded.split(',')[0].trim()
+  
+  return request.ip || 'unknown'
+}
+
 // Analytics API endpoint
 export async function GET(request: NextRequest) {
   try {
@@ -74,11 +87,19 @@ export async function POST(request: NextRequest) {
     // Track different types of events
     switch (type) {
       case 'create_session':
+        // Get real client IP from request headers
+        const realIP = getClientIP(request)
         analyticsMonitor.createSession(
           data.sessionId,
-          data.ip,
+          realIP,
           data.userAgent,
-          data.referrer
+          data.referrer,
+          {
+            deviceFingerprint: data.deviceFingerprint,
+            screenResolution: data.screenResolution,
+            timezone: data.timezone,
+            language: data.language
+          }
         )
         break
 
@@ -94,7 +115,7 @@ export async function POST(request: NextRequest) {
       case 'click':
         analyticsMonitor.trackEvent({
           sessionId: data.sessionId,
-          ip: data.ip || 'unknown',
+          ip: getClientIP(request),
           userAgent: data.userAgent || 'unknown',
           type: 'CLICK',
           category: data.category || 'interaction',
@@ -108,7 +129,7 @@ export async function POST(request: NextRequest) {
       case 'form_submit':
         analyticsMonitor.trackEvent({
           sessionId: data.sessionId,
-          ip: data.ip || 'unknown',
+          ip: getClientIP(request),
           userAgent: data.userAgent || 'unknown',
           type: 'FORM_SUBMIT',
           category: 'form',
@@ -151,7 +172,7 @@ export async function POST(request: NextRequest) {
       case 'error':
         analyticsMonitor.trackError({
           sessionId: data.sessionId,
-          ip: data.ip || 'unknown',
+          ip: getClientIP(request),
           userAgent: data.userAgent || 'unknown',
           type: data.errorType || 'CLIENT_ERROR',
           severity: data.severity || 'MEDIUM',
@@ -167,7 +188,7 @@ export async function POST(request: NextRequest) {
       case 'performance':
         analyticsMonitor.trackPerformance({
           sessionId: data.sessionId,
-          ip: data.ip || 'unknown',
+          ip: getClientIP(request),
           userAgent: data.userAgent || 'unknown',
           type: data.performanceType || 'COMPONENT_RENDER',
           metric: data.metric,
@@ -193,26 +214,43 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Get session details
+// Get session details or user journey
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json()
-    const { sessionId } = body
+    const { sessionId, ip, deviceFingerprint, type = 'session' } = body
 
-    if (!sessionId) {
-      return NextResponse.json({ error: 'Session ID required' }, { status: 400 })
+    if (type === 'user_journey') {
+      // Get user journey by IP or device fingerprint
+      if (!ip && !deviceFingerprint) {
+        return NextResponse.json({ error: 'IP or device fingerprint required' }, { status: 400 })
+      }
+
+      const identifier = ip || deviceFingerprint
+      const journeyType = ip ? 'ip' : 'device'
+      const userJourney = analyticsMonitor.getUserJourney(identifier, journeyType)
+
+      return NextResponse.json({
+        success: true,
+        data: userJourney
+      })
+    } else {
+      // Get session details
+      if (!sessionId) {
+        return NextResponse.json({ error: 'Session ID required' }, { status: 400 })
+      }
+
+      const sessionDetails = analyticsMonitor.getSessionDetails(sessionId)
+
+      if (!sessionDetails) {
+        return NextResponse.json({ error: 'Session not found' }, { status: 404 })
+      }
+
+      return NextResponse.json({
+        success: true,
+        data: sessionDetails
+      })
     }
-
-    const sessionDetails = analyticsMonitor.getSessionDetails(sessionId)
-
-    if (!sessionDetails) {
-      return NextResponse.json({ error: 'Session not found' }, { status: 404 })
-    }
-
-    return NextResponse.json({
-      success: true,
-      data: sessionDetails
-    })
 
   } catch (error) {
     console.error("Session details error:", error)
