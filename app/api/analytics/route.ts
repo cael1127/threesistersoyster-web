@@ -221,18 +221,28 @@ export async function PUT(request: NextRequest) {
     const { sessionId, ip, deviceFingerprint, type = 'session' } = body
 
     if (type === 'user_journey') {
-      // Get user journey by IP or device fingerprint
-      if (!ip && !deviceFingerprint) {
-        return NextResponse.json({ error: 'IP or device fingerprint required' }, { status: 400 })
+      // Get user journey by IP
+      if (!ip) {
+        return NextResponse.json({ error: 'IP address required' }, { status: 400 })
       }
 
-      const identifier = ip || deviceFingerprint
-      const journeyType = ip ? 'ip' : 'device'
-      const userJourney = analyticsMonitor.getUserJourney(identifier, journeyType)
+      const userJourney = analyticsMonitor.getUserJourney(ip)
 
       return NextResponse.json({
         success: true,
         data: userJourney
+      })
+    } else if (type === 'user_profile') {
+      // Get user profile by IP
+      if (!ip) {
+        return NextResponse.json({ error: 'IP address required' }, { status: 400 })
+      }
+
+      const userProfile = analyticsMonitor.getUserProfile(ip)
+
+      return NextResponse.json({
+        success: true,
+        data: userProfile
       })
     } else {
       // Get session details

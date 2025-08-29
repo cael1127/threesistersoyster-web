@@ -49,15 +49,11 @@ export interface PerformanceEvent {
   details: Record<string, any>
 }
 
-// In-memory stores (use Redis/database in production)
-const userEvents = new Map<string, UserEvent>()
-const errorEvents = new Map<string, ErrorEvent>()
-const performanceEvents = new Map<string, PerformanceEvent>()
-const userSessions = new Map<string, {
+// Enhanced data structure for better organization
+interface UserSession {
   sessionId: string
   startTime: Date
   lastActivity: Date
-  userId?: string
   ip: string
   userAgent: string
   deviceFingerprint?: string
@@ -65,11 +61,37 @@ const userSessions = new Map<string, {
   timezone?: string
   language?: string
   pageViews: number
-  events: number
-  errors: number
+  eventCount: number
+  errorCount: number
   currentPage?: string
   referrer?: string
-}>()
+  events: UserEvent[]
+  errors: ErrorEvent[]
+  performance: PerformanceEvent[]
+}
+
+interface UserProfile {
+  ip: string
+  deviceFingerprint?: string
+  firstSeen: Date
+  lastSeen: Date
+  totalSessions: number
+  totalPageViews: number
+  totalEvents: number
+  totalErrors: number
+  sessions: UserSession[]
+  userAgent: string
+  screenResolution?: string
+  timezone?: string
+  language?: string
+}
+
+// Organized data stores
+const userProfiles = new Map<string, UserProfile>() // Key: IP address
+const sessions = new Map<string, UserSession>() // Key: sessionId
+const events = new Map<string, UserEvent>() // Key: eventId
+const errorEvents = new Map<string, ErrorEvent>() // Key: errorId
+const performanceEvents = new Map<string, PerformanceEvent>() // Key: performanceId
 
 const MAX_EVENTS = 50000
 const MAX_SESSIONS = 10000
@@ -97,6 +119,44 @@ export class AnalyticsMonitor {
     return `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
   }
 
+  // Get or create user profile
+  private getUserProfile(ip: string, userAgent: string, additionalData?: {
+    deviceFingerprint?: string
+    screenResolution?: string
+    timezone?: string
+    language?: string
+  }): UserProfile {
+    let profile = userProfiles.get(ip)
+    
+    if (!profile) {
+      profile = {
+        ip,
+        deviceFingerprint: additionalData?.deviceFingerprint,
+        firstSeen: new Date(),
+        lastSeen: new Date(),
+        totalSessions: 0,
+        totalPageViews: 0,
+        totalEvents: 0,
+        totalErrors: 0,
+        sessions: [],
+        userAgent,
+        screenResolution: additionalData?.screenResolution,
+        timezone: additionalData?.timezone,
+        language: additionalData?.language
+      }
+      userProfiles.set(ip, profile)
+    } else {
+      // Update existing profile
+      profile.lastSeen = new Date()
+      if (additionalData?.deviceFingerprint) profile.deviceFingerprint = additionalData.deviceFingerprint
+      if (additionalData?.screenResolution) profile.screenResolution = additionalData.screenResolution
+      if (additionalData?.timezone) profile.timezone = additionalData.timezone
+      if (additionalData?.language) profile.language = additionalData.language
+    }
+    
+    return profile
+  }
+
   // Track user events
   trackEvent(event: Omit<UserEvent, 'id' | 'timestamp'>): void {
     const userEvent: UserEvent = {
@@ -105,15 +165,24 @@ export class AnalyticsMonitor {
       timestamp: new Date(),
     }
 
-    // Store event
-    userEvents.set(userEvent.id, userEvent)
+    // Store event globally
+    events.set(userEvent.id, userEvent)
 
-    // Update session
-    this.updateSession(userEvent.sessionId, {
-      lastActivity: userEvent.timestamp,
-      events: 1,
-      currentPage: userEvent.url
-    })
+    // Add to session
+    const session = sessions.get(userEvent.sessionId)
+    if (session) {
+      session.events.push(userEvent)
+      session.eventCount++
+      session.lastActivity = userEvent.timestamp
+      session.currentPage = userEvent.url
+    }
+
+    // Update user profile
+    const profile = userProfiles.get(userEvent.ip)
+    if (profile) {
+      profile.totalEvents++
+      profile.lastSeen = userEvent.timestamp
+    }
 
     // Clean up old events
     this.cleanupEvents()
@@ -127,7 +196,8 @@ export class AnalyticsMonitor {
         url: event.url,
         success: event.success,
         sessionId: event.sessionId,
-        totalEvents: userEvents.size
+        ip: event.ip,
+        totalEvents: events.size
       })
     }
   }
@@ -201,7 +271,11 @@ export class AnalyticsMonitor {
     timezone?: string
     language?: string
   }): void {
-    const session = {
+    // Get or create user profile
+    const profile = this.getUserProfile(ip, userAgent, additionalData)
+    
+    // Create new session
+    const session: UserSession = {
       sessionId,
       startTime: new Date(),
       lastActivity: new Date(),
@@ -212,37 +286,39 @@ export class AnalyticsMonitor {
       timezone: additionalData?.timezone,
       language: additionalData?.language,
       pageViews: 0,
-      events: 0,
-      errors: 0,
-      referrer
+      eventCount: 0,
+      errorCount: 0,
+      referrer,
+      events: [],
+      errors: [],
+      performance: []
     }
 
-    userSessions.set(sessionId, session)
+    // Store session
+    sessions.set(sessionId, session)
+    
+    // Add to user profile
+    profile.sessions.push(session)
+    profile.totalSessions++
     
     // Debug logging
     if (process.env.NODE_ENV === 'development') {
       console.log('🔍 Analytics session created:', {
         sessionId,
-        totalSessions: userSessions.size,
+        ip,
+        totalSessions: sessions.size,
+        totalUsers: userProfiles.size,
         userAgent: userAgent.substring(0, 50) + '...',
-        deviceFingerprint: additionalData?.deviceFingerprint,
-        ip
+        deviceFingerprint: additionalData?.deviceFingerprint
       })
     }
   }
 
-  // Update session data
-  private updateSession(sessionId: string, updates: Partial<typeof userSessions.values extends Map<string, infer U> ? U : never>): void {
-    const session = userSessions.get(sessionId)
-    if (session) {
-      Object.assign(session, updates)
-      userSessions.set(sessionId, session)
-    }
-  }
+
 
   // Track page view
   trackPageView(sessionId: string, url: string, referrer?: string, duration?: number): void {
-    const session = userSessions.get(sessionId)
+    const session = sessions.get(sessionId)
     if (!session) {
       console.warn('Analytics: Session not found for page view:', sessionId)
       return
@@ -263,11 +339,15 @@ export class AnalyticsMonitor {
     })
 
     // Update session
-    this.updateSession(sessionId, {
-      lastActivity: new Date(),
-      pageViews: 1,
-      currentPage: url
-    })
+    session.pageViews++
+    session.lastActivity = new Date()
+    session.currentPage = url
+
+    // Update user profile
+    const profile = userProfiles.get(session.ip)
+    if (profile) {
+      profile.totalPageViews++
+    }
   }
 
   // Track cart actions
@@ -325,12 +405,14 @@ export class AnalyticsMonitor {
     })
   }
 
-  // Get analytics data
+  // Get analytics data - organized by users
   getAnalyticsData(): {
+    totalUsers: number
+    totalSessions: number
     totalEvents: number
     totalErrors: number
-    totalSessions: number
     activeSessions: number
+    users: UserProfile[]
     eventsByType: Record<string, number>
     errorsByType: Record<string, number>
     errorsBySeverity: Record<string, number>
@@ -339,34 +421,35 @@ export class AnalyticsMonitor {
     recentErrors: ErrorEvent[]
     performanceMetrics: Array<{ metric: string; avgValue: number; unit: string }>
   } {
-    const events = Array.from(userEvents.values())
-    const errors = Array.from(errorEvents.values())
-    const performance = Array.from(performanceEvents.values())
-    const sessions = Array.from(userSessions.values())
+    const allEvents = Array.from(events.values())
+    const allErrors = Array.from(errorEvents.values())
+    const allPerformance = Array.from(performanceEvents.values())
+    const allSessions = Array.from(sessions.values())
+    const allUsers = Array.from(userProfiles.values())
 
     // Calculate active sessions (last 30 minutes)
     const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000)
-    const activeSessions = sessions.filter(s => s.lastActivity > thirtyMinutesAgo).length
+    const activeSessions = allSessions.filter(s => s.lastActivity > thirtyMinutesAgo).length
 
     // Events by type
-    const eventsByType = events.reduce((acc, event) => {
+    const eventsByType = allEvents.reduce((acc, event) => {
       acc[event.type] = (acc[event.type] || 0) + 1
       return acc
     }, {} as Record<string, number>)
 
     // Errors by type and severity
-    const errorsByType = errors.reduce((acc, error) => {
+    const errorsByType = allErrors.reduce((acc, error) => {
       acc[error.type] = (acc[error.type] || 0) + 1
       return acc
     }, {} as Record<string, number>)
 
-    const errorsBySeverity = errors.reduce((acc, error) => {
+    const errorsBySeverity = allErrors.reduce((acc, error) => {
       acc[error.severity] = (acc[error.severity] || 0) + 1
       return acc
     }, {} as Record<string, number>)
 
     // Top pages
-    const pageViews = events.filter(e => e.type === 'PAGE_VIEW')
+    const pageViews = allEvents.filter(e => e.type === 'PAGE_VIEW')
     const pageCounts = pageViews.reduce((acc, event) => {
       acc[event.url] = (acc[event.url] || 0) + 1
       return acc
@@ -378,7 +461,7 @@ export class AnalyticsMonitor {
       .slice(0, 10)
 
     // Performance metrics
-    const performanceByMetric = performance.reduce((acc, perf) => {
+    const performanceByMetric = allPerformance.reduce((acc, perf) => {
       if (!acc[perf.metric]) {
         acc[perf.metric] = { values: [], unit: perf.unit }
       }
@@ -393,87 +476,44 @@ export class AnalyticsMonitor {
     }))
 
     return {
-      totalEvents: events.length,
-      totalErrors: errors.length,
-      totalSessions: sessions.length,
+      totalUsers: allUsers.length,
+      totalSessions: allSessions.length,
+      totalEvents: allEvents.length,
+      totalErrors: allErrors.length,
       activeSessions,
+      users: allUsers.sort((a, b) => b.lastSeen.getTime() - a.lastSeen.getTime()),
       eventsByType,
       errorsByType,
       errorsBySeverity,
       topPages,
-      recentEvents: events
+      recentEvents: allEvents
         .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
         .slice(0, 50),
-      recentErrors: errors
+      recentErrors: allErrors
         .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
         .slice(0, 20),
       performanceMetrics
     }
   }
 
+  // Get user profile by IP
+  getUserProfile(ip: string): UserProfile | null {
+    return userProfiles.get(ip) || null
+  }
+
+  // Get all user profiles
+  getAllUserProfiles(): UserProfile[] {
+    return Array.from(userProfiles.values()).sort((a, b) => b.lastSeen.getTime() - a.lastSeen.getTime())
+  }
+
   // Get session details
-  getSessionDetails(sessionId: string): {
-    session: any
-    events: UserEvent[]
-    errors: ErrorEvent[]
-    performance: PerformanceEvent[]
-  } | null {
-    const session = userSessions.get(sessionId)
-    if (!session) return null
-
-    const events = Array.from(userEvents.values()).filter(e => e.sessionId === sessionId)
-    const errors = Array.from(errorEvents.values()).filter(e => e.sessionId === sessionId)
-    const performance = Array.from(performanceEvents.values()).filter(p => p.sessionId === sessionId)
-
-    return {
-      session,
-      events: events.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()),
-      errors: errors.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()),
-      performance: performance.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
-    }
+  getSessionDetails(sessionId: string): UserSession | null {
+    return sessions.get(sessionId) || null
   }
 
-  // Get sessions by IP address
-  getSessionsByIP(ip: string): Array<typeof userSessions.values extends Map<string, infer U> ? U : never> {
-    return Array.from(userSessions.values()).filter(session => session.ip === ip)
-  }
-
-  // Get sessions by device fingerprint
-  getSessionsByDevice(deviceFingerprint: string): Array<typeof userSessions.values extends Map<string, infer U> ? U : never> {
-    return Array.from(userSessions.values()).filter(session => session.deviceFingerprint === deviceFingerprint)
-  }
-
-  // Get user journey across multiple sessions (by IP or device)
-  getUserJourney(identifier: string, type: 'ip' | 'device' = 'ip'): {
-    sessions: Array<typeof userSessions.values extends Map<string, infer U> ? U : never>
-    allEvents: UserEvent[]
-    totalPageViews: number
-    totalEvents: number
-    firstVisit: Date | null
-    lastVisit: Date | null
-  } {
-    const sessions = type === 'ip' 
-      ? this.getSessionsByIP(identifier)
-      : this.getSessionsByDevice(identifier)
-
-    const sessionIds = sessions.map(s => s.sessionId)
-    const allEvents = Array.from(userEvents.values()).filter(e => sessionIds.includes(e.sessionId))
-    
-    const totalPageViews = sessions.reduce((sum, s) => sum + s.pageViews, 0)
-    const totalEvents = sessions.reduce((sum, s) => sum + s.events, 0)
-    
-    const timestamps = sessions.map(s => s.startTime)
-    const firstVisit = timestamps.length > 0 ? new Date(Math.min(...timestamps.map(t => t.getTime()))) : null
-    const lastVisit = timestamps.length > 0 ? new Date(Math.max(...timestamps.map(t => t.getTime()))) : null
-
-    return {
-      sessions,
-      allEvents: allEvents.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()),
-      totalPageViews,
-      totalEvents,
-      firstVisit,
-      lastVisit
-    }
+  // Get user journey by IP
+  getUserJourney(ip: string): UserProfile | null {
+    return this.getUserProfile(ip)
   }
 
   // Clean up old data
@@ -482,36 +522,43 @@ export class AnalyticsMonitor {
     const maxAge = 24 * 60 * 60 * 1000 // 24 hours
 
     // Clean up old events
-    if (userEvents.size > MAX_EVENTS) {
-      const events = Array.from(userEvents.values())
+    if (events.size > MAX_EVENTS) {
+      const recentEvents = Array.from(events.values())
         .filter(e => now - e.timestamp.getTime() < maxAge)
         .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
         .slice(0, MAX_EVENTS / 2)
       
-      userEvents.clear()
-      events.forEach(event => userEvents.set(event.id, event))
+      events.clear()
+      recentEvents.forEach(event => events.set(event.id, event))
     }
 
     // Clean up old errors
     if (errorEvents.size > MAX_EVENTS) {
-      const errors = Array.from(errorEvents.values())
+      const recentErrors = Array.from(errorEvents.values())
         .filter(e => now - e.timestamp.getTime() < maxAge)
         .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
         .slice(0, MAX_EVENTS / 2)
       
       errorEvents.clear()
-      errors.forEach(error => errorEvents.set(error.id, error))
+      recentErrors.forEach(error => errorEvents.set(error.id, error))
     }
 
-    // Clean up old sessions
-    if (userSessions.size > MAX_SESSIONS) {
-      const sessions = Array.from(userSessions.values())
+    // Clean up old sessions and user profiles
+    if (sessions.size > MAX_SESSIONS) {
+      const recentSessions = Array.from(sessions.values())
         .filter(s => now - s.lastActivity.getTime() < maxAge)
         .sort((a, b) => b.lastActivity.getTime() - a.lastActivity.getTime())
         .slice(0, MAX_SESSIONS / 2)
       
-      userSessions.clear()
-      sessions.forEach(session => userSessions.set(session.sessionId, session))
+      sessions.clear()
+      recentSessions.forEach(session => sessions.set(session.sessionId, session))
+      
+      // Update user profiles to remove old sessions
+      userProfiles.forEach(profile => {
+        profile.sessions = profile.sessions.filter(s => 
+          recentSessions.some(rs => rs.sessionId === s.sessionId)
+        )
+      })
     }
   }
 

@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import SecurityDashboard from '@/components/SecurityDashboard'
 import AnalyticsDashboard from '@/components/AnalyticsDashboard'
+import EnhancedAnalyticsDashboard from '@/components/EnhancedAnalyticsDashboard'
 import Navigation from '@/components/Navigation'
 import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
 
@@ -179,14 +180,18 @@ function AccessControl() {
 
         {/* Main Dashboard Tabs */}
         <Tabs defaultValue="security" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8">
+          <TabsList className="grid w-full grid-cols-3 mb-8">
             <TabsTrigger value="security" className="flex items-center space-x-2">
               <Shield className="w-4 h-4" />
-              <span>Security Monitoring</span>
+              <span>Security</span>
             </TabsTrigger>
             <TabsTrigger value="analytics" className="flex items-center space-x-2">
               <BarChart3 className="w-4 h-4" />
-              <span>User Analytics</span>
+              <span>Analytics</span>
+            </TabsTrigger>
+            <TabsTrigger value="enhanced" className="flex items-center space-x-2">
+              <Users className="w-4 h-4" />
+              <span>Users by IP</span>
             </TabsTrigger>
           </TabsList>
 
@@ -199,6 +204,12 @@ function AccessControl() {
           <TabsContent value="analytics">
             <Suspense fallback={<MonitoringDashboardLoading />}>
               <AnalyticsDashboard />
+            </Suspense>
+          </TabsContent>
+
+          <TabsContent value="enhanced">
+            <Suspense fallback={<MonitoringDashboardLoading />}>
+              <EnhancedAnalyticsDashboard />
             </Suspense>
           </TabsContent>
         </Tabs>
