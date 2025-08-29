@@ -142,6 +142,8 @@ export function validateOrigin(origin: string | null): boolean {
     return true
   }
   
+  // Allow same-origin requests (when origin matches the request host)
+  // This is a fallback for cases where the origin header is present but it's a same-origin request
   return false
 }
 

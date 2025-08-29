@@ -43,6 +43,26 @@ export async function GET(request: NextRequest) {
 // Track events endpoint
 export async function POST(request: NextRequest) {
   try {
+    // Only allow from trusted origins (same-origin requests are allowed)
+    const origin = request.headers.get('origin')
+    const referer = request.headers.get('referer')
+    
+    // Allow same-origin requests (no origin header) or valid origins
+    if (origin && !validateOrigin(origin)) {
+      console.warn('Analytics API POST: Unauthorized origin:', origin)
+      return NextResponse.json({ error: 'Unauthorized origin' }, { status: 403 })
+    }
+
+    // Debug logging for development
+    if (process.env.NODE_ENV === 'development') {
+      console.log('📊 Analytics API POST called:', {
+        origin,
+        referer,
+        type: body?.type,
+        hasData: !!body?.data
+      })
+    }
+
     const body = await request.json()
     const { type, data } = body
 

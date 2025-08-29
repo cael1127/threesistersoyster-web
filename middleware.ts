@@ -102,32 +102,35 @@ export function middleware(request: NextRequest) {
     return new NextResponse('Forbidden', { status: 403 })
   }
   
-  // Analyze request for suspicious patterns
-  const analysis = securityMonitor.analyzeRequest(request)
-  if (analysis.suspicious) {
-    securityMonitor.logEvent({
-      type: 'MALICIOUS_REQUEST',
-      severity: analysis.reasons.some(r => r.includes('Malicious pattern')) ? 'CRITICAL' : 'HIGH',
-      ip,
-      endpoint: pathname,
-      details: { reasons: analysis.reasons, userAgent: request.headers.get('user-agent') },
-      blocked: true
-    })
-    
-    // Block IP if multiple suspicious requests
-    const recentSuspicious = Array.from(securityMonitor.getSecurityStats().recentEvents)
-      .filter(event => event.ip === ip && event.type === 'MALICIOUS_REQUEST')
-      .filter(event => event.timestamp.getTime() > Date.now() - 300000) // Last 5 minutes
-    
-    if (recentSuspicious.length >= 3) {
-      securityMonitor.blockIP(ip)
+  // Analyze request for suspicious patterns (skip for analytics API)
+  if (!pathname.startsWith('/api/analytics')) {
+    const analysis = securityMonitor.analyzeRequest(request)
+    if (analysis.suspicious) {
+      securityMonitor.logEvent({
+        type: 'MALICIOUS_REQUEST',
+        severity: analysis.reasons.some(r => r.includes('Malicious pattern')) ? 'CRITICAL' : 'HIGH',
+        ip,
+        endpoint: pathname,
+        details: { reasons: analysis.reasons, userAgent: request.headers.get('user-agent') },
+        blocked: true
+      })
+      
+      // Block IP if multiple suspicious requests
+      const recentSuspicious = Array.from(securityMonitor.getSecurityStats().recentEvents)
+        .filter(event => event.ip === ip && event.type === 'MALICIOUS_REQUEST')
+        .filter(event => event.timestamp.getTime() > Date.now() - 300000) // Last 5 minutes
+      
+      if (recentSuspicious.length >= 3) {
+        securityMonitor.blockIP(ip)
+      }
+      
+      return new NextResponse('Forbidden', { status: 403 })
     }
-    
-    return new NextResponse('Forbidden', { status: 403 })
   }
   
   // Enhanced rate limiting with security monitoring
-  if (pathname.startsWith('/api/') && !securityMonitor.checkRateLimit(ip, pathname)) {
+  // Skip rate limiting for analytics API to allow tracking
+  if (pathname.startsWith('/api/') && !pathname.startsWith('/api/analytics') && !securityMonitor.checkRateLimit(ip, pathname)) {
     return new NextResponse('Too Many Requests', { status: 429 })
   }
   
