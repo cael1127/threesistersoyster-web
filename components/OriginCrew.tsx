@@ -29,8 +29,8 @@ const originCrew = [
   {
     name: "Celco",
     role: "Farm Hand",
-    description: "Celco brings years of coastal work experience to our team. He specializes in equipment maintenance and boat operations, keeping our fleet running smoothly.",
-    image: "/logo.jpg",
+    description: "Celso brings years of coastal work experience to our team. He specializes in equipment maintenance and boat operations, keeping our fleet running smoothly.",
+    image: "/Celco.JPEG",
   },
   {
     name: "Lorenzo",

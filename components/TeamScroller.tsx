@@ -31,8 +31,8 @@ const workers = [
   {
     name: "Celso",
     role: "Farm Hand",
-    description: "Celco brings years of coastal work experience to our team. He specializes in equipment maintenance and boat operations, keeping our fleet running smoothly.",
-    image: "/logo.jpg",
+    description: "Celso brings years of coastal work experience to our team. He specializes in equipment maintenance and boat operations, keeping our fleet running smoothly.",
+    image: "/Celco.JPEG",
   },
   {
     name: "Lorenzo",
@@ -40,12 +40,12 @@ const workers = [
     description: "Lorenzo is skilled in oyster handling and grading. His expertise in shellfish care helps maintain the high quality standards Three Sisters is known for.",
     image: "/lorenzo.JPEG",
   },
-  {
-    name: "Macie Kolodziejczyk",
-    role: "Farm Hand",
-    description: "Macie assists with daily farm operations and oyster processing. Her dedication to sustainable practices aligns perfectly with our environmental mission.",
-    image: "/maciek.JPEG",
-  },
+  //{
+  //  name: "Macie Kolodziejczyk",
+  //  role: "Farm Hand",
+  //  description: "Macie assists with daily farm operations and oyster processing. Her dedication to sustainable practices aligns perfectly with our environmental mission.",
+  //  image: "/maciek.JPEG",
+  //},
   {
     name: "Andrew Bingham",
     role: "Farm Hand",
