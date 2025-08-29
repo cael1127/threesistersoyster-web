@@ -48,46 +48,50 @@ export function useAnalytics() {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    try {
-      sessionId.current = getSessionId()
-      pageStartTime.current = Date.now()
-
-      // Create session via API
+    const initializeAnalytics = async () => {
       try {
-        await fetch('/api/analytics', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            type: 'create_session',
-            data: {
-              sessionId: sessionId.current,
-              ip: getClientIP(),
-              userAgent: getUserAgent(),
-              referrer: document.referrer
-            }
-          })
-        })
-      } catch (error) {
-        console.warn('Session creation failed:', error)
-      }
+        sessionId.current = getSessionId()
+        pageStartTime.current = Date.now()
 
-      setIsInitialized(true)
-      
-      // Debug logging
-      if (process.env.NODE_ENV === 'development') {
-        console.log('🔍 Analytics initialized:', {
-          sessionId: sessionId.current,
-          userAgent: getUserAgent(),
-          url: window.location.href
-        })
+        // Create session via API
+        try {
+          await fetch('/api/analytics', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              type: 'create_session',
+              data: {
+                sessionId: sessionId.current,
+                ip: getClientIP(),
+                userAgent: getUserAgent(),
+                referrer: document.referrer
+              }
+            })
+          })
+        } catch (error) {
+          console.warn('Session creation failed:', error)
+        }
+
+        setIsInitialized(true)
+        
+        // Debug logging
+        if (process.env.NODE_ENV === 'development') {
+          console.log('🔍 Analytics initialized:', {
+            sessionId: sessionId.current,
+            userAgent: getUserAgent(),
+            url: window.location.href
+          })
+        }
+      } catch (error) {
+        console.warn('Analytics initialization failed:', error)
+        // Set initialized to true even if there's an error to prevent infinite retries
+        setIsInitialized(true)
       }
-    } catch (error) {
-      console.warn('Analytics initialization failed:', error)
-      // Set initialized to true even if there's an error to prevent infinite retries
-      setIsInitialized(true)
     }
+
+    initializeAnalytics()
   }, [])
 
   // Track page views
