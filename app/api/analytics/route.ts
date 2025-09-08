@@ -12,7 +12,7 @@ function getClientIP(request: NextRequest): string {
   if (realIP) return realIP
   if (forwarded) return forwarded.split(',')[0].trim()
   
-  return request.ip || 'unknown'
+  return (request as any)?.ip || 'unknown'
 }
 
 // Analytics API endpoint
@@ -66,6 +66,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized origin' }, { status: 403 })
     }
 
+    const body = await request.json()
     // Debug logging for development
     if (process.env.NODE_ENV === 'development') {
       console.log('📊 Analytics API POST called:', {
@@ -75,13 +76,26 @@ export async function POST(request: NextRequest) {
         hasData: !!body?.data
       })
     }
-
-    const body = await request.json()
     const { type, data } = body
 
     // Validate request
     if (!type || !data) {
       return NextResponse.json({ error: 'Missing type or data' }, { status: 400 })
+    }
+
+    // Skip tracking for monitoring/analytics dashboards to avoid self-noise
+    const urlFromBody = data?.url as string | undefined
+    const pathname = (() => {
+      try {
+        if (urlFromBody) return new URL(urlFromBody).pathname
+        const ref = referer || ''
+        return ref ? new URL(ref).pathname : ''
+      } catch {
+        return ''
+      }
+    })()
+    if (/^\/(monitoring|analytics-dashboard|security-dashboard)/.test(pathname)) {
+      return NextResponse.json({ success: true, skipped: true })
     }
 
     // Track different types of events
@@ -189,7 +203,6 @@ export async function POST(request: NextRequest) {
         analyticsMonitor.trackPerformance({
           sessionId: data.sessionId,
           ip: getClientIP(request),
-          userAgent: data.userAgent || 'unknown',
           type: data.performanceType || 'COMPONENT_RENDER',
           metric: data.metric,
           value: data.value,

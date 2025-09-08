@@ -77,6 +77,8 @@ export function useAnalytics() {
   const sessionId = useRef<string>('')
   const pageStartTime = useRef<number>(0)
   const [isInitialized, setIsInitialized] = useState(false)
+  const lastClickTs = useRef<number>(0)
+  const CLICK_THROTTLE_MS = 250
 
   // Initialize session
   useEffect(() => {
@@ -135,6 +137,10 @@ export function useAnalytics() {
   // Track page views
   const trackPageView = useCallback(async (url: string, referrer?: string) => {
     if (!sessionId.current || !isInitialized) return
+    // Skip monitoring pages
+    if (typeof window !== 'undefined' && /\/monitoring|\/analytics-dashboard|\/security-dashboard/.test(new URL(url).pathname)) {
+      return
+    }
 
     try {
       const duration = Date.now() - pageStartTime.current
@@ -175,6 +181,16 @@ export function useAnalytics() {
   // Track clicks
   const trackClick = useCallback(async (element: string, category: string = 'interaction', details?: Record<string, any>) => {
     if (!sessionId.current || !isInitialized) return
+    // Skip monitoring pages and throttle
+    if (typeof window !== 'undefined') {
+      const now = Date.now()
+      if (/^https?:\/\/|^\//.test(window.location.href)) {
+        const pathname = new URL(window.location.href).pathname
+        if (/^\/(monitoring|analytics-dashboard|security-dashboard)/.test(pathname)) return
+      }
+      if (now - lastClickTs.current < CLICK_THROTTLE_MS) return
+      lastClickTs.current = now
+    }
 
     try {
       await fetch('/api/analytics', {
@@ -202,6 +218,11 @@ export function useAnalytics() {
   // Track form submissions
   const trackFormSubmit = useCallback(async (formName: string, success: boolean, details?: Record<string, any>) => {
     if (!sessionId.current) return
+    // Skip monitoring pages
+    if (typeof window !== 'undefined') {
+      const pathname = new URL(window.location.href).pathname
+      if (/^\/(monitoring|analytics-dashboard|security-dashboard)/.test(pathname)) return
+    }
 
     try {
       await fetch('/api/analytics', {
@@ -230,6 +251,10 @@ export function useAnalytics() {
   // Track cart actions
   const trackCartAction = useCallback(async (action: 'add' | 'remove' | 'update' | 'clear', productId: string, quantity?: number) => {
     if (!sessionId.current) return
+    if (typeof window !== 'undefined') {
+      const pathname = new URL(window.location.href).pathname
+      if (/^\/(monitoring|analytics-dashboard|security-dashboard)/.test(pathname)) return
+    }
 
     try {
       await fetch('/api/analytics', {
@@ -255,6 +280,10 @@ export function useAnalytics() {
   // Track checkout steps
   const trackCheckoutStep = useCallback(async (step: string, success: boolean, details?: Record<string, any>) => {
     if (!sessionId.current) return
+    if (typeof window !== 'undefined') {
+      const pathname = new URL(window.location.href).pathname
+      if (/^\/(monitoring|analytics-dashboard|security-dashboard)/.test(pathname)) return
+    }
 
     try {
       await fetch('/api/analytics', {
@@ -280,6 +309,10 @@ export function useAnalytics() {
   // Track API calls
   const trackAPICall = useCallback(async (endpoint: string, method: string, success: boolean, duration?: number, error?: string) => {
     if (!sessionId.current) return
+    if (typeof window !== 'undefined') {
+      const pathname = new URL(window.location.href).pathname
+      if (/^\/(monitoring|analytics-dashboard|security-dashboard)/.test(pathname)) return
+    }
 
     try {
       await fetch('/api/analytics', {
@@ -307,6 +340,10 @@ export function useAnalytics() {
   // Track errors
   const trackError = useCallback(async (error: Error, component?: string, details?: Record<string, any>) => {
     if (!sessionId.current) return
+    if (typeof window !== 'undefined') {
+      const pathname = new URL(window.location.href).pathname
+      if (/^\/(monitoring|analytics-dashboard|security-dashboard)/.test(pathname)) return
+    }
 
     try {
       await fetch('/api/analytics', {
@@ -338,6 +375,10 @@ export function useAnalytics() {
   // Track performance
   const trackPerformance = useCallback(async (metric: string, value: number, unit: 'ms' | 'bytes' | 'count' = 'ms', details?: Record<string, any>) => {
     if (!sessionId.current) return
+    if (typeof window !== 'undefined') {
+      const pathname = new URL(window.location.href).pathname
+      if (/^\/(monitoring|analytics-dashboard|security-dashboard)/.test(pathname)) return
+    }
 
     try {
       await fetch('/api/analytics', {

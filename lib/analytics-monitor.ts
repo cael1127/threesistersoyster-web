@@ -119,8 +119,8 @@ export class AnalyticsMonitor {
     return `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
   }
 
-  // Get or create user profile
-  private getUserProfile(ip: string, userAgent: string, additionalData?: {
+  // Get or create user profile (internal)
+  private ensureUserProfile(ip: string, userAgent: string, additionalData?: {
     deviceFingerprint?: string
     screenResolution?: string
     timezone?: string
@@ -184,9 +184,6 @@ export class AnalyticsMonitor {
       profile.lastSeen = userEvent.timestamp
     }
 
-    // Clean up old events
-    this.cleanupEvents()
-
     // Log in development
     if (process.env.NODE_ENV === 'development') {
       console.log(`📊 User Event:`, {
@@ -213,14 +210,13 @@ export class AnalyticsMonitor {
     // Store error
     errorEvents.set(errorEvent.id, errorEvent)
 
-    // Update session
-    this.updateSession(errorEvent.sessionId, {
-      lastActivity: errorEvent.timestamp,
-      errors: 1
-    })
-
-    // Clean up old events
-    this.cleanupEvents()
+    // Update session if present
+    const sessionForError = sessions.get(errorEvent.sessionId)
+    if (sessionForError) {
+      sessionForError.errors.push(errorEvent)
+      sessionForError.errorCount += 1
+      sessionForError.lastActivity = errorEvent.timestamp
+    }
 
     // Log in development
     if (process.env.NODE_ENV === 'development') {
@@ -249,8 +245,12 @@ export class AnalyticsMonitor {
     // Store performance event
     performanceEvents.set(performanceEvent.id, performanceEvent)
 
-    // Clean up old events
-    this.cleanupEvents()
+    // Update session if present
+    const sessionForPerformance = sessions.get(performanceEvent.sessionId)
+    if (sessionForPerformance) {
+      sessionForPerformance.performance.push(performanceEvent)
+      sessionForPerformance.lastActivity = performanceEvent.timestamp
+    }
 
     // Log slow operations
     if (performanceEvent.value > 1000 && performanceEvent.unit === 'ms') {
@@ -272,7 +272,7 @@ export class AnalyticsMonitor {
     language?: string
   }): void {
     // Get or create user profile
-    const profile = this.getUserProfile(ip, userAgent, additionalData)
+    const profile = this.ensureUserProfile(ip, userAgent, additionalData)
     
     // Create new session
     const session: UserSession = {
@@ -352,7 +352,7 @@ export class AnalyticsMonitor {
 
   // Track cart actions
   trackCartAction(sessionId: string, action: 'add' | 'remove' | 'update' | 'clear', productId: string, quantity?: number): void {
-    const session = userSessions.get(sessionId)
+    const session = sessions.get(sessionId)
     if (!session) return
 
     this.trackEvent({
@@ -370,7 +370,7 @@ export class AnalyticsMonitor {
 
   // Track checkout steps
   trackCheckoutStep(sessionId: string, step: string, success: boolean, details?: Record<string, any>): void {
-    const session = userSessions.get(sessionId)
+    const session = sessions.get(sessionId)
     if (!session) return
 
     this.trackEvent({
@@ -388,7 +388,7 @@ export class AnalyticsMonitor {
 
   // Track API calls
   trackAPICall(sessionId: string, endpoint: string, method: string, success: boolean, duration?: number, error?: string): void {
-    const session = userSessions.get(sessionId)
+    const session = sessions.get(sessionId)
     if (!session) return
 
     this.trackEvent({
@@ -592,7 +592,4 @@ if (process.env.NODE_ENV === 'development') {
   console.log('🔍 Analytics Monitor initialized')
 }
 
-// Cleanup every 10 minutes
-setInterval(() => {
-  analyticsMonitor['cleanupEvents']()
-}, 10 * 60 * 1000)
+// Cleanup disabled to retain interactions
