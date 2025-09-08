@@ -46,12 +46,12 @@ const workers = [
   //  description: "Macie assists with daily farm operations and oyster processing. Her dedication to sustainable practices aligns perfectly with our environmental mission.",
   //  image: "/maciek.JPEG",
   //},
-  {
-    name: "Andrew Bingham",
-    role: "Farm Hand",
-    description: "Andrew assists with daily farm operations and oyster processing. His dedication to sustainable practices aligns perfectly with our environmental mission.",
-    image: "/andrew.JPEG",
-  },
+  //{
+  //  name: "Andrew Bingham",
+  //  role: "Farm Hand",
+  //  description: "Andrew assists with daily farm operations and oyster processing. His dedication to sustainable practices aligns perfectly with our environmental mission.",
+  //  image: "/andrew.JPEG",
+  //},
   {
     name: "Cael Findley",
     role: "Software Developer",
