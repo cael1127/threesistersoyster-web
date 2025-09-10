@@ -136,43 +136,7 @@ export default function Navigation() {
       </div>
     </header>
 
-    {/* Fixed bottom mobile nav */}
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-purpleBrand/95 border-t border-purpleBrand/30 backdrop-blur-sm">
-      <div className="px-2 py-2">
-        <div className="flex items-center justify-between">
-          <Link 
-            href="/products" 
-            className="text-white text-xs py-2 px-3 rounded-lg hover:bg-white/10 transition-colors duration-200"
-          >
-            Shop
-          </Link>
-          <Link 
-            href="/inventory" 
-            className="text-white text-xs py-2 px-3 rounded-lg hover:bg-white/10 transition-colors duration-200"
-          >
-            Stock
-          </Link>
-          <Link 
-            href="/gallery" 
-            className="text-white text-xs py-2 px-3 rounded-lg hover:bg-white/10 transition-colors duration-200"
-          >
-            Gallery
-          </Link>
-          <Link 
-            href="/about" 
-            className="text-white text-xs py-2 px-3 rounded-lg hover:bg-white/10 transition-colors duration-200"
-          >
-            About
-          </Link>
-          <div className="flex items-center gap-2">
-            <CartButton />
-            <Button asChild size="sm" className="bg-mintBrand text-white hover:bg-seafoamBrand text-xs px-3 min-h-[32px]">
-              <Link href="/order">Order</Link>
-            </Button>
-          </div>
-        </div>
-      </div>
-    </nav>
+    
     </>
   )
 } 
