@@ -22,12 +22,12 @@ export default function Navigation() {
   return (
     <>
     <header 
-      className={`bg-purpleBrand border-b border-purpleBrand/30 sticky top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled ? 'shadow-lg backdrop-blur-sm bg-purpleBrand/95' : 'bg-purpleBrand'
+      className={`bg-purpleBrand border-b border-purpleBrand/30 fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
+        isScrolled ? 'shadow-lg backdrop-blur-md bg-purpleBrand/90' : 'bg-purpleBrand'
       }`}
       data-scrolled={isScrolled}
     >
-      <div className="container mx-auto px-2 md:px-4 py-2 md:py-4">
+      <div className={`container mx-auto px-2 md:px-4 ${isScrolled ? 'py-1 md:py-2' : 'py-2 md:py-4'}`}>
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
             <div className="w-8 h-8 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center">
@@ -135,6 +135,8 @@ export default function Navigation() {
         </div>
       </div>
     </header>
+    {/* Spacer to offset fixed header height */}
+    <div aria-hidden className="h-[56px] md:h-[72px]"></div>
 
     
     </>
