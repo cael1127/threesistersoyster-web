@@ -7,6 +7,11 @@ export default function TotalHarvestedCounter() {
   const [displayCount, setDisplayCount] = useState(0);
   const [hasInitialized, setHasInitialized] = useState(false);
 
+  function formatCount(value: number) {
+    const millions = value / 1_000_000;
+    return `${millions.toFixed(2)}M`;
+  }
+
   // Initial roll-up animation when component first loads
   useEffect(() => {
     if (!hasInitialized) {
@@ -39,7 +44,7 @@ export default function TotalHarvestedCounter() {
   return (
     <div className="text-center">
       <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
-        <span>{displayCount.toLocaleString()}+</span>
+        <span>{formatCount(displayCount)}</span>
       </div>
       <p className="text-sm md:text-base text-purple-800">Total Harvested</p>
     </div>

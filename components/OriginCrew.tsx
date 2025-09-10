@@ -27,14 +27,14 @@ const originCrew = [
     image: "/kathc.jpg",
   },
   {
-    name: "Celco",
-    role: "Farm Hand",
+    name: "Celso",
+    role: "Captain",
     description: "Celso brings years of coastal work experience to our team. He specializes in equipment maintenance and boat operations, keeping our fleet running smoothly.",
     image: "/Celco.JPEG",
   },
   {
     name: "Lorenzo",
-    role: "Farm Hand",
+    role: "Captain",
     description: "Lorenzo is skilled in oyster handling and grading. His expertise in shellfish care helps maintain the high quality standards Three Sisters is known for.",
     image: "/lorenzo.JPEG",
   },

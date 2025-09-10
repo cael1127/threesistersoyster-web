@@ -25,6 +25,11 @@ export function HarvestReadyInventoryCounter() {
   const [error, setError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
 
+  function formatCount(value: number) {
+    const millions = value / 1_000_000
+    return `${millions.toFixed(2)}M`
+  }
+
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -75,7 +80,7 @@ export function HarvestReadyInventoryCounter() {
     return <div className="text-red-500 text-sm">Error</div>
   }
 
-  return <>{count.toLocaleString()}</>
+  return <>{formatCount(count)}</>
 }
 
 export function FarmInventoryCounter() {
@@ -134,7 +139,12 @@ export function FarmInventoryCounter() {
     return <div className="text-red-500 text-sm">Error</div>
   }
 
-  return <>{count.toLocaleString()}</>
+  function formatCount(value: number) {
+    const millions = value / 1_000_000
+    return `${millions.toFixed(2)}M`
+  }
+
+  return <>{formatCount(count)}</>
 }
 
 export function NurseryInventoryCounter() {
@@ -193,5 +203,10 @@ export function NurseryInventoryCounter() {
     return <div className="text-red-500 text-sm">Error</div>
   }
 
-  return <>{count.toLocaleString()}</>
+  function formatCount(value: number) {
+    const millions = value / 1_000_000
+    return `${millions.toFixed(2)}M`
+  }
+
+  return <>{formatCount(count)}</>
 }

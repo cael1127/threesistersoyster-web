@@ -1,10 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import {
-  HarvestReadyInventoryCounter,
-  FarmInventoryCounter,
-  NurseryInventoryCounter,
-} from "./inventory-counters";
+import { FarmInventoryCounter, NurseryInventoryCounter } from "./inventory-counters";
 import { getFarmInventoryCount, getNurseryInventoryCount } from "@/lib/supabase";
 
 export default function ClientInventoryCounters() {
@@ -75,11 +71,7 @@ export default function ClientInventoryCounters() {
            </div>
            
            {/* Individual Counters */}
-           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-             <div className="text-center">
-               <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2 animate-pulse">0</div>
-               <p className="text-sm md:text-base text-green-600">Harvest Ready</p>
-             </div>
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
              <div className="text-center">
                <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2 animate-pulse">0</div>
                <p className="text-sm md:text-base text-blue-600">Farm Stock</p>
@@ -96,38 +88,32 @@ export default function ClientInventoryCounters() {
   return (
     <div className="space-y-8 mb-8 md:mb-12">
                  {/* Total Roll-up Counter */}
-           <div className="text-center">
-             <div className="text-4xl md:text-5xl font-bold text-purple-900 mb-2">
-               {loading ? (
-                 <span className="animate-pulse">Loading...</span>
-               ) : (
-                 displayCount.toLocaleString()
-               )}
-             </div>
-             <p className="text-lg md:text-xl text-purple-800">Total Inventory</p>
-           </div>
-           
-           {/* Individual Counters */}
-           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-             <div className="text-center">
-               <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
-                 <HarvestReadyInventoryCounter />
-               </div>
-               <p className="text-sm md:text-base text-green-600">Harvest Ready</p>
-             </div>
-             <div className="text-center">
-               <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
-                 <FarmInventoryCounter />
-               </div>
-               <p className="text-sm md:text-base text-blue-600">Farm Stock</p>
-             </div>
-             <div className="text-center">
-               <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
-                 <NurseryInventoryCounter />
-               </div>
-               <p className="text-sm md:text-base text-teal-600">Nursery Seed</p>
-             </div>
-           </div>
+          <div className="text-center">
+            <div className="text-4xl md:text-5xl font-bold text-purple-900 mb-2">
+              {loading ? (
+                <span className="animate-pulse">Loading...</span>
+              ) : (
+                `${(displayCount / 1_000_000).toFixed(2)}M`
+              )}
+            </div>
+            <p className="text-lg md:text-xl text-purple-800">Total Inventory</p>
+          </div>
+          
+          {/* Individual Counters */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
+                <FarmInventoryCounter />
+              </div>
+              <p className="text-sm md:text-base text-blue-600">Farm Stock</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-purple-900 mb-2">
+                <NurseryInventoryCounter />
+              </div>
+              <p className="text-sm md:text-base text-teal-600">Nursery Seed</p>
+            </div>
+          </div>
     </div>
   );
 } 

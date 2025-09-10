@@ -67,10 +67,13 @@ export default function InventoryPage() {
         size: parsed.size || null,
         age: parsed.age || null,
         health: parsed.health || null,
-        pricePerDozen: parsed.pricePerDozen || null,
-        harvestReady: parsed.harvestReady === true,
+        // support both pricePerDozen and priceperdozen
+        pricePerDozen: parsed.pricePerDozen ?? parsed.priceperdozen ?? null,
+        // support both harvestReady and harvestready
+        harvestReady: parsed.harvestReady === true || parsed.harvestready === true,
         location: parsed.location || null,
-        originalDescription: parsed.originalDescription || null,
+        // prefer explicit originalDescription, otherwise use generic description
+        originalDescription: parsed.originalDescription ?? parsed.description ?? null,
       }
     } catch (error) {
       // If it's not JSON, treat as plain text description
@@ -104,6 +107,10 @@ export default function InventoryPage() {
 
   const totalCount = processedAllInventory.filter((item) => item.harvestReady).length;
 
+  function formatMillions(value: number) {
+    return `${(value / 1_000_000).toFixed(2)}M`
+  }
+
   function InventoryCard({ item }: { item: any }) {
     return (
       <Card className="border-purpleBrand/30 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 group bg-purpleBrand/40">
@@ -134,32 +141,16 @@ export default function InventoryPage() {
             </div>
             <div className="text-right">
               <div className="text-3xl font-bold text-purple-900">
-                {item.count.toLocaleString()}
+                {formatMillions(item.count)}
               </div>
-              <p className="text-sm text-purple-700">units</p>
+              <p className="text-sm text-purple-700">M units</p>
             </div>
           </div>
 
-          {item.originalDescription && (
-            <p className="text-purple-800 mb-4 text-sm leading-relaxed">{item.originalDescription}</p>
-          )}
+          
 
           <div className="grid grid-cols-2 gap-4 mb-4">
-            {item.age && (
-              <div className="flex items-center text-sm text-purple-800">
-                <Calendar className="w-4 h-4 mr-2 text-purple-600" />
-                <span className="font-medium">Age:</span>
-                <span className="ml-1">{item.age}</span>
-              </div>
-            )}
-
-            {item.health && (
-              <div className="flex items-center text-sm text-purple-800">
-                <Heart className="w-4 h-4 mr-2 text-purple-600" />
-                <span className="font-medium">Health:</span>
-                <span className="ml-1 capitalize">{item.health}</span>
-              </div>
-            )}
+            {/* Removed Health display per request */}
 
             {item.location && (
               <div className="flex items-center text-sm text-purple-800">
@@ -179,44 +170,12 @@ export default function InventoryPage() {
           </div>
 
           {/* Status Indicators */}
-          <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-2">
-                {item.harvestReady ? (
-                  <div className="flex items-center text-purple-800 text-sm font-medium">
-                    <div className="w-2 h-2 bg-mintBrand rounded-full mr-2 animate-pulse"></div>
-                    Ready for harvest
-                  </div>
-                ) : (
-                  <div className="flex items-center text-seafoamBrand text-sm font-medium">
-                    <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-2"></div>
-                    Growing
-                  </div>
-                )}
-              </div>
+          {/* Removed status chips per request */}
 
-            {item.harvestReady && (
-              <Badge className="bg-blueBrand/20 text-blueBrand border-blueBrand/30">
-                {item.type === "farm" ? "Market Ready" : "Seed Ready"}
-              </Badge>
-            )}
-          </div>
-
-          {/* Additional Info */}
-          {item.harvestReady && item.type === "farm" && (
-            <div className="mt-4 p-3 bg-mintBrand/20 border border-mintBrand/30 rounded-lg">
-              <p className="text-sm text-purple-800 font-medium">
-                <Package className="w-4 h-4 inline mr-2" />
-                This batch is ready for harvest and immediate delivery to restaurants and markets.
-              </p>
-            </div>
-          )}
-
-          {item.harvestReady && item.type === "nursery" && (
-            <div className="mt-4 p-3 bg-blueBrand/20 border border-blueBrand/30 rounded-lg">
-              <p className="text-sm text-blueBrand font-medium">
-                <Leaf className="w-4 h-4 inline mr-2" />
-                These seeds are ready for transfer to grow-out areas or sale to other growers.
-              </p>
+          {/* Bottom description */}
+          {item.originalDescription && (
+            <div className="mt-4 pt-4 border-t border-purpleBrand/20">
+              <p className="text-purple-800 text-sm leading-relaxed">{item.originalDescription}</p>
             </div>
           )}
         </CardContent>
@@ -265,11 +224,11 @@ export default function InventoryPage() {
                   <p className="text-purple-800 mt-1 text-sm md:text-base">
                     {processedFarmInventory.filter((item) => item.harvestReady).length > 0 ? (
                       <span className="text-purple-800 font-medium">
-                        {processedFarmInventory
-                          .filter((item) => item.harvestReady)
-                          .reduce((sum, item) => sum + item.count, 0)
-                          .toLocaleString()}{" "}
-                        ready for harvest
+                        {formatMillions(
+                          processedFarmInventory
+                            .filter((item) => item.harvestReady)
+                            .reduce((sum, item) => sum + item.count, 0)
+                        )} ready for harvest
                       </span>
                     ) : (
                       <span>Premium half-shell oysters in various growth stages</span>
@@ -307,11 +266,11 @@ export default function InventoryPage() {
                   <p className="text-purple-800 mt-1 text-sm md:text-base">
                     {processedNurseryInventory.filter((item) => item.harvestReady).length > 0 ? (
                       <span className="text-purple-800 font-medium">
-                        {processedNurseryInventory
-                          .filter((item) => item.harvestReady)
-                          .reduce((sum, item) => sum + item.count, 0)
-                          .toLocaleString()}{" "}
-                        ready seed stock available
+                        {formatMillions(
+                          processedNurseryInventory
+                            .filter((item) => item.harvestReady)
+                            .reduce((sum, item) => sum + item.count, 0)
+                        )} ready seed stock available
                       </span>
                     ) : (
                       <span>

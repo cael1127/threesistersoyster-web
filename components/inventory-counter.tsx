@@ -23,5 +23,5 @@ export function InventoryCounter() {
     fetchCount()
   }, [])
 
-  return <>{count.toLocaleString()}</>
+  return <>{(count / 1_000_000).toFixed(2)}M</>
 }
