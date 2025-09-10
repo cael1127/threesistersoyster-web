@@ -12,6 +12,7 @@ import TeamScroller from "@/components/TeamScroller";
 import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import { SeasonalFloatingParticles } from "@/components/ui/floating-particles";
 import Navigation from "@/components/Navigation";
+import Script from "next/script";
 import EnvVarChecker from "@/components/EnvVarChecker";
 import { AnalyticsTestButton } from "@/components/AnalyticsTestButton";
 import { useState, useEffect } from "react";
@@ -38,6 +39,34 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative overflow-x-hidden">
+      <Script id="org-jsonld" type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Three Sisters Oyster Co.",
+            "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com'),
+            "logo": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/logo.jpg',
+            "sameAs": [
+              // Add social URLs if available
+            ],
+            "contactPoint": [{
+              "@type": "ContactPoint",
+              "telephone": "+1-713-854-7427",
+              "contactType": "customer service",
+              "areaServed": "US"
+            }],
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "106 Grant St.",
+              "addressLocality": "Port Lavaca",
+              "addressRegion": "TX",
+              "postalCode": "77979",
+              "addressCountry": "US"
+            }
+          })
+        }}
+      />
       <SeasonalFloatingParticles count={isMobile ? 5 : 15} />
       
       {/* Header */}
