@@ -66,9 +66,9 @@
   status = 301
   force = true
 
-# Block suspicious user agents
+# Block obvious non-browser clients, but allow search engine crawlers
 [[redirects]]
   from = "/*"
   to = "/404"
   status = 404
-  conditions = {User_Agent = ["bot", "crawler", "spider", "scraper", "curl", "wget"]} 
+  conditions = {User_Agent = ["curl", "wget", "python-requests", "libwww-perl"]}

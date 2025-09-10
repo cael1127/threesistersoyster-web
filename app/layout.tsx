@@ -14,10 +14,13 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 }
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com'
+
 export const metadata: Metadata = {
   title: "Three Sisters Oyster Co. - Premium Texas Oysters",
   description: "Premium oysters and aquaculture products from the pristine waters of Keller Bay",
   generator: 'cf',
+  metadataBase: new URL(siteUrl),
   icons: {
     icon: [
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
