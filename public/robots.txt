@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /analytics-dashboard
+Disallow: /security-dashboard
+Disallow: /monitoring
+Disallow: /test-mobile-scroll
+
+Sitemap: https://threesistersoyster.com/sitemap.xml
+Host: https://threesistersoyster.com
+
+

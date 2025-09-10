@@ -7,7 +7,17 @@
   NEXT_TELEMETRY_DISABLED = "1"
   NODE_ENV = "production"
 
-# Handle Next.js routing
+# Handle Next.js routing but let robots and sitemap be served statically
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
