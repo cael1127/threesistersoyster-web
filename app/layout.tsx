@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   description: "Premium oysters and aquaculture products from the pristine waters of Keller Bay",
   generator: 'cf',
   metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: '/',
+  },
   icons: {
     icon: [
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
