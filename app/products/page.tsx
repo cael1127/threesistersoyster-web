@@ -1,5 +1,3 @@
-"use client"
-
 import { getProducts } from "@/lib/supabase"
 import { Product } from "@/lib/supabase"
 import { Card, CardContent } from "@/components/ui/card"
@@ -10,39 +8,16 @@ import Link from "next/link"
 import { Waves, Fish, ShoppingBag } from "lucide-react"
 import { AddToCartButton } from "@/components/add-to-cart-button"
 import { Button } from "@/components/ui/button"
-import { useState, useEffect } from "react"
 import { SeasonalFloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
 
-export default function ProductsPage() {
-  const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState(true)
-
-  const fetchProducts = async () => {
-    setLoading(true)
-    try {
-      // Check if Supabase is configured first
-      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
-        console.warn("Supabase not configured, using empty products")
-        setProducts([])
-        setLoading(false)
-        return
-      }
-
-      const productsData = await getProducts()
-      setProducts(productsData)
-    } catch (error) {
-      console.error("Error fetching products:", error)
-      // Set empty array on error to prevent crashes
-      setProducts([])
-    } finally {
-      setLoading(false)
-    }
+export default async function ProductsPage() {
+  let products: Product[] = []
+  try {
+    products = await getProducts()
+  } catch (error) {
+    products = []
   }
-
-  useEffect(() => {
-    fetchProducts()
-  }, [])
 
   // Helper function to parse product description and get inventory
   function parseProductDescription(description: string | null, inventory_count: number | null) {
@@ -137,21 +112,6 @@ export default function ProductsPage() {
           </div>
         </CardContent>
       </Card>
-    )
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
-        <SeasonalFloatingParticles count={10} />
-        <Navigation />
-        <div className="container mx-auto px-4 py-12">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mintBrand mx-auto mb-4"></div>
-            <p className="text-purple-800 font-medium">Loading products...</p>
-          </div>
-        </div>
-      </div>
     )
   }
 
