@@ -41,9 +41,9 @@ export default function Navigation() {
               />
             </div>
             <div className="hidden md:block">
-              <h1 className="text-xl font-bold text-white text-center">
+              <h2 className="text-xl font-bold text-white text-center">
                 Three Sisters Oyster Co.
-              </h1>
+              </h2>
               <p className="text-xs text-white">Premium Texas Oysters</p>
             </div>
           </Link>
