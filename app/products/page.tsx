@@ -128,7 +128,8 @@ export default async function ProductsPage() {
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">Our Products</h1>
             <p className="text-lg text-purple-800 mb-8 text-center">
-              Discover our premium Texas oysters and branded merchandise.
+              Discover our premium Texas Gulf Coast oysters and branded merchandise. Order fresh oysters online 
+              from our sustainable farm in Port Lavaca, Texas. Perfect for restaurants, catering, and seafood lovers.
             </p>
           </div>
 

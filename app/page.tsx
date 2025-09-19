@@ -94,7 +94,7 @@ export default function HomePage() {
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-purple-800 mb-6 md:mb-8 leading-relaxed">
                 Committed to the long-term viability of off-bottom aquaculture and a thriving Texas coastline. Growing the
-                finest oysters in the pristine waters of Keller Bay.
+                finest Gulf Coast oysters in the pristine waters of Port Lavaca, Texas. Our sustainable oyster farming practices deliver fresh Texas oysters for restaurants, catering, and seafood lovers across the region.
               </p>
 
               {/* Total Harvested Counter */}
@@ -125,7 +125,7 @@ export default function HomePage() {
               <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl">
                 <LazyVideoPlayer
                   src="/homepage.MP4"
-                  alt="Three Sisters Oyster Farm Tour"
+                  alt="Sustainable oyster farm in Port Lavaca Texas with fresh Gulf Coast oysters"
                   className="w-full h-full"
                   autoPlay={true}
                   muted={true}
@@ -162,7 +162,7 @@ export default function HomePage() {
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center mr-3 md:mr-4">
                       <Image
                         src="/nurserylog.JPEG"
-                        alt="Three Sisters Oyster Nursery"
+                        alt="Oyster nursery equipment used for sustainable oyster farming in Texas"
                         width={48}
                         height={48}
                         className="w-full h-full object-cover"
@@ -208,7 +208,7 @@ export default function HomePage() {
                       <div className="w-16 h-16 bg-seafoamBrand/30 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Image
                           src="/nurserylog.JPEG"
-                          alt="Nursery Operations"
+                          alt="Texas oyster nursery operations showing sustainable aquaculture equipment"
                           width={64}
                           height={64}
                           className="rounded-full object-cover"
@@ -235,7 +235,7 @@ export default function HomePage() {
                       <div className="w-16 h-16 bg-purpleBrand/30 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Image
                           src="/farmlog.jpg"
-                          alt="Farm Operations"
+                          alt="Texas oyster farm operations showing Gulf Coast oyster cultivation"
                           width={64}
                           height={64}
                           className="rounded-full object-cover"
@@ -258,7 +258,7 @@ export default function HomePage() {
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center mr-3 md:mr-4">
                       <Image
                         src="/farmlog.jpg"
-                        alt="Three Sisters Oyster Farm"
+                        alt="Fresh oysters for sale online from Port Lavaca Texas oyster farm"
                         width={48}
                         height={48}
                         className="w-full h-full object-cover"
@@ -326,7 +326,7 @@ export default function HomePage() {
                 <div className="aspect-square bg-gradient-to-b from-purpleBrand/40 to-seafoamBrand/40 rounded-2xl flex items-center justify-center border border-purpleBrand/30">
                   <Image
                     src="/aboutpic.jpg"
-                    alt="Blake and family at the oyster farm"
+                    alt="Three Sisters Oyster farmers harvesting sustainable oysters in Port Lavaca Texas"
                     width={400}
                     height={400}
                     className="rounded-2xl object-cover"
@@ -405,7 +405,7 @@ export default function HomePage() {
                 <div className="w-10 h-10 rounded-full overflow-hidden">
                   <Image
                     src="/logo.jpg"
-                    alt="Three Sisters Oyster Co. Logo"
+                    alt="Three Sisters Oyster Co logo - Texas Gulf Coast oyster farm"
                     width={40}
                     height={40}
                     className="w-full h-full object-cover"

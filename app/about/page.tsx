@@ -27,7 +27,8 @@ export default function AboutPage() {
           </ScrollAnimatedSection>
           <ScrollAnimatedSection animationType="fade-in" delay={400}>
             <p className="text-xl text-purple-800 max-w-3xl mx-auto">
-              From the pristine waters of Keller Bay to your table, discover the passion behind Three Sisters Oyster Co.
+              From the pristine waters of Port Lavaca, Texas to your table, discover the passion behind Three Sisters Oyster Co. 
+              Our sustainable Gulf Coast oyster farming delivers fresh Texas oysters for restaurants, catering, and seafood enthusiasts.
             </p>
           </ScrollAnimatedSection>
         </div>

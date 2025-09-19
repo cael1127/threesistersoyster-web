@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'about',
     'products',
     'gallery',
+    'blog',
     'cart',
     'checkout',
     'inventory',

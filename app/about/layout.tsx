@@ -1,8 +1,8 @@
 import type { Metadata, ResolvingMetadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = 'About Three Sisters Oyster Co. | Our Story & Mission'
-  const description = 'Learn about our family-owned Texas oyster farm, sustainability mission, and Keller Bay roots.'
+  const title = 'About Three Sisters Oyster | Texas Oyster Farmers'
+  const description = 'Learn the story behind Three Sisters Oyster in Port Lavaca, Texas. Family-run, sustainable oyster farming with a passion for quality and community.'
   return {
     title,
     description,

@@ -1,20 +1,20 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Photo Gallery | Three Sisters Oyster Co.',
-  description: 'Explore images from our Texas oyster farm: nursery, farm operations, and coastal life in Keller Bay.',
+  title: 'Texas Oyster Farm Gallery | Three Sisters Oyster Photos',
+  description: 'See our sustainable oyster farming in action. Photos from our Port Lavaca, Texas farm showing Gulf Coast oyster cultivation and daily operations.',
   robots: { index: true, follow: true },
   alternates: { canonical: '/gallery' },
   openGraph: {
-    title: 'Photo Gallery | Three Sisters Oyster Co.',
-    description: 'Scenes from our nursery and farm in Keller Bay, Texas.',
+    title: 'Texas Oyster Farm Gallery | Three Sisters Oyster Photos',
+    description: 'See our sustainable oyster farming in action. Photos from our Port Lavaca, Texas farm showing Gulf Coast oyster cultivation and daily operations.',
     url: '/gallery',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Photo Gallery | Three Sisters Oyster Co.',
-    description: 'Scenes from our nursery and farm in Keller Bay, Texas.',
+    title: 'Texas Oyster Farm Gallery | Three Sisters Oyster Photos',
+    description: 'See our sustainable oyster farming in action. Photos from our Port Lavaca, Texas farm showing Gulf Coast oyster cultivation and daily operations.',
   },
 }
 

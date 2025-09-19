@@ -17,8 +17,8 @@ export const viewport: Viewport = {
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com'
 
 export const metadata: Metadata = {
-  title: "Three Sisters Oyster Co. - Premium Texas Oysters",
-  description: "Premium oysters and aquaculture products from the pristine waters of Keller Bay",
+  title: "Three Sisters Oyster | Fresh Texas Oysters from Port Lavaca",
+  description: "Discover premium oysters sustainably farmed in Port Lavaca, Texas. Three Sisters Oyster offers fresh Gulf Coast oysters for restaurants, events, and seafood lovers.",
   generator: 'cf',
   metadataBase: new URL(siteUrl),
   alternates: {

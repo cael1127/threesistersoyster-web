@@ -65,6 +65,9 @@ export default function Navigation() {
             <Link href="/gallery" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
               Gallery
             </Link>
+            <Link href="/blog" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
+              Blog
+            </Link>
             <Link href="/about" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
               About
             </Link>
