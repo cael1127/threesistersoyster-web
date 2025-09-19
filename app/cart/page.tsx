@@ -68,7 +68,6 @@ export default function CartPage() {
         throw new Error("No checkout URL received")
       }
     } catch (error) {
-      console.error("Checkout error:", error)
       setCheckoutError(error instanceof Error ? error.message : "Failed to start checkout")
     } finally {
       setCheckoutLoading(false)

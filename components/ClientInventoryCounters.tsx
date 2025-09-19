@@ -49,7 +49,6 @@ export default function ClientInventoryCounters() {
         ]);
         setTotalCount(farm + nursery);
       } catch (error) {
-        console.error("Error fetching total count:", error);
         // Fallback values for testing
         setTotalCount(2847 + 1563);
       } finally {

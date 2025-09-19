@@ -24,7 +24,6 @@ export default function CheckoutPage() {
       try {
         // Check if Supabase is properly configured
         if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
-          console.error("Supabase not configured")
           setLoading(false)
           return
         }
@@ -32,12 +31,12 @@ export default function CheckoutPage() {
         const { data, error } = await supabase.from("products").select("*").eq("id", productId).single()
 
         if (error) {
-          console.error("Error fetching product:", error)
+          // Error fetching product
         } else {
           setProduct(data)
         }
       } catch (error) {
-        console.error("Error:", error)
+        // Error occurred
       } finally {
         setLoading(false)
       }
@@ -89,7 +88,6 @@ export default function CheckoutPage() {
         window.location.href = url
       }
     } catch (error) {
-      console.error("Error creating checkout session:", error)
       alert("Failed to start checkout. Please try again.")
     } finally {
       setCheckingOut(false)

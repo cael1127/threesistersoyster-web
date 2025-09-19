@@ -13,7 +13,6 @@ export function InventoryCounter() {
         const totalCount = await getInventoryCount()
         setCount(totalCount)
       } catch (error) {
-        console.error("Error fetching inventory count:", error)
         // Keep the fallback number
       } finally {
         setLoading(false)

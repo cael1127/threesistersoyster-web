@@ -21,22 +21,13 @@ export async function GET(request: NextRequest) {
     // Only allow from trusted origins
     const origin = request.headers.get('origin')
     if (!validateOrigin(origin)) {
-      console.warn('Analytics API: Unauthorized origin:', origin)
       return NextResponse.json({ error: 'Unauthorized origin' }, { status: 403 })
     }
 
     // Get analytics data
     const analyticsData = analyticsMonitor.getAnalyticsData()
 
-    // Debug logging
-    if (process.env.NODE_ENV === 'development') {
-      console.log('📊 Analytics API called:', {
-        totalSessions: analyticsData.totalSessions,
-        totalEvents: analyticsData.totalEvents,
-        activeSessions: analyticsData.activeSessions,
-        origin
-      })
-    }
+    // Get analytics data
 
     return NextResponse.json({
       success: true,
@@ -45,7 +36,6 @@ export async function GET(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error("Analytics API error:", error)
     return NextResponse.json(
       { error: "Failed to get analytics data" },
       { status: 500 }
@@ -62,20 +52,10 @@ export async function POST(request: NextRequest) {
     
     // Allow same-origin requests (no origin header) or valid origins
     if (origin && !validateOrigin(origin)) {
-      console.warn('Analytics API POST: Unauthorized origin:', origin)
       return NextResponse.json({ error: 'Unauthorized origin' }, { status: 403 })
     }
 
     const body = await request.json()
-    // Debug logging for development
-    if (process.env.NODE_ENV === 'development') {
-      console.log('📊 Analytics API POST called:', {
-        origin,
-        referer,
-        type: body?.type,
-        hasData: !!body?.data
-      })
-    }
     const { type, data } = body
 
     // Validate request
@@ -219,7 +199,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true })
 
   } catch (error) {
-    console.error("Analytics tracking error:", error)
     return NextResponse.json(
       { error: "Failed to track event" },
       { status: 500 }
@@ -276,7 +255,6 @@ export async function PUT(request: NextRequest) {
     }
 
   } catch (error) {
-    console.error("Session details error:", error)
     return NextResponse.json(
       { error: "Failed to get session details" },
       { status: 500 }

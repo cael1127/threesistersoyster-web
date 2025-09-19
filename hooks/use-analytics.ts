@@ -21,7 +21,6 @@ function getSessionId(): string {
       localStorage.setItem('analytics_session_id', sessionId)
     } catch (error) {
       // If storage fails (private browsing), use in-memory only
-      console.warn('Analytics: Storage not available, using in-memory session')
     }
   }
   return sessionId

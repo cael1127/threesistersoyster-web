@@ -97,24 +97,24 @@ export default function EnhancedAnalyticsDashboard() {
   const fetchAnalyticsData = async () => {
     try {
       setLoading(true)
-      console.log('🔍 Fetching enhanced analytics data...')
+      // Fetching enhanced analytics data
       
       const response = await fetch('/api/analytics')
       
       if (!response.ok) {
         const errorText = await response.text()
-        console.error('Analytics API error:', response.status, errorText)
+        // Analytics API error
         throw new Error(`HTTP ${response.status}: ${response.statusText}`)
       }
       
       const result = await response.json()
-      console.log('📊 Enhanced analytics data received:', result.data)
+      // Enhanced analytics data received
       
       setAnalyticsData(result.data)
       setLastUpdated(new Date())
       setError(null)
     } catch (err) {
-      console.error('Analytics fetch error:', err)
+      // Analytics fetch error
       setError(err instanceof Error ? err.message : 'Failed to fetch analytics data')
     } finally {
       setLoading(false)

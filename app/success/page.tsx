@@ -36,7 +36,6 @@ export default function SuccessPage() {
           setLoading(false)
         })
         .catch((error) => {
-          console.error("Error fetching session:", error)
           setLoading(false)
         })
     } else {
@@ -74,13 +73,11 @@ export default function SuccessPage() {
         
 
       } else {
-        console.error('Inventory update failed:', result.error)
         // Still clear the cart since payment was successful
         clearCart()
         setOrderProcessed(true)
       }
     } catch (error) {
-      console.error('Error updating inventory:', error)
       // Still clear the cart since payment was successful
       clearCart()
       setOrderProcessed(true)

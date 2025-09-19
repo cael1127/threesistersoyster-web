@@ -26,7 +26,6 @@ export default function InventoryPage() {
     try {
       // Check if Supabase is configured first
       if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
-        console.warn("Supabase not configured, using empty inventory")
         setFarmInventory([])
         setNurseryInventory([])
         setAllInventory([])
@@ -43,7 +42,6 @@ export default function InventoryPage() {
       setNurseryInventory(nursery)
       setAllInventory(all)
     } catch (error) {
-      console.error("Error fetching inventory:", error)
       // Set empty arrays on error to prevent crashes
       setFarmInventory([])
       setNurseryInventory([])

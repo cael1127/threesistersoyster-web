@@ -41,20 +41,16 @@ export function HarvestReadyInventoryCounter() {
       try {
         // Check if Supabase is properly configured
         if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
-          console.error("Supabase not configured")
           setCount(0)
           setError(null)
           setLoading(false)
           return
         }
 
-        console.log("Fetching harvest ready count...")
         const harvestReadyCount = await getHarvestReadyInventoryCount()
-        console.log("Harvest ready count received:", harvestReadyCount)
         setCount(harvestReadyCount)
         setError(null)
       } catch (error) {
-        console.error("Error fetching harvest ready inventory count:", error)
         setError("Failed to load count")
       } finally {
         setLoading(false)
@@ -100,20 +96,16 @@ export function FarmInventoryCounter() {
       try {
         // Check if Supabase is properly configured
         if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
-          console.error("Supabase not configured")
           setCount(0)
           setError(null)
           setLoading(false)
           return
         }
 
-        console.log("Fetching farm count...")
         const farmCount = await getFarmInventoryCount()
-        console.log("Farm count received:", farmCount)
         setCount(farmCount)
         setError(null)
       } catch (error) {
-        console.error("Error fetching farm inventory count:", error)
         setError("Failed to load count")
       } finally {
         setLoading(false)
@@ -164,20 +156,16 @@ export function NurseryInventoryCounter() {
       try {
         // Check if Supabase is properly configured
         if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === "https://placeholder.supabase.co") {
-          console.error("Supabase not configured")
           setCount(0)
           setError(null)
           setLoading(false)
           return
         }
 
-        console.log("Fetching nursery count...")
         const nurseryCount = await getNurseryInventoryCount()
-        console.log("Nursery count received:", nurseryCount)
         setCount(nurseryCount)
         setError(null)
       } catch (error) {
-        console.error("Error fetching nursery inventory count:", error)
         setError("Failed to load count")
       } finally {
         setLoading(false)

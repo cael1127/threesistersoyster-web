@@ -113,7 +113,7 @@ export class AnalyticsMonitor {
         return crypto.randomUUID()
       }
     } catch (error) {
-      console.warn('Crypto.randomUUID failed, using fallback:', error)
+      // Fallback for environments without crypto.randomUUID
     }
     // Fallback for environments without crypto.randomUUID
     return `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
@@ -184,19 +184,7 @@ export class AnalyticsMonitor {
       profile.lastSeen = userEvent.timestamp
     }
 
-    // Log in development
-    if (process.env.NODE_ENV === 'development') {
-      console.log(`📊 User Event:`, {
-        type: event.type,
-        category: event.category,
-        action: event.action,
-        url: event.url,
-        success: event.success,
-        sessionId: event.sessionId,
-        ip: event.ip,
-        totalEvents: events.size
-      })
-    }
+    // Track user event
   }
 
   // Track errors

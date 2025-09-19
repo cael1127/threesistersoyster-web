@@ -134,7 +134,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           localStorage.setItem("three-sisters-cart", JSON.stringify(items))
         }
       } catch (error) {
-        console.error("Error saving cart to localStorage:", error)
+        // Error saving cart to localStorage
       }
     }, 100) // 100ms debounce
   }, [])
@@ -165,7 +165,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           }
         }
       } catch (error) {
-        console.error("Error loading cart from localStorage:", error)
+        // Error loading cart from localStorage
       }
     }
     
@@ -212,13 +212,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         })
 
         if (!response.ok) {
-          const errorData = await response.json()
-          console.error('Failed to reserve inventory:', errorData)
           // Still add to cart but log the error
         }
       }
     } catch (error) {
-      console.error('Error reserving inventory:', error)
       // Still add to cart even if reservation fails
     }
 

@@ -22,7 +22,6 @@ export async function POST(request: NextRequest) {
     const signature = headersList.get("stripe-signature")
 
     if (!signature) {
-      console.error("No signature provided")
       return NextResponse.json({ error: "No signature" }, { status: 400 })
     }
 
@@ -32,7 +31,6 @@ export async function POST(request: NextRequest) {
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
 
     } catch (err) {
-      console.error("Webhook signature verification failed:", err)
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 })
     }
 
@@ -81,7 +79,7 @@ export async function POST(request: NextRequest) {
           
 
         } catch (error) {
-          console.error("❌ Error parsing items from metadata:", error)
+          // Error parsing items from metadata
         }
       }
 
@@ -117,12 +115,12 @@ export async function POST(request: NextRequest) {
                 })
 
               } else {
-                console.error(`❌ Could not find product with name: ${productName}`)
+                // Could not find product with name
               }
             }
           }
         } catch (lineItemError) {
-          console.error("❌ Error fetching line items:", lineItemError)
+          // Error fetching line items
         }
       }
 
@@ -141,12 +139,10 @@ export async function POST(request: NextRequest) {
             .single()
           
           if (selectError) {
-            console.error(`❌ Error getting current product data for ${item.name}:`, selectError)
             continue
           }
           
           if (!currentData) {
-            console.error(`❌ Product not found with ID: ${item.id}`)
             continue
           }
           
@@ -164,7 +160,7 @@ export async function POST(request: NextRequest) {
             .select()
           
           if (updateError) {
-            console.error(`❌ Error updating inventory for ${currentData.name}:`, updateError)
+            // Error updating inventory
           } else {
 
             
@@ -176,12 +172,12 @@ export async function POST(request: NextRequest) {
               .single()
             
             if (verifyError) {
-              console.error(`❌ Could not verify update for ${currentData.name}:`, verifyError)
+              // Could not verify update
             } else {
               const actualCount = verifyData.inventory_count || 0
               
               if (actualCount !== newCount) {
-                console.error(`❌ INVENTORY UPDATE FAILED: Expected ${newCount}, got ${actualCount}`)
+                // Inventory update failed
               } else {
 
               }
@@ -189,7 +185,7 @@ export async function POST(request: NextRequest) {
           }
           
         } catch (error) {
-          console.error(`❌ Error processing item ${item.name}:`, error)
+          // Error processing item
         }
       }
       
@@ -209,10 +205,10 @@ export async function POST(request: NextRequest) {
           if (releaseResponse.ok) {
             const releaseData = await releaseResponse.json()
           } else {
-            console.error('❌ Failed to release reservations:', await releaseResponse.text())
+            // Failed to release reservations
           }
         } catch (releaseError) {
-          console.error('❌ Error releasing reservations:', releaseError)
+          // Error releasing reservations
         }
       }
       
@@ -224,7 +220,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ received: true })
   } catch (error) {
-    console.error("❌ Webhook error:", error)
     return NextResponse.json(
       { error: "Webhook handler failed" },
       { status: 500 }

@@ -11,13 +11,11 @@ const stripe = process.env.STRIPE_SECRET_KEY
 export async function POST(request: NextRequest) {
   try {
     if (!stripe) {
-      console.error("Stripe not configured")
       return NextResponse.json({ error: 'Payment service unavailable' }, { status: 503 })
     }
 
     // Parse request body
     const body = await request.json()
-    console.log('Checkout request body:', body)
     
     const { items, total_amount } = body
     
@@ -48,8 +46,6 @@ export async function POST(request: NextRequest) {
       },
       quantity: item.quantity || 1,
     }))
-
-    console.log('Creating Stripe checkout session with items:', lineItems)
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
