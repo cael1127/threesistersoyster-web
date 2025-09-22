@@ -1,6 +1,56 @@
 "use client"
 
 import { getInventoryByType, getAllInventory, Inventory } from "@/lib/supabase"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Live Oyster Inventory | Three Sisters Oyster Co. | Port Lavaca Texas",
+  description: "View our real-time oyster inventory from Port Lavaca, Texas. Farm and nursery operations with live stock counts, pricing, and availability for fresh Gulf Coast oysters.",
+  keywords: [
+    "oyster inventory",
+    "live oyster stock",
+    "Texas oyster availability", 
+    "Port Lavaca oyster inventory",
+    "oyster farm stock",
+    "oyster nursery seed",
+    "fresh oyster count",
+    "oyster pricing",
+    "Gulf Coast oyster inventory",
+    "oyster wholesale stock",
+    "restaurant oyster supply",
+    "oyster harvest ready",
+    "Keller Bay oyster stock"
+  ],
+  openGraph: {
+    title: "Live Oyster Inventory | Three Sisters Oyster Co.",
+    description: "View our real-time oyster inventory from Port Lavaca, Texas. Farm and nursery operations with live stock counts and availability.",
+    images: [
+      {
+        url: '/oyster.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fresh Texas Oysters - Live Inventory',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Live Oyster Inventory | Three Sisters Oyster Co.',
+    description: 'View our real-time oyster inventory from Port Lavaca, Texas. Farm and nursery operations with live stock counts.',
+    images: ['/oyster.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -12,6 +62,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { SeasonalFloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
+import Script from "next/script"
 
 const ClientInventoryCounters = dynamic(() => import("@/components/ClientInventoryCounters"));
 
@@ -183,6 +234,77 @@ export default function InventoryPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      <Script id="inventory-jsonld" type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Live Oyster Inventory - Three Sisters Oyster Co.",
+            "description": "Real-time oyster inventory from Port Lavaca, Texas. Farm and nursery operations with live stock counts, pricing, and availability for fresh Gulf Coast oysters.",
+            "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/inventory',
+            "mainEntity": {
+              "@type": "Organization",
+              "name": "Three Sisters Oyster Co.",
+              "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com'),
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "106 Grant St.",
+                "addressLocality": "Port Lavaca",
+                "addressRegion": "TX",
+                "postalCode": "77979",
+                "addressCountry": "US"
+              },
+              "telephone": "+1-713-854-7427",
+              "areaServed": {
+                "@type": "State",
+                "name": "Texas"
+              },
+              "serviceType": "Oyster Farming and Aquaculture",
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Oyster Inventory",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Product",
+                      "name": "Farm Oysters",
+                      "description": "Premium half-shell market oysters grown in Keller Bay, Port Lavaca, Texas"
+                    },
+                    "availability": "https://schema.org/InStock"
+                  },
+                  {
+                    "@type": "Offer", 
+                    "itemOffered": {
+                      "@type": "Product",
+                      "name": "Nursery Oyster Seed",
+                      "description": "Hardy Eastern oyster seed for growers and aquaculture operations"
+                    },
+                    "availability": "https://schema.org/InStock"
+                  }
+                ]
+              }
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com')
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Inventory",
+                  "item": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/inventory'
+                }
+              ]
+            }
+          })
+        }}
+      />
       <SeasonalFloatingParticles count={10} />
       {/* Header */}
       <Navigation />
@@ -190,9 +312,9 @@ export default function InventoryPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <div className="mb-4">
-            <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">Live Inventory</h1>
+            <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">Live Oyster Inventory</h1>
             <p className="text-lg text-purple-700 mb-8 text-center">
-              Real-time tracking of our oyster inventory across farm and nursery locations.
+              Real-time tracking of our fresh oyster inventory across farm and nursery locations in Port Lavaca, Texas. View current stock levels, pricing, and availability for premium Gulf Coast oysters.
             </p>
           </div>
         </div>
@@ -218,7 +340,7 @@ export default function InventoryPage() {
             <div className="mb-6 p-6 bg-gradient-to-r from-purpleBrand/10 via-lavenderBrand/10 to-blueBrand/10 rounded-2xl border border-purpleBrand/20">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Farm Operations</h2>
+                  <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Oyster Farm Operations</h2>
                   <p className="text-purple-800 mt-1 text-sm md:text-base">
                     {processedFarmInventory.filter((item) => item.harvestReady).length > 0 ? (
                       <span className="text-purple-800 font-medium">
@@ -226,10 +348,10 @@ export default function InventoryPage() {
                           processedFarmInventory
                             .filter((item) => item.harvestReady)
                             .reduce((sum, item) => sum + item.count, 0)
-                        )} ready for harvest
+                        )} fresh oysters ready for harvest
                       </span>
                     ) : (
-                      <span>Premium half-shell oysters in various growth stages</span>
+                      <span>Premium half-shell oysters in various growth stages at our Port Lavaca oyster farm</span>
                     )}
                   </p>
                 </div>
@@ -260,7 +382,7 @@ export default function InventoryPage() {
             <div className="mb-6 p-6 bg-gradient-to-r from-purpleBrand/10 via-lavenderBrand/10 to-blueBrand/10 rounded-2xl border border-purpleBrand/20">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Nursery Operations</h2>
+                  <h2 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Oyster Nursery Operations</h2>
                   <p className="text-purple-800 mt-1 text-sm md:text-base">
                     {processedNurseryInventory.filter((item) => item.harvestReady).length > 0 ? (
                       <span className="text-purple-800 font-medium">
@@ -268,11 +390,11 @@ export default function InventoryPage() {
                           processedNurseryInventory
                             .filter((item) => item.harvestReady)
                             .reduce((sum, item) => sum + item.count, 0)
-                        )} ready seed stock available
+                        )} fresh oyster seed stock available
                       </span>
                     ) : (
                       <span>
-                        Hardy oyster seed stock.
+                        Hardy Eastern oyster seed stock for Texas aquaculture operations.
                       </span>
                     )}
                   </p>

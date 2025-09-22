@@ -102,8 +102,8 @@ export function middleware(request: NextRequest) {
     return new NextResponse('Forbidden', { status: 403 })
   }
   
-  // Analyze request for suspicious patterns (skip for analytics API)
-  if (!pathname.startsWith('/api/analytics')) {
+  // Analyze request for suspicious patterns (skip for analytics API and inventory page)
+  if (!pathname.startsWith('/api/analytics') && pathname !== '/inventory') {
     const analysis = securityMonitor.analyzeRequest(request)
     if (analysis.suspicious) {
       securityMonitor.logEvent({

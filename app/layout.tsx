@@ -19,10 +19,66 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.
 export const metadata: Metadata = {
   title: "Three Sisters Oyster | Fresh Texas Oysters from Port Lavaca",
   description: "Discover premium oysters sustainably farmed in Port Lavaca, Texas. Three Sisters Oyster offers fresh Gulf Coast oysters for restaurants, events, and seafood lovers.",
-  generator: 'cf',
+  keywords: [
+    "Texas oysters",
+    "Port Lavaca oysters", 
+    "Gulf Coast oysters",
+    "fresh oysters",
+    "sustainable oyster farming",
+    "oyster nursery",
+    "oyster farm Texas",
+    "premium oysters",
+    "half shell oysters",
+    "oyster seed",
+    "aquaculture Texas",
+    "Keller Bay oysters",
+    "oyster delivery",
+    "restaurant oysters",
+    "oyster wholesale"
+  ],
+  authors: [{ name: "Three Sisters Oyster Co." }],
+  creator: "Three Sisters Oyster Co.",
+  publisher: "Three Sisters Oyster Co.",
+  generator: 'Next.js',
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: siteUrl,
+    siteName: 'Three Sisters Oyster Co.',
+    title: 'Three Sisters Oyster | Fresh Texas Oysters from Port Lavaca',
+    description: 'Discover premium oysters sustainably farmed in Port Lavaca, Texas. Three Sisters Oyster offers fresh Gulf Coast oysters for restaurants, events, and seafood lovers.',
+    images: [
+      {
+        url: '/logo.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Three Sisters Oyster Co. - Premium Texas Oysters',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Three Sisters Oyster | Fresh Texas Oysters from Port Lavaca',
+    description: 'Discover premium oysters sustainably farmed in Port Lavaca, Texas. Three Sisters Oyster offers fresh Gulf Coast oysters for restaurants, events, and seafood lovers.',
+    images: ['/logo.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'googleb3d131a854526afe',
   },
   icons: {
     icon: [

@@ -47,6 +47,39 @@ export default function HomePage() {
             "name": "Three Sisters Oyster Co.",
             "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com'),
             "logo": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/logo.jpg',
+            "description": "Sustainable oyster farming in Port Lavaca, Texas. Premium Gulf Coast oysters for restaurants, events, and seafood lovers.",
+            "foundingDate": "2020",
+            "founder": {
+              "@type": "Person",
+              "name": "Blake"
+            },
+            "areaServed": {
+              "@type": "State",
+              "name": "Texas"
+            },
+            "serviceType": "Oyster Farming and Aquaculture",
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Oyster Products and Services",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "Fresh Oysters",
+                    "description": "Premium half-shell market oysters grown in Keller Bay, Port Lavaca, Texas"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Product", 
+                    "name": "Oyster Seed",
+                    "description": "Hardy Eastern oyster seed for growers and aquaculture operations"
+                  }
+                }
+              ]
+            },
             "sameAs": [
               // Add social URLs if available
             ],
@@ -54,7 +87,8 @@ export default function HomePage() {
               "@type": "ContactPoint",
               "telephone": "+1-713-854-7427",
               "contactType": "customer service",
-              "areaServed": "US"
+              "areaServed": "US",
+              "availableLanguage": "English"
             }],
             "address": {
               "@type": "PostalAddress",
@@ -63,7 +97,47 @@ export default function HomePage() {
               "addressRegion": "TX",
               "postalCode": "77979",
               "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "28.6144",
+              "longitude": "-96.6250"
             }
+          })
+        }}
+      />
+      <Script id="local-business-jsonld" type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Three Sisters Oyster Co.",
+            "image": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/logo.jpg',
+            "description": "Family-owned sustainable oyster farm in Port Lavaca, Texas. Premium Gulf Coast oysters for restaurants, events, and seafood lovers.",
+            "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com'),
+            "telephone": "+1-713-854-7427",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "106 Grant St.",
+              "addressLocality": "Port Lavaca",
+              "addressRegion": "TX",
+              "postalCode": "77979",
+              "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "28.6144",
+              "longitude": "-96.6250"
+            },
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              "opens": "08:00",
+              "closes": "17:00"
+            },
+            "priceRange": "$$",
+            "servesCuisine": "Seafood",
+            "hasMap": "https://maps.google.com/?q=28.6144,-96.6250"
           })
         }}
       />
@@ -94,7 +168,7 @@ export default function HomePage() {
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-purple-800 mb-6 md:mb-8 leading-relaxed">
                 Committed to the long-term viability of off-bottom aquaculture and a thriving Texas coastline. Growing the
-                finest Gulf Coast oysters in the pristine waters of Port Lavaca, Texas. Our sustainable oyster farming practices deliver fresh Texas oysters for restaurants, catering, and seafood lovers across the region.
+                finest Gulf Coast oysters in the pristine waters of Port Lavaca, Texas. Our sustainable oyster farming practices deliver fresh Texas oysters for restaurants, catering, and seafood lovers across the region. Premium oyster delivery and wholesale services available throughout Texas.
               </p>
 
               {/* Total Harvested Counter */}
@@ -145,9 +219,9 @@ export default function HomePage() {
         <div className="container mx-auto max-w-7xl">
           <ScrollAnimatedSection animationType="fade-in" delay={200}>
             <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-3 md:mb-4 px-2 text-center">Our Operations</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-3 md:mb-4 px-2 text-center">Our Oyster Farm Operations</h2>
               <p className="text-base sm:text-lg md:text-xl text-purple-800 max-w-2xl mx-auto leading-relaxed px-4">
-                From nursery to market, we provide premium oyster solutions for growers and consumers alike.
+                From oyster nursery to market, we provide premium Texas oyster solutions for growers and consumers alike. Sustainable aquaculture practices in Port Lavaca, Texas.
               </p>
             </div>
           </ScrollAnimatedSection>
@@ -169,11 +243,11 @@ export default function HomePage() {
                         quality={90}
                       />
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Oyster Nursery</h3>
+                    <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Oyster Nursery & Seed</h3>
                   </div>
                   <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed">
-                    Three Sisters Nursery offers customers hardy oyster seed to meet
-                    growers' needs with superior quality and reliability.
+                    Three Sisters Oyster Nursery offers customers hardy Eastern oyster seed to meet
+                    growers' needs with superior quality and reliability. Premium oyster seed for Texas aquaculture operations.
                   </p>
                   <ul className="space-y-2 text-sm md:text-base text-purple-800 mb-4 md:mb-6">
                     <li className="flex items-center">
@@ -265,11 +339,11 @@ export default function HomePage() {
                         quality={90}
                       />
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Oyster Farm</h3>
+                    <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Oyster Farm & Harvest</h3>
                   </div>
                   <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed">
-                    We grow oysters to market size for the premium half-shell market while providing essential habitat for
-                    fish and other sea life in our sustainable farming operations.
+                    We grow fresh oysters to market size for the premium half-shell market while providing essential habitat for
+                    fish and other sea life in our sustainable oyster farming operations in Keller Bay, Port Lavaca.
                   </p>
                   <ul className="space-y-2 text-sm md:text-base text-purple-800">
                     <li className="flex items-center">

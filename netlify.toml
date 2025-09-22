@@ -18,6 +18,13 @@
   to = "/sitemap.xml"
   status = 200
 
+# Block obvious non-browser clients, but allow search engine crawlers
+[[redirects]]
+  from = "/*"
+  to = "/404"
+  status = 404
+  conditions = {User_Agent = ["curl", "wget", "python-requests", "libwww-perl"]}
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -75,10 +82,3 @@
   to = "https://:splat"
   status = 301
   force = true
-
-# Block obvious non-browser clients, but allow search engine crawlers
-[[redirects]]
-  from = "/*"
-  to = "/404"
-  status = 404
-  conditions = {User_Agent = ["curl", "wget", "python-requests", "libwww-perl"]}

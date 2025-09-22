@@ -6,6 +6,15 @@ Disallow: /security-dashboard
 Disallow: /monitoring
 Disallow: /test-mobile-scroll
 
+# Allow important pages for SEO
+Allow: /inventory
+Allow: /products
+Allow: /about
+Allow: /gallery
+
+# Crawl delay for better server performance
+Crawl-delay: 1
+
 Sitemap: https://threesistersoyster.com/sitemap.xml
 Host: https://threesistersoyster.com
 

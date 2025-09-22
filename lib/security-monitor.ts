@@ -189,10 +189,22 @@ export class SecurityMonitor {
       }
     }
 
-    // Check for bot-like behavior
-    const botPatterns = ['bot', 'crawler', 'spider', 'scraper', 'curl', 'wget', 'python-requests']
-    if (botPatterns.some(pattern => userAgent.toLowerCase().includes(pattern))) {
-      reasons.push('Bot-like user agent detected')
+    // Check for bot-like behavior, but allow legitimate search engine crawlers
+    const legitimateCrawlers = [
+      'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider', 
+      'yandexbot', 'facebookexternalhit', 'twitterbot', 'linkedinbot',
+      'whatsapp', 'telegrambot', 'applebot', 'discordbot'
+    ]
+    
+    const isLegitimateCrawler = legitimateCrawlers.some(crawler => 
+      userAgent.toLowerCase().includes(crawler)
+    )
+    
+    if (!isLegitimateCrawler) {
+      const suspiciousBotPatterns = ['curl', 'wget', 'python-requests', 'libwww-perl', 'scraper']
+      if (suspiciousBotPatterns.some(pattern => userAgent.toLowerCase().includes(pattern))) {
+        reasons.push('Suspicious bot-like user agent detected')
+      }
     }
 
     // Check for rapid requests from same IP

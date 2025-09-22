@@ -1,4 +1,55 @@
  
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "About Three Sisters Oyster Co. | Sustainable Oyster Farming in Port Lavaca Texas",
+  description: "Learn about Three Sisters Oyster Co., a family-owned sustainable oyster farm in Port Lavaca, Texas. Committed to environmental stewardship and premium Gulf Coast oysters.",
+  keywords: [
+    "Three Sisters Oyster Co",
+    "oyster farm Texas",
+    "sustainable oyster farming",
+    "Port Lavaca oyster farm",
+    "Keller Bay oysters",
+    "aquaculture Texas",
+    "oyster farming family",
+    "environmental stewardship",
+    "Gulf Coast aquaculture",
+    "Blake oyster farmer",
+    "Texas A&M Kingsville",
+    "marine habitat restoration",
+    "oyster farm story",
+    "sustainable aquaculture"
+  ],
+  openGraph: {
+    title: "About Three Sisters Oyster Co. | Sustainable Oyster Farming",
+    description: "Learn about Three Sisters Oyster Co., a family-owned sustainable oyster farm in Port Lavaca, Texas. Committed to environmental stewardship.",
+    images: [
+      {
+        url: '/aboutpic.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Three Sisters Oyster Co. Team - Sustainable Oyster Farming',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Three Sisters Oyster Co. | Sustainable Oyster Farming',
+    description: 'Learn about our family-owned sustainable oyster farm in Port Lavaca, Texas. Committed to environmental stewardship.',
+    images: ['/aboutpic.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"

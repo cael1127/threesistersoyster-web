@@ -1,5 +1,56 @@
 import { getProducts } from "@/lib/supabase"
 import { Product } from "@/lib/supabase"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Fresh Oysters for Sale | Three Sisters Oyster Co. | Port Lavaca Texas",
+  description: "Shop premium fresh oysters from Port Lavaca, Texas. Three Sisters Oyster Co. offers sustainable Gulf Coast oysters for restaurants, events, and seafood lovers. Order online today.",
+  keywords: [
+    "fresh oysters for sale",
+    "Texas oysters online",
+    "Port Lavaca oyster delivery",
+    "Gulf Coast oysters",
+    "premium oysters",
+    "oyster delivery Texas",
+    "restaurant oysters",
+    "oyster wholesale",
+    "half shell oysters",
+    "sustainable oysters",
+    "Keller Bay oysters",
+    "oyster farm products",
+    "buy oysters online",
+    "oyster catering"
+  ],
+  openGraph: {
+    title: "Fresh Oysters for Sale | Three Sisters Oyster Co.",
+    description: "Shop premium fresh oysters from Port Lavaca, Texas. Sustainable Gulf Coast oysters for restaurants, events, and seafood lovers.",
+    images: [
+      {
+        url: '/oyster.png',
+        width: 1200,
+        height: 630,
+        alt: 'Fresh Texas Oysters for Sale',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Fresh Oysters for Sale | Three Sisters Oyster Co.',
+    description: 'Shop premium fresh oysters from Port Lavaca, Texas. Sustainable Gulf Coast oysters for restaurants and seafood lovers.',
+    images: ['/oyster.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
