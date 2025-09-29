@@ -219,18 +219,58 @@ export default function InventoryPage() {
                     "itemOffered": {
                       "@type": "Product",
                       "name": "Farm Oysters",
-                      "description": "Premium half-shell market oysters grown in Keller Bay, Port Lavaca, Texas"
+                      "description": "Premium half-shell market oysters grown in Keller Bay, Port Lavaca, Texas",
+                      "image": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/oyster.png',
+                      "category": "Seafood",
+                      "brand": {
+                        "@type": "Brand",
+                        "name": "Three Sisters Oyster Co."
+                      },
+                      "offers": {
+                        "@type": "Offer",
+                        "price": "45.00",
+                        "priceCurrency": "USD",
+                        "availability": "https://schema.org/InStock",
+                        "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/inventory',
+                        "seller": {
+                          "@type": "Organization",
+                          "name": "Three Sisters Oyster Co."
+                        }
+                      }
                     },
-                    "availability": "https://schema.org/InStock"
+                    "price": "45.00",
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock",
+                    "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/inventory'
                   },
                   {
                     "@type": "Offer", 
                     "itemOffered": {
                       "@type": "Product",
                       "name": "Nursery Oyster Seed",
-                      "description": "Hardy Eastern oyster seed for growers and aquaculture operations"
+                      "description": "Hardy Eastern oyster seed for growers and aquaculture operations",
+                      "image": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/oyster.png',
+                      "category": "Aquaculture",
+                      "brand": {
+                        "@type": "Brand",
+                        "name": "Three Sisters Oyster Co."
+                      },
+                      "offers": {
+                        "@type": "Offer",
+                        "price": "25.00",
+                        "priceCurrency": "USD",
+                        "availability": "https://schema.org/InStock",
+                        "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/inventory',
+                        "seller": {
+                          "@type": "Organization",
+                          "name": "Three Sisters Oyster Co."
+                        }
+                      }
                     },
-                    "availability": "https://schema.org/InStock"
+                    "price": "25.00",
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock",
+                    "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/inventory'
                   }
                 ]
               }

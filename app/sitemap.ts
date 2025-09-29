@@ -42,6 +42,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
     },
     {
+      path: 'blog/why-texas-gulf-oysters-taste-different',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/from-farm-to-table-oyster-harvest',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/top-5-oyster-recipes-summer',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/environmental-benefits-oyster-farming',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'contact',
+      priority: 0.8,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
       path: 'cart',
       priority: 0.5,
       changeFrequency: 'monthly' as const,

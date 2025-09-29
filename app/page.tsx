@@ -67,16 +67,58 @@ export default function HomePage() {
                   "itemOffered": {
                     "@type": "Product",
                     "name": "Fresh Oysters",
-                    "description": "Premium half-shell market oysters grown in Keller Bay, Port Lavaca, Texas"
-                  }
+                    "description": "Premium half-shell market oysters grown in Keller Bay, Port Lavaca, Texas",
+                    "image": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/oyster.png',
+                    "category": "Seafood",
+                    "brand": {
+                      "@type": "Brand",
+                      "name": "Three Sisters Oyster Co."
+                    },
+                    "offers": {
+                      "@type": "Offer",
+                      "price": "45.00",
+                      "priceCurrency": "USD",
+                      "availability": "https://schema.org/InStock",
+                      "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/products',
+                      "seller": {
+                        "@type": "Organization",
+                        "name": "Three Sisters Oyster Co."
+                      }
+                    }
+                  },
+                  "price": "45.00",
+                  "priceCurrency": "USD",
+                  "availability": "https://schema.org/InStock",
+                  "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/products'
                 },
                 {
                   "@type": "Offer",
                   "itemOffered": {
                     "@type": "Product", 
                     "name": "Oyster Seed",
-                    "description": "Hardy Eastern oyster seed for growers and aquaculture operations"
-                  }
+                    "description": "Hardy Eastern oyster seed for growers and aquaculture operations",
+                    "image": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/oyster.png',
+                    "category": "Aquaculture",
+                    "brand": {
+                      "@type": "Brand",
+                      "name": "Three Sisters Oyster Co."
+                    },
+                    "offers": {
+                      "@type": "Offer",
+                      "price": "25.00",
+                      "priceCurrency": "USD",
+                      "availability": "https://schema.org/InStock",
+                      "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/inventory',
+                      "seller": {
+                        "@type": "Organization",
+                        "name": "Three Sisters Oyster Co."
+                      }
+                    }
+                  },
+                  "price": "25.00",
+                  "priceCurrency": "USD",
+                  "availability": "https://schema.org/InStock",
+                  "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/inventory'
                 }
               ]
             },

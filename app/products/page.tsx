@@ -61,6 +61,7 @@ import { AddToCartButton } from "@/components/add-to-cart-button"
 import { Button } from "@/components/ui/button"
 import { SeasonalFloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
+import Script from "next/script"
 
 export default async function ProductsPage() {
   let products: Product[] = []
@@ -168,6 +169,102 @@ export default async function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      <Script id="products-jsonld" type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Fresh Oysters for Sale | Three Sisters Oyster Co.",
+            "description": "Shop premium fresh oysters from Port Lavaca, Texas. Sustainable Gulf Coast oysters for restaurants, events, and seafood lovers.",
+            "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/products',
+            "mainEntity": {
+              "@type": "ItemList",
+              "name": "Oyster Products",
+              "description": "Premium Gulf Coast oysters and aquaculture products",
+              "numberOfItems": oysterProducts.length + merchProducts.length,
+              "itemListElement": [
+                ...oysterProducts.map((product, index) => ({
+                  "@type": "Product",
+                  "position": index + 1,
+                  "name": product.name,
+                  "description": product.description ? (() => {
+                    try {
+                      const parsed = JSON.parse(product.description);
+                      return parsed.originalDescription || product.description;
+                    } catch {
+                      return product.description;
+                    }
+                  })() : "Premium oyster product",
+                  "image": product.image_url || (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/oyster.png',
+                  "category": product.category,
+                  "brand": {
+                    "@type": "Brand",
+                    "name": "Three Sisters Oyster Co."
+                  },
+                  "offers": {
+                    "@type": "Offer",
+                    "price": product.price?.toString() || "45.00",
+                    "priceCurrency": "USD",
+                    "availability": product.inventory_count && product.inventory_count > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+                    "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/products',
+                    "seller": {
+                      "@type": "Organization",
+                      "name": "Three Sisters Oyster Co."
+                    }
+                  }
+                })),
+                ...merchProducts.map((product, index) => ({
+                  "@type": "Product",
+                  "position": oysterProducts.length + index + 1,
+                  "name": product.name,
+                  "description": product.description ? (() => {
+                    try {
+                      const parsed = JSON.parse(product.description);
+                      return parsed.originalDescription || product.description;
+                    } catch {
+                      return product.description;
+                    }
+                  })() : "Premium merchandise",
+                  "image": product.image_url || (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/oyster.png',
+                  "category": product.category,
+                  "brand": {
+                    "@type": "Brand",
+                    "name": "Three Sisters Oyster Co."
+                  },
+                  "offers": {
+                    "@type": "Offer",
+                    "price": product.price?.toString() || "25.00",
+                    "priceCurrency": "USD",
+                    "availability": product.inventory_count && product.inventory_count > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+                    "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/products',
+                    "seller": {
+                      "@type": "Organization",
+                      "name": "Three Sisters Oyster Co."
+                    }
+                  }
+                }))
+              ]
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com')
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Products",
+                  "item": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/products'
+                }
+              ]
+            }
+          })
+        }}
+      />
       <SeasonalFloatingParticles count={10} />
       {/* Header */}
       <Navigation />
