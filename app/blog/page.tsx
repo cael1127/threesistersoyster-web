@@ -3,7 +3,8 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, ArrowRight } from 'lucide-react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Calendar, ArrowRight, BookOpen, Users, TrendingUp, Clock, Star } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
 import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
@@ -35,7 +36,9 @@ const blogPosts = [
     date: "2024-09-15",
     category: "Farming",
     image: "/farmlog.jpg",
-    slug: "why-texas-gulf-oysters-taste-different"
+    slug: "why-texas-gulf-oysters-taste-different",
+    readTime: "5 min read",
+    featured: true
   },
   {
     id: 2,
@@ -44,7 +47,9 @@ const blogPosts = [
     date: "2024-09-08",
     category: "Process",
     image: "/nurserylog.JPEG",
-    slug: "from-farm-to-table-oyster-harvest"
+    slug: "from-farm-to-table-oyster-harvest",
+    readTime: "7 min read",
+    featured: false
   },
   {
     id: 3,
@@ -53,7 +58,9 @@ const blogPosts = [
     date: "2024-09-01",
     category: "Recipes",
     image: "/gal.jpg",
-    slug: "top-5-oyster-recipes-summer"
+    slug: "top-5-oyster-recipes-summer",
+    readTime: "8 min read",
+    featured: false
   },
   {
     id: 4,
@@ -62,9 +69,49 @@ const blogPosts = [
     date: "2024-08-25",
     category: "Sustainability",
     image: "/topFarm.JPG",
-    slug: "environmental-benefits-oyster-farming"
+    slug: "environmental-benefits-oyster-farming",
+    readTime: "6 min read",
+    featured: false
+  },
+  {
+    id: 5,
+    title: "Oyster Season Guide: When to Enjoy the Best Texas Oysters",
+    excerpt: "Learn about oyster seasons and when our Texas Gulf oysters are at their peak. Discover the best times to order and enjoy our premium oysters.",
+    date: "2024-08-18",
+    category: "Seasonal",
+    image: "/gal1.jpg",
+    slug: "oyster-season-guide-texas",
+    readTime: "4 min read",
+    featured: false
+  },
+  {
+    id: 6,
+    title: "Sustainable Aquaculture: Our Commitment to the Gulf",
+    excerpt: "Explore our commitment to sustainable aquaculture practices and how we're working to protect and preserve the Texas Gulf Coast ecosystem.",
+    date: "2024-08-10",
+    category: "Sustainability",
+    image: "/gal2.jpg",
+    slug: "sustainable-aquaculture-commitment",
+    readTime: "5 min read",
+    featured: false
   }
 ]
+
+// Featured post (first one)
+const featuredPost = blogPosts[0]
+
+// Regular posts
+const regularPosts = blogPosts.slice(1)
+
+// Group posts by category
+const postsByCategory = {
+  'All': blogPosts,
+  'Farming': blogPosts.filter(post => post.category === 'Farming'),
+  'Recipes': blogPosts.filter(post => post.category === 'Recipes'),
+  'Sustainability': blogPosts.filter(post => post.category === 'Sustainability'),
+  'Process': blogPosts.filter(post => post.category === 'Process'),
+  'Seasonal': blogPosts.filter(post => post.category === 'Seasonal'),
+}
 
 export default function BlogPage() {
   return (
@@ -75,80 +122,212 @@ export default function BlogPage() {
       <Navigation />
 
       {/* Main Content */}
-      <main className="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto max-w-6xl">
+      <main className="py-8 md:py-12 lg:py-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl">
           {/* Page Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-purple-900 mb-6 leading-tight">
+          <div className="text-center mb-12 md:mb-16">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-purple-900 mb-4 md:mb-6 leading-tight">
               Texas Oyster Farm Blog
             </h1>
-            <p className="text-xl md:text-2xl text-purple-800 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-purple-800 max-w-4xl mx-auto leading-relaxed px-4">
               Stories from our sustainable oyster farm in Port Lavaca, Texas. Learn about Gulf Coast oysters, 
               sustainable aquaculture, and delicious seafood recipes.
             </p>
           </div>
 
-          {/* Blog Posts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
-            {blogPosts.map((post) => (
-              <Card key={post.id} className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="aspect-video relative overflow-hidden rounded-t-lg">
+          {/* Blog Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 text-center border border-purpleBrand/20">
+              <BookOpen className="w-6 h-6 text-purple-700 mx-auto mb-2" />
+              <div className="text-2xl font-bold text-purple-900">{blogPosts.length}</div>
+              <div className="text-sm text-purple-600">Articles</div>
+            </div>
+            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 text-center border border-purpleBrand/20">
+              <Users className="w-6 h-6 text-purple-700 mx-auto mb-2" />
+              <div className="text-2xl font-bold text-purple-900">5+</div>
+              <div className="text-sm text-purple-600">Categories</div>
+            </div>
+            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 text-center border border-purpleBrand/20">
+              <TrendingUp className="w-6 h-6 text-purple-700 mx-auto mb-2" />
+              <div className="text-2xl font-bold text-purple-900">Weekly</div>
+              <div className="text-sm text-purple-600">Updates</div>
+            </div>
+            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 text-center border border-purpleBrand/20">
+              <Star className="w-6 h-6 text-purple-700 mx-auto mb-2" />
+              <div className="text-2xl font-bold text-purple-900">Fresh</div>
+              <div className="text-sm text-purple-600">Content</div>
+            </div>
+          </div>
+
+          {/* Featured Post */}
+          <div className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-purple-900 mb-6 text-center">Featured Article</h2>
+            <Card className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                <div className="aspect-video lg:aspect-square relative overflow-hidden">
                   <Image
-                    src={post.image}
-                    alt={`${post.title} - Texas oyster farm blog post`}
+                    src={featuredPost.image}
+                    alt={`${featuredPost.title} - Featured Texas oyster farm blog post`}
                     fill
                     className="object-cover"
                     quality={90}
                   />
                   <div className="absolute top-4 left-4">
-                    <Badge className="bg-purpleBrand/90 text-white">
-                      {post.category}
+                    <Badge className="bg-purpleBrand/90 text-white text-sm">
+                      <Star className="w-3 h-3 mr-1" />
+                      Featured
                     </Badge>
                   </div>
                 </div>
-                <CardHeader>
-                  <div className="flex items-center text-sm text-purple-600 mb-2">
+                <div className="p-6 lg:p-8 flex flex-col justify-center">
+                  <div className="flex items-center text-sm text-purple-600 mb-3">
                     <Calendar className="w-4 h-4 mr-2" />
-                    {new Date(post.date).toLocaleDateString('en-US', { 
+                    {new Date(featuredPost.date).toLocaleDateString('en-US', { 
                       year: 'numeric', 
                       month: 'long', 
                       day: 'numeric' 
                     })}
+                    <span className="mx-2">•</span>
+                    <Clock className="w-4 h-4 mr-1" />
+                    {featuredPost.readTime}
                   </div>
-                  <CardTitle className="text-xl font-bold text-purple-900 mb-3">
-                    {post.title}
-                  </CardTitle>
-                  <p className="text-purple-700 leading-relaxed">
-                    {post.excerpt}
+                  <Badge className="bg-purpleBrand/20 text-purple-800 border-purpleBrand/30 w-fit mb-4">
+                    {featuredPost.category}
+                  </Badge>
+                  <h3 className="text-2xl lg:text-3xl font-bold text-purple-900 mb-4 leading-tight">
+                    {featuredPost.title}
+                  </h3>
+                  <p className="text-purple-700 leading-relaxed mb-6 text-lg">
+                    {featuredPost.excerpt}
                   </p>
-                </CardHeader>
-                <CardContent>
-                  <Button asChild className="w-full bg-purpleBrand hover:bg-lavenderBrand text-white">
-                    <Link href={`/blog/${post.slug}`}>
-                      Read More
+                  <Button asChild size="lg" className="bg-purpleBrand hover:bg-lavenderBrand text-white w-fit">
+                    <Link href={`/blog/${featuredPost.slug}`}>
+                      Read Full Article
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Link>
                   </Button>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          {/* Category Tabs */}
+          <div className="mb-8">
+            <Tabs defaultValue="All" className="w-full">
+              <div className="flex justify-center mb-8">
+                <TabsList className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 w-full max-w-4xl bg-white/60 backdrop-blur-sm border border-purpleBrand/20">
+                  {Object.keys(postsByCategory).map((category) => (
+                    <TabsTrigger 
+                      key={category} 
+                      value={category}
+                      className="text-purple-700 data-[state=active]:bg-purpleBrand data-[state=active]:text-white text-xs sm:text-sm"
+                    >
+                      {category}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </div>
+
+              {Object.entries(postsByCategory).map(([category, posts]) => (
+                <TabsContent key={category} value={category} className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {posts.map((post) => (
+                      <Card key={post.id} className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                        <div className="aspect-video relative overflow-hidden rounded-t-lg">
+                          <Image
+                            src={post.image}
+                            alt={`${post.title} - Texas oyster farm blog post`}
+                            fill
+                            className="object-cover group-hover:scale-110 transition-transform duration-300"
+                            quality={90}
+                          />
+                          <div className="absolute top-3 left-3">
+                            <Badge className="bg-purpleBrand/90 text-white text-xs">
+                              {post.category}
+                            </Badge>
+                          </div>
+                        </div>
+                        <CardHeader className="p-4">
+                          <div className="flex items-center justify-between text-xs text-purple-600 mb-2">
+                            <div className="flex items-center">
+                              <Calendar className="w-3 h-3 mr-1" />
+                              {new Date(post.date).toLocaleDateString('en-US', { 
+                                month: 'short', 
+                                day: 'numeric' 
+                              })}
+                            </div>
+                            <div className="flex items-center">
+                              <Clock className="w-3 h-3 mr-1" />
+                              {post.readTime}
+                            </div>
+                          </div>
+                          <CardTitle className="text-lg font-bold text-purple-900 mb-2 line-clamp-2">
+                            {post.title}
+                          </CardTitle>
+                          <p className="text-purple-700 leading-relaxed text-sm line-clamp-3">
+                            {post.excerpt}
+                          </p>
+                        </CardHeader>
+                        <CardContent className="p-4 pt-0">
+                          <Button asChild className="w-full bg-purpleBrand hover:bg-lavenderBrand text-white text-sm">
+                            <Link href={`/blog/${post.slug}`}>
+                              Read More
+                              <ArrowRight className="w-3 h-3 ml-1" />
+                            </Link>
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </TabsContent>
+              ))}
+            </Tabs>
+          </div>
+
+          {/* Newsletter Signup */}
+          <div className="bg-gradient-to-r from-purpleBrand/10 via-lavenderBrand/10 to-blueBrand/10 rounded-2xl p-6 md:p-8 border border-purpleBrand/20 mb-12">
+            <div className="text-center max-w-3xl mx-auto">
+              <h2 className="text-2xl md:text-3xl font-bold text-purple-900 mb-4">
+                Stay Updated with Our Farm
+              </h2>
+              <p className="text-purple-800 mb-6 text-lg">
+                Get the latest news about our sustainable oyster farming, new products, and seasonal updates 
+                delivered straight to your inbox. Join our community of oyster enthusiasts!
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1 px-4 py-3 rounded-lg border border-purpleBrand/30 focus:border-purpleBrand focus:ring-2 focus:ring-purpleBrand/20 text-purple-900 placeholder-purple-500"
+                />
+                <Button className="bg-purpleBrand hover:bg-lavenderBrand text-white px-6 py-3">
+                  Subscribe
+                </Button>
+              </div>
+              <p className="text-sm text-purple-600 mt-3">
+                No spam, just fresh oyster news. Unsubscribe anytime.
+              </p>
+            </div>
           </div>
 
           {/* Call to Action */}
-          <div className="text-center bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-purpleBrand/30">
-            <h2 className="text-3xl font-bold text-purple-900 mb-4">
-              Stay Updated with Our Farm
+          <div className="text-center bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-purpleBrand/30">
+            <h2 className="text-2xl md:text-3xl font-bold text-purple-900 mb-4">
+              Ready to Experience Our Oysters?
             </h2>
-            <p className="text-purple-800 mb-6 max-w-2xl mx-auto">
-              Get the latest news about our sustainable oyster farming, new products, and seasonal updates 
-              delivered straight to your inbox.
+            <p className="text-purple-800 mb-6 max-w-2xl mx-auto text-lg">
+              After reading about our sustainable farming practices and delicious recipes, 
+              why not try our premium Texas Gulf oysters for yourself?
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-purpleBrand hover:bg-lavenderBrand text-white">
+                <Link href="/products">Shop Fresh Oysters</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-purpleBrand text-purpleBrand hover:bg-purpleBrand hover:text-white">
                 <Link href="/about">Learn About Our Farm</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-purpleBrand text-purpleBrand hover:bg-purpleBrand hover:text-white">
-                <Link href="/products">Shop Fresh Oysters</Link>
+                <Link href="/contact">Contact Us</Link>
               </Button>
             </div>
           </div>

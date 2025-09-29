@@ -66,6 +66,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
     },
     {
+      path: 'blog/oyster-season-guide-texas',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/sustainable-aquaculture-commitment',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
       path: 'contact',
       priority: 0.8,
       changeFrequency: 'monthly' as const,
