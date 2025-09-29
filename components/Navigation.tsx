@@ -95,29 +95,35 @@ export default function Navigation() {
           
           {/* Mobile Layout - Improved spacing and touch targets */}
           <div className="flex md:hidden items-center min-w-0 flex-1 ml-2">
-            {/* Mobile Navigation - Better spaced and larger touch targets */}
-            <nav className="flex items-center justify-between flex-1 min-w-0">
+            {/* Mobile Navigation - Optimized for 5 items with proper spacing */}
+            <nav className="flex items-center justify-between flex-1 min-w-0 gap-1">
               <Link 
                 href="/products" 
-                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105"
+                className="text-white hover:text-white font-medium text-xs py-2 px-0.5 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center hover:scale-105"
               >
                 Shop
               </Link>
               <Link 
                 href="/inventory" 
-                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105"
+                className="text-white hover:text-white font-medium text-xs py-2 px-0.5 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center hover:scale-105"
               >
                 Stock
               </Link>
               <Link 
                 href="/gallery" 
-                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105"
+                className="text-white hover:text-white font-medium text-xs py-2 px-0.5 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center hover:scale-105"
               >
                 Gallery
               </Link>
               <Link 
+                href="/blog" 
+                className="text-white hover:text-white font-medium text-xs py-2 px-0.5 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center hover:scale-105"
+              >
+                Blog
+              </Link>
+              <Link 
                 href="/about" 
-                className="text-white hover:text-white font-medium text-xs py-2 px-1 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center mx-0.5 hover:scale-105"
+                className="text-white hover:text-white font-medium text-xs py-2 px-0.5 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center hover:scale-105"
               >
                 About
               </Link>
