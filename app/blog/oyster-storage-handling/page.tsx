@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/nurserylog.JPEG',
+        url: '/placeholder.jpg',
         width: 1200,
         height: 630,
         alt: 'Oyster Storage & Handling - Three Sisters Oyster',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Oyster Storage & Handling: Keep Your Oysters Fresh | Three Sisters Oyster Blog',
     description: 'Learn proper oyster storage and handling techniques to maintain freshness and safety. Essential tips for restaurants, chefs, and home cooks.',
-    images: ['/nurserylog.JPEG'],
+    images: ['/placeholder.jpg'],
   },
 }
 
@@ -76,7 +76,7 @@ export default function BlogPostPage() {
             {/* Featured Image */}
             <div className="aspect-video relative overflow-hidden rounded-lg mb-8">
               <Image
-                src="/nurserylog.JPEG"
+                src="/placeholder.jpg"
                 alt="Oyster Storage & Handling - Three Sisters Oyster"
                 fill
                 className="object-cover"

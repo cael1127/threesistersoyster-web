@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/gal3.jpg',
+        url: '/placeholder.jpg',
         width: 1200,
         height: 630,
         alt: 'Oyster Shucking Techniques - Three Sisters Oyster',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Oyster Shucking Techniques: A Complete Guide | Three Sisters Oyster Blog',
     description: 'Master the art of oyster shucking with our comprehensive guide. Learn proper techniques, safety tips, and tools needed to safely open fresh Texas Gulf oysters.',
-    images: ['/gal3.jpg'],
+    images: ['/placeholder.jpg'],
   },
 }
 
@@ -76,7 +76,7 @@ export default function BlogPostPage() {
             {/* Featured Image */}
             <div className="aspect-video relative overflow-hidden rounded-lg mb-8">
               <Image
-                src="/gal3.jpg"
+                src="/placeholder.jpg"
                 alt="Oyster Shucking Techniques - Three Sisters Oyster"
                 fill
                 className="object-cover"

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/gal.jpg',
+        url: '/placeholder.jpg',
         width: 1200,
         height: 630,
         alt: 'Oyster Festival Guide - Three Sisters Oyster',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Oyster Festival Guide: Texas Gulf Coast Events | Three Sisters Oyster Blog',
     description: 'Discover the best oyster festivals along the Texas Gulf Coast. Plan your visit to celebrate oysters, enjoy live music, and experience local culture.',
-    images: ['/gal.jpg'],
+    images: ['/placeholder.jpg'],
   },
 }
 
@@ -76,7 +76,7 @@ export default function BlogPostPage() {
             {/* Featured Image */}
             <div className="aspect-video relative overflow-hidden rounded-lg mb-8">
               <Image
-                src="/gal.jpg"
+                src="/placeholder.jpg"
                 alt="Oyster Festival Guide - Three Sisters Oyster"
                 fill
                 className="object-cover"

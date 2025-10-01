@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/gal2.jpg',
+        url: '/placeholder.jpg',
         width: 1200,
         height: 630,
         alt: 'Oyster Nutrition Benefits - Three Sisters Oyster',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Oyster Nutrition Benefits: Superfood from the Sea | Three Sisters Oyster Blog',
     description: 'Discover the incredible nutritional benefits of Texas Gulf oysters. Learn about vitamins, minerals, and health benefits that make oysters a true superfood.',
-    images: ['/gal2.jpg'],
+    images: ['/placeholder.jpg'],
   },
 }
 
@@ -76,7 +76,7 @@ export default function BlogPostPage() {
             {/* Featured Image */}
             <div className="aspect-video relative overflow-hidden rounded-lg mb-8">
               <Image
-                src="/gal2.jpg"
+                src="/placeholder.jpg"
                 alt="Oyster Nutrition Benefits - Three Sisters Oyster"
                 fill
                 className="object-cover"

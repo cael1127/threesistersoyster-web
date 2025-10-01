@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/farmlog.jpg',
+        url: '/placeholder.jpg',
         width: 1200,
         height: 630,
         alt: 'Oyster Farming Challenges - Three Sisters Oyster',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Oyster Farming Challenges: Weather, Water, and Solutions | Three Sisters Oyster Blog',
     description: 'Learn about the challenges faced in sustainable oyster farming, from weather conditions to water quality, and how we overcome them at Three Sisters Oyster.',
-    images: ['/farmlog.jpg'],
+    images: ['/placeholder.jpg'],
   },
 }
 
@@ -76,7 +76,7 @@ export default function BlogPostPage() {
             {/* Featured Image */}
             <div className="aspect-video relative overflow-hidden rounded-lg mb-8">
               <Image
-                src="/farmlog.jpg"
+                src="/placeholder.jpg"
                 alt="Oyster Farming Challenges - Three Sisters Oyster"
                 fill
                 className="object-cover"

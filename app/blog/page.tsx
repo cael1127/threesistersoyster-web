@@ -1,31 +1,16 @@
-import type { Metadata } from 'next'
+'use client'
+
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Calendar, ArrowRight, BookOpen, Users, TrendingUp, Clock, Star } from 'lucide-react'
+import { Calendar, ArrowRight, BookOpen, Users, TrendingUp, Clock, Star, Menu, X } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
 import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
+import { useState } from 'react'
 
-export const metadata: Metadata = {
-  title: 'Texas Oyster Farm Blog | Three Sisters Oyster News & Recipes',
-  description: 'Read about sustainable oyster farming, Texas Gulf Coast seafood, oyster recipes, and farm updates from Three Sisters Oyster in Port Lavaca.',
-  robots: { index: true, follow: true },
-  alternates: { canonical: '/blog' },
-  openGraph: {
-    title: 'Texas Oyster Farm Blog | Three Sisters Oyster News & Recipes',
-    description: 'Read about sustainable oyster farming, Texas Gulf Coast seafood, oyster recipes, and farm updates from Three Sisters Oyster in Port Lavaca.',
-    url: '/blog',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Texas Oyster Farm Blog | Three Sisters Oyster News & Recipes',
-    description: 'Read about sustainable oyster farming, Texas Gulf Coast seafood, oyster recipes, and farm updates from Three Sisters Oyster in Port Lavaca.',
-  },
-}
 
 // Sample blog posts - in a real app, these would come from a CMS or database
 const blogPosts = [
@@ -101,7 +86,7 @@ const blogPosts = [
     excerpt: "Master the art of oyster shucking with our comprehensive guide. Learn proper techniques, safety tips, and tools needed to safely open fresh Texas Gulf oysters.",
     date: "2024-12-05",
     category: "Techniques",
-    image: "/gal3.jpg",
+    image: "/placeholder.jpg",
     slug: "oyster-shucking-techniques",
     readTime: "6 min read",
     featured: false
@@ -112,7 +97,7 @@ const blogPosts = [
     excerpt: "Discover the perfect wine pairings for Texas Gulf oysters. Learn which wines complement different oyster preparations and enhance your dining experience.",
     date: "2024-12-03",
     category: "Recipes",
-    image: "/gal1.jpg",
+    image: "/placeholder.jpg",
     slug: "oyster-wine-pairing-guide",
     readTime: "7 min read",
     featured: false
@@ -123,7 +108,7 @@ const blogPosts = [
     excerpt: "Discover the incredible nutritional benefits of Texas Gulf oysters. Learn about vitamins, minerals, and health benefits that make oysters a true superfood.",
     date: "2024-12-01",
     category: "Health",
-    image: "/gal2.jpg",
+    image: "/placeholder.jpg",
     slug: "oyster-nutrition-benefits",
     readTime: "8 min read",
     featured: false
@@ -134,7 +119,7 @@ const blogPosts = [
     excerpt: "Learn about the challenges faced in sustainable oyster farming, from weather conditions to water quality, and how we overcome them at Three Sisters Oyster.",
     date: "2024-11-28",
     category: "Farming",
-    image: "/farmlog.jpg",
+    image: "/placeholder.jpg",
     slug: "oyster-farming-challenges",
     readTime: "9 min read",
     featured: false
@@ -145,7 +130,7 @@ const blogPosts = [
     excerpt: "Learn proper oyster storage and handling techniques to maintain freshness and safety. Essential tips for restaurants, chefs, and home cooks.",
     date: "2024-11-25",
     category: "Process",
-    image: "/nurserylog.JPEG",
+    image: "/placeholder.jpg",
     slug: "oyster-storage-handling",
     readTime: "6 min read",
     featured: false
@@ -156,7 +141,7 @@ const blogPosts = [
     excerpt: "Discover the best oyster festivals along the Texas Gulf Coast. Plan your visit to celebrate oysters, enjoy live music, and experience local culture.",
     date: "2024-11-22",
     category: "Events",
-    image: "/gal.jpg",
+    image: "/placeholder.jpg",
     slug: "oyster-festival-guide",
     readTime: "5 min read",
     featured: false
@@ -183,6 +168,9 @@ const postsByCategory = {
 }
 
 export default function BlogPage() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [activeCategory, setActiveCategory] = useState('All')
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
       <SeasonalFloatingParticles count={8} />
@@ -282,21 +270,68 @@ export default function BlogPage() {
 
           {/* Category Tabs */}
           <div className="mb-8">
-            <Tabs defaultValue="All" className="w-full">
-              <div className="flex justify-center mb-8">
-                <TabsList className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 w-full max-w-4xl bg-white/60 backdrop-blur-sm border border-purpleBrand/20">
-                  {Object.keys(postsByCategory).map((category) => (
-                    <TabsTrigger 
-                      key={category} 
-                      value={category}
-                      className="text-purple-700 data-[state=active]:bg-purpleBrand data-[state=active]:text-white text-xs sm:text-sm"
-                    >
-                      {category}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-              </div>
+            {/* Desktop Category Tabs */}
+            <div className="hidden md:block">
+              <Tabs defaultValue="All" className="w-full">
+                <div className="flex justify-center mb-8">
+                  <TabsList className="grid grid-cols-3 lg:grid-cols-6 w-full max-w-4xl bg-white/60 backdrop-blur-sm border border-purpleBrand/20">
+                    {Object.keys(postsByCategory).map((category) => (
+                      <TabsTrigger 
+                        key={category} 
+                        value={category}
+                        className="text-purple-700 data-[state=active]:bg-purpleBrand data-[state=active]:text-white text-sm"
+                      >
+                        {category}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                </div>
+              </Tabs>
+            </div>
 
+            {/* Mobile Category Menu */}
+            <div className="md:hidden mb-8">
+              <div className="flex items-center justify-between bg-white/60 backdrop-blur-sm rounded-lg border border-purpleBrand/20 p-4">
+                <span className="text-purple-900 font-medium">
+                  Category: {activeCategory}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="text-purple-700 hover:bg-purpleBrand/10"
+                >
+                  {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                </Button>
+              </div>
+              
+              {/* Mobile Category Dropdown */}
+              {isMobileMenuOpen && (
+                <div className="mt-2 bg-white/80 backdrop-blur-sm rounded-lg border border-purpleBrand/20 shadow-lg">
+                  <div className="p-2 space-y-1">
+                    {Object.keys(postsByCategory).map((category) => (
+                      <button
+                        key={category}
+                        onClick={() => {
+                          setActiveCategory(category)
+                          setIsMobileMenuOpen(false)
+                        }}
+                        className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
+                          activeCategory === category
+                            ? 'bg-purpleBrand text-white'
+                            : 'text-purple-700 hover:bg-purpleBrand/10'
+                        }`}
+                      >
+                        {category} ({(postsByCategory as any)[category].length})
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Desktop Content */}
+            <div className="hidden md:block">
               {Object.entries(postsByCategory).map(([category, posts]) => (
                 <TabsContent key={category} value={category} className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -350,7 +385,62 @@ export default function BlogPage() {
                   </div>
                 </TabsContent>
               ))}
-            </Tabs>
+            </div>
+
+            {/* Mobile Content */}
+            <div className="md:hidden">
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 gap-6">
+                  {(postsByCategory as any)[activeCategory].map((post: any) => (
+                    <Card key={post.id} className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                      <div className="aspect-video relative overflow-hidden rounded-t-lg">
+                        <Image
+                          src={post.image}
+                          alt={`${post.title} - Texas oyster farm blog post`}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-300"
+                          quality={90}
+                        />
+                        <div className="absolute top-3 left-3">
+                          <Badge className="bg-purpleBrand/90 text-white text-xs">
+                            {post.category}
+                          </Badge>
+                        </div>
+                      </div>
+                      <CardHeader className="p-4">
+                        <div className="flex items-center justify-between text-xs text-purple-600 mb-2">
+                          <div className="flex items-center">
+                            <Calendar className="w-3 h-3 mr-1" />
+                            {new Date(post.date).toLocaleDateString('en-US', { 
+                              month: 'short', 
+                              day: 'numeric' 
+                            })}
+                          </div>
+                          <div className="flex items-center">
+                            <Clock className="w-3 h-3 mr-1" />
+                            {post.readTime}
+                          </div>
+                        </div>
+                        <CardTitle className="text-lg font-bold text-purple-900 mb-2 line-clamp-2">
+                          {post.title}
+                        </CardTitle>
+                        <p className="text-purple-700 leading-relaxed text-sm line-clamp-3">
+                          {post.excerpt}
+                        </p>
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0">
+                        <Button asChild className="w-full bg-purpleBrand hover:bg-lavenderBrand text-white text-sm">
+                          <Link href={`/blog/${post.slug}`}>
+                            Read More
+                            <ArrowRight className="w-3 h-3 ml-1" />
+                          </Link>
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Newsletter Signup */}

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: 'article',
     images: [
       {
-        url: '/gal1.jpg',
+        url: '/placeholder.jpg',
         width: 1200,
         height: 630,
         alt: 'Oyster Wine Pairing Guide - Three Sisters Oyster',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Oyster Wine Pairing Guide: Perfect Matches | Three Sisters Oyster Blog',
     description: 'Discover the perfect wine pairings for Texas Gulf oysters. Learn which wines complement different oyster preparations and enhance your dining experience.',
-    images: ['/gal1.jpg'],
+    images: ['/placeholder.jpg'],
   },
 }
 
@@ -76,7 +76,7 @@ export default function BlogPostPage() {
             {/* Featured Image */}
             <div className="aspect-video relative overflow-hidden rounded-lg mb-8">
               <Image
-                src="/gal1.jpg"
+                src="/placeholder.jpg"
                 alt="Oyster Wine Pairing Guide - Three Sisters Oyster"
                 fill
                 className="object-cover"

@@ -146,8 +146,6 @@ export default function Navigation() {
     </header>
     {/* Spacer to offset fixed header height */}
     <div aria-hidden className="h-[56px] md:h-[72px]"></div>
-
-    
     </>
   )
 } 
