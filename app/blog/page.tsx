@@ -332,59 +332,61 @@ export default function BlogPage() {
 
             {/* Desktop Content */}
             <div className="hidden md:block">
-              {Object.entries(postsByCategory).map(([category, posts]) => (
-                <TabsContent key={category} value={category} className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {posts.map((post) => (
-                      <Card key={post.id} className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105 group">
-                        <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                          <Image
-                            src={post.image}
-                            alt={`${post.title} - Texas oyster farm blog post`}
-                            fill
-                            className="object-cover group-hover:scale-110 transition-transform duration-300"
-                            quality={90}
-                          />
-                          <div className="absolute top-3 left-3">
-                            <Badge className="bg-purpleBrand/90 text-white text-xs">
-                              {post.category}
-                            </Badge>
-                          </div>
-                        </div>
-                        <CardHeader className="p-4">
-                          <div className="flex items-center justify-between text-xs text-purple-600 mb-2">
-                            <div className="flex items-center">
-                              <Calendar className="w-3 h-3 mr-1" />
-                              {new Date(post.date).toLocaleDateString('en-US', { 
-                                month: 'short', 
-                                day: 'numeric' 
-                              })}
-                            </div>
-                            <div className="flex items-center">
-                              <Clock className="w-3 h-3 mr-1" />
-                              {post.readTime}
+              <Tabs defaultValue="All" className="w-full">
+                {Object.entries(postsByCategory).map(([category, posts]) => (
+                  <TabsContent key={category} value={category} className="space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {posts.map((post) => (
+                        <Card key={post.id} className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                          <div className="aspect-video relative overflow-hidden rounded-t-lg">
+                            <Image
+                              src={post.image}
+                              alt={`${post.title} - Texas oyster farm blog post`}
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-300"
+                              quality={90}
+                            />
+                            <div className="absolute top-3 left-3">
+                              <Badge className="bg-purpleBrand/90 text-white text-xs">
+                                {post.category}
+                              </Badge>
                             </div>
                           </div>
-                          <CardTitle className="text-lg font-bold text-purple-900 mb-2 line-clamp-2">
-                            {post.title}
-                          </CardTitle>
-                          <p className="text-purple-700 leading-relaxed text-sm line-clamp-3">
-                            {post.excerpt}
-                          </p>
-                        </CardHeader>
-                        <CardContent className="p-4 pt-0">
-                          <Button asChild className="w-full bg-purpleBrand hover:bg-lavenderBrand text-white text-sm">
-                            <Link href={`/blog/${post.slug}`}>
-                              Read More
-                              <ArrowRight className="w-3 h-3 ml-1" />
-                            </Link>
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </TabsContent>
-              ))}
+                          <CardHeader className="p-4">
+                            <div className="flex items-center justify-between text-xs text-purple-600 mb-2">
+                              <div className="flex items-center">
+                                <Calendar className="w-3 h-3 mr-1" />
+                                {new Date(post.date).toLocaleDateString('en-US', { 
+                                  month: 'short', 
+                                  day: 'numeric' 
+                                })}
+                              </div>
+                              <div className="flex items-center">
+                                <Clock className="w-3 h-3 mr-1" />
+                                {post.readTime}
+                              </div>
+                            </div>
+                            <CardTitle className="text-lg font-bold text-purple-900 mb-2 line-clamp-2">
+                              {post.title}
+                            </CardTitle>
+                            <p className="text-purple-700 leading-relaxed text-sm line-clamp-3">
+                              {post.excerpt}
+                            </p>
+                          </CardHeader>
+                          <CardContent className="p-4 pt-0">
+                            <Button asChild className="w-full bg-purpleBrand hover:bg-lavenderBrand text-white text-sm">
+                              <Link href={`/blog/${post.slug}`}>
+                                Read More
+                                <ArrowRight className="w-3 h-3 ml-1" />
+                              </Link>
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </TabsContent>
+                ))}
+              </Tabs>
             </div>
 
             {/* Mobile Content */}
