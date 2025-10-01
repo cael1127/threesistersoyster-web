@@ -4,12 +4,10 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Calendar, ArrowRight, BookOpen, Users, TrendingUp, Clock, Star, Menu, X } from 'lucide-react'
+import { Calendar, ArrowRight, BookOpen, Users, TrendingUp, Clock, Star } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
 import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
-import { useState } from 'react'
 
 
 // Sample blog posts - in a real app, these would come from a CMS or database
@@ -154,22 +152,8 @@ const featuredPost = blogPosts[0]
 // Regular posts
 const regularPosts = blogPosts.slice(1)
 
-// Group posts by category
-const postsByCategory = {
-  'All': blogPosts,
-  'Farming': blogPosts.filter(post => post.category === 'Farming'),
-  'Recipes': blogPosts.filter(post => post.category === 'Recipes'),
-  'Sustainability': blogPosts.filter(post => post.category === 'Sustainability'),
-  'Process': blogPosts.filter(post => post.category === 'Process'),
-  'Seasonal': blogPosts.filter(post => post.category === 'Seasonal'),
-  'Techniques': blogPosts.filter(post => post.category === 'Techniques'),
-  'Health': blogPosts.filter(post => post.category === 'Health'),
-  'Events': blogPosts.filter(post => post.category === 'Events'),
-}
 
 export default function BlogPage() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [activeCategory, setActiveCategory] = useState('All')
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
@@ -268,180 +252,56 @@ export default function BlogPage() {
             </Card>
           </div>
 
-          {/* Category Tabs */}
+          {/* Blog Posts Grid */}
           <div className="mb-8">
-            {/* Desktop Category Tabs */}
-            <div className="hidden md:block">
-              <Tabs defaultValue="All" className="w-full">
-                <div className="flex justify-center mb-8">
-                  <TabsList className="grid grid-cols-3 lg:grid-cols-6 w-full max-w-4xl bg-white/60 backdrop-blur-sm border border-purpleBrand/20">
-                    {Object.keys(postsByCategory).map((category) => (
-                      <TabsTrigger 
-                        key={category} 
-                        value={category}
-                        className="text-purple-700 data-[state=active]:bg-purpleBrand data-[state=active]:text-white text-sm"
-                      >
-                        {category}
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
-                </div>
-              </Tabs>
-            </div>
-
-            {/* Mobile Category Menu */}
-            <div className="md:hidden mb-8">
-              <div className="flex items-center justify-between bg-white/60 backdrop-blur-sm rounded-lg border border-purpleBrand/20 p-4">
-                <span className="text-purple-900 font-medium">
-                  Category: {activeCategory}
-                </span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="text-purple-700 hover:bg-purpleBrand/10"
-                >
-                  {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                </Button>
-              </div>
-              
-              {/* Mobile Category Dropdown */}
-              {isMobileMenuOpen && (
-                <div className="mt-2 bg-white/80 backdrop-blur-sm rounded-lg border border-purpleBrand/20 shadow-lg">
-                  <div className="p-2 space-y-1">
-                    {Object.keys(postsByCategory).map((category) => (
-                      <button
-                        key={category}
-                        onClick={() => {
-                          setActiveCategory(category)
-                          setIsMobileMenuOpen(false)
-                        }}
-                        className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
-                          activeCategory === category
-                            ? 'bg-purpleBrand text-white'
-                            : 'text-purple-700 hover:bg-purpleBrand/10'
-                        }`}
-                      >
-                        {category} ({(postsByCategory as any)[category].length})
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Desktop Content */}
-            <div className="hidden md:block">
-              <Tabs defaultValue="All" className="w-full">
-                {Object.entries(postsByCategory).map(([category, posts]) => (
-                  <TabsContent key={category} value={category} className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {posts.map((post) => (
-                        <Card key={post.id} className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105 group">
-                          <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                            <Image
-                              src={post.image}
-                              alt={`${post.title} - Texas oyster farm blog post`}
-                              fill
-                              className="object-cover group-hover:scale-110 transition-transform duration-300"
-                              quality={90}
-                            />
-                            <div className="absolute top-3 left-3">
-                              <Badge className="bg-purpleBrand/90 text-white text-xs">
-                                {post.category}
-                              </Badge>
-                            </div>
-                          </div>
-                          <CardHeader className="p-4">
-                            <div className="flex items-center justify-between text-xs text-purple-600 mb-2">
-                              <div className="flex items-center">
-                                <Calendar className="w-3 h-3 mr-1" />
-                                {new Date(post.date).toLocaleDateString('en-US', { 
-                                  month: 'short', 
-                                  day: 'numeric' 
-                                })}
-                              </div>
-                              <div className="flex items-center">
-                                <Clock className="w-3 h-3 mr-1" />
-                                {post.readTime}
-                              </div>
-                            </div>
-                            <CardTitle className="text-lg font-bold text-purple-900 mb-2 line-clamp-2">
-                              {post.title}
-                            </CardTitle>
-                            <p className="text-purple-700 leading-relaxed text-sm line-clamp-3">
-                              {post.excerpt}
-                            </p>
-                          </CardHeader>
-                          <CardContent className="p-4 pt-0">
-                            <Button asChild className="w-full bg-purpleBrand hover:bg-lavenderBrand text-white text-sm">
-                              <Link href={`/blog/${post.slug}`}>
-                                Read More
-                                <ArrowRight className="w-3 h-3 ml-1" />
-                              </Link>
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {blogPosts.map((post) => (
+                <Card key={post.id} className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                  <div className="aspect-video relative overflow-hidden rounded-t-lg">
+                    <Image
+                      src={post.image}
+                      alt={`${post.title} - Texas oyster farm blog post`}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                      quality={90}
+                    />
+                    <div className="absolute top-3 left-3">
+                      <Badge className="bg-purpleBrand/90 text-white text-xs">
+                        {post.category}
+                      </Badge>
                     </div>
-                  </TabsContent>
-                ))}
-              </Tabs>
-            </div>
-
-            {/* Mobile Content */}
-            <div className="md:hidden">
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 gap-6">
-                  {(postsByCategory as any)[activeCategory].map((post: any) => (
-                    <Card key={post.id} className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105 group">
-                      <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                        <Image
-                          src={post.image}
-                          alt={`${post.title} - Texas oyster farm blog post`}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-300"
-                          quality={90}
-                        />
-                        <div className="absolute top-3 left-3">
-                          <Badge className="bg-purpleBrand/90 text-white text-xs">
-                            {post.category}
-                          </Badge>
-                        </div>
+                  </div>
+                  <CardHeader className="p-4">
+                    <div className="flex items-center justify-between text-xs text-purple-600 mb-2">
+                      <div className="flex items-center">
+                        <Calendar className="w-3 h-3 mr-1" />
+                        {new Date(post.date).toLocaleDateString('en-US', { 
+                          month: 'short', 
+                          day: 'numeric' 
+                        })}
                       </div>
-                      <CardHeader className="p-4">
-                        <div className="flex items-center justify-between text-xs text-purple-600 mb-2">
-                          <div className="flex items-center">
-                            <Calendar className="w-3 h-3 mr-1" />
-                            {new Date(post.date).toLocaleDateString('en-US', { 
-                              month: 'short', 
-                              day: 'numeric' 
-                            })}
-                          </div>
-                          <div className="flex items-center">
-                            <Clock className="w-3 h-3 mr-1" />
-                            {post.readTime}
-                          </div>
-                        </div>
-                        <CardTitle className="text-lg font-bold text-purple-900 mb-2 line-clamp-2">
-                          {post.title}
-                        </CardTitle>
-                        <p className="text-purple-700 leading-relaxed text-sm line-clamp-3">
-                          {post.excerpt}
-                        </p>
-                      </CardHeader>
-                      <CardContent className="p-4 pt-0">
-                        <Button asChild className="w-full bg-purpleBrand hover:bg-lavenderBrand text-white text-sm">
-                          <Link href={`/blog/${post.slug}`}>
-                            Read More
-                            <ArrowRight className="w-3 h-3 ml-1" />
-                          </Link>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
+                      <div className="flex items-center">
+                        <Clock className="w-3 h-3 mr-1" />
+                        {post.readTime}
+                      </div>
+                    </div>
+                    <CardTitle className="text-lg font-bold text-purple-900 mb-2 line-clamp-2">
+                      {post.title}
+                    </CardTitle>
+                    <p className="text-purple-700 leading-relaxed text-sm line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                  </CardHeader>
+                  <CardContent className="p-4 pt-0">
+                    <Button asChild className="w-full bg-purpleBrand hover:bg-lavenderBrand text-white text-sm">
+                      <Link href={`/blog/${post.slug}`}>
+                        Read More
+                        <ArrowRight className="w-3 h-3 ml-1" />
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
 
