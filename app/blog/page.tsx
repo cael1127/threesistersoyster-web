@@ -94,6 +94,72 @@ const blogPosts = [
     slug: "sustainable-aquaculture-commitment",
     readTime: "5 min read",
     featured: false
+  },
+  {
+    id: 7,
+    title: "Oyster Shucking Techniques: A Complete Guide",
+    excerpt: "Master the art of oyster shucking with our comprehensive guide. Learn proper techniques, safety tips, and tools needed to safely open fresh Texas Gulf oysters.",
+    date: "2024-12-05",
+    category: "Techniques",
+    image: "/gal3.jpg",
+    slug: "oyster-shucking-techniques",
+    readTime: "6 min read",
+    featured: false
+  },
+  {
+    id: 8,
+    title: "Oyster Wine Pairing Guide: Perfect Matches",
+    excerpt: "Discover the perfect wine pairings for Texas Gulf oysters. Learn which wines complement different oyster preparations and enhance your dining experience.",
+    date: "2024-12-03",
+    category: "Recipes",
+    image: "/gal1.jpg",
+    slug: "oyster-wine-pairing-guide",
+    readTime: "7 min read",
+    featured: false
+  },
+  {
+    id: 9,
+    title: "Oyster Nutrition Benefits: Superfood from the Sea",
+    excerpt: "Discover the incredible nutritional benefits of Texas Gulf oysters. Learn about vitamins, minerals, and health benefits that make oysters a true superfood.",
+    date: "2024-12-01",
+    category: "Health",
+    image: "/gal2.jpg",
+    slug: "oyster-nutrition-benefits",
+    readTime: "8 min read",
+    featured: false
+  },
+  {
+    id: 10,
+    title: "Oyster Farming Challenges: Weather, Water, and Solutions",
+    excerpt: "Learn about the challenges faced in sustainable oyster farming, from weather conditions to water quality, and how we overcome them at Three Sisters Oyster.",
+    date: "2024-11-28",
+    category: "Farming",
+    image: "/farmlog.jpg",
+    slug: "oyster-farming-challenges",
+    readTime: "9 min read",
+    featured: false
+  },
+  {
+    id: 11,
+    title: "Oyster Storage & Handling: Keep Your Oysters Fresh",
+    excerpt: "Learn proper oyster storage and handling techniques to maintain freshness and safety. Essential tips for restaurants, chefs, and home cooks.",
+    date: "2024-11-25",
+    category: "Process",
+    image: "/nurserylog.JPEG",
+    slug: "oyster-storage-handling",
+    readTime: "6 min read",
+    featured: false
+  },
+  {
+    id: 12,
+    title: "Oyster Festival Guide: Texas Gulf Coast Events",
+    excerpt: "Discover the best oyster festivals along the Texas Gulf Coast. Plan your visit to celebrate oysters, enjoy live music, and experience local culture.",
+    date: "2024-11-22",
+    category: "Events",
+    image: "/gal.jpg",
+    slug: "oyster-festival-guide",
+    readTime: "5 min read",
+    featured: false
   }
 ]
 
@@ -111,6 +177,9 @@ const postsByCategory = {
   'Sustainability': blogPosts.filter(post => post.category === 'Sustainability'),
   'Process': blogPosts.filter(post => post.category === 'Process'),
   'Seasonal': blogPosts.filter(post => post.category === 'Seasonal'),
+  'Techniques': blogPosts.filter(post => post.category === 'Techniques'),
+  'Health': blogPosts.filter(post => post.category === 'Health'),
+  'Events': blogPosts.filter(post => post.category === 'Events'),
 }
 
 export default function BlogPage() {

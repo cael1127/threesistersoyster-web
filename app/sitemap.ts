@@ -78,6 +78,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
     },
     {
+      path: 'blog/oyster-shucking-techniques',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/oyster-wine-pairing-guide',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/oyster-nutrition-benefits',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/oyster-farming-challenges',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/oyster-storage-handling',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/oyster-festival-guide',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
       path: 'contact',
       priority: 0.8,
       changeFrequency: 'monthly' as const,
