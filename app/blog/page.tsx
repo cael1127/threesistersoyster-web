@@ -35,7 +35,7 @@ const blogPosts = [
     excerpt: "Discover what makes our Port Lavaca oysters unique. From water quality to farming methods, learn why Texas Gulf Coast oysters have a distinct flavor profile.",
     date: "2024-09-15",
     category: "Farming",
-    image: "/farmlog.jpg",
+    image: "/texasOysBlog.jpg",
     slug: "why-texas-gulf-oysters-taste-different",
     readTime: "5 min read",
     featured: true
@@ -46,7 +46,7 @@ const blogPosts = [
     excerpt: "Take a behind-the-scenes look at our sustainable oyster farming process. See how we grow, harvest, and prepare fresh Texas oysters for your table.",
     date: "2024-09-08",
     category: "Process",
-    image: "/nurserylog.JPEG",
+    image: "/process.JPEG",
     slug: "from-farm-to-table-oyster-harvest",
     readTime: "7 min read",
     featured: false
@@ -68,7 +68,7 @@ const blogPosts = [
     excerpt: "Learn how sustainable oyster farming helps clean our waters and support marine ecosystems. Discover the environmental impact of our Port Lavaca operations.",
     date: "2024-08-25",
     category: "Sustainability",
-    image: "/topFarm.JPG",
+    image: "/enviromentBlog.jpg",
     slug: "environmental-benefits-oyster-farming",
     readTime: "6 min read",
     featured: false
@@ -79,7 +79,7 @@ const blogPosts = [
     excerpt: "Learn about oyster seasons and when our Texas Gulf oysters are at their peak. Discover the best times to order and enjoy our premium oysters.",
     date: "2024-08-18",
     category: "Seasonal",
-    image: "/gal1.jpg",
+    image: "/topFarm.JPG",
     slug: "oyster-season-guide-texas",
     readTime: "4 min read",
     featured: false
