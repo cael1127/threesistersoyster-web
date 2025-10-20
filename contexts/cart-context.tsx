@@ -221,10 +221,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     dispatch({ type: "ADD_ITEM", payload: item })
     
-    // Track cart action
-    if (analytics) {
-      analytics.trackCartAction('add', item.id, item.quantity || 1)
-    }
+    // Track cart action - analytics tracking disabled for now
+    // if (analytics) {
+    //   analytics.trackCartAction('add', item.id, item.quantity || 1)
+    // }
   }, [])
 
   const removeItem = useCallback(async (id: string) => {
@@ -249,20 +249,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     
     dispatch({ type: "REMOVE_ITEM", payload: id })
     
-    // Track cart action
-    if (analytics && itemToRemove) {
-      analytics.trackCartAction('remove', itemToRemove.id, itemToRemove.quantity)
-    }
+    // Track cart action - analytics tracking disabled for now
+    // if (analytics && itemToRemove) {
+    //   analytics.trackCartAction('remove', itemToRemove.id, itemToRemove.quantity)
+    // }
   }, [state.items])
 
   const updateQuantity = useCallback((id: string, quantity: number) => {
     const item = state.items.find(item => item.id === id)
     dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } })
     
-    // Track cart action
-    if (analytics && item) {
-      analytics.trackCartAction('update', item.id, quantity)
-    }
+    // Track cart action - analytics tracking disabled for now
+    // if (analytics && item) {
+    //   analytics.trackCartAction('update', item.id, quantity)
+    // }
   }, [state.items])
 
   const clearCart = useCallback(async () => {
@@ -285,10 +285,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     
     dispatch({ type: "CLEAR_CART" })
     
-    // Track cart action
-    if (analytics) {
-      analytics.trackCartAction('clear', 'all', state.items.length)
-    }
+    // Track cart action - analytics tracking disabled for now
+    // if (analytics) {
+    //   analytics.trackCartAction('clear', 'all', state.items.length)
+    // }
   }, [state.items.length])
 
   const getSessionId = useCallback(() => {
