@@ -143,6 +143,28 @@ const blogPosts = [
     slug: "oyster-festival-guide",
     readTime: "5 min read",
     featured: false
+  },
+  {
+    id: 13,
+    title: "Oyster Merroir: How Location Affects Oyster Flavor",
+    excerpt: "Discover the concept of oyster merroir and learn how water salinity, temperature, and location create unique flavors in Texas Gulf oysters from Keller Bay.",
+    date: "2024-12-12",
+    category: "Education",
+    image: "/gal3.jpg",
+    slug: "oyster-merroir-flavor-guide",
+    readTime: "7 min read",
+    featured: false
+  },
+  {
+    id: 14,
+    title: "How to Host an Oyster Party at Home",
+    excerpt: "Learn how to plan and host the perfect oyster party at home. Expert tips on quantities, setup, pairings, and creating an unforgettable oyster bar experience.",
+    date: "2024-12-15",
+    category: "Events",
+    image: "/gal1.jpg",
+    slug: "how-to-host-oyster-party",
+    readTime: "8 min read",
+    featured: false
   }
 ]
 

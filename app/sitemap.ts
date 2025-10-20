@@ -114,6 +114,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
     },
     {
+      path: 'blog/oyster-merroir-flavor-guide',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/how-to-host-oyster-party',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
       path: 'contact',
       priority: 0.8,
       changeFrequency: 'monthly' as const,
