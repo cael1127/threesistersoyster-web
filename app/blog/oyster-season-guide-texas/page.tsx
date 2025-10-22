@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, ArrowLeft, ArrowRight, Sun, Snowflake, Leaf, Droplets } from 'lucide-react'
+import { Calendar, ArrowLeft, ArrowUpRight, Sun, Snowflake, Leaf, Droplets } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
 import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
@@ -216,7 +216,7 @@ export default function BlogPostPage() {
             <Button asChild variant="outline" className="border-purpleBrand/30 text-purple-700 hover:bg-purpleBrand/10">
               <Link href="/blog/environmental-benefits-oyster-farming">
                 Next: Environmental Benefits
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <ArrowUpRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>
           </div>

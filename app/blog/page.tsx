@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, ArrowRight, BookOpen, Users, TrendingUp, Clock, Star } from 'lucide-react'
+import { Calendar, ArrowUpRight, BookOpen, Users, TrendingUp, Clock, Star } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
 import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
@@ -266,7 +266,7 @@ export default function BlogPage() {
                   <Button asChild size="lg" className="bg-purpleBrand hover:bg-lavenderBrand text-white w-fit">
                     <Link href={`/blog/${featuredPost.slug}`}>
                       Read Full Article
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                      <ArrowUpRight className="w-4 h-4 ml-2" />
                     </Link>
                   </Button>
                 </div>
@@ -318,7 +318,7 @@ export default function BlogPage() {
                     <Button asChild className="w-full bg-purpleBrand hover:bg-lavenderBrand text-white text-sm">
                       <Link href={`/blog/${post.slug}`}>
                         Read More
-                        <ArrowRight className="w-3 h-3 ml-1" />
+                        <ArrowUpRight className="w-3 h-3 ml-1" />
                       </Link>
                     </Button>
                   </CardContent>
