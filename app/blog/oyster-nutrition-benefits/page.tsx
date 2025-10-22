@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, ArrowLeft, ArrowUpRight, Heart, Brain, Shield, Zap } from 'lucide-react'
+import { Calendar, ArrowLeft, ArrowUpRight, Heart, Brain, CheckCircle, Zap } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
 import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
@@ -118,7 +118,7 @@ export default function BlogPostPage() {
                 <Card className="border-purpleBrand/30 bg-gradient-to-br from-blueBrand/10 to-mintBrand/10">
                   <CardContent className="p-6">
                     <div className="flex items-center mb-4">
-                      <Shield className="w-8 h-8 text-purple-700 mr-3" />
+                      <CheckCircle className="w-8 h-8 text-purple-700 mr-3" />
                       <h3 className="text-xl font-bold text-purple-900">Key Minerals</h3>
                     </div>
                     <ul className="space-y-2 text-purple-700 text-sm">
@@ -183,7 +183,7 @@ export default function BlogPostPage() {
                 <Card className="border-purpleBrand/30 bg-gradient-to-br from-green-50 to-emerald-50">
                   <CardContent className="p-6">
                     <div className="flex items-center mb-4">
-                      <Shield className="w-8 h-8 text-green-600 mr-3" />
+                      <CheckCircle className="w-8 h-8 text-green-600 mr-3" />
                       <h3 className="text-2xl font-bold text-purple-900">Immune System</h3>
                     </div>
                     <p className="text-purple-700 mb-4">

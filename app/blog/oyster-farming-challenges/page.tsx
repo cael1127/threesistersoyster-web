@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, ArrowLeft, ArrowUpRight, CloudRain, Thermometer, Waves, Shield } from 'lucide-react'
+import { Calendar, ArrowLeft, ArrowUpRight, Cloud, Thermometer, Waves, CheckCircle } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
 import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
@@ -104,7 +104,7 @@ export default function BlogPostPage() {
                 <Card className="border-purpleBrand/30 bg-gradient-to-br from-blue-50 to-cyan-50">
                   <CardContent className="p-6">
                     <div className="flex items-center mb-4">
-                      <CloudRain className="w-8 h-8 text-blue-600 mr-3" />
+                      <Cloud className="w-8 h-8 text-blue-600 mr-3" />
                       <h3 className="text-xl font-bold text-purple-900">Hurricanes and Storms</h3>
                     </div>
                     <p className="text-purple-700 mb-4">
@@ -240,7 +240,7 @@ export default function BlogPostPage() {
                 <Card className="border-purpleBrand/30 bg-gradient-to-br from-green-50 to-emerald-50">
                   <CardContent className="p-6">
                     <div className="flex items-center mb-4">
-                      <Shield className="w-8 h-8 text-green-600 mr-3" />
+                      <CheckCircle className="w-8 h-8 text-green-600 mr-3" />
                       <h3 className="text-xl font-bold text-purple-900">Disease and Parasites</h3>
                     </div>
                     <p className="text-purple-700 mb-4">

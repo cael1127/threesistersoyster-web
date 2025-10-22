@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, ArrowLeft, ArrowUpRight, Shield, Leaf, Waves, Heart } from 'lucide-react'
+import { Calendar, ArrowLeft, ArrowUpRight, CheckCircle, Leaf, Waves, Heart } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
 import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
@@ -102,7 +102,7 @@ export default function BlogPostPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
                 <Card className="border-purpleBrand/30 bg-gradient-to-br from-purpleBrand/10 to-lavenderBrand/10">
                   <CardContent className="p-6 text-center">
-                    <Shield className="w-12 h-12 text-purple-700 mx-auto mb-4" />
+                    <CheckCircle className="w-12 h-12 text-purple-700 mx-auto mb-4" />
                     <h3 className="text-xl font-bold text-purple-900 mb-3">Water Protection</h3>
                     <p className="text-purple-700">
                       Regular water quality monitoring and testing to ensure our farming practices maintain 
