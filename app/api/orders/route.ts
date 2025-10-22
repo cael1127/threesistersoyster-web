@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Dynamically import Supabase functions to avoid build-time issues
-    const { createOrder } = await import("../../lib/supabase")
+    const { createOrder } = await import("../../../lib/supabase")
     
     const orderData = await request.json()
 
