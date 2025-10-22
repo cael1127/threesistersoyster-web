@@ -209,8 +209,7 @@ export default function HomePage() {
                 </span>
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-purple-800 mb-6 md:mb-8 leading-relaxed">
-                Committed to the long-term viability of off-bottom aquaculture and a thriving Texas coastline. Growing the
-                finest Gulf Coast oysters in the pristine waters of Port Lavaca, Texas. Our sustainable oyster farming practices deliver fresh Texas oysters for restaurants, catering, and seafood lovers across the region. Premium oyster delivery and wholesale services available throughout Texas.
+                Growing the finest Gulf Coast oysters in the pristine waters of Port Lavaca, Texas. Our sustainable farming practices deliver exceptional flavor, texture, and freshness that chefs and seafood lovers trust. From our farm to your table, experience the superior taste of premium Texas oysters for restaurants, catering, and home dining.
               </p>
 
               {/* Total Harvested Counter */}
@@ -224,7 +223,7 @@ export default function HomePage() {
                   size="lg"
                   className="bg-purpleBrand hover:bg-lavenderBrand text-white min-h-[48px] text-base shadow-lg"
                 >
-                  <Link href="/products">Shop Fresh Oysters</Link>
+                  <Link href="/products">Order Premium Oysters</Link>
                 </Button>
                 <Button
                   asChild
@@ -261,9 +260,9 @@ export default function HomePage() {
         <div className="container mx-auto max-w-7xl">
           <ScrollAnimatedSection animationType="fade-in" delay={200}>
             <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-3 md:mb-4 px-2 text-center">Our Oyster Farm Operations</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-3 md:mb-4 px-2 text-center">Crafting Premium Oysters</h2>
               <p className="text-base sm:text-lg md:text-xl text-purple-800 max-w-2xl mx-auto leading-relaxed px-4">
-                From oyster nursery to market, we provide premium Texas oyster solutions for growers and consumers alike. Sustainable aquaculture practices in Port Lavaca, Texas.
+                From seed to shuck, our meticulous farming process ensures every oyster delivers exceptional taste, texture, and freshness. Sustainable practices that enhance flavor and quality in every bite.
               </p>
             </div>
           </ScrollAnimatedSection>
@@ -285,24 +284,24 @@ export default function HomePage() {
                         quality={90}
                       />
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Oyster Nursery & Seed</h3>
+                    <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Premium Seed for Superior Taste</h3>
                   </div>
                   <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed">
-                    Three Sisters Oyster Nursery offers customers hardy Eastern oyster seed to meet
-                    growers' needs with superior quality and reliability. Premium oyster seed for Texas aquaculture operations.
+                    Our nursery produces hardy Eastern oyster seed that develops into oysters with exceptional flavor profiles. 
+                    Quality seed stock ensures consistent taste and texture that chefs and oyster lovers expect.
                   </p>
                   <ul className="space-y-2 text-sm md:text-base text-purple-800 mb-4 md:mb-6">
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
-                      Hardy Eastern oyster seed
+                      Superior flavor development
                     </li>
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
-                      Reliable supply for growers
+                      Consistent taste profiles
                     </li>
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
-                      Expert cultivation support
+                      Quality-focused cultivation
                     </li>
                   </ul>
                   <p className="text-xs md:text-sm text-purple-800">
@@ -331,8 +330,8 @@ export default function HomePage() {
                           quality={90}
                         />
                       </div>
-                      <p className="text-purple-800 font-medium">Nursery Operations</p>
-                      <p className="text-purple-700 text-sm">Seed Production & Cultivation</p>
+                      <p className="text-purple-800 font-medium">Quality Seed Production</p>
+                      <p className="text-purple-700 text-sm">Flavor-Focused Cultivation</p>
                     </div>
                   </div>
                 </div>
@@ -358,8 +357,8 @@ export default function HomePage() {
                           quality={90}
                         />
                       </div>
-                      <p className="text-purple-800 font-medium">Farm Operations</p>
-                      <p className="text-purple-700 text-sm">Grow-out & Harvest</p>
+                      <p className="text-purple-800 font-medium">Premium Harvest</p>
+                      <p className="text-purple-700 text-sm">Quality & Flavor Focus</p>
                     </div>
                   </div>
                 </div>
@@ -381,24 +380,24 @@ export default function HomePage() {
                         quality={90}
                       />
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Oyster Farm & Harvest</h3>
+                    <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Premium Oyster Harvest</h3>
                   </div>
                   <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed">
-                    We grow fresh oysters to market size for the premium half-shell market while providing essential habitat for
-                    fish and other sea life in our sustainable oyster farming operations in Keller Bay, Port Lavaca.
+                    We carefully grow oysters to perfect market size, ensuring optimal flavor, texture, and brininess. 
+                    Our sustainable farming in Keller Bay's pristine waters creates oysters that deliver an exceptional dining experience.
                   </p>
                   <ul className="space-y-2 text-sm md:text-base text-purple-800">
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
-                      Premium half-shell market oysters
+                      Perfect half-shell presentation
                     </li>
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
-                      Sustainable aquaculture practices
+                      Enhanced flavor through sustainable practices
                     </li>
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
-                      Marine habitat restoration
+                      Clean, pristine growing environment
                     </li>
                   </ul>
                 </CardContent>
@@ -474,8 +473,8 @@ export default function HomePage() {
           </ScrollAnimatedSection>
           <ScrollAnimatedSection animationType="fade-in" delay={400}>
             <p className="text-xl text-purple-800 mb-12 max-w-3xl mx-auto">
-              We take pride in creating the best oysters while helping the environment, improving water quality and
-              sequestering nitrogen and carbon.
+              Our environmental practices don't just protect the coast—they enhance the flavor and quality of our oysters. 
+              Clean water means better taste, and sustainable farming creates superior culinary experiences.
             </p>
           </ScrollAnimatedSection>
 
@@ -486,7 +485,7 @@ export default function HomePage() {
                   <Waves className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
                 </div>
                 <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Water Quality</h3>
-                <p className="text-purple-800">Improving coastal water quality through natural filtration</p>
+                <p className="text-purple-800">Clean water creates cleaner, more flavorful oysters</p>
               </div>
             </ScrollAnimatedSection>
             <ScrollAnimatedSection animationType="zoom-in" delay={800}>
@@ -495,7 +494,7 @@ export default function HomePage() {
                   <Leaf className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
                 </div>
                 <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Carbon Sequestration</h3>
-                <p className="text-purple-800">Capturing and storing carbon to combat climate change</p>
+                <p className="text-purple-800">Healthy ecosystems produce healthier, tastier oysters</p>
               </div>
             </ScrollAnimatedSection>
             <ScrollAnimatedSection animationType="slide-right-far" delay={1000}>
@@ -504,7 +503,7 @@ export default function HomePage() {
                   <Fish className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
                 </div>
                 <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Marine Habitat</h3>
-                <p className="text-purple-800">Creating habitat for fish and marine life</p>
+                <p className="text-purple-800">Rich marine environments enhance oyster flavor complexity</p>
               </div>
             </ScrollAnimatedSection>
           </div>

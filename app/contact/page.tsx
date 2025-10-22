@@ -43,8 +43,8 @@ export default function ContactPage() {
               Contact Us
             </h1>
             <p className="text-xl md:text-2xl text-purple-800 max-w-3xl mx-auto leading-relaxed">
-              Get in touch with Three Sisters Oyster Co. for fresh oyster orders, custom requests, 
-              or to learn more about our sustainable farming practices.
+              Get in touch with Three Sisters Oyster Co. for premium oyster orders, custom dining requests, 
+              or to learn more about our exceptional Gulf Coast oysters and sustainable farming practices.
             </p>
           </div>
 
@@ -224,7 +224,7 @@ export default function ContactPage() {
                     </div>
                     <h3 className="text-xl font-bold text-purple-900 mb-2">Sustainable Farming</h3>
                     <p className="text-purple-700">
-                      We use environmentally responsible methods to grow our oysters, protecting the Gulf Coast ecosystem.
+                      Our environmentally responsible methods enhance oyster flavor while protecting the Gulf Coast ecosystem.
                     </p>
                   </div>
                   <div className="text-center">
@@ -233,7 +233,7 @@ export default function ContactPage() {
                     </div>
                     <h3 className="text-xl font-bold text-purple-900 mb-2">Premium Quality</h3>
                     <p className="text-purple-700">
-                      Every oyster is carefully cultivated and quality-tested to ensure the best taste and freshness.
+                      Every oyster is carefully cultivated and quality-tested to deliver exceptional taste, texture, and freshness that elevates every dining experience.
                     </p>
                   </div>
                   <div className="text-center">
@@ -242,7 +242,7 @@ export default function ContactPage() {
                     </div>
                     <h3 className="text-xl font-bold text-purple-900 mb-2">Fresh Delivery</h3>
                     <p className="text-purple-700">
-                      From our farm to your table, we ensure fast, fresh delivery of our premium Texas oysters.
+                      From our farm to your table, we ensure fast, fresh delivery that preserves the peak flavor and quality of our premium Texas oysters.
                     </p>
                   </div>
                 </div>

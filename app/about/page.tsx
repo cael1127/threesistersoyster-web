@@ -78,8 +78,8 @@ export default function AboutPage() {
           </ScrollAnimatedSection>
           <ScrollAnimatedSection animationType="fade-in" delay={400}>
             <p className="text-xl text-purple-800 max-w-3xl mx-auto">
-              From the pristine waters of Port Lavaca, Texas to your table, discover the passion behind Three Sisters Oyster Co. 
-              Our sustainable Gulf Coast oyster farming delivers fresh Texas oysters for restaurants, catering, and seafood enthusiasts.
+              From the pristine waters of Port Lavaca, Texas to your table, discover the culinary passion behind Three Sisters Oyster Co. 
+              Our sustainable Gulf Coast oyster farming delivers exceptional flavor, texture, and freshness that transforms every dining experience.
             </p>
           </ScrollAnimatedSection>
         </div>
@@ -132,7 +132,7 @@ export default function AboutPage() {
       {/* Values Section */}
       <section className="py-20 px-4 bg-gradient-to-b from-purpleBrand/20 to-blueBrand/20">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Sustainability */}
             <ScrollAnimatedSection animationType="slide-left" delay={200}>
               <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
@@ -173,6 +173,21 @@ export default function AboutPage() {
                   <h3 className="text-xl font-bold text-purple-900 mb-3">Community</h3>
                   <p className="text-purple-800">
                     We're proud to be part of the Texas Gulf Coast community and contribute to its economic vitality.
+                  </p>
+                </CardContent>
+              </Card>
+            </ScrollAnimatedSection>
+
+            {/* Culinary Excellence */}
+            <ScrollAnimatedSection animationType="fade-in" delay={800}>
+              <Card className="border-mintBrand/30 bg-gradient-to-b from-mintBrand/40 to-seafoamBrand/40 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-mintBrand to-seafoamBrand rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Award className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-purple-900 mb-3">Culinary Excellence</h3>
+                  <p className="text-purple-800">
+                    We're committed to delivering exceptional taste, texture, and freshness that elevates every dining experience.
                   </p>
                 </CardContent>
               </Card>
@@ -231,7 +246,7 @@ export default function AboutPage() {
         <div className="container mx-auto max-w-6xl">
           <ScrollAnimatedSection animationType="fade-in" delay={200}>
             <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-12 text-center">
-              Our Operations
+              Quality-Focused Operations
             </h2>
           </ScrollAnimatedSection>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -239,22 +254,22 @@ export default function AboutPage() {
             <ScrollAnimatedSection animationType="slide-left" delay={400}>
               <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm">
                 <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-purple-900 mb-4 text-center">Nursery Operations</h3>
+                  <h3 className="text-xl font-bold text-purple-900 mb-4 text-center">Premium Seed Development</h3>
                   <p className="text-purple-800 mb-4">
-                    Our nursery produces hardy Eastern oyster seed for growers throughout the region.
+                    Our nursery produces hardy Eastern oyster seed that develops into oysters with exceptional flavor profiles and consistent quality.
                   </p>
                   <ul className="space-y-2 text-purple-800">
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
-                      Disease-resistant seed stock
+                      Superior flavor development
                     </li>
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
-                      Year-round availability
+                      Consistent taste profiles
                     </li>
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
-                      Expert cultivation support
+                      Quality-focused cultivation
                     </li>
                   </ul>
                   <p className="text-purple-800 mt-4">
@@ -271,22 +286,22 @@ export default function AboutPage() {
             <ScrollAnimatedSection animationType="slide-right" delay={600}>
               <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm">
                 <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-purple-900 mb-4 text-center">Farm Operations</h3>
+                  <h3 className="text-xl font-bold text-purple-900 mb-4 text-center">Premium Oyster Cultivation</h3>
                   <p className="text-purple-800 mb-4">
-                    We grow oysters to market size for the premium half-shell market.
+                    We carefully grow oysters to perfect market size, ensuring optimal flavor, texture, and brininess for the premium half-shell market.
                   </p>
                   <ul className="space-y-2 text-purple-800">
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
-                      Premium half-shell oysters
+                      Perfect half-shell presentation
                     </li>
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
-                      Sustainable farming practices
+                      Enhanced flavor through sustainable practices
                     </li>
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
-                      Marine habitat restoration
+                      Clean, pristine growing environment
                     </li>
                   </ul>
                 </CardContent>
