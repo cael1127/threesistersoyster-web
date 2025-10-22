@@ -4,10 +4,10 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, ArrowUpRight, BookOpen, Users, TrendingUp, Clock, Star } from 'lucide-react'
+import { Calendar, ArrowUpRight, Book, Users, TrendingUp, Clock, Star } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
-import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
+// import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
 
 
 // Sample blog posts - in a real app, these would come from a CMS or database
@@ -179,7 +179,7 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
-      <SeasonalFloatingParticles count={8} />
+      {/* <SeasonalFloatingParticles count={8} /> */}
       
       {/* Header */}
       <Navigation />
@@ -201,7 +201,7 @@ export default function BlogPage() {
           {/* Blog Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
             <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 text-center border border-purpleBrand/20">
-              <BookOpen className="w-6 h-6 text-purple-700 mx-auto mb-2" />
+              <Book className="w-6 h-6 text-purple-700 mx-auto mb-2" />
               <div className="text-2xl font-bold text-purple-900">{blogPosts.length}</div>
               <div className="text-sm text-purple-600">Articles</div>
             </div>

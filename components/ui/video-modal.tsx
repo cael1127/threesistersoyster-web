@@ -32,7 +32,7 @@ export function VideoModal({
   
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const modalRef = React.useRef<HTMLDivElement>(null);
-  const controlsTimeoutRef = React.useRef<NodeJS.Timeout>();
+  const controlsTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;

@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Calendar, ArrowLeft, ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
-import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
+// import { // SeasonalFloatingParticles } from '@/components/ui/floating-particles'
 
 export const metadata: Metadata = {
   title: 'From Farm to Table: How We Harvest Our Oysters | Three Sisters Oyster Blog',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 export default function BlogPostPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
-      <SeasonalFloatingParticles count={8} />
+      {/* <SeasonalFloatingParticles count={8} /> */}
       
       {/* Header */}
       <Navigation />

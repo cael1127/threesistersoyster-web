@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+// import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -6,39 +6,14 @@ import { Badge } from '@/components/ui/badge'
 import { Calendar, ArrowLeft, ArrowUpRight, Wine, Star, Sparkles } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
-import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
+// import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
 
-export const metadata: Metadata = {
-  title: 'Oyster Wine Pairing Guide: Perfect Matches | Three Sisters Oyster Blog',
-  description: 'Discover the perfect wine pairings for Texas Gulf oysters. Learn which wines complement different oyster preparations and enhance your dining experience.',
-  robots: { index: true, follow: true },
-  alternates: { canonical: '/blog/oyster-wine-pairing-guide' },
-  openGraph: {
-    title: 'Oyster Wine Pairing Guide: Perfect Matches | Three Sisters Oyster Blog',
-    description: 'Discover the perfect wine pairings for Texas Gulf oysters. Learn which wines complement different oyster preparations and enhance your dining experience.',
-    url: '/blog/oyster-wine-pairing-guide',
-    type: 'article',
-    images: [
-      {
-        url: '/placeholder.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Oyster Wine Pairing Guide - Three Sisters Oyster',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Oyster Wine Pairing Guide: Perfect Matches | Three Sisters Oyster Blog',
-    description: 'Discover the perfect wine pairings for Texas Gulf oysters. Learn which wines complement different oyster preparations and enhance your dining experience.',
-    images: ['/placeholder.jpg'],
-  },
-}
+// Metadata moved to layout.tsx for client components
 
 export default function BlogPostPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
-      <SeasonalFloatingParticles count={8} />
+      {/* <SeasonalFloatingParticles count={8} /> */}
       
       {/* Header */}
       <Navigation />

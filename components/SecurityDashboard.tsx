@@ -11,7 +11,7 @@ import {
   CheckCircle, 
   XCircle, 
   Clock, 
-  Activity,
+  BarChart3,
   Eye,
   EyeOff
 } from 'lucide-react'
@@ -92,7 +92,7 @@ export default function SecurityDashboard() {
       case 'operational': return <CheckCircle className="w-5 h-5 text-green-600" />
       case 'degraded': return <AlertTriangle className="w-5 h-5 text-yellow-600" />
       case 'down': return <XCircle className="w-5 h-5 text-red-600" />
-      default: return <Activity className="w-5 h-5 text-gray-600" />
+      default: return <BarChart3 className="w-5 h-5 text-gray-600" />
     }
   }
 

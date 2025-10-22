@@ -3,10 +3,10 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, ArrowLeft, ArrowUpRight, Thermometer, Clock, AlertTriangle, CheckCircle } from 'lucide-react'
+// import { Calendar, span, span, span, span, span, span } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
-import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
+// import { // SeasonalFloatingParticles } from '@/components/ui/floating-particles'
 
 export const metadata: Metadata = {
   title: 'Oyster Storage & Handling: Keep Your Oysters Fresh | Three Sisters Oyster Blog',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 export default function BlogPostPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
-      <SeasonalFloatingParticles count={8} />
+      {/* <SeasonalFloatingParticles count={8} /> */}
       
       {/* Header */}
       <Navigation />
@@ -50,7 +50,7 @@ export default function BlogPostPage() {
           <div className="mb-8">
             <Button asChild variant="outline" className="border-purpleBrand/30 text-purple-700 hover:bg-purpleBrand/10">
               <Link href="/blog">
-                <ArrowLeft className="w-4 h-4 mr-2" />
+                <span className="w-4 h-4 mr-2" />
                 Back to Blog
               </Link>
             </Button>
@@ -61,7 +61,7 @@ export default function BlogPostPage() {
             <div className="mb-8">
               <Badge className="bg-purpleBrand/90 text-white mb-4">Process</Badge>
               <div className="flex items-center text-sm text-purple-600 mb-4">
-                <Calendar className="w-4 h-4 mr-2" />
+                <span className="w-4 h-4 mr-2">📅</span>
                 November 25, 2024
               </div>
               <h1 className="text-4xl md:text-5xl font-bold text-purple-900 mb-6 leading-tight">
@@ -104,7 +104,7 @@ export default function BlogPostPage() {
                 <Card className="border-purpleBrand/30 bg-gradient-to-br from-blue-50 to-cyan-50">
                   <CardContent className="p-6">
                     <div className="flex items-center mb-4">
-                      <Thermometer className="w-8 h-8 text-blue-600 mr-3" />
+                      <span className="w-8 h-8 text-blue-600 mr-3" />
                       <h3 className="text-xl font-bold text-purple-900">Ideal Temperature</h3>
                     </div>
                     <p className="text-purple-700 mb-4">
@@ -126,7 +126,7 @@ export default function BlogPostPage() {
                 <Card className="border-purpleBrand/30 bg-gradient-to-br from-green-50 to-emerald-50">
                   <CardContent className="p-6">
                     <div className="flex items-center mb-4">
-                      <Clock className="w-8 h-8 text-green-600 mr-3" />
+                      <span className="w-8 h-8 text-green-600 mr-3" />
                       <h3 className="text-xl font-bold text-purple-900">Storage Duration</h3>
                     </div>
                     <p className="text-purple-700 mb-4">
@@ -196,7 +196,7 @@ export default function BlogPostPage() {
                 <Card className="border-green-200 bg-green-50">
                   <CardContent className="p-6">
                     <div className="flex items-center mb-4">
-                      <CheckCircle className="w-6 h-6 text-green-600 mr-2" />
+                      <span className="w-6 h-6 text-green-600 mr-2" />
                       <h3 className="text-lg font-bold text-green-900">Do This</h3>
                     </div>
                     <ul className="text-green-800 text-sm space-y-2">
@@ -214,7 +214,7 @@ export default function BlogPostPage() {
                 <Card className="border-red-200 bg-red-50">
                   <CardContent className="p-6">
                     <div className="flex items-center mb-4">
-                      <AlertTriangle className="w-6 h-6 text-red-600 mr-2" />
+                      <span className="w-6 h-6 text-red-600 mr-2" />
                       <h3 className="text-lg font-bold text-red-900">Don't Do This</h3>
                     </div>
                     <ul className="text-red-800 text-sm space-y-2">
@@ -341,14 +341,14 @@ export default function BlogPostPage() {
           <div className="mt-12 flex justify-between">
             <Button asChild variant="outline" className="border-purpleBrand/30 text-purple-700 hover:bg-purpleBrand/10">
               <Link href="/blog/oyster-farming-challenges">
-                <ArrowLeft className="w-4 h-4 mr-2" />
+                <span className="w-4 h-4 mr-2" />
                 Previous: Oyster Farming Challenges
               </Link>
             </Button>
             <Button asChild variant="outline" className="border-purpleBrand/30 text-purple-700 hover:bg-purpleBrand/10">
               <Link href="/blog/why-texas-gulf-oysters-taste-different">
                 Next: Why Texas Gulf Oysters Taste Different
-                <ArrowUpRight className="w-4 h-4 ml-2" />
+                <span className="w-4 h-4 ml-2" />
               </Link>
             </Button>
           </div>

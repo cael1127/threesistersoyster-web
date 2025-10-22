@@ -80,8 +80,8 @@ export function FloatingParticles({
       type: 'bubble' | 'leaf' | 'snowflake' | 'flower' | 'dot';
 
       constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        this.x = Math.random() * (canvas?.width || 800);
+        this.y = Math.random() * (canvas?.height || 600);
         this.size = Math.random() * 4 + 2;
         this.speedX = (Math.random() - 0.5) * 0.3;
         this.speedY = (Math.random() - 0.5) * 0.3;
@@ -130,13 +130,13 @@ export function FloatingParticles({
         }
 
         // Bounce off edges
-        if (this.x <= 0 || this.x >= canvas.width) {
+        if (this.x <= 0 || this.x >= (canvas?.width || 800)) {
           this.speedX *= -0.8;
-          this.x = Math.max(0, Math.min(canvas.width, this.x));
+          this.x = Math.max(0, Math.min(canvas?.width || 800, this.x));
         }
-        if (this.y <= 0 || this.y >= canvas.height) {
+        if (this.y <= 0 || this.y >= (canvas?.height || 600)) {
           this.speedY *= -0.8;
-          this.y = Math.max(0, Math.min(canvas.height, this.y));
+          this.y = Math.max(0, Math.min(canvas?.height || 600, this.y));
         }
 
         // Add gentle drift
@@ -149,6 +149,7 @@ export function FloatingParticles({
       }
 
       draw() {
+        if (!ctx) return;
         ctx.save();
         ctx.globalAlpha = this.opacity;
         ctx.translate(this.x, this.y);
@@ -175,6 +176,7 @@ export function FloatingParticles({
       }
 
       drawBubble() {
+        if (!ctx) return;
         // Draw bubble
         ctx.beginPath();
         ctx.arc(0, 0, this.size, 0, Math.PI * 2);
@@ -196,6 +198,7 @@ export function FloatingParticles({
       }
 
       drawLeaf() {
+        if (!ctx) return;
         // Draw leaf shape
         ctx.beginPath();
         ctx.ellipse(0, 0, this.size * 1.5, this.size * 0.8, 0, 0, Math.PI * 2);
@@ -212,6 +215,7 @@ export function FloatingParticles({
       }
 
       drawSnowflake() {
+        if (!ctx) return;
         // Draw snowflake
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
         ctx.lineWidth = 0.5;
@@ -234,6 +238,7 @@ export function FloatingParticles({
       }
 
       drawFlower() {
+        if (!ctx) return;
         // Draw flower petals
         const petalCount = 5;
         const petalSize = this.size * 1.2;
@@ -258,6 +263,7 @@ export function FloatingParticles({
       }
 
       drawDot() {
+        if (!ctx) return;
         // Draw simple dot
         ctx.beginPath();
         ctx.arc(0, 0, this.size, 0, Math.PI * 2);
@@ -319,7 +325,7 @@ export function FloatingParticles({
       animationId = requestAnimationFrame(animate);
     };
 
-    animate();
+    animate(0);
 
     return () => {
       cancelAnimationFrame(animationId);

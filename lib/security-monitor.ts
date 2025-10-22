@@ -234,7 +234,7 @@ export class SecurityMonitor {
     if (realIP) return realIP
     if (forwarded) return forwarded.split(',')[0].trim()
     
-    return request.ip || 'unknown'
+    return (request as any).ip || request.headers.get('x-forwarded-for') || 'unknown'
   }
 
   // Send events to monitoring service (implement based on your monitoring solution)

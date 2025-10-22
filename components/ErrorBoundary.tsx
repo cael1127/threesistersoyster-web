@@ -36,8 +36,8 @@ export class ErrorBoundary extends Component<Props, State> {
 
     // Track error in analytics if available
     try {
-      if (typeof window !== 'undefined' && window.analytics) {
-        window.analytics.track('Error Boundary', {
+      if (typeof window !== 'undefined' && (window as any).analytics) {
+        (window as any).analytics.track('Error Boundary', {
           error: error.message,
           stack: error.stack,
           componentStack: errorInfo.componentStack
@@ -127,8 +127,8 @@ export function useErrorHandler() {
     
     // Track error in analytics if available
     try {
-      if (typeof window !== 'undefined' && window.analytics) {
-        window.analytics.track('Error Handler', {
+      if (typeof window !== 'undefined' && (window as any).analytics) {
+        (window as any).analytics.track('Error Handler', {
           error: error.message,
           stack: error.stack,
           componentStack: errorInfo?.componentStack

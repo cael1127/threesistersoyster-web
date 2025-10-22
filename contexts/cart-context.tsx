@@ -118,10 +118,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   // }
 
   // Generate a unique session ID for this cart session
-  const sessionIdRef = useRef<string>()
+  const sessionIdRef = useRef<string | null>(null)
 
   // Debounced localStorage save
-  const saveTimeoutRef = useRef<NodeJS.Timeout>()
+  const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   
   const saveToLocalStorage = useCallback((items: CartItem[]) => {
     if (saveTimeoutRef.current) {
@@ -304,7 +304,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         removeItem,
         updateQuantity,
         clearCart,
-        getSessionId,
+        getSessionId: () => getSessionId() || undefined,
       }}
     >
       {children}

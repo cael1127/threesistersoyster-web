@@ -10,7 +10,6 @@ import {
   BarChart3, 
   Users, 
   AlertTriangle, 
-  Activity, 
   Clock, 
   Eye,
   TrendingUp,
@@ -33,7 +32,7 @@ interface UserProfile {
   sessions: Array<{
     sessionId: string
     startTime: string
-    lastActivity: string
+    lastBarChart3: string
     pageViews: number
     eventCount: number
     errorCount: number
@@ -229,7 +228,7 @@ export default function EnhancedAnalyticsDashboard() {
                 <p className="text-sm font-medium text-purple-700">Total Sessions</p>
                 <p className="text-2xl font-bold text-purple-900">{analyticsData.totalSessions}</p>
               </div>
-              <Activity className="w-8 h-8 text-purple-600" />
+              <BarChart3 className="w-8 h-8 text-purple-600" />
             </div>
           </CardContent>
         </Card>
@@ -380,7 +379,7 @@ export default function EnhancedAnalyticsDashboard() {
             <CardContent>
               {analyticsData.recentEvents.length === 0 ? (
                 <div className="text-center py-8 text-purple-700">
-                  <Activity className="w-12 h-12 mx-auto mb-4 text-purple-400" />
+                  <BarChart3 className="w-12 h-12 mx-auto mb-4 text-purple-400" />
                   <p>No recent events</p>
                 </div>
               ) : (
