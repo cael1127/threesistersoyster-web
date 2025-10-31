@@ -156,10 +156,17 @@ export class SecurityMonitor {
   analyzeRequest(request: NextRequest): { suspicious: boolean; reasons: string[] } {
     const reasons: string[] = []
     const url = request.url
+    const pathname = new URL(url).pathname
     const userAgent = request.headers.get('user-agent') || ''
     const ip = this.getClientIP(request)
 
-    // Check for malicious patterns in URL
+    // Skip analysis for legitimate pages that may have query parameters (like Stripe session IDs)
+    const safePaths = ['/success', '/checkout', '/cart', '/products', '/api/webhook', '/api/create-checkout-session', '/api/checkout-session']
+    if (safePaths.some(path => pathname.startsWith(path))) {
+      return { suspicious: false, reasons: [] }
+    }
+
+    // Check for malicious patterns in URL (but ignore query parameters for safe paths)
     const maliciousPatterns = [
       /\.\.\//, // Directory traversal
       /<script/i, // XSS attempts
@@ -174,8 +181,9 @@ export class SecurityMonitor {
       /eval\s*\(/i, // Code injection
     ]
 
+    // Only check pathname, not query parameters, to avoid false positives
     for (const pattern of maliciousPatterns) {
-      if (pattern.test(url)) {
+      if (pattern.test(pathname)) {
         reasons.push(`Malicious pattern detected: ${pattern.source}`)
       }
     }

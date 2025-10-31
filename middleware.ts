@@ -102,8 +102,23 @@ export function middleware(request: NextRequest) {
     return new NextResponse('Forbidden', { status: 403 })
   }
   
-  // Analyze request for suspicious patterns (skip for analytics API and inventory page)
-  if (!pathname.startsWith('/api/analytics') && pathname !== '/inventory') {
+  // Analyze request for suspicious patterns
+  // Skip for legitimate pages: analytics API, inventory page, success page (Stripe redirects), checkout pages
+  const skipAnalysisPaths = [
+    '/api/analytics',
+    '/inventory',
+    '/success',
+    '/checkout',
+    '/cart',
+    '/products',
+    '/api/create-checkout-session',
+    '/api/webhook',
+    '/api/checkout-session'
+  ]
+  
+  const shouldSkipAnalysis = skipAnalysisPaths.some(path => pathname.startsWith(path))
+  
+  if (!shouldSkipAnalysis) {
     const analysis = securityMonitor.analyzeRequest(request)
     if (analysis.suspicious) {
       securityMonitor.logEvent({
@@ -129,8 +144,20 @@ export function middleware(request: NextRequest) {
   }
   
   // Enhanced rate limiting with security monitoring
-  // Skip rate limiting for analytics API to allow tracking
-  if (pathname.startsWith('/api/') && !pathname.startsWith('/api/analytics') && !securityMonitor.checkRateLimit(ip, pathname)) {
+  // Skip rate limiting for analytics API, webhook, and checkout-related endpoints
+  const skipRateLimitPaths = [
+    '/api/analytics',
+    '/api/webhook',
+    '/api/create-checkout-session',
+    '/api/checkout-session',
+    '/success',
+    '/checkout',
+    '/cart'
+  ]
+  
+  const shouldSkipRateLimit = skipRateLimitPaths.some(path => pathname.startsWith(path))
+  
+  if (pathname.startsWith('/api/') && !shouldSkipRateLimit && !securityMonitor.checkRateLimit(ip, pathname)) {
     return new NextResponse('Too Many Requests', { status: 429 })
   }
   
