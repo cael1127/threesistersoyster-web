@@ -235,17 +235,28 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Product ID required' }, { status: 400 })
     }
 
-    const { error } = await auth.supabase
+    console.log('Deleting product:', id)
+
+    const { data, error } = await auth.supabase
       .from('products')
       .delete()
       .eq('id', id)
+      .select()
 
-    if (error) throw error
+    if (error) {
+      console.error('Database error deleting product:', error)
+      throw error
+    }
 
-    return NextResponse.json({ success: true })
+    console.log('Product deleted successfully:', id)
+    return NextResponse.json({ success: true, deletedId: id })
   } catch (error) {
     console.error('Error deleting product:', error)
-    return NextResponse.json({ error: 'Failed to delete product' }, { status: 500 })
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    return NextResponse.json({ 
+      error: 'Failed to delete product',
+      details: errorMessage
+    }, { status: 500 })
   }
 }
 

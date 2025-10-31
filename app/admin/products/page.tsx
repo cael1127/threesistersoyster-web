@@ -36,14 +36,23 @@ export default function AdminProductsPage() {
   }, [])
 
   const fetchProducts = async () => {
+    setLoading(true)
     try {
       const response = await fetch('/api/admin/products')
+      if (!response.ok) {
+        throw new Error(`Failed to fetch products: ${response.statusText}`)
+      }
       const data = await response.json()
       if (data.products) {
         setProducts(data.products)
+        console.log('Products fetched:', data.products.length)
+      } else {
+        console.error('No products in response:', data)
+        setProducts([])
       }
     } catch (error) {
       console.error('Error fetching products:', error)
+      alert('Failed to load products. Please refresh the page.')
     } finally {
       setLoading(false)
     }
@@ -86,7 +95,7 @@ export default function AdminProductsPage() {
         // Show success message
         alert(editingProduct ? 'Product updated successfully!' : 'Product created successfully!')
         
-        // Clear form and close
+        // Clear form and close first
         setEditingProduct(null)
         setShowAddForm(false)
         setFormData({
@@ -97,7 +106,8 @@ export default function AdminProductsPage() {
           image_url: '',
           inventory_count: 0
         })
-        // Refresh products list to show updated data
+        
+        // Refresh products list to show updated data immediately
         await fetchProducts()
       } else {
         throw new Error(result.error || 'Failed to save product')
@@ -148,10 +158,23 @@ export default function AdminProductsPage() {
     if (!confirm('Are you sure you want to delete this product?')) return
     
     try {
-      await fetch(`/api/admin/products?id=${id}`, { method: 'DELETE' })
-      fetchProducts()
+      const response = await fetch(`/api/admin/products?id=${id}`, { method: 'DELETE' })
+      const result = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to delete product')
+      }
+      
+      if (result.success) {
+        alert('Product deleted successfully!')
+        // Refresh the products list
+        await fetchProducts()
+      } else {
+        throw new Error(result.error || 'Delete failed')
+      }
     } catch (error) {
       console.error('Error deleting product:', error)
+      alert(error instanceof Error ? error.message : 'Failed to delete product. Please try again.')
     }
   }
 
