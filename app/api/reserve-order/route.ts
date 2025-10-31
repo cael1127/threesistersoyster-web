@@ -102,10 +102,36 @@ export async function POST(request: NextRequest) {
       pickup_week_start: pickupWeekStart
     }
 
-    const order = await createOrder(orderData)
+    console.log('Creating order with data:', JSON.stringify(orderData, null, 2))
+    
+    let order
+    try {
+      order = await createOrder(orderData)
+      console.log('Order created successfully:', order.id)
+    } catch (orderError) {
+      console.error('Error creating order:', orderError)
+      const errorMessage = orderError instanceof Error ? orderError.message : 'Unknown error'
+      const errorDetails = orderError instanceof Error && 'code' in orderError ? (orderError as any).code : 'no-code'
+      console.error('Order error details:', { errorMessage, errorDetails, orderData })
+      return NextResponse.json(
+        { 
+          error: 'Failed to create order in database',
+          details: errorMessage,
+          hint: 'Check if database migration has been run (scripts/database-migration-orders.sql)'
+        },
+        { status: 500 }
+      )
+    }
 
     // Update inventory counts (reserve the items)
-    await updateProductInventoryCounts(items)
+    try {
+      await updateProductInventoryCounts(items)
+      console.log('Inventory updated successfully')
+    } catch (inventoryError) {
+      console.error('Error updating inventory:', inventoryError)
+      // Don't fail the reservation if inventory update fails - order is already created
+      // We can update inventory manually if needed
+    }
 
     // Send receipt email
     try {
@@ -143,8 +169,16 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Error creating reservation:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorStack = error instanceof Error ? error.stack : undefined
+    console.error('Full error details:', { errorMessage, errorStack })
+    
     return NextResponse.json(
-      { error: 'Failed to create reservation' },
+      { 
+        error: 'Failed to create reservation',
+        details: errorMessage,
+        hint: 'Check server logs for more details'
+      },
       { status: 500 }
     )
   }

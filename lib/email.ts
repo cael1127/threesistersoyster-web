@@ -1,6 +1,20 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Helper function to get Resend client instance
+// Create it dynamically to ensure env vars are available
+function getResendClient(): Resend | null {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    return null
+  }
+  
+  try {
+    return new Resend(apiKey)
+  } catch (error) {
+    console.error('Failed to initialize Resend client:', error)
+    return null
+  }
+}
 
 export interface OrderReceiptData {
   customerName: string
@@ -19,14 +33,24 @@ export interface OrderReceiptData {
 }
 
 export async function sendOrderReceipt(data: OrderReceiptData) {
-  if (!process.env.RESEND_API_KEY) {
+  // Get Resend client instance
+  const resend = getResendClient()
+  
+  // Check if Resend is configured
+  if (!process.env.RESEND_API_KEY || !resend) {
     console.warn('RESEND_API_KEY not configured, skipping email send')
-    return { success: false, error: 'Email not configured' }
+    return { success: false, error: 'Email service not configured. RESEND_API_KEY is missing.' }
   }
 
   if (!process.env.RESEND_FROM_EMAIL) {
     console.warn('RESEND_FROM_EMAIL not configured, skipping email send')
-    return { success: false, error: 'From email not configured' }
+    return { success: false, error: 'From email not configured. RESEND_FROM_EMAIL is missing.' }
+  }
+
+  // Validate email address
+  if (!data.customerEmail || !data.customerEmail.includes('@')) {
+    console.error('Invalid customer email:', data.customerEmail)
+    return { success: false, error: 'Invalid customer email address' }
   }
 
   try {
@@ -121,17 +145,37 @@ export async function sendOrderReceipt(data: OrderReceiptData) {
       </html>
     `
 
+    console.log('Sending email via Resend to:', data.customerEmail)
+    console.log('From email:', process.env.RESEND_FROM_EMAIL)
+    
     const result = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL,
+      from: process.env.RESEND_FROM_EMAIL!,
       to: data.customerEmail,
       subject: `Order Confirmation - Three Sisters Oyster Co. #${data.orderId.slice(-8)}`,
       html
     })
 
-    return { success: true, id: result.id }
+    // Resend v4 returns { data: { id: string } } on success or { error: {...} } on failure
+    if ('error' in result && result.error) {
+      console.error('Resend API error:', result.error)
+      const errorMsg = typeof result.error === 'object' && result.error !== null && 'message' in result.error
+        ? String(result.error.message)
+        : 'Failed to send email'
+      return { success: false, error: errorMsg }
+    }
+
+    // Success - extract message ID
+    const messageId = result.data?.id || 'unknown'
+    console.log('Email sent successfully. Message ID:', messageId)
+    return { success: true, id: messageId }
   } catch (error) {
     console.error('Error sending email:', error)
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorDetails = error instanceof Error && 'response' in error 
+      ? JSON.stringify((error as any).response) 
+      : ''
+    console.error('Error details:', errorDetails)
+    return { success: false, error: errorMessage }
   }
 }
 

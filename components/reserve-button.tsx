@@ -63,14 +63,28 @@ export function ReserveButton({ product, className }: ReserveButtonProps) {
 
       const data = await response.json()
 
+      if (!response.ok) {
+        // Show detailed error message
+        const errorMsg = data.details 
+          ? `${data.error}\n\nDetails: ${data.details}\n\n${data.hint || ''}`
+          : data.error || 'Failed to create reservation'
+        alert(errorMsg)
+        console.error('Reservation API error:', data)
+        return
+      }
+
       if (data.success) {
         router.push(`/success?reservation=true&code=${data.order.pickup_code}`)
       } else {
-        alert(data.error || 'Failed to create reservation')
+        const errorMsg = data.details 
+          ? `${data.error}\n\nDetails: ${data.details}`
+          : data.error || 'Failed to create reservation'
+        alert(errorMsg)
       }
     } catch (error) {
       console.error('Reservation error:', error)
-      alert('Failed to create reservation. Please try again.')
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+      alert(`Failed to create reservation. Please try again.\n\nError: ${errorMessage}`)
     } finally {
       setLoading(false)
     }

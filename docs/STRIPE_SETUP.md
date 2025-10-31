@@ -45,25 +45,81 @@ This guide will help you connect your Stripe account to your bank account and co
 
 Your website needs to receive events from Stripe (like successful payments).
 
-1. In Stripe Dashboard, go to **Developers** → **Webhooks**
+### For Production (Live Mode)
+
+1. **Get your production webhook URL:**
+   ```
+   https://threesistersoyster.com/api/webhook
+   ```
+   (This is your live site URL + `/api/webhook`)
+
+2. In Stripe Dashboard, go to **Developers** → **Webhooks**
    - Direct link: https://dashboard.stripe.com/webhooks
+   - **Make sure you're in LIVE mode** (toggle in top right)
 
-2. Click **"Add endpoint"**
+3. Click **"Add endpoint"**
 
-3. Enter your webhook URL:
+4. Enter your webhook URL:
    ```
-   https://your-domain.com/api/webhook
+   https://threesistersoyster.com/api/webhook
    ```
-   Replace `your-domain.com` with your actual domain
 
-4. Select events to listen to:
-   - `checkout.session.completed` (required)
-   - Optionally: `payment_intent.succeeded`, `payment_intent.payment_failed`
+5. **Select events to listen to:**
+   - Click "Select events" or "Add events"
+   - **Required:** `checkout.session.completed` (when payment succeeds)
+   - **Optional but recommended:**
+     - `payment_intent.succeeded` (backup confirmation)
+     - `payment_intent.payment_failed` (handle failures)
+     - `charge.refunded` (handle refunds)
 
-5. Click **"Add endpoint"**
+6. Click **"Add endpoint"**
 
-6. **Important**: Copy the **Signing secret** (starts with `whsec_`)
-   - You'll need to add this to your environment variables
+7. **IMPORTANT - Copy the Signing Secret:**
+   - After creating the endpoint, click on it to view details
+   - Look for **"Signing secret"** section
+   - Click **"Reveal"** or **"Click to reveal"**
+   - Copy the secret (starts with `whsec_`)
+   - **This is your `STRIPE_WEBHOOK_SECRET`**
+
+8. **Add to Netlify Environment Variables:**
+   - Go to Netlify → Site Settings → Environment Variables
+   - Add: `STRIPE_WEBHOOK_SECRET` = `whsec_xxxxx` (the secret you copied)
+   - Redeploy your site
+
+### For Testing (Test Mode)
+
+1. **Switch to Test Mode** in Stripe Dashboard (toggle in top right)
+
+2. Repeat steps above but use:
+   - Webhook URL: `https://threesistersoyster.com/api/webhook` (same URL works for both)
+   - Or use Stripe CLI for local testing (see below)
+
+3. Get a **separate test webhook secret** and add it as `STRIPE_WEBHOOK_SECRET` for testing
+
+### Testing Webhooks Locally (Optional)
+
+If you want to test webhooks locally during development:
+
+1. **Install Stripe CLI:**
+   ```bash
+   # Windows (using Chocolatey)
+   choco install stripe
+   
+   # Or download from: https://stripe.com/docs/stripe-cli
+   ```
+
+2. **Login to Stripe CLI:**
+   ```bash
+   stripe login
+   ```
+
+3. **Forward webhooks to local server:**
+   ```bash
+   stripe listen --forward-to localhost:3000/api/webhook
+   ```
+   This will give you a test webhook secret starting with `whsec_`
+
+4. **Use the test secret** in your `.env.local` for local development
 
 ## Step 4: Get Your API Keys
 
