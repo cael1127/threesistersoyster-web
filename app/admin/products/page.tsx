@@ -82,8 +82,9 @@ export default function AdminProductsPage() {
         // Show success message
         alert(editingProduct ? 'Product updated successfully!' : 'Product created successfully!')
         
-        setShowAddForm(false)
+        // Clear form and close
         setEditingProduct(null)
+        setShowAddForm(false)
         setFormData({
           name: '',
           description: '',
@@ -92,7 +93,7 @@ export default function AdminProductsPage() {
           image_url: '',
           inventory_count: 0
         })
-        // Refresh products list
+        // Refresh products list to show updated data
         await fetchProducts()
       } else {
         throw new Error(result.error || 'Failed to save product')
@@ -104,28 +105,36 @@ export default function AdminProductsPage() {
   }
 
   const handleEdit = (product: Product) => {
+    // Clear any existing form state first
     setEditingProduct(product)
-    try {
-      const desc = product.description ? JSON.parse(product.description) : {}
-      setFormData({
-        name: product.name,
-        description: desc.originalDescription || product.description || '',
-        price: product.price,
-        category: product.category,
-        image_url: product.image_url || '',
-        inventory_count: product.inventory_count || 0
-      })
-    } catch {
-      setFormData({
-        name: product.name,
-        description: product.description || '',
-        price: product.price,
-        category: product.category,
-        image_url: product.image_url || '',
-        inventory_count: product.inventory_count || 0
-      })
-    }
     setShowAddForm(true)
+    
+    // Parse description if it's JSON
+    let description = ''
+    try {
+      if (product.description) {
+        const desc = JSON.parse(product.description)
+        description = desc.originalDescription || product.description || ''
+      } else {
+        description = ''
+      }
+    } catch {
+      description = product.description || ''
+    }
+    
+    // Normalize category for the dropdown
+    const category = product.category.toLowerCase() === 'oysters' ? 'oysters' : 
+                     product.category.toLowerCase() === 'merch' ? 'merch' : 
+                     product.category || ''
+    
+    setFormData({
+      name: product.name || '',
+      description: description,
+      price: typeof product.price === 'number' ? product.price : parseFloat(product.price) || 0,
+      category: category,
+      image_url: product.image_url || '',
+      inventory_count: product.inventory_count || 0
+    })
   }
 
   const handleDelete = async (id: string) => {
@@ -170,13 +179,26 @@ export default function AdminProductsPage() {
                 <p className="text-purple-700">Manage your product catalog</p>
               </div>
             </div>
-            <Button 
-              onClick={() => setShowAddForm(!showAddForm)}
-              className="bg-gradient-to-r from-purpleBrand to-lavenderBrand"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              {showAddForm ? 'Cancel' : 'Add Product'}
-            </Button>
+            {!showAddForm && (
+              <Button 
+                onClick={() => {
+                  setEditingProduct(null)
+                  setFormData({
+                    name: '',
+                    description: '',
+                    price: 0,
+                    category: '',
+                    image_url: '',
+                    inventory_count: 0
+                  })
+                  setShowAddForm(true)
+                }}
+                className="bg-gradient-to-r from-purpleBrand to-lavenderBrand"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Add Product
+              </Button>
+            )}
           </div>
 
           {showAddForm && (
@@ -212,8 +234,8 @@ export default function AdminProductsPage() {
                         id="price"
                         type="number"
                         step="0.01"
-                        value={formData.price}
-                        onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) })}
+                        value={formData.price || 0}
+                        onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) || 0 })}
                         required
                       />
                     </div>
@@ -222,8 +244,8 @@ export default function AdminProductsPage() {
                       <Input
                         id="inventory"
                         type="number"
-                        value={formData.inventory_count}
-                        onChange={(e) => setFormData({ ...formData, inventory_count: parseInt(e.target.value) })}
+                        value={formData.inventory_count || 0}
+                        onChange={(e) => setFormData({ ...formData, inventory_count: parseInt(e.target.value) || 0 })}
                       />
                     </div>
                   </div>
@@ -289,6 +311,7 @@ export default function AdminProductsPage() {
                         variant="outline"
                         size="sm"
                         onClick={() => handleEdit(product)}
+                        title="Edit Product"
                       >
                         <Edit className="w-4 h-4" />
                       </Button>

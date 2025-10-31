@@ -156,6 +156,8 @@ export async function PUT(request: NextRequest) {
       updateData.updated_at = new Date().toISOString()
     } catch {}
 
+    console.log('Updating product:', { id, updateData })
+    
     const { data, error } = await auth.supabase
       .from('products')
       .update(updateData)
@@ -165,13 +167,16 @@ export async function PUT(request: NextRequest) {
 
     if (error) {
       console.error('Database error updating product:', error)
+      console.error('Error details:', JSON.stringify(error, null, 2))
       throw error
     }
 
     if (!data) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 })
+      console.error('Product update returned no data for id:', id)
+      return NextResponse.json({ error: 'Product not found or update failed' }, { status: 404 })
     }
 
+    console.log('Product updated successfully:', data)
     return NextResponse.json({ success: true, product: data })
   } catch (error) {
     console.error('Error updating product:', error)
