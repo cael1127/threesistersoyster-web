@@ -2,7 +2,8 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 const SESSION_COOKIE_NAME = 'admin_session'
-const SESSION_SECRET = process.env.SESSION_SECRET || 'change-this-secret-in-production'
+// SESSION_SECRET must be set via environment variable - no default fallback for security
+const SESSION_SECRET = process.env.SESSION_SECRET
 
 // Note: ADMIN_PASSWORD is now read directly in API routes to ensure Netlify env vars work
 

@@ -16,14 +16,21 @@ export function createSupabaseClient(): SupabaseClient {
 
     // Check if environment variables are available
     if (!supabaseUrl || !supabaseAnonKey) {
+      // In production, fail fast if configuration is missing
+      if (process.env.NODE_ENV === 'production') {
+        throw new Error(
+          "Supabase configuration is required in production. " +
+          "Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables."
+        )
+      }
+      
+      // Development fallback only - DO NOT use in production
       console.warn(
-        "Missing Supabase environment variables. Using mock client.\n" +
+        "Missing Supabase environment variables. Using mock client for development only.\n" +
         "Please check your .env.local file:\n" +
         "NEXT_PUBLIC_SUPABASE_URL=your-project-url.supabase.co\n" +
         "NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here"
       )
-      
-      // Always return a mock client to prevent crashes
 
       supabaseInstance = createClient(
         "https://placeholder.supabase.co",
@@ -40,7 +47,10 @@ export function createSupabaseClient(): SupabaseClient {
   } catch (error) {
     console.error("Error creating Supabase client:", error)
     
-    // Fallback to mock client
+    // Development fallback only - DO NOT use in production
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error("Failed to create Supabase client. Configuration is required in production.")
+    }
     
     supabaseInstance = createClient(
       "https://placeholder.supabase.co",
