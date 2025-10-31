@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { verifyPassword, createAdminSession } from '@/lib/admin-auth'
+import { createAdminSession } from '@/lib/admin-auth'
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,7 +10,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Password is required' }, { status: 400 })
     }
 
-    if (!verifyPassword(password)) {
+    // Read ADMIN_PASSWORD directly from environment in the route handler
+    // This ensures Netlify environment variables are properly accessed
+    // On Netlify, make sure ADMIN_PASSWORD is set in Site Settings > Environment Variables
+    const adminPassword = process.env.ADMIN_PASSWORD
+    
+    if (!adminPassword) {
+      console.error('ADMIN_PASSWORD environment variable is not set')
+      console.error('Available env vars:', Object.keys(process.env).filter(k => k.includes('ADMIN') || k.includes('NETLIFY')))
+      return NextResponse.json({ 
+        error: 'Server configuration error: ADMIN_PASSWORD not configured',
+        details: process.env.NODE_ENV === 'development' ? 'Set ADMIN_PASSWORD in .env.local' : 'Set ADMIN_PASSWORD in Netlify environment variables'
+      }, { status: 500 })
+    }
+
+    if (password !== adminPassword) {
       return NextResponse.json({ error: 'Invalid password' }, { status: 401 })
     }
 

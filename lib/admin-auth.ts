@@ -1,9 +1,10 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin'
 const SESSION_COOKIE_NAME = 'admin_session'
 const SESSION_SECRET = process.env.SESSION_SECRET || 'change-this-secret-in-production'
+
+// Note: ADMIN_PASSWORD is now read directly in API routes to ensure Netlify env vars work
 
 // Simple token generation (in production, use a proper JWT library)
 function generateToken(): string {
@@ -56,7 +57,11 @@ export async function clearSessionCookie() {
   // This will be handled in the route handler
 }
 
+// Note: verifyPassword is deprecated - password verification now happens in API routes
+// to ensure Netlify environment variables are properly accessed
 export function verifyPassword(password: string): boolean {
-  return password === ADMIN_PASSWORD
+  const adminPassword = process.env.ADMIN_PASSWORD
+  if (!adminPassword) return false
+  return password === adminPassword
 }
 
