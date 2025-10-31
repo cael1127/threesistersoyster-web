@@ -266,31 +266,40 @@ export async function POST(request: NextRequest) {
         console.error('Error creating order:', orderError)
       }
       
-      // Send receipt email
+      // Send receipt email directly (better than internal fetch)
       try {
-        await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/send-receipt`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            customerName,
-            customerEmail,
-            customerPhone,
-            orderId: orderId || session.id,
-            items: itemsToUpdate.map(item => {
-              const itemPrice = (item as any).price || itemPrices[item.id] || (orderTotal / itemsToUpdate.reduce((sum, i) => sum + i.quantity, 0))
-              return {
-                name: item.name,
-                quantity: item.quantity,
-                price: itemPrice
-              }
-            }),
-            totalAmount: orderTotal,
-            pickupWeekStart: pickupWeekStart.toISOString().split('T')[0],
-            paymentStatus: 'paid'
-          })
+        console.log('Attempting to send receipt email to:', customerEmail)
+        const { sendOrderReceipt } = await import('@/lib/email')
+        
+        const emailResult = await sendOrderReceipt({
+          customerName,
+          customerEmail,
+          customerPhone,
+          orderId: orderId || session.id,
+          items: itemsToUpdate.map(item => {
+            const itemPrice = (item as any).price || itemPrices[item.id] || (orderTotal / itemsToUpdate.reduce((sum, i) => sum + i.quantity, 0))
+            return {
+              name: item.name,
+              quantity: item.quantity,
+              price: itemPrice
+            }
+          }),
+          totalAmount: orderTotal,
+          pickupWeekStart: pickupWeekStart.toISOString().split('T')[0],
+          paymentStatus: 'paid'
         })
+        
+        console.log('Email send result:', emailResult)
+        
+        if (!emailResult.success) {
+          console.error('Email sending failed:', emailResult.error || 'Unknown error')
+        } else {
+          console.log('Email sent successfully:', emailResult.id)
+        }
       } catch (emailError) {
         console.error('Error sending receipt email:', emailError)
+        const errorMessage = emailError instanceof Error ? emailError.message : 'Unknown error'
+        console.error('Email error details:', errorMessage)
       }
 
     } else {

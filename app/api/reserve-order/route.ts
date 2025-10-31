@@ -137,29 +137,38 @@ export async function POST(request: NextRequest) {
       // We can update inventory manually if needed
     }
 
-    // Send receipt email
+    // Send receipt email directly (better than internal fetch)
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/send-receipt`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          customerName: customer_name,
-          customerEmail: customer_email,
-          customerPhone: customer_phone,
-          orderId: order.id,
-          items: items.map((item: any) => ({
-            name: item.name,
-            quantity: item.quantity,
-            price: item.price
-          })),
-          totalAmount: total_amount,
-          pickupWeekStart: pickupWeekStart,
-          pickupCode: pickupCode,
-          paymentStatus: 'reserved'
-        })
+      console.log('Attempting to send reservation email to:', customer_email)
+      const { sendOrderReceipt } = await import('@/lib/email')
+      
+      const emailResult = await sendOrderReceipt({
+        customerName: customer_name,
+        customerEmail: customer_email,
+        customerPhone: customer_phone,
+        orderId: order.id,
+        items: items.map((item: any) => ({
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price
+        })),
+        totalAmount: total_amount,
+        pickupWeekStart: pickupWeekStart,
+        pickupCode: pickupCode,
+        paymentStatus: 'reserved'
       })
+      
+      console.log('Email send result:', emailResult)
+      
+      if (!emailResult.success) {
+        console.error('Reservation email sending failed:', emailResult.error || 'Unknown error')
+      } else {
+        console.log('Reservation email sent successfully:', emailResult.id)
+      }
     } catch (emailError) {
       console.error('Error sending reservation email:', emailError)
+      const errorMessage = emailError instanceof Error ? emailError.message : 'Unknown error'
+      console.error('Email error details:', errorMessage)
       // Don't fail the reservation if email fails
     }
 
