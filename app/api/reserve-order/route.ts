@@ -89,17 +89,21 @@ export async function POST(request: NextRequest) {
     const pickupWeekStart = getPickupWeekStart(new Date())
 
     // Create order with reservation status
+    // Store reservation metadata in shipping_address jsonb field (since it's not used for pickup orders)
     const orderData = {
       customer_name,
       customer_email,
       customer_phone,
       items,
       total_amount,
-      status: 'pending',
-      payment_status: 'reserved',
-      order_type: 'reservation',
-      pickup_code: pickupCode,
-      pickup_week_start: pickupWeekStart
+      status: 'pending', // Using existing status field
+      shipping_address: {
+        // Store reservation metadata in shipping_address jsonb field
+        payment_status: 'reserved',
+        order_type: 'reservation',
+        pickup_code: pickupCode,
+        pickup_week_start: pickupWeekStart
+      }
     }
 
     console.log('Creating order with data:', JSON.stringify(orderData, null, 2))
@@ -159,13 +163,13 @@ export async function POST(request: NextRequest) {
       // Don't fail the reservation if email fails
     }
 
+    // Normalize order to extract metadata from shipping_address
+    const { normalizeOrder } = await import('@/lib/supabase')
+    const normalizedOrder = normalizeOrder(order)
+
     return NextResponse.json({
       success: true,
-      order: {
-        ...order,
-        pickup_code: pickupCode,
-        pickup_week_start: pickupWeekStart
-      }
+      order: normalizedOrder
     })
   } catch (error) {
     console.error('Error creating reservation:', error)

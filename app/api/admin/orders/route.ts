@@ -53,34 +53,38 @@ export async function GET(request: NextRequest) {
       .select('*')
       .order('created_at', { ascending: false })
 
-    // If filtering by week, calculate the date range
-    if (weekStart) {
-      const startDate = new Date(weekStart)
-      const endDate = new Date(startDate)
-      endDate.setDate(startDate.getDate() + 7)
-      
-      query = query
-        .gte('pickup_week_start', startDate.toISOString().split('T')[0])
-        .lt('pickup_week_start', endDate.toISOString().split('T')[0])
-    }
+    // Note: We can't filter by pickup_week_start directly in the query
+    // because it's stored in shipping_address jsonb. We'll filter after normalization.
 
     const { data, error } = await query
 
     if (error) throw error
 
-    // Calculate pickup week start for each order if not already set
+    // Import normalizeOrder helper
+    const { normalizeOrder } = await import('@/lib/supabase')
+
+    // Normalize orders (extract metadata from shipping_address) and calculate pickup week
     const ordersWithPickupWeek = (data || []).map(order => {
-      if (!order.pickup_week_start) {
+      const normalized = normalizeOrder(order)
+      
+      // Calculate pickup week start if not already set
+      if (!normalized.pickup_week_start) {
         const pickupWeek = getPickupWeekStart(new Date(order.created_at))
-        return {
-          ...order,
-          pickup_week_start: pickupWeek.toISOString().split('T')[0]
-        }
+        normalized.pickup_week_start = pickupWeek.toISOString().split('T')[0]
       }
-      return order
+      
+      return normalized
     })
 
-    return NextResponse.json({ orders: ordersWithPickupWeek })
+    // Filter by week if specified (using normalized pickup_week_start)
+    let filteredOrders = ordersWithPickupWeek
+    if (weekStart) {
+      filteredOrders = ordersWithPickupWeek.filter(order => {
+        return order.pickup_week_start === weekStart
+      })
+    }
+
+    return NextResponse.json({ orders: filteredOrders })
   } catch (error) {
     console.error('Error fetching orders:', error)
     return NextResponse.json({ error: 'Failed to fetch orders' }, { status: 500 })
@@ -97,9 +101,24 @@ export async function PUT(request: NextRequest) {
     const body = await request.json()
     const { id, status, payment_status } = body
 
+    // Get current order to preserve shipping_address metadata
+    const { data: currentOrder } = await auth.supabase
+      .from('orders')
+      .select('shipping_address')
+      .eq('id', id)
+      .single()
+
     const updateData: any = {}
     if (status) updateData.status = status
-    if (payment_status) updateData.payment_status = payment_status
+    
+    // Update payment_status in shipping_address jsonb field
+    if (payment_status) {
+      const shippingAddress = currentOrder?.shipping_address || {}
+      updateData.shipping_address = {
+        ...shippingAddress,
+        payment_status
+      }
+    }
 
     const { data, error } = await auth.supabase
       .from('orders')
@@ -110,7 +129,9 @@ export async function PUT(request: NextRequest) {
 
     if (error) throw error
 
-    return NextResponse.json({ order: data })
+    // Normalize the response
+    const { normalizeOrder } = await import('@/lib/supabase')
+    return NextResponse.json({ order: normalizeOrder(data) })
   } catch (error) {
     console.error('Error updating order:', error)
     return NextResponse.json({ error: 'Failed to update order' }, { status: 500 })

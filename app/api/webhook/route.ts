@@ -239,6 +239,7 @@ export async function POST(request: NextRequest) {
       pickupWeekStart.setHours(0, 0, 0, 0)
       
       // Create order in database
+      // Store metadata in shipping_address jsonb field (works with existing schema)
       let orderId: string | null = null
       try {
         const { createOrder: createOrderFunc } = await import('@/lib/supabase')
@@ -254,9 +255,11 @@ export async function POST(request: NextRequest) {
           })),
           total_amount: orderTotal,
           status: 'confirmed',
-          payment_status: 'paid',
-          order_type: 'online',
-          pickup_week_start: pickupWeekStart.toISOString().split('T')[0]
+          shipping_address: {
+            payment_status: 'paid',
+            order_type: 'online',
+            pickup_week_start: pickupWeekStart.toISOString().split('T')[0]
+          }
         })
         orderId = order.id
       } catch (orderError) {

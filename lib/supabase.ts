@@ -107,12 +107,26 @@ export type Order = {
   items: any
   total_amount: number
   status: "pending" | "confirmed" | "shipped" | "delivered"
+  // These fields are stored in shipping_address jsonb in the database
   payment_status?: "paid" | "reserved" | "refunded" | "pending"
   order_type?: "online" | "reservation"
   pickup_code?: string
   pickup_week_start?: string
-  shipping_address?: any
+  shipping_address?: any // Stores reservation metadata: { payment_status, order_type, pickup_code, pickup_week_start }
   created_at: string
+}
+
+// Helper function to normalize order data - extracts metadata from shipping_address
+export function normalizeOrder(order: any): Order {
+  const shippingAddress = order.shipping_address || {}
+  
+  return {
+    ...order,
+    payment_status: shippingAddress.payment_status || (order.payment_status || 'paid'),
+    order_type: shippingAddress.order_type || (order.order_type || 'online'),
+    pickup_code: shippingAddress.pickup_code || order.pickup_code,
+    pickup_week_start: shippingAddress.pickup_week_start || order.pickup_week_start
+  }
 }
 
 export type HarvestedCount = {
@@ -369,6 +383,8 @@ export async function getInventoryByType(type: "nursery" | "farm") {
 }
 
 // Create new order
+// Note: Reservation metadata (payment_status, order_type, pickup_code, pickup_week_start) 
+// is stored in shipping_address jsonb field to work with existing database schema
 export async function createOrder(orderData: {
   customer_name: string
   customer_email: string
@@ -376,12 +392,36 @@ export async function createOrder(orderData: {
   items: any
   total_amount: number
   status?: string
+  shipping_address?: any // Used to store reservation metadata for pickup orders
+  // Legacy fields - if provided, will be stored in shipping_address
   payment_status?: string
   order_type?: string
   pickup_code?: string
   pickup_week_start?: string
 }) {
-  const { data, error } = await supabase.from("orders").insert([orderData]).select()
+  // If legacy fields are provided at top level, move them to shipping_address
+  const finalOrderData: any = {
+    customer_name: orderData.customer_name,
+    customer_email: orderData.customer_email,
+    customer_phone: orderData.customer_phone,
+    items: orderData.items,
+    total_amount: orderData.total_amount,
+    status: orderData.status || 'pending',
+    shipping_address: orderData.shipping_address || null
+  }
+
+  // If legacy fields exist, merge them into shipping_address
+  if (orderData.payment_status || orderData.order_type || orderData.pickup_code || orderData.pickup_week_start) {
+    finalOrderData.shipping_address = {
+      ...(finalOrderData.shipping_address || {}),
+      payment_status: orderData.payment_status,
+      order_type: orderData.order_type,
+      pickup_code: orderData.pickup_code,
+      pickup_week_start: orderData.pickup_week_start
+    }
+  }
+
+  const { data, error } = await supabase.from("orders").insert([finalOrderData]).select()
 
   if (error) {
     console.error("Error creating order:", error)
