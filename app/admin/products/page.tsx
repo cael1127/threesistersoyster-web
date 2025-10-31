@@ -75,7 +75,11 @@ export default function AdminProductsPage() {
       const result = await response.json()
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to save product')
+        const errorMsg = result.details 
+          ? `${result.error}: ${result.details}`
+          : result.error || 'Failed to save product'
+        console.error('API error response:', result)
+        throw new Error(errorMsg)
       }
 
       if (result.success) {
@@ -100,7 +104,10 @@ export default function AdminProductsPage() {
       }
     } catch (error) {
       console.error('Error saving product:', error)
-      alert(error instanceof Error ? error.message : 'Failed to save product. Please try again.')
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'Failed to save product. Please check the console for details.'
+      alert(errorMessage)
     }
   }
 

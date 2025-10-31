@@ -66,14 +66,20 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Validate price
+    const priceValue = parseFloat(price)
+    if (isNaN(priceValue) || priceValue < 0) {
+      return NextResponse.json({ error: 'Invalid price value' }, { status: 400 })
+    }
+
     const { data, error } = await auth.supabase
       .from('products')
       .insert([{
-        name,
-        description: formattedDescription,
-        price: parseFloat(price),
+        name: name || '',
+        description: formattedDescription || null,
+        price: priceValue,
         category: normalizedCategory,
-        image_url: image_url || null,
+        image_url: image_url ? image_url.trim() : null,
         inventory_count: parseInt(inventory_count) || 0
       }])
       .select()
@@ -81,7 +87,10 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error('Database error creating product:', error)
-      throw error
+      return NextResponse.json({ 
+        error: 'Failed to create product',
+        details: error.message || 'Database error'
+      }, { status: 500 })
     }
 
     return NextResponse.json({ success: true, product: data })
@@ -117,44 +126,60 @@ export async function PUT(request: NextRequest) {
     }
 
     // Format description - preserve existing JSON structure or create new one
-    let formattedDescription = description
-    if (description) {
+    let formattedDescription: string | null = null
+    if (description && description.trim()) {
       try {
         // Check if description is already JSON
         const parsed = JSON.parse(description)
         // Update inventory in JSON if it exists
-        if (parsed && typeof parsed === 'object') {
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
           parsed.inventory = inventory_count || parsed.inventory || 0
           formattedDescription = JSON.stringify(parsed)
         } else {
-          formattedDescription = description
+          // Invalid JSON structure, create new one
+          formattedDescription = JSON.stringify({
+            originalDescription: description.trim(),
+            inventory: inventory_count || 0
+          })
         }
       } catch {
         // If it's plain text, format it as JSON
         formattedDescription = JSON.stringify({
-          originalDescription: description,
+          originalDescription: description.trim(),
           inventory: inventory_count || 0
         })
       }
+    } else if (description === null || description === '') {
+      formattedDescription = null
     }
 
-    // Build update object
+    // Build update object - ensure all values are valid
+    const priceValue = parseFloat(price)
+    const inventoryValue = parseInt(inventory_count) || 0
+
+    if (isNaN(priceValue) || priceValue < 0) {
+      return NextResponse.json({ error: 'Invalid price value' }, { status: 400 })
+    }
+
     const updateData: any = {
-      name,
-      description: formattedDescription,
-      price: parseFloat(price),
+      name: (name || '').trim(),
+      price: priceValue,
       category: normalizedCategory,
-      inventory_count: parseInt(inventory_count) || 0
+      inventory_count: inventoryValue
     }
 
+    // Only update description if we have a valid value
+    if (formattedDescription !== null) {
+      updateData.description = formattedDescription
+    }
+
+    // Only update image_url if it's explicitly provided
     if (image_url !== undefined) {
-      updateData.image_url = image_url || null
+      updateData.image_url = image_url && image_url.trim() ? image_url.trim() : null
     }
 
-    // Note: updated_at column may not exist, so we'll try to update it but won't fail if it doesn't
-    try {
-      updateData.updated_at = new Date().toISOString()
-    } catch {}
+    // Don't try to update updated_at - it may not exist and will auto-update if it does
+    // If you need updated_at, add it to the database schema first
 
     console.log('Updating product:', { id, updateData })
     
@@ -168,7 +193,12 @@ export async function PUT(request: NextRequest) {
     if (error) {
       console.error('Database error updating product:', error)
       console.error('Error details:', JSON.stringify(error, null, 2))
-      throw error
+      console.error('Update data attempted:', updateData)
+      return NextResponse.json({ 
+        error: 'Database error',
+        details: error.message || 'Unknown database error',
+        hint: 'Check console logs for details'
+      }, { status: 500 })
     }
 
     if (!data) {
@@ -180,9 +210,13 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ success: true, product: data })
   } catch (error) {
     console.error('Error updating product:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorStack = error instanceof Error ? error.stack : undefined
+    console.error('Full error:', errorStack || errorMessage)
+    
     return NextResponse.json({ 
       error: 'Failed to update product',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: errorMessage
     }, { status: 500 })
   }
 }
