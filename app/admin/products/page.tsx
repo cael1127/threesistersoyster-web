@@ -52,34 +52,54 @@ export default function AdminProductsPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
+    // Validate category
+    const normalizedCategory = formData.category.toLowerCase().trim()
+    if (!['merch', 'oysters'].includes(normalizedCategory)) {
+      alert('Category must be either "merch" or "oysters"')
+      return
+    }
+
     try {
-      if (editingProduct) {
-        await fetch('/api/admin/products', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...formData, id: editingProduct.id })
-        })
-      } else {
-        await fetch('/api/admin/products', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        })
+      const response = editingProduct
+        ? await fetch('/api/admin/products', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...formData, category: normalizedCategory, id: editingProduct.id })
+          })
+        : await fetch('/api/admin/products', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...formData, category: normalizedCategory })
+          })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to save product')
       }
-      
-      setShowAddForm(false)
-      setEditingProduct(null)
-      setFormData({
-        name: '',
-        description: '',
-        price: 0,
-        category: '',
-        image_url: '',
-        inventory_count: 0
-      })
-      fetchProducts()
+
+      if (result.success) {
+        // Show success message
+        alert(editingProduct ? 'Product updated successfully!' : 'Product created successfully!')
+        
+        setShowAddForm(false)
+        setEditingProduct(null)
+        setFormData({
+          name: '',
+          description: '',
+          price: 0,
+          category: '',
+          image_url: '',
+          inventory_count: 0
+        })
+        // Refresh products list
+        await fetchProducts()
+      } else {
+        throw new Error(result.error || 'Failed to save product')
+      }
     } catch (error) {
       console.error('Error saving product:', error)
+      alert(error instanceof Error ? error.message : 'Failed to save product. Please try again.')
     }
   }
 
@@ -208,13 +228,21 @@ export default function AdminProductsPage() {
                     </div>
                   </div>
                   <div>
-                    <Label htmlFor="category">Category</Label>
-                    <Input
+                    <Label htmlFor="category">Category *</Label>
+                    <select
                       id="category"
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                       required
-                    />
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      <option value="">Select category</option>
+                      <option value="oysters">Oysters</option>
+                      <option value="merch">Merchandise</option>
+                    </select>
+                    <p className="text-xs text-purple-600 mt-1">
+                      Products tagged "oysters" appear in the Fresh Oysters tab. Products tagged "merch" appear in Merchandise.
+                    </p>
                   </div>
                   <div>
                     <Label htmlFor="image_url">Image URL</Label>

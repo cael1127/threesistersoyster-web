@@ -92,14 +92,14 @@ export default async function ProductsPage() {
     }
   }
 
-  // Separate products by category - include merchandise tagged with "oysters" in oyster products
-  const oysterCategories = ["farm", "nursery", "fresh oysters", "seed oysters", "market oysters", "oysters"]
+  // Separate products by category tag
+  // Products with category "oysters" go to oysters tab, everything else (including "merch") goes to merchandise tab
   const oysterProducts = products.filter((product) =>
-    oysterCategories.some((category) => product.category.toLowerCase().includes(category.toLowerCase())),
+    product.category.toLowerCase() === 'oysters'
   )
 
   const merchProducts = products.filter(
-    (product) => !oysterCategories.some((category) => product.category.toLowerCase().includes(category.toLowerCase())),
+    (product) => product.category.toLowerCase() !== 'oysters'
   )
 
   function ProductCard({ product }: { product: Product }) {
@@ -150,7 +150,7 @@ export default async function ProductsPage() {
             )}
 
             {/* Pickup Notice for Oysters */}
-            {oysterCategories.some((cat) => product.category.toLowerCase().includes(cat.toLowerCase())) && (
+            {product.category.toLowerCase() === 'oysters' && (
               <div className="mb-4 bg-amber-50 border-l-4 border-amber-400 p-3 rounded">
                 <p className="text-sm text-amber-800 font-semibold">
                   🦪 PICKUP ONLY
@@ -173,7 +173,7 @@ export default async function ProductsPage() {
                   maxInventory: inventory > 0 ? inventory : undefined
                 }}
               />
-              {oysterCategories.some((cat) => product.category.toLowerCase().includes(cat.toLowerCase())) && (
+              {product.category.toLowerCase() === 'oysters' && (
                 <ReserveButton 
                   product={{
                     id: product.id,

@@ -100,9 +100,9 @@ export function ReserveButton({ product, className }: ReserveButtonProps) {
         <DialogContent className="border-purpleBrand/30">
           <DialogHeader>
             <DialogTitle className="text-purple-900">Reserve {product.name}</DialogTitle>
-            <DialogDescription>
-              Reserve this item to pay in person when you pick up. Your order will be ready for pickup on Friday.
-            </DialogDescription>
+          <DialogDescription>
+            Reserve this item to pay in person when you pick up. Your order will be ready for pickup on Friday. Orders placed by Thursday 11:59 PM are ready for Friday pickup.
+          </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4 py-4">

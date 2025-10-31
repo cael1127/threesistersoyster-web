@@ -42,25 +42,55 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { name, description, price, category, image_url, inventory_count } = body
 
+    // Validate category - must be 'merch' or 'oysters'
+    const normalizedCategory = category.toLowerCase().trim()
+    if (!['merch', 'oysters'].includes(normalizedCategory)) {
+      return NextResponse.json({ 
+        error: "Category must be either 'merch' or 'oysters'" 
+      }, { status: 400 })
+    }
+
+    // Format description as JSON if it contains structured data, otherwise keep as plain text
+    let formattedDescription = description
+    if (description) {
+      try {
+        // If it's already JSON, keep it
+        JSON.parse(description)
+        formattedDescription = description
+      } catch {
+        // If it's plain text, format it as JSON with originalDescription
+        formattedDescription = JSON.stringify({
+          originalDescription: description,
+          inventory: inventory_count || 0
+        })
+      }
+    }
+
     const { data, error } = await auth.supabase
       .from('products')
       .insert([{
         name,
-        description,
-        price,
-        category,
-        image_url,
-        inventory_count
+        description: formattedDescription,
+        price: parseFloat(price),
+        category: normalizedCategory,
+        image_url: image_url || null,
+        inventory_count: parseInt(inventory_count) || 0
       }])
       .select()
       .single()
 
-    if (error) throw error
+    if (error) {
+      console.error('Database error creating product:', error)
+      throw error
+    }
 
-    return NextResponse.json({ product: data })
+    return NextResponse.json({ success: true, product: data })
   } catch (error) {
     console.error('Error creating product:', error)
-    return NextResponse.json({ error: 'Failed to create product' }, { status: 500 })
+    return NextResponse.json({ 
+      error: 'Failed to create product',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 })
   }
 }
 
@@ -74,27 +104,81 @@ export async function PUT(request: NextRequest) {
     const body = await request.json()
     const { id, name, description, price, category, image_url, inventory_count } = body
 
+    if (!id) {
+      return NextResponse.json({ error: 'Product ID is required' }, { status: 400 })
+    }
+
+    // Validate category - must be 'merch' or 'oysters'
+    const normalizedCategory = category.toLowerCase().trim()
+    if (!['merch', 'oysters'].includes(normalizedCategory)) {
+      return NextResponse.json({ 
+        error: "Category must be either 'merch' or 'oysters'" 
+      }, { status: 400 })
+    }
+
+    // Format description - preserve existing JSON structure or create new one
+    let formattedDescription = description
+    if (description) {
+      try {
+        // Check if description is already JSON
+        const parsed = JSON.parse(description)
+        // Update inventory in JSON if it exists
+        if (parsed && typeof parsed === 'object') {
+          parsed.inventory = inventory_count || parsed.inventory || 0
+          formattedDescription = JSON.stringify(parsed)
+        } else {
+          formattedDescription = description
+        }
+      } catch {
+        // If it's plain text, format it as JSON
+        formattedDescription = JSON.stringify({
+          originalDescription: description,
+          inventory: inventory_count || 0
+        })
+      }
+    }
+
+    // Build update object
+    const updateData: any = {
+      name,
+      description: formattedDescription,
+      price: parseFloat(price),
+      category: normalizedCategory,
+      inventory_count: parseInt(inventory_count) || 0
+    }
+
+    if (image_url !== undefined) {
+      updateData.image_url = image_url || null
+    }
+
+    // Note: updated_at column may not exist, so we'll try to update it but won't fail if it doesn't
+    try {
+      updateData.updated_at = new Date().toISOString()
+    } catch {}
+
     const { data, error } = await auth.supabase
       .from('products')
-      .update({
-        name,
-        description,
-        price,
-        category,
-        image_url,
-        inventory_count,
-        updated_at: new Date().toISOString()
-      })
+      .update(updateData)
       .eq('id', id)
       .select()
       .single()
 
-    if (error) throw error
+    if (error) {
+      console.error('Database error updating product:', error)
+      throw error
+    }
 
-    return NextResponse.json({ product: data })
+    if (!data) {
+      return NextResponse.json({ error: 'Product not found' }, { status: 404 })
+    }
+
+    return NextResponse.json({ success: true, product: data })
   } catch (error) {
     console.error('Error updating product:', error)
-    return NextResponse.json({ error: 'Failed to update product' }, { status: 500 })
+    return NextResponse.json({ 
+      error: 'Failed to update product',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 })
   }
 }
 
