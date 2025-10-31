@@ -21,31 +21,68 @@ export async function POST(request: NextRequest) {
     
     // Basic validation
     if (!items || !Array.isArray(items) || items.length === 0) {
+      console.error('No items in order')
       return NextResponse.json({ error: 'No items in order' }, { status: 400 })
     }
 
-    if (!total_amount || total_amount <= 0) {
+    if (!total_amount || isNaN(total_amount) || total_amount <= 0) {
+      console.error('Invalid total amount:', total_amount)
       return NextResponse.json({ error: 'Invalid total amount' }, { status: 400 })
     }
 
-    // Create Stripe line items
-    const lineItems = items.map(item => ({
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: item.name || "Premium Texas Oysters",
-          description: `Fresh, sustainably harvested oysters from the pristine waters of Texas. Premium quality guaranteed by Three Sisters Oyster Co.`,
-          images: item.image_url ? [item.image_url] : [],
-          metadata: {
-            category: item.category || "oysters",
-            origin: "Texas Gulf Coast",
-            sustainability: "Sustainable Harvesting",
+    // Validate and clean items
+    const validItems = items.filter(item => {
+      if (!item.id || !item.name) {
+        console.error('Invalid item missing id or name:', item)
+        return false
+      }
+      const price = parseFloat(item.price)
+      const quantity = parseInt(item.quantity) || 1
+      if (isNaN(price) || price <= 0) {
+        console.error('Invalid price for item:', item.name, item.price)
+        return false
+      }
+      if (quantity <= 0) {
+        console.error('Invalid quantity for item:', item.name, item.quantity)
+        return false
+      }
+      return true
+    })
+
+    if (validItems.length === 0) {
+      console.error('No valid items after filtering')
+      return NextResponse.json({ error: 'No valid items in order. Please check that all items have valid prices and quantities.' }, { status: 400 })
+    }
+
+    // Create Stripe line items with validated data
+    const lineItems = validItems.map(item => {
+      const price = parseFloat(item.price)
+      const quantity = parseInt(item.quantity) || 1
+      const unitAmount = Math.round(price * 100) // Stripe expects cents
+      
+      if (unitAmount <= 0) {
+        throw new Error(`Invalid price for ${item.name}: ${price}`)
+      }
+
+      return {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: item.name || "Premium Texas Oysters",
+            description: `Fresh, sustainably harvested oysters from the pristine waters of Texas. Premium quality guaranteed by Three Sisters Oyster Co.`,
+            images: item.image_url && item.image_url.trim() ? [item.image_url.trim()] : [],
+            metadata: {
+              product_id: item.id,
+              category: item.category || "oysters",
+              origin: "Texas Gulf Coast",
+              sustainability: "Sustainable Harvesting",
+            },
           },
+          unit_amount: unitAmount,
         },
-        unit_amount: Math.round((item.price || 0) * 100), // Stripe expects cents
-      },
-      quantity: item.quantity || 1,
-    }))
+        quantity: quantity,
+      }
+    })
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
@@ -99,18 +136,18 @@ export async function POST(request: NextRequest) {
       ],
       // Custom fields for better order tracking
       metadata: {
-        orderTotal: total_amount.toString(),
-        itemCount: items.length.toString(),
+        orderTotal: parseFloat(total_amount).toFixed(2),
+        itemCount: validItems.length.toString(),
         businessName: "Three Sisters Oyster Co.",
         productType: "Fresh Texas Oysters",
         orderSource: "Website",
         customerName: body.customer_name || '',
         customerEmail: body.customer_email || '',
-        items: JSON.stringify(items.map(item => ({
+        items: JSON.stringify(validItems.map(item => ({
           id: item.id,
           name: item.name,
-          quantity: item.quantity,
-          price: item.price
+          quantity: parseInt(item.quantity) || 1,
+          price: parseFloat(item.price)
         }))),
         session_id: body.session_id || 'unknown'
       },
@@ -126,9 +163,14 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error("Error creating checkout session:", error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorStack = error instanceof Error ? error.stack : undefined
+    console.error("Full error:", errorStack || errorMessage)
+    
     return NextResponse.json({ 
       error: 'Failed to create checkout session',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: errorMessage,
+      hint: 'Check that all cart items have valid prices and quantities'
     }, { status: 500 })
   }
 }

@@ -57,6 +57,14 @@ export default function CartPage() {
 
       const data = await response.json()
 
+      if (!response.ok) {
+        const errorMsg = data.details 
+          ? `${data.error}: ${data.details}`
+          : data.error || 'Failed to create checkout session'
+        console.error('Checkout API error:', data)
+        throw new Error(errorMsg)
+      }
+
       if (data.error) {
         throw new Error(data.error)
       }
@@ -65,7 +73,7 @@ export default function CartPage() {
         // Redirect to Stripe checkout
         window.location.href = data.url
       } else {
-        throw new Error("No checkout URL received")
+        throw new Error("No checkout URL received from server")
       }
     } catch (error) {
       setCheckoutError(error instanceof Error ? error.message : "Failed to start checkout")

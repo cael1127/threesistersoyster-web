@@ -41,6 +41,14 @@ function CheckoutContent() {
 
         const data = await response.json()
 
+        if (!response.ok) {
+          const errorMsg = data.details 
+            ? `${data.error}: ${data.details}`
+            : data.error || 'Failed to create checkout session'
+          console.error('Checkout API error:', data)
+          throw new Error(errorMsg)
+        }
+
         if (data.error) {
           throw new Error(data.error)
         }
@@ -48,7 +56,7 @@ function CheckoutContent() {
         if (data.url) {
           setCheckoutUrl(data.url)
         } else {
-          throw new Error("No checkout URL received")
+          throw new Error("No checkout URL received from server")
         }
       } catch (error) {
         setError(error instanceof Error ? error.message : "Failed to create checkout")
