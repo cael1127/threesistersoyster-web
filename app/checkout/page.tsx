@@ -116,6 +116,16 @@ function CheckoutContent() {
             <p className="text-purple-700 text-lg">You're just moments away from fresh Texas oysters!</p>
           </div>
 
+          {/* Pickup Notice */}
+          <div className="mb-6 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-lg">
+            <p className="text-amber-800 font-semibold text-lg mb-2">
+              🦪 PICKUP ONLY
+            </p>
+            <p className="text-amber-700">
+              All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed by Thursday 11:59 PM are ready for Friday pickup. Orders after Thursday are for the following week.
+            </p>
+          </div>
+
           <div className="grid md:grid-cols-2 gap-8">
             {/* Order Summary */}
             <Card className="border-purpleBrand/30 bg-gradient-to-br from-purpleBrand/10 to-lavenderBrand/10 backdrop-blur-sm">

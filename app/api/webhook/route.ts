@@ -54,11 +54,12 @@ export async function POST(request: NextRequest) {
       
 
       
-      // Extract order details from metadata
+      // Extract order details from metadata or session
       const orderTotal = parseFloat(session.metadata?.orderTotal || "0")
       const itemCount = parseInt(session.metadata?.itemCount || "0")
-      const customerName = session.metadata?.customerName || "Unknown"
-      const customerEmail = session.metadata?.customerEmail || "Unknown"
+      const customerName = session.metadata?.customerName || session.customer_details?.name || "Unknown"
+      const customerEmail = session.metadata?.customerEmail || session.customer_details?.email || "Unknown"
+      const customerPhone = session.customer_details?.phone || undefined
       
 
       
@@ -67,15 +68,22 @@ export async function POST(request: NextRequest) {
       let itemsToUpdate: Array<{id: string, name: string, quantity: number}> = []
 
       // Method 1: Try to get items from metadata (most reliable)
+      let itemPrices: Record<string, number> = {}
       if (session.metadata?.items) {
         try {
           const metadataItems = JSON.parse(session.metadata.items)
           
-          itemsToUpdate = metadataItems.map((item: any) => ({
-            id: item.id,
-            name: item.name,
-            quantity: parseInt(item.quantity) || 0
-          }))
+          itemsToUpdate = metadataItems.map((item: any) => {
+            if (item.price) {
+              itemPrices[item.id] = item.price
+            }
+            return {
+              id: item.id,
+              name: item.name,
+              quantity: parseInt(item.quantity) || 0,
+              price: item.price || 0
+            }
+          })
           
 
         } catch (error) {
@@ -212,7 +220,75 @@ export async function POST(request: NextRequest) {
         }
       }
       
-      // You could also save the order to a separate orders table here
+      // Calculate pickup week start (Thursday 11:59 PM cutoff)
+      const orderDate = new Date()
+      const day = orderDate.getDay()
+      const hours = orderDate.getHours()
+      const minutes = orderDate.getMinutes()
+      const isBeforeCutoff = day === 4 && (hours < 23 || (hours === 23 && minutes < 59))
+      
+      let pickupWeekStart: Date
+      if (isBeforeCutoff) {
+        pickupWeekStart = new Date(orderDate)
+        pickupWeekStart.setDate(orderDate.getDate() + (5 - day))
+      } else {
+        const daysUntilNextFriday = (5 - day + 7) % 7 || 7
+        pickupWeekStart = new Date(orderDate)
+        pickupWeekStart.setDate(orderDate.getDate() + daysUntilNextFriday)
+      }
+      pickupWeekStart.setHours(0, 0, 0, 0)
+      
+      // Create order in database
+      let orderId: string | null = null
+      try {
+        const { createOrder: createOrderFunc } = await import('@/lib/supabase')
+        const order = await createOrderFunc({
+          customer_name: customerName,
+          customer_email: customerEmail,
+          customer_phone: customerPhone,
+          items: itemsToUpdate.map(item => ({
+            id: item.id,
+            name: item.name,
+            quantity: item.quantity,
+            price: (item as any).price || 0
+          })),
+          total_amount: orderTotal,
+          status: 'confirmed',
+          payment_status: 'paid',
+          order_type: 'online',
+          pickup_week_start: pickupWeekStart.toISOString().split('T')[0]
+        })
+        orderId = order.id
+      } catch (orderError) {
+        console.error('Error creating order:', orderError)
+      }
+      
+      // Send receipt email
+      try {
+        await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/send-receipt`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            customerName,
+            customerEmail,
+            customerPhone,
+            orderId: orderId || session.id,
+            items: itemsToUpdate.map(item => {
+              const itemPrice = (item as any).price || itemPrices[item.id] || (orderTotal / itemsToUpdate.reduce((sum, i) => sum + i.quantity, 0))
+              return {
+                name: item.name,
+                quantity: item.quantity,
+                price: itemPrice
+              }
+            }),
+            totalAmount: orderTotal,
+            pickupWeekStart: pickupWeekStart.toISOString().split('T')[0],
+            paymentStatus: 'paid'
+          })
+        })
+      } catch (emailError) {
+        console.error('Error sending receipt email:', emailError)
+      }
 
     } else {
 

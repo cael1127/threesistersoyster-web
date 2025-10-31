@@ -58,6 +58,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Waves, Fish, ShoppingBag } from "lucide-react"
 import { AddToCartButton } from "@/components/add-to-cart-button"
+import { ReserveButton } from "@/components/reserve-button"
 import { Button } from "@/components/ui/button"
 import { SeasonalFloatingParticles } from "@/components/ui/floating-particles"
 import Navigation from "@/components/Navigation"
@@ -148,17 +149,41 @@ export default async function ProductsPage() {
               <p className="text-purple-600 text-sm mb-4">Contact for availability</p>
             )}
 
-            {/* Add to Cart Button */}
-            <AddToCartButton 
-              product={{
-                id: product.id,
-                name: product.name,
-                price: product.price,
-                image_url: product.image_url,
-                category: product.category,
-                maxInventory: inventory > 0 ? inventory : undefined
-              }}
-            />
+            {/* Pickup Notice for Oysters */}
+            {oysterCategories.some((cat) => product.category.toLowerCase().includes(cat.toLowerCase())) && (
+              <div className="mb-4 bg-amber-50 border-l-4 border-amber-400 p-3 rounded">
+                <p className="text-sm text-amber-800 font-semibold">
+                  🦪 PICKUP ONLY
+                </p>
+                <p className="text-xs text-amber-700 mt-1">
+                  All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed by Thursday 11:59 PM are ready for Friday pickup.
+                </p>
+              </div>
+            )}
+
+            {/* Purchase Options */}
+            <div className="space-y-2">
+              <AddToCartButton 
+                product={{
+                  id: product.id,
+                  name: product.name,
+                  price: product.price,
+                  image_url: product.image_url,
+                  category: product.category,
+                  maxInventory: inventory > 0 ? inventory : undefined
+                }}
+              />
+              {oysterCategories.some((cat) => product.category.toLowerCase().includes(cat.toLowerCase())) && (
+                <ReserveButton 
+                  product={{
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    maxInventory: inventory > 0 ? inventory : undefined
+                  }}
+                />
+              )}
+            </div>
 
 
           </div>

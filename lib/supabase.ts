@@ -93,9 +93,15 @@ export type Order = {
   id: string
   customer_name: string
   customer_email: string
+  customer_phone?: string
   items: any
   total_amount: number
   status: "pending" | "confirmed" | "shipped" | "delivered"
+  payment_status?: "paid" | "reserved" | "refunded" | "pending"
+  order_type?: "online" | "reservation"
+  pickup_code?: string
+  pickup_week_start?: string
+  shipping_address?: any
   created_at: string
 }
 
@@ -356,8 +362,14 @@ export async function getInventoryByType(type: "nursery" | "farm") {
 export async function createOrder(orderData: {
   customer_name: string
   customer_email: string
+  customer_phone?: string
   items: any
   total_amount: number
+  status?: string
+  payment_status?: string
+  order_type?: string
+  pickup_code?: string
+  pickup_week_start?: string
 }) {
   const { data, error } = await supabase.from("orders").insert([orderData]).select()
 

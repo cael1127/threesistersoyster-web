@@ -104,10 +104,13 @@ export async function POST(request: NextRequest) {
         businessName: "Three Sisters Oyster Co.",
         productType: "Fresh Texas Oysters",
         orderSource: "Website",
+        customerName: body.customer_name || '',
+        customerEmail: body.customer_email || '',
         items: JSON.stringify(items.map(item => ({
           id: item.id,
           name: item.name,
-          quantity: item.quantity
+          quantity: item.quantity,
+          price: item.price
         }))),
         session_id: body.session_id || 'unknown'
       },

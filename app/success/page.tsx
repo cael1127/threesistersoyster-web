@@ -110,9 +110,29 @@ export default function SuccessPage() {
               <div className="w-16 h-16 bg-mintBrand/30 rounded-full flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="w-8 h-8 text-white" />
               </div>
-              <h1 className="text-3xl font-bold text-purple-900 mb-4 text-center">Order Confirmed!</h1>
+              <h1 className="text-3xl font-bold text-purple-900 mb-4 text-center">
+                {searchParams.get('reservation') ? 'Reservation Confirmed!' : 'Order Confirmed!'}
+              </h1>
+              
+              {searchParams.get('code') && (
+                <div className="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg">
+                  <p className="text-blue-800 font-semibold mb-2">Your Pickup Code:</p>
+                  <p className="text-blue-900 text-2xl font-bold tracking-wider">{searchParams.get('code')}</p>
+                  <p className="text-blue-700 text-sm mt-2">Please bring this code when picking up your order.</p>
+                </div>
+              )}
+
+              <div className="mb-6 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-lg">
+                <p className="text-amber-800 font-semibold mb-2">
+                  🦪 PICKUP ONLY
+                </p>
+                <p className="text-amber-700 text-sm">
+                  All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed by Thursday 11:59 PM are ready for Friday pickup. Orders after Thursday are for the following week.
+                </p>
+              </div>
+
               <p className="text-purple-800 mb-6">
-                Thank you for your order! We've received your request and will be in touch soon.
+                Thank you for your order! We've received your request and will be in touch soon. A receipt has been sent to your email.
               </p>
 
               {/* Order Processing Status */}
