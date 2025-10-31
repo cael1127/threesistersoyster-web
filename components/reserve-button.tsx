@@ -74,7 +74,9 @@ export function ReserveButton({ product, className }: ReserveButtonProps) {
       }
 
       if (data.success) {
-        router.push(`/success?reservation=true&code=${data.order.pickup_code}`)
+        const order = data.order
+        const total = (product.price * quantity).toFixed(2)
+        router.push(`/success?reservation=true&code=${order.pickup_code || ''}&orderId=${order.id}&total=${total}`)
       } else {
         const errorMsg = data.details 
           ? `${data.error}\n\nDetails: ${data.details}`

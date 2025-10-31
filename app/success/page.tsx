@@ -21,6 +21,12 @@ export default function SuccessPage() {
   const { state: cartState, clearCart } = useCart() || { state: { items: [] }, clearCart: () => {} }
 
   useEffect(() => {
+    // Check if this is a reservation (has order data in URL params)
+    if (searchParams.get('reservation') === 'true') {
+      setLoading(false)
+      return
+    }
+
     if (sessionId) {
       // Fetch session details
       fetch(`/api/checkout-session?session_id=${sessionId}`)
@@ -41,7 +47,7 @@ export default function SuccessPage() {
     } else {
       setLoading(false)
     }
-  }, [sessionId, cartState.items, orderProcessed])
+  }, [sessionId, cartState.items, orderProcessed, searchParams])
 
   const processOrderCompletion = async () => {
     if (orderProcessed || !cartState.items || cartState.items.length === 0) return
@@ -132,8 +138,15 @@ export default function SuccessPage() {
               </div>
 
               <p className="text-purple-800 mb-6">
-                Thank you for your order! We've received your request and will be in touch soon. A receipt has been sent to your email.
+                Thank you for your order! Please screenshot this page as your receipt.
               </p>
+              
+              <div className="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg">
+                <p className="text-blue-800 font-semibold mb-2">📸 Screenshot This Receipt</p>
+                <p className="text-blue-700 text-sm">
+                  Take a screenshot of this page to save your order confirmation. You'll need this for pickup.
+                </p>
+              </div>
 
               {/* Order Processing Status */}
               {processingOrder && (
@@ -145,33 +158,72 @@ export default function SuccessPage() {
                 </div>
               )}
 
-              {/* Order Details */}
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 mb-6">
-                <h3 className="font-semibold text-purple-900 mb-4 flex items-center justify-center text-center">
-                  <CheckCircle className="w-5 h-5 text-mintBrand mr-2" />
-                  Order Details
-                </h3>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-purple-800">Order ID:</span>
-                    <span className="text-purple-900 font-medium">{session?.id || 'N/A'}</span>
+              {/* Receipt Details - Screenshot Friendly */}
+              <div className="bg-white rounded-lg shadow-lg p-6 mb-6 border-2 border-purple-200" id="receipt">
+                <div className="text-center mb-6 pb-4 border-b-2 border-purple-200">
+                  <h2 className="text-2xl font-bold text-purple-900 mb-2">🦪 Three Sisters Oyster Co.</h2>
+                  <p className="text-purple-700">Order Receipt</p>
+                </div>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex justify-between text-base">
+                    <span className="text-gray-700 font-medium">Order ID:</span>
+                    <span className="text-purple-900 font-bold">#{session?.id?.slice(-8) || searchParams.get('orderId')?.slice(-8) || 'N/A'}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-purple-800">Amount:</span>
-                    <span className="text-purple-900 font-medium">
-                      ${session?.amount_total ? (session.amount_total / 100).toFixed(2) : 'N/A'}
+                  <div className="flex justify-between text-base">
+                    <span className="text-gray-700 font-medium">Date:</span>
+                    <span className="text-purple-900 font-semibold">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                  </div>
+                  <div className="flex justify-between text-base">
+                    <span className="text-gray-700 font-medium">Total Amount:</span>
+                    <span className="text-purple-900 font-bold text-lg">
+                      ${session?.amount_total ? (session.amount_total / 100).toFixed(2) : searchParams.get('total') || 'N/A'}
                     </span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-purple-800">Status:</span>
-                    <span className="text-purple-900 font-medium">Confirmed</span>
+                  <div className="flex justify-between text-base">
+                    <span className="text-gray-700 font-medium">Payment Status:</span>
+                    <span className={`font-semibold ${searchParams.get('reservation') ? 'text-blue-600' : 'text-green-600'}`}>
+                      {searchParams.get('reservation') ? '📋 Reserved (Pay in Person)' : '✅ Paid'}
+                    </span>
                   </div>
-                  {orderProcessed && (
-                    <div className="flex justify-between">
-                      <span className="text-purple-800">Inventory:</span>
-                      <span className="text-green-600 font-medium">✓ Updated</span>
+                </div>
+
+                {/* Order Items */}
+                {(cartState.items && cartState.items.length > 0) && (
+                  <div className="mb-6 pt-4 border-t-2 border-purple-200">
+                    <h3 className="font-semibold text-purple-900 mb-3 text-lg">Order Items:</h3>
+                    <div className="space-y-2">
+                      {cartState.items.map((item: any, index: number) => (
+                        <div key={index} className="flex justify-between text-sm bg-gray-50 p-2 rounded">
+                          <span className="text-gray-700">
+                            {item.name} × {item.quantity}
+                          </span>
+                          <span className="text-purple-900 font-medium">
+                            ${((item.price || 0) * (item.quantity || 1)).toFixed(2)}
+                          </span>
+                        </div>
+                      ))}
+                      <div className="flex justify-between text-base font-bold pt-2 border-t border-gray-300 mt-2">
+                        <span className="text-purple-900">Total:</span>
+                        <span className="text-purple-900">
+                          ${session?.amount_total ? (session.amount_total / 100).toFixed(2) : searchParams.get('total') || cartState.items.reduce((sum: number, item: any) => sum + ((item.price || 0) * (item.quantity || 1)), 0).toFixed(2)}
+                        </span>
+                      </div>
                     </div>
-                  )}
+                  </div>
+                )}
+
+                {/* Pickup Information */}
+                <div className="pt-4 border-t-2 border-purple-200">
+                  <h3 className="font-semibold text-purple-900 mb-3 text-lg">Pickup Information:</h3>
+                  <div className="space-y-2 text-sm bg-amber-50 p-3 rounded">
+                    <p className="text-amber-800 font-semibold">📍 Location: Three Sisters Oyster Co.</p>
+                    <p className="text-amber-700">
+                      {searchParams.get('reservation') 
+                        ? 'Your order will be ready for pickup on Friday. Orders placed by Thursday 11:59 PM are ready for Friday pickup.'
+                        : 'Your order will be ready for pickup on Friday. Orders placed by Thursday 11:59 PM are ready for Friday pickup.'}
+                    </p>
+                  </div>
                 </div>
               </div>
 
