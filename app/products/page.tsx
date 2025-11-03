@@ -156,7 +156,7 @@ export default async function ProductsPage() {
                   🦪 PICKUP ONLY
                 </p>
                 <p className="text-xs text-amber-700 mt-1">
-                  All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed by Thursday 11:59 PM are ready for Friday pickup.
+                  All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday. Payment in person is cash only at this time.
                 </p>
               </div>
             )}

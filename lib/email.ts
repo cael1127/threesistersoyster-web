@@ -57,8 +57,8 @@ export async function sendOrderReceipt(data: OrderReceiptData) {
     const pickupDate = new Date(data.pickupWeekStart)
     const isThisWeek = pickupDate <= new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
     const pickupMessage = isThisWeek 
-      ? `Your order will be ready for pickup on Friday, ${pickupDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}.`
-      : `Your order will be ready for pickup on Friday, ${pickupDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} (next week).`
+      ? `Your order will be ready for pickup Friday through Sunday, starting ${pickupDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}.`
+      : `Your order will be ready for pickup Friday through Sunday, starting ${pickupDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} (next week).`
 
     const itemsHtml = data.items.map(item => `
       <tr>
@@ -106,7 +106,7 @@ export async function sendOrderReceipt(data: OrderReceiptData) {
 
             <h3 style="color: #667eea; margin-top: 30px;">Order Details</h3>
             <p style="margin: 5px 0;"><strong>Order ID:</strong> #${data.orderId.slice(-8)}</p>
-            <p style="margin: 5px 0;"><strong>Payment Status:</strong> ${data.paymentStatus === 'paid' ? '✅ Paid' : '📋 Reserved (Pay in Person)'}</p>
+            <p style="margin: 5px 0;"><strong>Payment Status:</strong> ${data.paymentStatus === 'paid' ? '✅ Paid' : '📋 Reserved (Pay in Person - Cash Only)'}</p>
 
             <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
               <thead>
@@ -131,7 +131,8 @@ export async function sendOrderReceipt(data: OrderReceiptData) {
             <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 30px 0;">
               <h3 style="color: #667eea; margin-top: 0;">Pickup Information</h3>
               <p style="margin: 5px 0;"><strong>Location:</strong> Three Sisters Oyster Co.</p>
-              <p style="margin: 5px 0;"><strong>Pickup Date:</strong> ${pickupDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</p>
+              <p style="margin: 5px 0;"><strong>Pickup Dates:</strong> Friday through Sunday, starting ${pickupDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</p>
+              ${data.paymentStatus === 'reserved' ? '<p style="margin: 5px 0; font-size: 14px; color: #856404;"><strong>Payment:</strong> Cash only at this time</p>' : ''}
               <p style="margin: 10px 0 0 0; font-size: 14px; color: #666;">
                 Please arrive during our pickup hours. We'll contact you if we need any additional information.
               </p>

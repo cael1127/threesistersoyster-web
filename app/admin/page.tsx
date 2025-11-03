@@ -109,7 +109,7 @@ export default function AdminDashboard() {
               <CardContent>
                 <p className="text-purple-700">
                   Use the menu above to manage your inventory, products, and view all customer orders.
-                  Orders can be sorted by pickup week (Thursday to Friday).
+                  Orders can be sorted by pickup week. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday.
                 </p>
               </CardContent>
             </Card>

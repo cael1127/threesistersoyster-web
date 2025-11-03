@@ -11,16 +11,16 @@ async function verifyAdmin(request: NextRequest) {
   return { authorized: true, supabase: getSupabaseClient() }
 }
 
-// Helper function to calculate pickup week start (Thursday 11:59 PM cutoff)
+// Helper function to calculate pickup week start (Wednesday 11:59 PM cutoff)
 function getPickupWeekStart(orderDate: Date): Date {
   const date = new Date(orderDate)
-  const day = date.getDay() // 0 = Sunday, 4 = Thursday
+  const day = date.getDay() // 0 = Sunday, 3 = Wednesday
   const hours = date.getHours()
   const minutes = date.getMinutes()
   
-  // If order is on Thursday before 11:59 PM, pickup is this Friday
-  // If order is on Thursday after 11:59 PM or later, pickup is next Friday
-  const isBeforeCutoff = day === 4 && (hours < 23 || (hours === 23 && minutes < 59))
+  // Orders placed Monday through Wednesday (before Wednesday 11:59 PM) → pickup this Friday
+  // Orders placed after Wednesday 11:59 PM → pickup next Friday
+  const isBeforeCutoff = (day >= 1 && day <= 3) && !(day === 3 && hours === 23 && minutes >= 59)
   
   if (isBeforeCutoff) {
     // This Friday
@@ -29,8 +29,19 @@ function getPickupWeekStart(orderDate: Date): Date {
     friday.setHours(0, 0, 0, 0)
     return friday
   } else {
-    // Next Friday
-    const daysUntilNextFriday = (5 - day + 7) % 7 || 7
+    // Next week's Friday (after Wednesday cutoff)
+    let daysUntilNextFriday: number
+    if (day === 0) { // Sunday
+      daysUntilNextFriday = 5
+    } else if (day === 4) { // Thursday
+      daysUntilNextFriday = 8 // Next week's Friday
+    } else if (day === 5) { // Friday
+      daysUntilNextFriday = 7
+    } else if (day === 6) { // Saturday
+      daysUntilNextFriday = 6
+    } else { // Shouldn't happen (day 1-3), but fallback
+      daysUntilNextFriday = (5 - day + 7) % 7 || 7
+    }
     const nextFriday = new Date(date)
     nextFriday.setDate(date.getDate() + daysUntilNextFriday)
     nextFriday.setHours(0, 0, 0, 0)

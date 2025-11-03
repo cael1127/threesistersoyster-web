@@ -117,7 +117,7 @@ export function ReserveButton({ product, className }: ReserveButtonProps) {
           <DialogHeader>
             <DialogTitle className="text-purple-900">Reserve {product.name}</DialogTitle>
           <DialogDescription>
-            Reserve this item to pay in person when you pick up. Your order will be ready for pickup on Friday. Orders placed by Thursday 11:59 PM are ready for Friday pickup.
+            Reserve this item to pay in person when you pick up. Your order will be ready for pickup Friday through Sunday. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday. Payment in person is cash only at this time.
           </DialogDescription>
           </DialogHeader>
 
@@ -152,7 +152,7 @@ export function ReserveButton({ product, className }: ReserveButtonProps) {
                 Total: ${(product.price * quantity).toFixed(2)}
               </p>
               <p className="text-sm text-purple-600 mt-1">
-                Pay in person when picking up
+                Pay in person when picking up (cash only at this time)
               </p>
             </div>
 
@@ -194,7 +194,7 @@ export function ReserveButton({ product, className }: ReserveButtonProps) {
                 🦪 PICKUP ONLY
               </p>
               <p className="text-xs text-amber-700 mt-1">
-                All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed by Thursday 11:59 PM are ready for Friday pickup.
+                All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday. Payment in person is cash only at this time.
               </p>
             </div>
 

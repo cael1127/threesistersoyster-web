@@ -133,7 +133,7 @@ export default function SuccessPage() {
                   🦪 PICKUP ONLY
                 </p>
                 <p className="text-amber-700 text-sm">
-                  All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed by Thursday 11:59 PM are ready for Friday pickup. Orders after Thursday are for the following week.
+                  All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday. Orders after Wednesday are for the following week.
                 </p>
               </div>
 
@@ -183,7 +183,7 @@ export default function SuccessPage() {
                   <div className="flex justify-between text-base">
                     <span className="text-gray-700 font-medium">Payment Status:</span>
                     <span className={`font-semibold ${searchParams.get('reservation') ? 'text-blue-600' : 'text-green-600'}`}>
-                      {searchParams.get('reservation') ? '📋 Reserved (Pay in Person)' : '✅ Paid'}
+                      {searchParams.get('reservation') ? '📋 Reserved (Pay in Person - Cash Only)' : '✅ Paid'}
                     </span>
                   </div>
                 </div>
@@ -220,8 +220,8 @@ export default function SuccessPage() {
                     <p className="text-amber-800 font-semibold">📍 Location: Three Sisters Oyster Co.</p>
                     <p className="text-amber-700">
                       {searchParams.get('reservation') 
-                        ? 'Your order will be ready for pickup on Friday. Orders placed by Thursday 11:59 PM are ready for Friday pickup.'
-                        : 'Your order will be ready for pickup on Friday. Orders placed by Thursday 11:59 PM are ready for Friday pickup.'}
+                        ? 'Your order will be ready for pickup Friday through Sunday. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday. Payment in person is cash only at this time.'
+                        : 'Your order will be ready for pickup Friday through Sunday. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday.'}
                     </p>
                   </div>
                 </div>

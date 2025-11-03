@@ -130,7 +130,7 @@ function CheckoutContent() {
               🦪 PICKUP ONLY
             </p>
             <p className="text-amber-700">
-              All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed by Thursday 11:59 PM are ready for Friday pickup. Orders after Thursday are for the following week.
+              All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday. Orders after Wednesday are for the following week.
             </p>
           </div>
 
