@@ -46,11 +46,11 @@ export async function POST(request: NextRequest) {
           continue
         }
         
-        // Calculate new inventory count
+        // Calculate new inventory count (decrement by quantity ordered)
         const currentCount = currentData.inventory_count || 0
         const newCount = Math.max(0, currentCount - item.quantity)
         
-
+        console.log(`📦 [Backup] Updating inventory for ${currentData.name}: ${currentCount} → ${newCount} (decrementing ${item.quantity})`)
         
         // Update both inventory_count and description JSON if it exists
         let updateData: any = { inventory_count: newCount }
@@ -58,12 +58,14 @@ export async function POST(request: NextRequest) {
         try {
           if (currentData.description) {
             const parsedDesc = JSON.parse(currentData.description)
-            parsedDesc.inventory = newCount
-            updateData.description = JSON.stringify(parsedDesc)
-
+            if (parsedDesc && typeof parsedDesc === 'object' && !Array.isArray(parsedDesc)) {
+              parsedDesc.inventory = newCount
+              updateData.description = JSON.stringify(parsedDesc)
+              console.log(`✅ [Backup] Updated description JSON for ${currentData.name}`)
+            }
           }
         } catch (parseError) {
-
+          console.warn(`⚠️ [Backup] Could not parse description for ${currentData.name}, updating inventory_count only`)
         }
         
         // Update the product with new inventory count
@@ -71,21 +73,23 @@ export async function POST(request: NextRequest) {
           .from("products")
           .update(updateData)
           .eq("id", item.id)
-          .select()
+          .select("inventory_count")
         
         if (updateError) {
-          console.error(`Error updating inventory for ${currentData.name}:`, updateError)
+          console.error(`❌ [Backup] Error updating inventory for ${currentData.name}:`, updateError.message)
+          console.error('Update error details:', updateError)
           updateResults.push({
             item: currentData.name,
             success: false,
             error: updateError.message
           })
         } else {
-
+          const updatedCount = updateResult[0]?.inventory_count || 0
+          console.log(`✅ [Backup] Inventory updated successfully for ${currentData.name}: ${updatedCount}`)
           updateResults.push({
             item: currentData.name,
             success: true,
-            newCount: updateResult[0]?.inventory_count
+            newCount: updatedCount
           })
         }
       } else {

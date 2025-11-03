@@ -55,11 +55,21 @@ export async function POST(request: NextRequest) {
 
       
       // Extract order details from metadata or session
-      const orderTotal = parseFloat(session.metadata?.orderTotal || "0")
+      const orderTotal = session.metadata?.orderTotal 
+        ? parseFloat(session.metadata.orderTotal) 
+        : (session.amount_total ? session.amount_total / 100 : 0)
       const itemCount = parseInt(session.metadata?.itemCount || "0")
-      const customerName = session.metadata?.customerName || session.customer_details?.name || "Unknown"
-      const customerEmail = session.metadata?.customerEmail || session.customer_details?.email || "Unknown"
-      const customerPhone = session.customer_details?.phone || undefined
+      const customerName = session.metadata?.customerName || session.customer_details?.name || session.shipping_details?.name || "Unknown Customer"
+      const customerEmail = session.metadata?.customerEmail || session.customer_details?.email || session.customer_email || "unknown@email.com"
+      const customerPhone = session.customer_details?.phone || session.shipping_details?.phone || undefined
+      
+      console.log('Webhook processing checkout.session.completed:', {
+        session_id: session.id,
+        customer_name: customerName,
+        customer_email: customerEmail,
+        order_total: orderTotal,
+        item_count: itemCount
+      })
       
 
       
@@ -134,44 +144,63 @@ export async function POST(request: NextRequest) {
 
 
 
-      // Update inventory for all items using direct SQL for reliability
+      // Update inventory for all items - decrement stock when order is placed
+      console.log(`📦 Updating inventory for ${itemsToUpdate.length} items...`)
+      
       for (const item of itemsToUpdate) {
         try {
-
-          
-          // Direct database update to avoid recursive API calls
+          // Get current product data including description to update JSON if needed
           const { data: currentData, error: selectError } = await supabase
             .from("products")
-            .select("id, name, inventory_count")
+            .select("id, name, inventory_count, description")
             .eq("id", item.id)
             .single()
           
           if (selectError) {
+            console.error(`❌ Error fetching product ${item.id}:`, selectError.message)
             continue
           }
           
           if (!currentData) {
+            console.error(`❌ Product ${item.id} not found`)
             continue
           }
           
-          // Calculate new inventory count
+          // Calculate new inventory count (decrement by quantity ordered)
           const currentCount = currentData.inventory_count || 0
           const newCount = Math.max(0, currentCount - item.quantity)
           
-
+          console.log(`📉 Updating ${currentData.name}: ${currentCount} → ${newCount} (decrementing ${item.quantity})`)
+          
+          // Prepare update data - update both inventory_count and description JSON
+          let updateData: any = { inventory_count: newCount }
+          
+          // Also update inventory in description JSON if it exists
+          try {
+            if (currentData.description) {
+              const parsedDesc = JSON.parse(currentData.description)
+              if (parsedDesc && typeof parsedDesc === 'object' && !Array.isArray(parsedDesc)) {
+                parsedDesc.inventory = newCount
+                updateData.description = JSON.stringify(parsedDesc)
+                console.log(`✅ Updated description JSON for ${currentData.name}`)
+              }
+            }
+          } catch (parseError) {
+            // If description is not JSON, keep it as is and only update inventory_count
+            console.warn(`⚠️ Could not parse description for ${currentData.name}, updating inventory_count only`)
+          }
           
           // Update the product with new inventory count
           const { data: updateResult, error: updateError } = await supabase
             .from("products")
-            .update({ inventory_count: newCount })
+            .update(updateData)
             .eq("id", item.id)
-            .select()
+            .select("inventory_count")
           
           if (updateError) {
-            // Error updating inventory
+            console.error(`❌ Error updating inventory for ${currentData.name}:`, updateError.message)
+            console.error('Update error details:', updateError)
           } else {
-
-            
             // Verify the update actually happened
             const { data: verifyData, error: verifyError } = await supabase
               .from("products")
@@ -180,22 +209,25 @@ export async function POST(request: NextRequest) {
               .single()
             
             if (verifyError) {
-              // Could not verify update
+              console.error(`❌ Could not verify inventory update for ${currentData.name}:`, verifyError.message)
             } else {
               const actualCount = verifyData.inventory_count || 0
               
               if (actualCount !== newCount) {
-                // Inventory update failed
+                console.error(`❌ Inventory update verification failed for ${currentData.name}: expected ${newCount}, got ${actualCount}`)
               } else {
-
+                console.log(`✅ Inventory updated successfully for ${currentData.name}: ${actualCount}`)
               }
             }
           }
           
         } catch (error) {
-          // Error processing item
+          console.error(`❌ Error processing item ${item.id}:`, error instanceof Error ? error.message : 'Unknown error')
+          console.error('Item processing error stack:', error instanceof Error ? error.stack : undefined)
         }
       }
+      
+      console.log(`✅ Finished inventory updates`)
       
       // Release inventory reservations for this session
       if (session.metadata?.session_id) {
@@ -265,17 +297,31 @@ export async function POST(request: NextRequest) {
           pickup_week_start: pickupWeekStart.toISOString().split('T')[0]
         })
         
+        // Ensure we have at least basic order data even if items extraction failed
+        const orderItems = itemsToUpdate.length > 0 
+          ? itemsToUpdate.map(item => ({
+              id: item.id,
+              name: item.name,
+              quantity: item.quantity,
+              price: (item as any).price || 0
+            }))
+          : [{
+              id: 'unknown',
+              name: 'Order Items',
+              quantity: itemCount || 1,
+              price: orderTotal || 0
+            }]
+        
+        if (orderItems.length === 0) {
+          throw new Error('Cannot create order without items')
+        }
+        
         const { createOrder: createOrderFunc } = await import('@/lib/supabase')
         const order = await createOrderFunc({
           customer_name: customerName,
           customer_email: customerEmail,
           customer_phone: customerPhone,
-          items: itemsToUpdate.map(item => ({
-            id: item.id,
-            name: item.name,
-            quantity: item.quantity,
-            price: (item as any).price || 0
-          })),
+          items: orderItems,
           total_amount: orderTotal,
           status: 'confirmed',
           shipping_address: {
@@ -285,15 +331,27 @@ export async function POST(request: NextRequest) {
           }
         })
         orderId = order.id
-        console.log('Order created successfully in database:', orderId)
+        console.log('✅ Order created successfully in database:', orderId)
+        console.log('Order details:', {
+          id: order.id,
+          customer: customerName,
+          email: customerEmail,
+          total: orderTotal,
+          items: itemsToUpdate.length
+        })
       } catch (orderError) {
-        console.error('Error creating order in database:', orderError)
+        console.error('❌ ERROR creating order in database:', orderError)
         console.error('Order error details:', {
           message: orderError instanceof Error ? orderError.message : 'Unknown error',
-          stack: orderError instanceof Error ? orderError.stack : undefined
+          stack: orderError instanceof Error ? orderError.stack : undefined,
+          customer_name: customerName,
+          customer_email: customerEmail,
+          order_total: orderTotal,
+          items_count: itemsToUpdate.length
         })
         // Don't throw - webhook should still return success to Stripe
         // but log the error for debugging
+        // TODO: Consider sending alert/notification when order creation fails
       }
       
       // Email sending removed - customers will screenshot the success page receipt

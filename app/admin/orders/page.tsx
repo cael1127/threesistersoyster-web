@@ -42,10 +42,25 @@ export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedWeek, setSelectedWeek] = useState<string>('all')
+  const [lastRefresh, setLastRefresh] = useState<Date>(new Date())
+  const [orderCount, setOrderCount] = useState<number>(0)
 
   useEffect(() => {
     fetchOrders()
   }, [selectedWeek])
+
+  // Auto-refresh orders every 30 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!loading) { // Only refresh if not currently loading
+        console.log('Auto-refreshing orders...')
+        fetchOrders()
+      }
+    }, 30000) // 30 seconds
+    
+    return () => clearInterval(interval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading])
 
   const fetchOrders = async () => {
     try {
@@ -66,11 +81,23 @@ export default function AdminOrdersPage() {
       console.log('Orders fetched:', data.orders?.length || 0, 'orders')
       
       if (data.orders) {
+        const newCount = data.orders.length
+        const previousCount = orderCount
+        
         setOrders(data.orders)
-        console.log('Orders set in state:', data.orders.length)
+        setOrderCount(newCount)
+        setLastRefresh(new Date())
+        
+        console.log('Orders set in state:', newCount)
+        
+        // Show notification if new orders were added
+        if (newCount > previousCount && previousCount > 0) {
+          console.log(`New order detected! Previous: ${previousCount}, Current: ${newCount}`)
+        }
       } else {
         console.warn('No orders in response:', data)
         setOrders([])
+        setOrderCount(0)
       }
     } catch (error) {
       console.error('Error fetching orders:', error)
@@ -189,7 +216,14 @@ export default function AdminOrdersPage() {
               </Link>
               <div>
                 <h1 className="text-4xl font-bold text-purple-900">Orders</h1>
-                <p className="text-purple-700">View and manage customer orders</p>
+                <p className="text-purple-700">
+                  View and manage customer orders • {orderCount} total orders
+                  {lastRefresh && (
+                    <span className="text-purple-600 text-sm ml-2">
+                      (Last updated: {lastRefresh.toLocaleTimeString()})
+                    </span>
+                  )}
+                </p>
               </div>
             </div>
             <div className="flex gap-4 items-center">

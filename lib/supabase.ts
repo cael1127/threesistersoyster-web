@@ -558,9 +558,10 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
           }
           
 
+          // Decrement inventory when order/reservation is placed
           const newCount = Math.max(0, currentCount - item.quantity)
           
-
+          console.log(`📦 Updating inventory for ${product.name}: ${currentCount} → ${newCount} (decrementing ${item.quantity})`)
           
           // Update both the description JSON and inventory_count field
           let newDescription = product.description;
@@ -568,10 +569,10 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
             if (parsedDesc) {
               parsedDesc.inventory = newCount;
               newDescription = JSON.stringify(parsedDesc);
-
+              console.log(`✅ Updated description JSON for ${product.name}`)
             }
           } catch (error) {
-
+            console.warn(`⚠️ Could not update description JSON for ${product.name}`)
           }
           
           // Update the product with new inventory count and description
@@ -580,17 +581,17 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
             updateData.description = newDescription;
           }
           
-
-          
           const { error: updateError } = await supabase
             .from("products")
             .update(updateData)
             .eq("id", item.id)
+            .select("inventory_count")
 
           if (updateError) {
-            console.error(`Error updating product inventory for ${product.name}:`, updateError)
+            console.error(`❌ Error updating product inventory for ${product.name}:`, updateError.message)
+            console.error('Update error details:', updateError)
           } else {
-
+            console.log(`✅ Inventory updated successfully for ${product.name}: ${newCount}`)
           }
         } else {
 

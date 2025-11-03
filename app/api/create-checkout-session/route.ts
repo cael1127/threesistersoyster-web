@@ -140,8 +140,8 @@ export async function POST(request: NextRequest) {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${request.nextUrl.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${request.nextUrl.origin}/cart`,
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://threesistersoyster.com'}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://threesistersoyster.com'}/cart`,
       customer_email: undefined, // Let Stripe collect this
       // For pickup-only, we don't need shipping address collection
       // Remove shipping collection since these are pickup-only orders
