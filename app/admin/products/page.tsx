@@ -38,14 +38,19 @@ export default function AdminProductsPage() {
   const fetchProducts = async () => {
     setLoading(true)
     try {
-      const response = await fetch('/api/admin/products')
+      // Add cache-busting timestamp to ensure fresh data
+      const response = await fetch(`/api/admin/products?t=${Date.now()}`, {
+        cache: 'no-store'
+      })
       if (!response.ok) {
         throw new Error(`Failed to fetch products: ${response.statusText}`)
       }
       const data = await response.json()
       if (data.products) {
         setProducts(data.products)
-        console.log('Products fetched:', data.products.length)
+        console.log('Products fetched:', data.products.length, 'products')
+        console.log('Oyster products:', data.products.filter((p: Product) => p.category?.toLowerCase() === 'oysters').length)
+        console.log('Merch products:', data.products.filter((p: Product) => p.category?.toLowerCase() !== 'oysters').length)
       } else {
         console.error('No products in response:', data)
         setProducts([])
@@ -92,8 +97,11 @@ export default function AdminProductsPage() {
       }
 
       if (result.success) {
-        // Show success message
-        alert(editingProduct ? 'Product updated successfully!' : 'Product created successfully!')
+        // Show success message with product details
+        const productName = result.product?.name || 'Product'
+        alert(editingProduct ? `Product "${productName}" updated successfully!` : `Product "${productName}" created successfully!`)
+        
+        console.log('Product saved successfully:', result.product)
         
         // Clear form and close first
         setEditingProduct(null)
@@ -109,6 +117,9 @@ export default function AdminProductsPage() {
         
         // Refresh products list to show updated data immediately
         await fetchProducts()
+        
+        // Log the products to verify
+        console.log('Products after refresh:', products.length, 'products')
       } else {
         throw new Error(result.error || 'Failed to save product')
       }

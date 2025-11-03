@@ -2,6 +2,10 @@ import { getProducts } from "@/lib/supabase"
 import { Product } from "@/lib/supabase"
 import type { Metadata } from "next"
 
+// Force dynamic rendering to ensure fresh product data
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export const metadata: Metadata = {
   title: "Fresh Oysters for Sale | Three Sisters Oyster Co. | Port Lavaca Texas",
   description: "Shop premium fresh oysters from Port Lavaca, Texas. Three Sisters Oyster Co. offers sustainable Gulf Coast oysters for restaurants, events, and seafood lovers. Order online today.",

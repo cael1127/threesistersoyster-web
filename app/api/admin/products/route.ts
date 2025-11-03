@@ -72,27 +72,46 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid price value' }, { status: 400 })
     }
 
+    // Prepare product data
+    const productData: any = {
+      name: name || '',
+      description: formattedDescription || null,
+      price: priceValue,
+      category: normalizedCategory,
+      image_url: image_url ? image_url.trim() : null,
+      inventory_count: parseInt(inventory_count) || 0
+    }
+
+    console.log('Creating product with data:', JSON.stringify(productData, null, 2))
+
     const { data, error } = await auth.supabase
       .from('products')
-      .insert([{
-        name: name || '',
-        description: formattedDescription || null,
-        price: priceValue,
-        category: normalizedCategory,
-        image_url: image_url ? image_url.trim() : null,
-        inventory_count: parseInt(inventory_count) || 0
-      }])
+      .insert([productData])
       .select()
       .single()
 
     if (error) {
       console.error('Database error creating product:', error)
+      console.error('Error code:', error.code)
+      console.error('Error details:', error.details)
+      console.error('Error hint:', error.hint)
       return NextResponse.json({ 
         error: 'Failed to create product',
-        details: error.message || 'Database error'
+        details: error.message || 'Database error',
+        code: error.code,
+        hint: error.hint
       }, { status: 500 })
     }
 
+    if (!data) {
+      console.error('Product creation returned no data')
+      return NextResponse.json({ 
+        error: 'Product created but no data returned',
+        details: 'Please refresh the products list to verify creation'
+      }, { status: 500 })
+    }
+
+    console.log('Product created successfully:', data.id, data.name)
     return NextResponse.json({ success: true, product: data })
   } catch (error) {
     console.error('Error creating product:', error)
