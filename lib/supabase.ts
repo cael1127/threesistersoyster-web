@@ -444,7 +444,9 @@ export async function createOrder(orderData: {
 
   console.log('Inserting order into database:', JSON.stringify(finalOrderData, null, 2))
   
-  const { data, error } = await supabase.from("orders").insert([finalOrderData]).select()
+  // Use service client to bypass RLS for trusted server-side order creation
+  const serviceClient = getServiceSupabaseClient()
+  const { data, error } = await serviceClient.from("orders").insert([finalOrderData]).select()
 
   if (error) {
     console.error("Error creating order:", error)
