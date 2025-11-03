@@ -69,7 +69,12 @@ export async function GET(request: NextRequest) {
 
     const { data, error } = await query
 
-    if (error) throw error
+    if (error) {
+      console.error('Database error fetching orders:', error)
+      throw error
+    }
+
+    console.log('Raw orders fetched from database:', data?.length || 0)
 
     // Import normalizeOrder helper
     const { normalizeOrder } = await import('@/lib/supabase')
@@ -87,12 +92,15 @@ export async function GET(request: NextRequest) {
       return normalized
     })
 
+    console.log('Orders after normalization:', ordersWithPickupWeek.length)
+
     // Filter by week if specified (using normalized pickup_week_start)
     let filteredOrders = ordersWithPickupWeek
     if (weekStart) {
       filteredOrders = ordersWithPickupWeek.filter(order => {
         return order.pickup_week_start === weekStart
       })
+      console.log('Orders filtered by week:', filteredOrders.length)
     }
 
     return NextResponse.json({ orders: filteredOrders })

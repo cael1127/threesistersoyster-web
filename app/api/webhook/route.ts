@@ -256,6 +256,15 @@ export async function POST(request: NextRequest) {
       // Store metadata in shipping_address jsonb field (works with existing schema)
       let orderId: string | null = null
       try {
+        console.log('Creating order in database...')
+        console.log('Order details:', {
+          customer_name: customerName,
+          customer_email: customerEmail,
+          items_count: itemsToUpdate.length,
+          total_amount: orderTotal,
+          pickup_week_start: pickupWeekStart.toISOString().split('T')[0]
+        })
+        
         const { createOrder: createOrderFunc } = await import('@/lib/supabase')
         const order = await createOrderFunc({
           customer_name: customerName,
@@ -276,8 +285,15 @@ export async function POST(request: NextRequest) {
           }
         })
         orderId = order.id
+        console.log('Order created successfully in database:', orderId)
       } catch (orderError) {
-        console.error('Error creating order:', orderError)
+        console.error('Error creating order in database:', orderError)
+        console.error('Order error details:', {
+          message: orderError instanceof Error ? orderError.message : 'Unknown error',
+          stack: orderError instanceof Error ? orderError.stack : undefined
+        })
+        // Don't throw - webhook should still return success to Stripe
+        // but log the error for debugging
       }
       
       // Email sending removed - customers will screenshot the success page receipt

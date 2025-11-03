@@ -421,13 +421,27 @@ export async function createOrder(orderData: {
     }
   }
 
+  console.log('Inserting order into database:', JSON.stringify(finalOrderData, null, 2))
+  
   const { data, error } = await supabase.from("orders").insert([finalOrderData]).select()
 
   if (error) {
     console.error("Error creating order:", error)
+    console.error("Error details:", {
+      message: error.message,
+      code: error.code,
+      details: error.details,
+      hint: error.hint
+    })
     throw error
   }
 
+  if (!data || data.length === 0) {
+    console.error("Order created but no data returned from database")
+    throw new Error("Order creation failed - no data returned")
+  }
+
+  console.log("Order created successfully:", data[0].id)
   return data[0] as Order
 }
 

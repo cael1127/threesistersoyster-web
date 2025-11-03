@@ -49,16 +49,32 @@ export default function AdminOrdersPage() {
 
   const fetchOrders = async () => {
     try {
+      setLoading(true)
+      // Add cache-busting to ensure fresh data
       const url = selectedWeek !== 'all' 
-        ? `/api/admin/orders?week_start=${selectedWeek}`
-        : '/api/admin/orders'
-      const response = await fetch(url)
+        ? `/api/admin/orders?week_start=${selectedWeek}&t=${Date.now()}`
+        : `/api/admin/orders?t=${Date.now()}`
+      const response = await fetch(url, {
+        cache: 'no-store'
+      })
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch orders: ${response.statusText}`)
+      }
+      
       const data = await response.json()
+      console.log('Orders fetched:', data.orders?.length || 0, 'orders')
+      
       if (data.orders) {
         setOrders(data.orders)
+        console.log('Orders set in state:', data.orders.length)
+      } else {
+        console.warn('No orders in response:', data)
+        setOrders([])
       }
     } catch (error) {
       console.error('Error fetching orders:', error)
+      alert('Failed to load orders. Please refresh the page.')
     } finally {
       setLoading(false)
     }
@@ -77,21 +93,36 @@ export default function AdminOrdersPage() {
     }
   }
 
-  // Calculate pickup week start for display
+  // Calculate pickup week start for display (Wednesday 11:59 PM cutoff)
   const getPickupWeekStart = (orderDate: string): string => {
     const date = new Date(orderDate)
-    const day = date.getDay()
+    const day = date.getDay() // 0 = Sunday, 3 = Wednesday
     const hours = date.getHours()
     const minutes = date.getMinutes()
     
-    const isBeforeCutoff = day === 4 && (hours < 23 || (hours === 23 && minutes < 59))
+    // Orders placed Monday through Wednesday (before Wednesday 11:59 PM) → pickup this Friday
+    // Orders placed after Wednesday 11:59 PM → pickup next Friday
+    const isBeforeCutoff = (day >= 1 && day <= 3) && !(day === 3 && hours === 23 && minutes >= 59)
     
     if (isBeforeCutoff) {
+      // This Friday
       const friday = new Date(date)
       friday.setDate(date.getDate() + (5 - day))
       return friday.toISOString().split('T')[0]
     } else {
-      const daysUntilNextFriday = (5 - day + 7) % 7 || 7
+      // Next week's Friday (after Wednesday cutoff)
+      let daysUntilNextFriday: number
+      if (day === 0) { // Sunday
+        daysUntilNextFriday = 5
+      } else if (day === 4) { // Thursday
+        daysUntilNextFriday = 8 // Next week's Friday
+      } else if (day === 5) { // Friday
+        daysUntilNextFriday = 7
+      } else if (day === 6) { // Saturday
+        daysUntilNextFriday = 6
+      } else { // Shouldn't happen (day 1-3), but fallback
+        daysUntilNextFriday = (5 - day + 7) % 7 || 7
+      }
       const nextFriday = new Date(date)
       nextFriday.setDate(date.getDate() + daysUntilNextFriday)
       return nextFriday.toISOString().split('T')[0]
@@ -162,6 +193,18 @@ export default function AdminOrdersPage() {
               </div>
             </div>
             <div className="flex gap-4 items-center">
+              <Button 
+                onClick={() => {
+                  console.log('Manual refresh triggered')
+                  fetchOrders()
+                }} 
+                variant="outline"
+                title="Refresh orders list"
+                disabled={loading}
+              >
+                <Clock className="w-4 h-4 mr-2" />
+                Refresh
+              </Button>
               <Select value={selectedWeek} onValueChange={setSelectedWeek}>
                 <SelectTrigger className="w-48">
                   <SelectValue placeholder="Select week" />
