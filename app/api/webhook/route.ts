@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
 import { headers } from "next/headers"
-import { createSupabaseClient } from "@/lib/supabase"
+import { getServiceSupabaseClient } from "@/lib/supabase"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2023-10-16",
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
 
       
       // Get line items to update inventory - try multiple methods
-      const supabase = createSupabaseClient()
+      const supabase = getServiceSupabaseClient()
       let itemsToUpdate: Array<{id: string, name: string, quantity: number}> = []
 
       // Method 1: Try to get items from metadata (most reliable)

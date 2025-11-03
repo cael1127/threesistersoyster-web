@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyAdminSession } from '@/lib/admin-auth'
-import { getSupabaseClient, type Product } from '@/lib/supabase'
+import { getServiceSupabaseClient, type Product } from '@/lib/supabase'
 
 // Verify admin authentication for all routes
 async function verifyAdmin(request: NextRequest) {
@@ -8,7 +8,7 @@ async function verifyAdmin(request: NextRequest) {
   if (!isAuthorized) {
     return { authorized: false }
   }
-  return { authorized: true, supabase: getSupabaseClient() }
+  return { authorized: true, supabase: getServiceSupabaseClient() }
 }
 
 export async function GET(request: NextRequest) {

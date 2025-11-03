@@ -68,6 +68,27 @@ export function getSupabaseClient(): SupabaseClient {
   return supabase
 }
 
+// Server-side Supabase client using the Service Role key (bypasses RLS for trusted server ops)
+let supabaseServiceInstance: SupabaseClient | null = null
+
+export function getServiceSupabaseClient(): SupabaseClient {
+  if (supabaseServiceInstance) return supabaseServiceInstance
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+  if (!supabaseUrl || !serviceKey) {
+    console.warn(
+      'Missing SUPABASE_SERVICE_ROLE_KEY or NEXT_PUBLIC_SUPABASE_URL. Falling back to anon client.\n' +
+      'Set SUPABASE_SERVICE_ROLE_KEY for server-side routes to reliably insert/update orders and products.'
+    )
+    return supabase
+  }
+
+  supabaseServiceInstance = createClient(supabaseUrl, serviceKey)
+  return supabaseServiceInstance
+}
+
 export type Product = {
   id: string
   name: string

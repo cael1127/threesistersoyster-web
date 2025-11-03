@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyAdminSession } from '@/lib/admin-auth'
-import { getSupabaseClient } from '@/lib/supabase'
+import { getServiceSupabaseClient } from '@/lib/supabase'
 
 // Verify admin authentication
 async function verifyAdmin(request: NextRequest) {
@@ -8,7 +8,7 @@ async function verifyAdmin(request: NextRequest) {
   if (!isAuthorized) {
     return { authorized: false }
   }
-  return { authorized: true, supabase: getSupabaseClient() }
+  return { authorized: true, supabase: getServiceSupabaseClient() }
 }
 
 // Helper function to calculate pickup week start (Wednesday 11:59 PM cutoff)

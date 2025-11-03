@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createOrder, getSupabaseClient, updateProductInventoryCounts } from '@/lib/supabase'
+import { createOrder, getServiceSupabaseClient, updateProductInventoryCounts } from '@/lib/supabase'
 
 // Helper function to calculate pickup week start (Wednesday 11:59 PM cutoff)
 function getPickupWeekStart(orderDate: Date): string {
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const supabase = getSupabaseClient()
+    const supabase = getServiceSupabaseClient()
 
     // Check inventory availability
     for (const item of items) {

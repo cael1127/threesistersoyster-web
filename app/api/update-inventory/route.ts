@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { createSupabaseClient } from "@/lib/supabase"
+import { getServiceSupabaseClient } from "@/lib/supabase"
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 
 
 
-    const supabase = createSupabaseClient()
+    const supabase = getServiceSupabaseClient()
     const updateResults = []
 
     for (const item of items) {
