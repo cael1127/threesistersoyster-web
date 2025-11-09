@@ -74,7 +74,8 @@ export default function SuccessPage() {
       setProcessingOrder(true)
 
       try {
-        let orderItems = fallbackItems
+      let orderItems = fallbackItems
+      let inventoryNeedsBackup = !derivedSessionId && orderItems.length > 0
 
         if (derivedSessionId) {
           try {
@@ -89,6 +90,7 @@ export default function SuccessPage() {
             const orderResult = await orderResponse.json().catch(() => ({}))
 
             if (orderResponse.ok && orderResult?.order) {
+            inventoryNeedsBackup = false
               const rawItems = orderResult.order.items
               if (Array.isArray(rawItems) && rawItems.length > 0) {
                 orderItems = rawItems
@@ -103,14 +105,16 @@ export default function SuccessPage() {
                 }
               }
             } else if (!orderResponse.ok) {
+            inventoryNeedsBackup = orderItems.length > 0
               console.error("Order creation from session failed", orderResult)
             }
           } catch (orderError) {
+          inventoryNeedsBackup = orderItems.length > 0
             console.error("Unable to create order from session", orderError)
           }
         }
 
-        if (orderItems.length > 0) {
+      if (inventoryNeedsBackup && orderItems.length > 0) {
           try {
             const inventoryResponse = await fetch("/api/update-inventory", {
               method: "POST",
