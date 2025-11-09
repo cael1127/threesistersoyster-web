@@ -1,4 +1,5 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js"
+import { calculatePickupWeekStart, OrderItem } from "./orders"
 
 // Singleton pattern to prevent multiple client instances
 let supabaseInstance: SupabaseClient | null = null
@@ -11,8 +12,8 @@ export function createSupabaseClient(): SupabaseClient {
   }
 
   try {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY
 
     // Check if environment variables are available
     if (!supabaseUrl || !supabaseAnonKey) {
@@ -74,13 +75,13 @@ let supabaseServiceInstance: SupabaseClient | null = null
 export function getServiceSupabaseClient(): SupabaseClient {
   if (supabaseServiceInstance) return supabaseServiceInstance
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
   if (!supabaseUrl || !serviceKey) {
     console.warn(
-      'Missing SUPABASE_SERVICE_ROLE_KEY or NEXT_PUBLIC_SUPABASE_URL. Falling back to anon client.\n' +
-      'Set SUPABASE_SERVICE_ROLE_KEY for server-side routes to reliably insert/update orders and products.'
+      'Missing SUPABASE_SERVICE_ROLE_KEY or Supabase URL. Falling back to anon client.\n' +
+      'Set SUPABASE_SERVICE_ROLE_KEY and SUPABASE_URL (or NEXT_PUBLIC_SUPABASE_URL) for server-side routes to reliably insert/update orders and products.'
     )
     return supabase
   }
@@ -125,7 +126,7 @@ export type Order = {
   customer_name: string
   customer_email: string
   customer_phone?: string
-  items: any
+  items: OrderItem[] | any
   total_amount: number
   status: "pending" | "confirmed" | "shipped" | "delivered"
   // These fields are stored in shipping_address jsonb in the database
@@ -133,7 +134,8 @@ export type Order = {
   order_type?: "online" | "reservation"
   pickup_code?: string
   pickup_week_start?: string
-  shipping_address?: any // Stores reservation metadata: { payment_status, order_type, pickup_code, pickup_week_start }
+  checkout_session_id?: string
+  shipping_address?: any // Stores reservation metadata: { payment_status, order_type, pickup_code, pickup_week_start, checkout_session_id }
   created_at: string
 }
 
@@ -146,7 +148,8 @@ export function normalizeOrder(order: any): Order {
     payment_status: shippingAddress.payment_status || (order.payment_status || 'paid'),
     order_type: shippingAddress.order_type || (order.order_type || 'online'),
     pickup_code: shippingAddress.pickup_code || order.pickup_code,
-    pickup_week_start: shippingAddress.pickup_week_start || order.pickup_week_start
+    pickup_week_start: shippingAddress.pickup_week_start || order.pickup_week_start,
+    checkout_session_id: shippingAddress.checkout_session_id || order.checkout_session_id
   }
 }
 
@@ -192,9 +195,22 @@ function parseDescriptionFields(description: string | null) {
 // Helper function to check if Supabase is properly configured
 export function isSupabaseConfigured(): boolean {
   try {
-    return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && 
-             process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY &&
-             process.env.NEXT_PUBLIC_SUPABASE_URL !== "https://placeholder.supabase.co")
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      return false
+    }
+
+    if (supabaseUrl === "https://placeholder.supabase.co") {
+      return false
+    }
+
+    if (supabaseAnonKey === "placeholder-key") {
+      return false
+    }
+
+    return true
   } catch (error) {
     return false
   }
@@ -410,7 +426,7 @@ export async function createOrder(orderData: {
   customer_name: string
   customer_email: string
   customer_phone?: string
-  items: any
+  items: OrderItem[]
   total_amount: number
   status?: string
   shipping_address?: any // Used to store reservation metadata for pickup orders
@@ -419,7 +435,16 @@ export async function createOrder(orderData: {
   order_type?: string
   pickup_code?: string
   pickup_week_start?: string
+  checkout_session_id?: string
 }) {
+  if (!orderData || !Array.isArray(orderData.items) || orderData.items.length === 0) {
+    throw new Error("Order must include at least one item")
+  }
+
+  if (!isSupabaseConfigured()) {
+    throw new Error("Supabase is not configured. Set SUPABASE_URL/NEXT_PUBLIC_SUPABASE_URL and keys.")
+  }
+
   // If legacy fields are provided at top level, move them to shipping_address
   const finalOrderData: any = {
     customer_name: orderData.customer_name,
@@ -432,21 +457,45 @@ export async function createOrder(orderData: {
   }
 
   // If legacy fields exist, merge them into shipping_address
-  if (orderData.payment_status || orderData.order_type || orderData.pickup_code || orderData.pickup_week_start) {
+  if (
+    orderData.payment_status ||
+    orderData.order_type ||
+    orderData.pickup_code ||
+    orderData.pickup_week_start ||
+    orderData.checkout_session_id
+  ) {
     finalOrderData.shipping_address = {
       ...(finalOrderData.shipping_address || {}),
       payment_status: orderData.payment_status,
       order_type: orderData.order_type,
       pickup_code: orderData.pickup_code,
-      pickup_week_start: orderData.pickup_week_start
+      pickup_week_start: orderData.pickup_week_start,
+      checkout_session_id: orderData.checkout_session_id
+    }
+  }
+
+  if (orderData.pickup_week_start) {
+    finalOrderData.pickup_week_start = orderData.pickup_week_start
+    if (finalOrderData.shipping_address) {
+      finalOrderData.shipping_address = {
+        ...finalOrderData.shipping_address,
+        pickup_week_start: orderData.pickup_week_start
+      }
+    }
+  } else {
+    const computedWeekStart = calculatePickupWeekStart(new Date())
+    finalOrderData.pickup_week_start = computedWeekStart
+    finalOrderData.shipping_address = {
+      ...(finalOrderData.shipping_address || {}),
+      pickup_week_start: computedWeekStart
     }
   }
 
   console.log('Inserting order into database:', JSON.stringify(finalOrderData, null, 2))
-  
+
   // Use service client to bypass RLS for trusted server-side order creation
   const serviceClient = getServiceSupabaseClient()
-  const { data, error } = await serviceClient.from("orders").insert([finalOrderData]).select()
+  const { data, error } = await serviceClient.from("orders").insert([finalOrderData]).select().single()
 
   if (error) {
     console.error("Error creating order:", error)
@@ -459,13 +508,40 @@ export async function createOrder(orderData: {
     throw error
   }
 
-  if (!data || data.length === 0) {
+  if (!data) {
     console.error("Order created but no data returned from database")
     throw new Error("Order creation failed - no data returned")
   }
 
-  console.log("Order created successfully:", data[0].id)
-  return data[0] as Order
+  console.log("Order created successfully:", data.id)
+  return normalizeOrder(data)
+}
+
+export async function getOrderByCheckoutSessionId(sessionId: string): Promise<Order | null> {
+  if (!sessionId) return null
+
+  try {
+    const supabaseClient = getServiceSupabaseClient()
+    const { data, error } = await supabaseClient
+      .from("orders")
+      .select("*")
+      .contains("shipping_address", { checkout_session_id: sessionId })
+      .maybeSingle()
+
+    if (error) {
+      console.error("Error fetching order by session id:", error)
+      return null
+    }
+
+    if (!data) {
+      return null
+    }
+
+    return normalizeOrder(data)
+  } catch (error) {
+    console.error("Unexpected error retrieving order by session id:", error)
+    return null
+  }
 }
 
 // Get total harvested count

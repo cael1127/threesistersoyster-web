@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
 import { headers } from "next/headers"
 import { getServiceSupabaseClient } from "@/lib/supabase"
+import { calculatePickupWeekStart } from "@/lib/orders"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2023-10-16",
@@ -253,36 +254,7 @@ export async function POST(request: NextRequest) {
       }
       
       // Calculate pickup week start (Wednesday 11:59 PM cutoff)
-      const orderDate = new Date()
-      const day = orderDate.getDay()
-      const hours = orderDate.getHours()
-      const minutes = orderDate.getMinutes()
-      // Orders placed Monday through Wednesday (before Wednesday 11:59 PM) → pickup this Friday
-      // Orders placed after Wednesday 11:59 PM → pickup next Friday
-      const isBeforeCutoff = (day >= 1 && day <= 3) && !(day === 3 && hours === 23 && minutes >= 59)
-      
-      let pickupWeekStart: Date
-      if (isBeforeCutoff) {
-        pickupWeekStart = new Date(orderDate)
-        pickupWeekStart.setDate(orderDate.getDate() + (5 - day))
-      } else {
-        // Next week's Friday (after Wednesday cutoff)
-        let daysUntilNextFriday: number
-        if (day === 0) { // Sunday
-          daysUntilNextFriday = 5
-        } else if (day === 4) { // Thursday
-          daysUntilNextFriday = 8 // Next week's Friday
-        } else if (day === 5) { // Friday
-          daysUntilNextFriday = 7
-        } else if (day === 6) { // Saturday
-          daysUntilNextFriday = 6
-        } else { // Shouldn't happen (day 1-3), but fallback
-          daysUntilNextFriday = (5 - day + 7) % 7 || 7
-        }
-        pickupWeekStart = new Date(orderDate)
-        pickupWeekStart.setDate(orderDate.getDate() + daysUntilNextFriday)
-      }
-      pickupWeekStart.setHours(0, 0, 0, 0)
+      const pickupWeekStart = calculatePickupWeekStart(new Date())
       
       // Create order in database
       // Store metadata in shipping_address jsonb field (works with existing schema)
@@ -294,7 +266,8 @@ export async function POST(request: NextRequest) {
           customer_email: customerEmail,
           items_count: itemsToUpdate.length,
           total_amount: orderTotal,
-          pickup_week_start: pickupWeekStart.toISOString().split('T')[0]
+          pickup_week_start: pickupWeekStart,
+          checkout_session_id: session.id
         })
         
         // Ensure we have at least basic order data even if items extraction failed
@@ -324,11 +297,10 @@ export async function POST(request: NextRequest) {
           items: orderItems,
           total_amount: orderTotal,
           status: 'confirmed',
-          shipping_address: {
-            payment_status: 'paid',
-            order_type: 'online',
-            pickup_week_start: pickupWeekStart.toISOString().split('T')[0]
-          }
+          payment_status: 'paid',
+          order_type: 'online',
+          pickup_week_start: pickupWeekStart,
+          checkout_session_id: session.id
         })
         orderId = order.id
         console.log('✅ Order created successfully in database:', orderId)

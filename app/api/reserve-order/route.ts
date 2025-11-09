@@ -1,44 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createOrder, getServiceSupabaseClient, updateProductInventoryCounts } from '@/lib/supabase'
-
-// Helper function to calculate pickup week start (Wednesday 11:59 PM cutoff)
-function getPickupWeekStart(orderDate: Date): string {
-  const date = new Date(orderDate)
-  const day = date.getDay() // 0 = Sunday, 3 = Wednesday
-  const hours = date.getHours()
-  const minutes = date.getMinutes()
-  
-  // Orders placed Monday through Wednesday (before Wednesday 11:59 PM) → pickup this Friday
-  // Orders placed after Wednesday 11:59 PM → pickup next Friday
-  const isBeforeCutoff = (day >= 1 && day <= 3) && !(day === 3 && hours === 23 && minutes >= 59)
-  
-  let pickupDate: Date
-  if (isBeforeCutoff) {
-    // This Friday
-    pickupDate = new Date(date)
-    pickupDate.setDate(date.getDate() + (5 - day)) // Move to Friday
-  } else {
-    // Next week's Friday (after Wednesday cutoff)
-    // Calculate days to next Friday, ensuring it's always next week's Friday
-    let daysUntilNextFriday: number
-    if (day === 0) { // Sunday
-      daysUntilNextFriday = 5
-    } else if (day === 4) { // Thursday
-      daysUntilNextFriday = 8 // Next week's Friday
-    } else if (day === 5) { // Friday
-      daysUntilNextFriday = 7
-    } else if (day === 6) { // Saturday
-      daysUntilNextFriday = 6
-    } else { // Shouldn't happen (day 1-3), but fallback
-      daysUntilNextFriday = (5 - day + 7) % 7 || 7
-    }
-    pickupDate = new Date(date)
-    pickupDate.setDate(date.getDate() + daysUntilNextFriday)
-  }
-  
-  pickupDate.setHours(0, 0, 0, 0)
-  return pickupDate.toISOString().split('T')[0]
-}
+import { calculatePickupWeekStart } from '@/lib/orders'
 
 // Generate a unique pickup code
 function generatePickupCode(): string {
@@ -98,7 +60,7 @@ export async function POST(request: NextRequest) {
 
     // Generate pickup code and calculate pickup week
     const pickupCode = generatePickupCode()
-    const pickupWeekStart = getPickupWeekStart(new Date())
+    const pickupWeekStart = calculatePickupWeekStart(new Date())
 
     // Create order with reservation status
     // Store reservation metadata in shipping_address jsonb field (since it's not used for pickup orders)
@@ -109,6 +71,7 @@ export async function POST(request: NextRequest) {
       items,
       total_amount,
       status: 'pending', // Using existing status field
+      pickup_week_start: pickupWeekStart,
       shipping_address: {
         // Store reservation metadata in shipping_address jsonb field
         payment_status: 'reserved',

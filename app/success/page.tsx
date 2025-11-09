@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -18,7 +18,144 @@ export default function SuccessPage() {
   const [processingOrder, setProcessingOrder] = useState(false)
   const [session, setSession] = useState<any>(null)
   const [orderProcessed, setOrderProcessed] = useState(false)
-  const { state: cartState, clearCart } = useCart() || { state: { items: [] }, clearCart: () => {} }
+  const cartContext = useCart()
+  const cartState = cartContext?.state ?? { items: [] }
+  const noopClearCart = useCallback(() => {}, [])
+  const clearCart = cartContext?.clearCart ?? noopClearCart
+
+  const processOrderCompletion = useCallback(
+    async (sessionData?: any) => {
+      if (orderProcessed) return
+
+      const cartItems = Array.isArray(cartState.items) ? cartState.items : []
+
+      const metadataItemsRaw =
+        sessionData?.metadata?.items && typeof sessionData.metadata.items === "string"
+          ? sessionData.metadata.items
+          : null
+
+      let metadataItems: Array<{ id: string; name: string; quantity: number; price: number }> = []
+
+      if (metadataItemsRaw) {
+        try {
+          const parsed = JSON.parse(metadataItemsRaw)
+          if (Array.isArray(parsed)) {
+            metadataItems = parsed
+              .map((item: any) => ({
+                id: typeof item.id === "string" ? item.id : String(item.id || ""),
+                name: typeof item.name === "string" ? item.name : String(item.name || ""),
+                quantity:
+                  typeof item.quantity === "number" ? item.quantity : parseInt(String(item.quantity || 0), 10),
+                price: typeof item.price === "number" ? item.price : parseFloat(String(item.price || 0)),
+              }))
+              .filter((item) => item.id && item.name && item.quantity > 0 && !Number.isNaN(item.price))
+          }
+        } catch (error) {
+          console.warn("Failed to parse checkout metadata items", error)
+        }
+      }
+
+      const orderItems =
+        cartItems.length > 0
+          ? cartItems.map((item: any) => ({
+              id: typeof item.id === "string" ? item.id : String(item.id || ""),
+              name: typeof item.name === "string" ? item.name : String(item.name || ""),
+              quantity:
+                typeof item.quantity === "number" ? item.quantity : parseInt(String(item.quantity || 0), 10),
+              price: typeof item.price === "number" ? item.price : parseFloat(String(item.price || 0)),
+            }))
+          : metadataItems
+
+      if (orderItems.length === 0) {
+        return
+      }
+
+      setProcessingOrder(true)
+
+      try {
+        // Backup inventory update (in addition to webhook)
+        const inventoryResponse = await fetch("/api/update-inventory", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            items: orderItems,
+            session_id: sessionData?.id || sessionId,
+          }),
+        })
+
+        const inventoryResult = await inventoryResponse.json()
+
+        if (!inventoryResponse.ok) {
+          console.error("Inventory backup update failed", inventoryResult)
+        }
+
+        if (sessionData) {
+          try {
+            const customerName =
+              sessionData.customer_details?.name ||
+              sessionData.metadata?.customerName ||
+              sessionData.shipping_details?.name ||
+              "Customer"
+            const customerEmail =
+              sessionData.customer_details?.email || sessionData.metadata?.customerEmail || sessionData.customer_email
+            const customerPhone =
+              sessionData.customer_details?.phone || sessionData.shipping_details?.phone || undefined
+
+            const totalFromSession =
+              typeof sessionData.amount_total === "number" ? sessionData.amount_total / 100 : null
+            const totalFromMetadata = sessionData.metadata?.orderTotal
+              ? parseFloat(sessionData.metadata.orderTotal)
+              : null
+            const totalFromCart = orderItems.reduce(
+              (sum, item) => sum + (Number.isNaN(item.price) ? 0 : item.price * item.quantity),
+              0
+            )
+
+            const totalAmount =
+              totalFromSession && !Number.isNaN(totalFromSession)
+                ? totalFromSession
+                : totalFromMetadata && !Number.isNaN(totalFromMetadata)
+                  ? totalFromMetadata
+                  : totalFromCart
+
+            if (customerEmail) {
+              const orderResponse = await fetch("/api/orders", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  customer_name: customerName,
+                  customer_email: customerEmail,
+                  customer_phone: customerPhone,
+                  items: orderItems,
+                  total_amount: totalAmount,
+                  status: "confirmed",
+                  payment_status: "paid",
+                  order_type: "online",
+                  session_id: sessionData.id,
+                }),
+              })
+
+              if (!orderResponse.ok) {
+                const responseBody = await orderResponse.json().catch(() => ({}))
+                console.error("Fallback order creation failed", responseBody)
+              }
+            }
+          } catch (orderError) {
+            console.error("Error running fallback order creation", orderError)
+          }
+        }
+      } finally {
+        clearCart()
+        setOrderProcessed(true)
+        setProcessingOrder(false)
+      }
+    },
+    [cartState.items, clearCart, orderProcessed, sessionId]
+  )
 
   useEffect(() => {
     // Check if this is a reservation (has order data in URL params)
@@ -33,64 +170,17 @@ export default function SuccessPage() {
         .then((res) => res.json())
         .then(async (data) => {
           setSession(data)
-          
-          // Process order completion if we have cart items
-          if (cartState.items && cartState.items.length > 0 && !orderProcessed) {
-            await processOrderCompletion()
-          }
-          
+          await processOrderCompletion(data)
           setLoading(false)
         })
         .catch((error) => {
+          console.error("Failed to retrieve checkout session", error)
           setLoading(false)
         })
     } else {
       setLoading(false)
     }
-  }, [sessionId, cartState.items, orderProcessed, searchParams])
-
-  const processOrderCompletion = async () => {
-    if (orderProcessed || !cartState.items || cartState.items.length === 0) return
-
-    setProcessingOrder(true)
-    try {
-  
-      
-      // Call the inventory update API as a backup to the webhook
-      const response = await fetch('/api/update-inventory', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          items: cartState.items,
-          session_id: sessionId,
-        }),
-      })
-
-      const result = await response.json()
-      
-      if (result.success) {
-
-        setOrderProcessed(true)
-        
-        // Clear the cart after successful inventory update
-        clearCart()
-        
-
-      } else {
-        // Still clear the cart since payment was successful
-        clearCart()
-        setOrderProcessed(true)
-      }
-    } catch (error) {
-      // Still clear the cart since payment was successful
-      clearCart()
-      setOrderProcessed(true)
-    } finally {
-      setProcessingOrder(false)
-    }
-  }
+  }, [sessionId, searchParams, processOrderCompletion])
 
   if (loading) {
     return (

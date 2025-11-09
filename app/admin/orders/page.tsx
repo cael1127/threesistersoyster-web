@@ -35,6 +35,7 @@ interface Order {
   order_type?: string
   pickup_code?: string
   pickup_week_start?: string
+  checkout_session_id?: string
   created_at: string
 }
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyAdminSession } from '@/lib/admin-auth'
 import { getServiceSupabaseClient } from '@/lib/supabase'
+import { calculatePickupWeekStart } from '@/lib/orders'
 
 // Verify admin authentication
 async function verifyAdmin(request: NextRequest) {
@@ -9,44 +10,6 @@ async function verifyAdmin(request: NextRequest) {
     return { authorized: false }
   }
   return { authorized: true, supabase: getServiceSupabaseClient() }
-}
-
-// Helper function to calculate pickup week start (Wednesday 11:59 PM cutoff)
-function getPickupWeekStart(orderDate: Date): Date {
-  const date = new Date(orderDate)
-  const day = date.getDay() // 0 = Sunday, 3 = Wednesday
-  const hours = date.getHours()
-  const minutes = date.getMinutes()
-  
-  // Orders placed Monday through Wednesday (before Wednesday 11:59 PM) → pickup this Friday
-  // Orders placed after Wednesday 11:59 PM → pickup next Friday
-  const isBeforeCutoff = (day >= 1 && day <= 3) && !(day === 3 && hours === 23 && minutes >= 59)
-  
-  if (isBeforeCutoff) {
-    // This Friday
-    const friday = new Date(date)
-    friday.setDate(date.getDate() + (5 - day)) // Move to Friday
-    friday.setHours(0, 0, 0, 0)
-    return friday
-  } else {
-    // Next week's Friday (after Wednesday cutoff)
-    let daysUntilNextFriday: number
-    if (day === 0) { // Sunday
-      daysUntilNextFriday = 5
-    } else if (day === 4) { // Thursday
-      daysUntilNextFriday = 8 // Next week's Friday
-    } else if (day === 5) { // Friday
-      daysUntilNextFriday = 7
-    } else if (day === 6) { // Saturday
-      daysUntilNextFriday = 6
-    } else { // Shouldn't happen (day 1-3), but fallback
-      daysUntilNextFriday = (5 - day + 7) % 7 || 7
-    }
-    const nextFriday = new Date(date)
-    nextFriday.setDate(date.getDate() + daysUntilNextFriday)
-    nextFriday.setHours(0, 0, 0, 0)
-    return nextFriday
-  }
 }
 
 export async function GET(request: NextRequest) {
@@ -85,8 +48,7 @@ export async function GET(request: NextRequest) {
       
       // Calculate pickup week start if not already set
       if (!normalized.pickup_week_start) {
-        const pickupWeek = getPickupWeekStart(new Date(order.created_at))
-        normalized.pickup_week_start = pickupWeek.toISOString().split('T')[0]
+        normalized.pickup_week_start = calculatePickupWeekStart(new Date(order.created_at))
       }
       
       return normalized
