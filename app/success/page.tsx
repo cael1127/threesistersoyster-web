@@ -27,6 +27,7 @@ export default function SuccessPage() {
     async (sessionData?: any) => {
       if (orderProcessed) return
 
+      const derivedSessionId = sessionData?.id || sessionId
       const cartItems = Array.isArray(cartState.items) ? cartState.items : []
 
       const metadataItemsRaw =
@@ -55,7 +56,7 @@ export default function SuccessPage() {
         }
       }
 
-      const orderItems =
+      const fallbackItems =
         cartItems.length > 0
           ? cartItems.map((item: any) => ({
               id: typeof item.id === "string" ? item.id : String(item.id || ""),
@@ -66,86 +67,68 @@ export default function SuccessPage() {
             }))
           : metadataItems
 
-      if (orderItems.length === 0) {
+      if (!derivedSessionId && fallbackItems.length === 0) {
         return
       }
 
       setProcessingOrder(true)
 
       try {
-        // Backup inventory update (in addition to webhook)
-        const inventoryResponse = await fetch("/api/update-inventory", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            items: orderItems,
-            session_id: sessionData?.id || sessionId,
-          }),
-        })
+        let orderItems = fallbackItems
 
-        const inventoryResult = await inventoryResponse.json()
-
-        if (!inventoryResponse.ok) {
-          console.error("Inventory backup update failed", inventoryResult)
-        }
-
-        if (sessionData) {
+        if (derivedSessionId) {
           try {
-            const customerName =
-              sessionData.customer_details?.name ||
-              sessionData.metadata?.customerName ||
-              sessionData.shipping_details?.name ||
-              "Customer"
-            const customerEmail =
-              sessionData.customer_details?.email || sessionData.metadata?.customerEmail || sessionData.customer_email
-            const customerPhone =
-              sessionData.customer_details?.phone || sessionData.shipping_details?.phone || undefined
+            const orderResponse = await fetch("/api/orders/from-session", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ session_id: derivedSessionId }),
+            })
 
-            const totalFromSession =
-              typeof sessionData.amount_total === "number" ? sessionData.amount_total / 100 : null
-            const totalFromMetadata = sessionData.metadata?.orderTotal
-              ? parseFloat(sessionData.metadata.orderTotal)
-              : null
-            const totalFromCart = orderItems.reduce(
-              (sum, item) => sum + (Number.isNaN(item.price) ? 0 : item.price * item.quantity),
-              0
-            )
+            const orderResult = await orderResponse.json().catch(() => ({}))
 
-            const totalAmount =
-              totalFromSession && !Number.isNaN(totalFromSession)
-                ? totalFromSession
-                : totalFromMetadata && !Number.isNaN(totalFromMetadata)
-                  ? totalFromMetadata
-                  : totalFromCart
-
-            if (customerEmail) {
-              const orderResponse = await fetch("/api/orders", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  customer_name: customerName,
-                  customer_email: customerEmail,
-                  customer_phone: customerPhone,
-                  items: orderItems,
-                  total_amount: totalAmount,
-                  status: "confirmed",
-                  payment_status: "paid",
-                  order_type: "online",
-                  session_id: sessionData.id,
-                }),
-              })
-
-              if (!orderResponse.ok) {
-                const responseBody = await orderResponse.json().catch(() => ({}))
-                console.error("Fallback order creation failed", responseBody)
+            if (orderResponse.ok && orderResult?.order) {
+              const rawItems = orderResult.order.items
+              if (Array.isArray(rawItems) && rawItems.length > 0) {
+                orderItems = rawItems
+              } else if (typeof rawItems === "string") {
+                try {
+                  const parsedItems = JSON.parse(rawItems)
+                  if (Array.isArray(parsedItems) && parsedItems.length > 0) {
+                    orderItems = parsedItems
+                  }
+                } catch (parseError) {
+                  console.warn("Unable to parse order items string", parseError)
+                }
               }
+            } else if (!orderResponse.ok) {
+              console.error("Order creation from session failed", orderResult)
             }
           } catch (orderError) {
-            console.error("Error running fallback order creation", orderError)
+            console.error("Unable to create order from session", orderError)
+          }
+        }
+
+        if (orderItems.length > 0) {
+          try {
+            const inventoryResponse = await fetch("/api/update-inventory", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                items: orderItems,
+                session_id: derivedSessionId,
+              }),
+            })
+
+            if (!inventoryResponse.ok) {
+              const inventoryResult = await inventoryResponse.json().catch(() => ({}))
+              console.error("Inventory backup update failed", inventoryResult)
+            }
+          } catch (inventoryError) {
+            console.error("Inventory backup update threw error", inventoryError)
           }
         }
       } finally {
@@ -164,6 +147,16 @@ export default function SuccessPage() {
       return
     }
 
+    const runFallback = async (sessionData?: any) => {
+      try {
+        await processOrderCompletion(sessionData)
+      } catch (error) {
+        console.error("Fallback order processing failed", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
     if (sessionId) {
       // Fetch session details
       fetch(`/api/checkout-session?session_id=${sessionId}`)
@@ -175,10 +168,10 @@ export default function SuccessPage() {
         })
         .catch((error) => {
           console.error("Failed to retrieve checkout session", error)
-          setLoading(false)
+          runFallback()
         })
     } else {
-      setLoading(false)
+      runFallback()
     }
   }, [sessionId, searchParams, processOrderCompletion])
 
