@@ -446,7 +446,7 @@ export async function createOrder(orderData: {
   }
 
   // If legacy fields are provided at top level, move them to shipping_address
-  const finalOrderData: any = {
+  const finalOrderData: Record<string, any> = {
     customer_name: orderData.customer_name,
     customer_email: orderData.customer_email,
     customer_phone: orderData.customer_phone,
@@ -457,38 +457,34 @@ export async function createOrder(orderData: {
   }
 
   // If legacy fields exist, merge them into shipping_address
-  if (
-    orderData.payment_status ||
-    orderData.order_type ||
-    orderData.pickup_code ||
-    orderData.pickup_week_start ||
-    orderData.checkout_session_id
-  ) {
-    finalOrderData.shipping_address = {
-      ...(finalOrderData.shipping_address || {}),
-      payment_status: orderData.payment_status,
-      order_type: orderData.order_type,
-      pickup_code: orderData.pickup_code,
-      pickup_week_start: orderData.pickup_week_start,
-      checkout_session_id: orderData.checkout_session_id
-    }
+  const mergedShippingAddress: Record<string, any> = {
+    ...(finalOrderData.shipping_address || {})
   }
 
-  if (orderData.pickup_week_start) {
-    finalOrderData.pickup_week_start = orderData.pickup_week_start
-    if (finalOrderData.shipping_address) {
-      finalOrderData.shipping_address = {
-        ...finalOrderData.shipping_address,
-        pickup_week_start: orderData.pickup_week_start
-      }
-    }
-  } else {
-    const computedWeekStart = calculatePickupWeekStart(new Date())
-    finalOrderData.pickup_week_start = computedWeekStart
-    finalOrderData.shipping_address = {
-      ...(finalOrderData.shipping_address || {}),
-      pickup_week_start: computedWeekStart
-    }
+  if (orderData.payment_status !== undefined) {
+    mergedShippingAddress.payment_status = orderData.payment_status
+  }
+
+  if (orderData.order_type !== undefined) {
+    mergedShippingAddress.order_type = orderData.order_type
+  }
+
+  if (orderData.pickup_code !== undefined) {
+    mergedShippingAddress.pickup_code = orderData.pickup_code
+  }
+
+  const pickupWeekStartValue =
+    orderData.pickup_week_start ??
+    mergedShippingAddress.pickup_week_start ??
+    calculatePickupWeekStart(new Date())
+  mergedShippingAddress.pickup_week_start = pickupWeekStartValue
+
+  if (orderData.checkout_session_id !== undefined) {
+    mergedShippingAddress.checkout_session_id = orderData.checkout_session_id
+  }
+
+  if (Object.keys(mergedShippingAddress).length > 0) {
+    finalOrderData.shipping_address = mergedShippingAddress
   }
 
   console.log('Inserting order into database:', JSON.stringify(finalOrderData, null, 2))
