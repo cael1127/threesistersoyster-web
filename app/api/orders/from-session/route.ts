@@ -15,6 +15,8 @@ const stripe = stripeKey
   : null
 
 export async function POST(request: NextRequest) {
+  let sessionId: string | null = null
+
   try {
     if (!stripe) {
       console.error("Stripe secret key not configured")
@@ -42,9 +44,14 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const sessionId = body?.session_id || body?.sessionId
+    sessionId =
+      typeof body?.session_id === "string"
+        ? body.session_id
+        : typeof body?.sessionId === "string"
+          ? body.sessionId
+          : null
 
-    if (!sessionId || typeof sessionId !== "string") {
+    if (!sessionId) {
       return NextResponse.json(
         { success: false, message: "session_id is required" },
         { status: 400 },
@@ -182,9 +189,33 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, order })
   } catch (error) {
-    console.error("Error creating order from session:", error)
+    const errorPayload: Record<string, unknown> = {}
+
+    if (typeof error === "object" && error !== null) {
+      if ("message" in error && typeof (error as any).message === "string") {
+        errorPayload.message = (error as any).message
+      }
+      if ("code" in error) {
+        errorPayload.code = (error as any).code
+      }
+      if ("details" in error) {
+        errorPayload.details = (error as any).details
+      }
+      if ("hint" in error) {
+        errorPayload.hint = (error as any).hint
+      }
+    } else if (error instanceof Error) {
+      errorPayload.message = error.message
+    }
+
+    console.error("Error creating order from session:", { sessionId, error })
+
     return NextResponse.json(
-      { success: false, message: "Failed to create order from session" },
+      {
+        success: false,
+        message: "Failed to create order from session",
+        error: Object.keys(errorPayload).length > 0 ? errorPayload : String(error),
+      },
       { status: 500 },
     )
   }
