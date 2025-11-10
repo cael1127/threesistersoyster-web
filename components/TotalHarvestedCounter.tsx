@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 
 export default function TotalHarvestedCounter() {
-  const [count, setCount] = useState(3000);//Change this to change the total harvested
+  const [count, setCount] = useState(4225);//Change this to change the total harvested
   const [displayCount, setDisplayCount] = useState(0);
   const [hasInitialized, setHasInitialized] = useState(false);
 

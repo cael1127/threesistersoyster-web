@@ -61,7 +61,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Image from "next/image"
 import Link from "next/link"
 import { Waves, Fish, ShoppingBag } from "lucide-react"
-import { AddToCartButton } from "@/components/add-to-cart-button"
 import { ReserveButton } from "@/components/reserve-button"
 import { Button } from "@/components/ui/button"
 import { SeasonalFloatingParticles } from "@/components/ui/floating-particles"
@@ -160,23 +159,13 @@ export default async function ProductsPage() {
                   🦪 PICKUP ONLY
                 </p>
                 <p className="text-xs text-amber-700 mt-1">
-                  All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday. Payment in person is cash only at this time.
+                  All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday. We accept cash or card at pickup.
                 </p>
               </div>
             )}
 
-            {/* Purchase Options */}
+            {/* Reservation Options */}
             <div className="space-y-2">
-              <AddToCartButton 
-                product={{
-                  id: product.id,
-                  name: product.name,
-                  price: product.price,
-                  image_url: product.image_url,
-                  category: product.category,
-                  maxInventory: inventory > 0 ? inventory : undefined
-                }}
-              />
               {product.category.toLowerCase() === 'oysters' && (
                 <ReserveButton 
                   product={{
@@ -187,6 +176,13 @@ export default async function ProductsPage() {
                   }}
                 />
               )}
+              <Button
+                asChild
+                variant="outline"
+                className="w-full border-purpleBrand/40 text-purple-700 hover:bg-purpleBrand/10"
+              >
+                <Link href={`/reserve?focus=${product.id}`}>Reserve Multiple Items</Link>
+              </Button>
             </div>
 
 

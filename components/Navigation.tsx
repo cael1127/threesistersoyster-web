@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { CartButton } from "@/components/cart-button"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 
@@ -81,15 +80,14 @@ export default function Navigation() {
             )}
           </nav>
           
-          {/* Desktop Cart/Order Buttons */}
+          {/* Desktop Reservation Button */}
           <div className="hidden md:flex items-center space-x-1">
-            <CartButton />
             <Button
               asChild
               size="sm"
-              className="bg-mintBrand hover:bg-seafoamBrand text-white text-xs px-1 min-h-[32px] md:min-h-[44px] md:px-4 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="bg-mintBrand hover:bg-seafoamBrand text-white text-xs px-3 min-h-[32px] md:min-h-[44px] md:px-5 md:text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
             >
-              <Link href="/order">Order</Link>
+              <Link href="/reserve">Reserve Pickup</Link>
             </Button>
           </div>
           
@@ -129,15 +127,14 @@ export default function Navigation() {
               </Link>
             </nav>
             
-            {/* Mobile Cart/Order Buttons - Better spaced */}
-            <div className="flex items-center space-x-1 ml-2 flex-shrink-0">
-              <CartButton />
+            {/* Mobile Reservation Button */}
+            <div className="flex items-center ml-2 flex-shrink-0">
               <Button
                 asChild
                 size="sm"
-                className="bg-mintBrand text-white hover:bg-seafoamBrand text-xs px-2 min-h-[40px] focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="bg-mintBrand text-white hover:bg-seafoamBrand text-xs px-3 min-h-[40px] focus-visible:ring-0 focus-visible:ring-offset-0"
               >
-                <Link href="/order">Order</Link>
+                <Link href="/reserve">Reserve</Link>
               </Button>
             </div>
           </div>

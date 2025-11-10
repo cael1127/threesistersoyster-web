@@ -270,7 +270,7 @@ export default function SuccessPage() {
                   <div className="flex justify-between text-base">
                     <span className="text-gray-700 font-medium">Payment Status:</span>
                     <span className={`font-semibold ${searchParams.get('reservation') ? 'text-blue-600' : 'text-green-600'}`}>
-                      {searchParams.get('reservation') ? '📋 Reserved (Pay in Person - Cash Only)' : '✅ Paid'}
+                      {searchParams.get('reservation') ? '📋 Reserved (Pay in Person - Cash or Card)' : '✅ Paid'}
                     </span>
                   </div>
                 </div>
@@ -307,7 +307,7 @@ export default function SuccessPage() {
                     <p className="text-amber-800 font-semibold">📍 Location: Three Sisters Oyster Co.</p>
                     <p className="text-amber-700">
                       {searchParams.get('reservation') 
-                        ? 'Your order will be ready for pickup Friday through Sunday. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday. Payment in person is cash only at this time.'
+                        ? 'Your order will be ready for pickup Friday through Sunday. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday. We accept cash or card at pickup.'
                         : 'Your order will be ready for pickup Friday through Sunday. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday.'}
                     </p>
                   </div>
