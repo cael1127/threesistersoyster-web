@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -14,6 +14,8 @@ import Navigation from "@/components/Navigation"
 export default function SuccessPage() {
   const searchParams = useSearchParams()
   const sessionId = searchParams.get("session_id")
+  const pickupDateParam = searchParams.get("pickupDate")
+  const pickupTimeParam = searchParams.get("pickupTime")
   const [loading, setLoading] = useState(true)
   const [processingOrder, setProcessingOrder] = useState(false)
   const [session, setSession] = useState<any>(null)
@@ -22,6 +24,29 @@ export default function SuccessPage() {
   const cartState = cartContext?.state ?? { items: [] }
   const noopClearCart = useCallback(() => {}, [])
   const clearCart = cartContext?.clearCart ?? noopClearCart
+
+  const pickupDateLabel = useMemo(() => {
+    if (!pickupDateParam) return null
+    const date = new Date(`${pickupDateParam}T00:00:00`)
+    if (Number.isNaN(date.getTime())) return null
+    return date.toLocaleDateString(undefined, {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    })
+  }, [pickupDateParam])
+
+  const pickupTimeLabel = useMemo(() => {
+    if (!pickupTimeParam) return null
+    const [hourStr, minuteStr] = pickupTimeParam.split(":")
+    const hour = parseInt(hourStr ?? "0", 10)
+    const minute = parseInt(minuteStr ?? "0", 10)
+    if (Number.isNaN(hour) || Number.isNaN(minute)) return null
+    const period = hour >= 12 ? "PM" : "AM"
+    const twelveHour = hour % 12 === 0 ? 12 : hour % 12
+    const paddedMinutes = minute.toString().padStart(2, "0")
+    return `${twelveHour}:${paddedMinutes} ${period}`
+  }, [pickupTimeParam])
 
   const processOrderCompletion = useCallback(
     async (sessionData?: any) => {
@@ -220,7 +245,8 @@ export default function SuccessPage() {
                   🦪 PICKUP ONLY
                 </p>
                 <p className="text-amber-700 text-sm">
-                  All oysters are for pickup in person at Three Sisters Oyster Co. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday. Orders after Wednesday are for the following week.
+                  All oysters are for pickup in person at Three Sisters Oyster Co. Reserve Tuesday through Sunday between
+                  12 PM and 7 PM, at least two days ahead, so we can harvest and pack your order.
                 </p>
               </div>
 
@@ -267,6 +293,15 @@ export default function SuccessPage() {
                       ${session?.amount_total ? (session.amount_total / 100).toFixed(2) : searchParams.get('total') || 'N/A'}
                     </span>
                   </div>
+                  {searchParams.get('reservation') && (pickupDateLabel || pickupTimeLabel) && (
+                    <div className="flex justify-between text-base">
+                      <span className="text-gray-700 font-medium">Pickup:</span>
+                      <span className="text-purple-900 font-semibold text-right">
+                        {pickupDateLabel || 'Pending'}
+                        {pickupTimeLabel ? ` • ${pickupTimeLabel}` : ''}
+                      </span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-base">
                     <span className="text-gray-700 font-medium">Payment Status:</span>
                     <span className={`font-semibold ${searchParams.get('reservation') ? 'text-blue-600' : 'text-green-600'}`}>
@@ -307,9 +342,23 @@ export default function SuccessPage() {
                     <p className="text-amber-800 font-semibold">📍 Location: Three Sisters Oyster Co.</p>
                     <p className="text-amber-700">
                       {searchParams.get('reservation') 
-                        ? 'Your order will be ready for pickup Friday through Sunday. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday. We accept cash or card at pickup.'
-                        : 'Your order will be ready for pickup Friday through Sunday. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday.'}
+                        ? 'Pickups run Tuesday through Sunday between 12 PM and 7 PM. Schedule at least two days in advance and pay with cash or card at pickup.'
+                        : 'Pickups run Tuesday through Sunday between 12 PM and 7 PM. Schedule at least two days in advance so we can prepare your order.'}
                     </p>
+                    {searchParams.get('reservation') && (
+                      <div className="rounded border border-amber-300 bg-white/80 px-3 py-2 text-amber-800">
+                        <p>
+                          Requested Pickup:{" "}
+                          <span className="font-semibold">
+                            {pickupDateLabel || "Pending confirmation"}{" "}
+                            {pickupTimeLabel ? `at ${pickupTimeLabel}` : ""}
+                          </span>
+                        </p>
+                        <p className="text-xs text-amber-600 mt-1">
+                          We’ll reach out if we need to adjust your pickup window.
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

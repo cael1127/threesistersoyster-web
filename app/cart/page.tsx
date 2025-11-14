@@ -20,22 +20,22 @@ export default function CartPage() {
                 you need and pay with cash or card when you arrive at Three Sisters Oyster Co.
               </p>
               <div className="rounded-lg border border-amber-400 bg-amber-50/70 px-4 py-3 text-sm text-amber-800">
-                Reserve today, pick up Friday–Sunday, and we’ll confirm your pickup details by email.
-              </div>
+                Reserve the exact pickup day you want (Tuesday–Sunday), at least two days ahead, between 12 PM and 7 PM.
+                We’ll follow up quickly with any updates.
+                    </div>
               <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-                <Button
-                  asChild
+                  <Button 
+                    asChild 
                   className="bg-gradient-to-r from-purpleBrand to-seafoamBrand hover:from-purpleBrand/90 hover:to-seafoamBrand/90"
-                >
+                  >
                   <Link href="/reserve">Reserve for Pickup</Link>
-                </Button>
+                  </Button>
                 <Button asChild variant="outline" className="border-purpleBrand/30 text-purple-700 hover:bg-purpleBrand/10">
                   <Link href="/products">Browse Products</Link>
-                </Button>
+                  </Button>
               </div>
               <p className="text-sm text-purple-700">
-                Need help? Call <a href="tel:713-854-7427" className="underline">713-854-7427</a> or email{" "}
-                <a href="mailto:info@threesistersoyster.com" className="underline">info@threesistersoyster.com</a>.
+                Need help? Call or text <a href="tel:713-854-7427" className="underline">713-854-7427</a>—we’ll get back to you quickly.
               </p>
             </CardContent>
           </Card>

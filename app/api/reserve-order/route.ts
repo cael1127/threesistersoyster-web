@@ -15,11 +15,54 @@ function generatePickupCode(): string {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { customer_name, customer_email, customer_phone, items, total_amount } = body
+    const { customer_name, customer_email, customer_phone, items, total_amount, notes, pickup_date, pickup_time } = body
 
     if (!customer_name || !customer_email || !items || items.length === 0) {
       return NextResponse.json(
         { error: 'Missing required fields' },
+        { status: 400 }
+      )
+    }
+
+    if (!pickup_date || !pickup_time) {
+      return NextResponse.json(
+        { error: 'Pickup date and time are required.' },
+        { status: 400 }
+      )
+    }
+
+    const pickupDate = new Date(`${pickup_date}T00:00:00`)
+    if (Number.isNaN(pickupDate.getTime())) {
+      return NextResponse.json(
+        { error: 'Invalid pickup date provided.' },
+        { status: 400 }
+      )
+    }
+
+    const monday = 1
+    if (pickupDate.getUTCDay() === monday) {
+      return NextResponse.json(
+        { error: 'Pickups are not available on Mondays. Please choose another day.' },
+        { status: 400 }
+      )
+    }
+
+    const minDate = new Date()
+    minDate.setHours(0, 0, 0, 0)
+    minDate.setDate(minDate.getDate() + 2)
+    const minDateStart = new Date(`${minDate.toISOString().split('T')[0]}T00:00:00`)
+
+    if (pickupDate < minDateStart) {
+      return NextResponse.json(
+        { error: 'Pickups must be scheduled at least two days in advance.' },
+        { status: 400 }
+      )
+    }
+
+    const allowedTimes = new Set(['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'])
+    if (!allowedTimes.has(pickup_time)) {
+      return NextResponse.json(
+        { error: 'Pickup time must be between 12:00 PM and 7:00 PM.' },
         { status: 400 }
       )
     }
@@ -60,7 +103,7 @@ export async function POST(request: NextRequest) {
 
     // Generate pickup code and calculate pickup week
     const pickupCode = generatePickupCode()
-    const pickupWeekStart = calculatePickupWeekStart(new Date())
+    const pickupWeekStart = calculatePickupWeekStart(pickupDate)
 
     // Create order with reservation status
     // Store reservation metadata in shipping_address jsonb field (since it's not used for pickup orders)
@@ -77,8 +120,15 @@ export async function POST(request: NextRequest) {
         payment_status: 'reserved',
         order_type: 'reservation',
         pickup_code: pickupCode,
-        pickup_week_start: pickupWeekStart
-      }
+        pickup_requested_date: pickup_date,
+        pickup_requested_time: pickup_time,
+        pickup_week_start: pickupWeekStart,
+        ...(notes ? { customer_notes: notes } : {})
+      },
+      payment_status: 'reserved',
+      order_type: 'reservation',
+      pickup_code: pickupCode,
+      pickup_week_start: pickupWeekStart
     }
 
     console.log('Creating order with data:', JSON.stringify(orderData, null, 2))

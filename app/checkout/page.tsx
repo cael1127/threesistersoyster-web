@@ -26,7 +26,8 @@ export default function CheckoutPage() {
                 the farm. We’ll confirm availability and pickup details by email.
               </p>
               <div className="rounded-lg border border-amber-400 bg-amber-50/70 px-4 py-3 text-sm text-amber-800">
-                All pickups happen Friday–Sunday. Orders placed Monday–Wednesday are ready the same weekend.
+                Pickups are available Tuesday–Sunday between 12 PM and 7 PM. Reserve at least two days ahead so we can
+                harvest and pack your oysters.
               </div>
               <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
                 <Button
@@ -40,8 +41,7 @@ export default function CheckoutPage() {
                 </Button>
               </div>
               <p className="text-sm text-purple-700">
-                Questions? Call <a href="tel:713-854-7427" className="underline">713-854-7427</a> or email{" "}
-                <a href="mailto:info@threesistersoyster.com" className="underline">info@threesistersoyster.com</a>.
+                Questions? Call <a href="tel:713-854-7427" className="underline">713-854-7427</a> or text us—we monitor messages closely.
               </p>
             </CardContent>
           </Card>

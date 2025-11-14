@@ -135,6 +135,8 @@ export type Order = {
   pickup_code?: string
   pickup_week_start?: string
   checkout_session_id?: string
+  pickup_requested_date?: string
+  pickup_requested_time?: string
   shipping_address?: any // Stores reservation metadata: { payment_status, order_type, pickup_code, pickup_week_start, checkout_session_id }
   created_at: string
 }
@@ -149,7 +151,9 @@ export function normalizeOrder(order: any): Order {
     order_type: shippingAddress.order_type || (order.order_type || 'online'),
     pickup_code: shippingAddress.pickup_code || order.pickup_code,
     pickup_week_start: shippingAddress.pickup_week_start || order.pickup_week_start,
-    checkout_session_id: shippingAddress.checkout_session_id || order.checkout_session_id
+    checkout_session_id: shippingAddress.checkout_session_id || order.checkout_session_id,
+    pickup_requested_date: shippingAddress.pickup_requested_date || order.pickup_requested_date,
+    pickup_requested_time: shippingAddress.pickup_requested_time || order.pickup_requested_time
   }
 }
 
@@ -436,6 +440,8 @@ export async function createOrder(orderData: {
   pickup_code?: string
   pickup_week_start?: string
   checkout_session_id?: string
+  pickup_requested_date?: string
+  pickup_requested_time?: string
 }) {
   if (!orderData || !Array.isArray(orderData.items) || orderData.items.length === 0) {
     throw new Error("Order must include at least one item")
@@ -454,6 +460,26 @@ export async function createOrder(orderData: {
     total_amount: orderData.total_amount,
     status: orderData.status || 'pending',
     shipping_address: orderData.shipping_address || null
+  }
+
+  if (orderData.payment_status !== undefined) {
+    finalOrderData.payment_status = orderData.payment_status
+  }
+
+  if (orderData.order_type !== undefined) {
+    finalOrderData.order_type = orderData.order_type
+  }
+
+  if (orderData.pickup_code !== undefined) {
+    finalOrderData.pickup_code = orderData.pickup_code
+  }
+
+  if (orderData.pickup_week_start !== undefined) {
+    finalOrderData.pickup_week_start = orderData.pickup_week_start
+  }
+
+  if (orderData.checkout_session_id !== undefined) {
+    finalOrderData.checkout_session_id = orderData.checkout_session_id
   }
 
   // If legacy fields exist, merge them into shipping_address

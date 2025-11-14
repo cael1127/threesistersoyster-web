@@ -108,8 +108,8 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <p className="text-purple-700">
-                  Use the menu above to manage your inventory, products, and view all customer orders.
-                  Orders can be sorted by pickup week. Orders placed Monday through Wednesday are ready for pickup Friday through Sunday.
+                  Use the menu above to manage your inventory, products, and view all customer reservations.
+                  Orders can be sorted by pickup week. Guests now choose a specific pickup day (Tuesday–Sunday) and time between 12 PM and 7 PM with at least two days of notice.
                 </p>
               </CardContent>
             </Card>

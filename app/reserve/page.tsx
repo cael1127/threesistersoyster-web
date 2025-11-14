@@ -35,8 +35,8 @@ export default async function ReservePage({ searchParams }: ReservePageProps) {
           <header className="text-center space-y-4">
             <h1 className="text-4xl font-bold text-purple-900">Reserve Your Pickup</h1>
             <p className="text-lg text-purple-800 max-w-3xl mx-auto">
-              Build your oyster order and reserve a pickup window with the Three Sisters crew. We’ll confirm by email and
-              you can pay with cash or card when you arrive.
+              Build your oyster order and reserve the exact day you want to pick up (Tuesday–Sunday). Schedule at least
+              two days ahead, choose a time between 12 PM and 7 PM, and pay with cash or card when you arrive.
             </p>
           </header>
 
