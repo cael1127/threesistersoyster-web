@@ -68,6 +68,8 @@ export default function AboutPage() {
       {/* Header */}
       <Navigation />
 
+      {/* Main Content */}
+      <main role="main">
       {/* Hero Section */}
       <section className="py-20 px-4 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20">
         <div className="container mx-auto max-w-4xl text-center">
@@ -338,6 +340,7 @@ export default function AboutPage() {
           </ScrollAnimatedSection>
         </div>
       </section>
+      </main>
     </div>
   )
 } 

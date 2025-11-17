@@ -151,16 +151,22 @@ export function VideoModal({
           onLoadStart={() => setIsLoading(true)}
           onLoadedData={() => setIsLoading(false)}
           onCanPlay={() => {
-            console.log('Video can play');
+            if (process.env.NODE_ENV === 'development') {
+              console.log('Video can play');
+            }
             setIsLoading(false);
           }}
           onLoadedMetadata={() => {
-            console.log('Video metadata loaded');
+            if (process.env.NODE_ENV === 'development') {
+              console.log('Video metadata loaded');
+            }
             setIsLoading(false);
           }}
+          aria-label={alt}
         >
           <source src={src} type="video/mp4" />
           <source src={src} type="video/MP4" />
+          <track kind="captions" srcLang="en" label="English captions" />
           Your browser does not support the video tag.
         </video>
 

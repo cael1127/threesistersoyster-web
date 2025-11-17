@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Calendar, ArrowLeft, ArrowUpRight, Sun, Snowflake, Leaf, Droplets } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
+import Script from 'next/script'
 // import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
 
 export const metadata: Metadata = {
@@ -36,8 +37,43 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPostPage() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com'
+  const articleUrl = `${siteUrl}/blog/oyster-season-guide-texas`
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      <Script id="article-jsonld" type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Oyster Season Guide: When to Enjoy the Best Texas Oysters",
+            "description": "Learn about oyster seasons and when our Texas Gulf oysters are at their peak. Discover the best times to order and enjoy our premium oysters.",
+            "image": `${siteUrl}/gal1.jpg`,
+            "datePublished": "2024-06-10",
+            "dateModified": "2024-06-10",
+            "author": {
+              "@type": "Organization",
+              "name": "Three Sisters Oyster Co.",
+              "url": siteUrl
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Three Sisters Oyster Co.",
+              "logo": {
+                "@type": "ImageObject",
+                "url": `${siteUrl}/logo.jpg`
+              }
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": articleUrl
+            },
+            "articleSection": "Seasonal",
+            "keywords": ["oyster season", "Texas oysters", "best time to buy oysters", "oyster quality", "seasonal oysters"]
+          })
+        }}
+      />
       {/* <SeasonalFloatingParticles count={8} /> */}
       
       {/* Header */}

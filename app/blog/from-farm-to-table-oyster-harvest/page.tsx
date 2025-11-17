@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Calendar, ArrowLeft, ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
+import Script from 'next/script'
 // import { // SeasonalFloatingParticles } from '@/components/ui/floating-particles'
 
 export const metadata: Metadata = {
@@ -36,8 +37,43 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPostPage() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com'
+  const articleUrl = `${siteUrl}/blog/from-farm-to-table-oyster-harvest`
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      <Script id="article-jsonld" type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "From Farm to Table: How We Harvest Our Oysters",
+            "description": "Take a behind-the-scenes look at our sustainable oyster farming process. See how we grow, harvest, and prepare fresh Texas oysters for your table.",
+            "image": `${siteUrl}/nurserylog.JPEG`,
+            "datePublished": "2024-09-08",
+            "dateModified": "2024-09-08",
+            "author": {
+              "@type": "Organization",
+              "name": "Three Sisters Oyster Co.",
+              "url": siteUrl
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Three Sisters Oyster Co.",
+              "logo": {
+                "@type": "ImageObject",
+                "url": `${siteUrl}/logo.jpg`
+              }
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": articleUrl
+            },
+            "articleSection": "Process",
+            "keywords": ["oyster harvest", "oyster farming process", "sustainable farming", "Texas oysters", "Port Lavaca"]
+          })
+        }}
+      />
       {/* <SeasonalFloatingParticles count={8} /> */}
       
       {/* Header */}

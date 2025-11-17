@@ -184,8 +184,10 @@ export function VideoPlayer({
         preload={preload}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
+        aria-label={alt}
       >
         <source src={src} type="video/mp4" />
+        <track kind="captions" srcLang="en" label="English captions" />
         Your browser does not support the video tag.
       </video>
 

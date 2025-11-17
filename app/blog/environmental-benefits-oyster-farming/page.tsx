@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Calendar, ArrowLeft, ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
+import Script from 'next/script'
 // import { // SeasonalFloatingParticles } from '@/components/ui/floating-particles'
 
 export const metadata: Metadata = {
@@ -36,8 +37,43 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPostPage() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com'
+  const articleUrl = `${siteUrl}/blog/environmental-benefits-oyster-farming`
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      <Script id="article-jsonld" type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "The Environmental Benefits of Oyster Farming",
+            "description": "Learn how sustainable oyster farming helps clean our waters and support marine ecosystems. Discover the environmental impact of our Port Lavaca operations.",
+            "image": `${siteUrl}/topFarm.JPG`,
+            "datePublished": "2024-07-15",
+            "dateModified": "2024-07-15",
+            "author": {
+              "@type": "Organization",
+              "name": "Three Sisters Oyster Co.",
+              "url": siteUrl
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Three Sisters Oyster Co.",
+              "logo": {
+                "@type": "ImageObject",
+                "url": `${siteUrl}/logo.jpg`
+              }
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": articleUrl
+            },
+            "articleSection": "Sustainability",
+            "keywords": ["sustainable oyster farming", "environmental benefits", "oyster aquaculture", "water filtration", "marine ecosystems"]
+          })
+        }}
+      />
       {/* <SeasonalFloatingParticles count={8} /> */}
       
       {/* Header */}

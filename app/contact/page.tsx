@@ -7,10 +7,11 @@ import { Label } from '@/components/ui/label'
 import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react'
 import Navigation from '@/components/Navigation'
 import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'Contact Us | Three Sisters Oyster Co. | Port Lavaca Texas',
-  description: 'Get in touch with Three Sisters Oyster Co. for fresh oyster orders, custom requests, or farm visits. Located in Port Lavaca, Texas. Call (713) 854-7427.',
+  description: 'Order fresh Texas oysters or schedule a farm visit. Call (713) 854-7427 or email info@threesistersoyster.com. Located in Port Lavaca, Texas.',
   robots: { index: true, follow: true },
   alternates: { canonical: '/contact' },
   openGraph: {
@@ -27,15 +28,64 @@ export const metadata: Metadata = {
 }
 
 export default function ContactPage() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com'
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      <Script id="local-business-jsonld" type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Three Sisters Oyster Co.",
+            "image": `${siteUrl}/logo.jpg`,
+            "description": "Family-owned sustainable oyster farm in Port Lavaca, Texas. Premium Gulf Coast oysters for restaurants, events, and seafood lovers.",
+            "url": siteUrl,
+            "telephone": "+1-713-854-7427",
+            "email": "info@threesistersoyster.com",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "106 Grant St.",
+              "addressLocality": "Port Lavaca",
+              "addressRegion": "TX",
+              "postalCode": "77979",
+              "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "28.6144",
+              "longitude": "-96.6250"
+            },
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "08:00",
+                "closes": "18:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "09:00",
+                "closes": "16:00"
+              }
+            ],
+            "priceRange": "$$",
+            "servesCuisine": "Seafood",
+            "areaServed": {
+              "@type": "State",
+              "name": "Texas"
+            }
+          })
+        }}
+      />
       <SeasonalFloatingParticles count={8} />
       
       {/* Header */}
       <Navigation />
 
       {/* Main Content */}
-      <main className="py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+      <main className="py-12 md:py-20 px-4 sm:px-6 lg:px-8" role="main">
         <div className="container mx-auto max-w-6xl">
           {/* Page Header */}
           <div className="text-center mb-16">

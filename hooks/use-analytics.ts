@@ -332,7 +332,9 @@ export function useAnalytics() {
         })
       })
     } catch (err) {
-      console.warn('API call tracking failed:', err)
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('API call tracking failed:', err)
+      }
     }
   }, [])
 
@@ -367,7 +369,9 @@ export function useAnalytics() {
         })
       })
     } catch (err) {
-      console.warn('Error tracking failed:', err)
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Error tracking failed:', err)
+      }
     }
   }, [])
 

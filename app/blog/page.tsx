@@ -185,7 +185,7 @@ export default function BlogPage() {
       <Navigation />
 
       {/* Main Content */}
-      <main className="py-8 md:py-12 lg:py-20 px-4 sm:px-6 lg:px-8">
+      <main className="py-8 md:py-12 lg:py-20 px-4 sm:px-6 lg:px-8" role="main">
         <div className="container mx-auto max-w-7xl">
           {/* Page Header */}
           <div className="text-center mb-12 md:mb-16">

@@ -18,7 +18,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.
 
 export const metadata: Metadata = {
   title: "Three Sisters Oyster | Fresh Texas Oysters from Port Lavaca",
-  description: "Discover premium oysters in Port Lavaca, Texas. Three Sisters Oyster offers fresh Gulf Coast oysters for restaurants, events, and seafood lovers.",
+  description: "Premium fresh oysters from Port Lavaca, Texas. Sustainable Gulf Coast oysters for restaurants, events & seafood lovers. Order online or call (713) 854-7427.",
   keywords: [
     "Texas oysters",
     "Port Lavaca oysters", 

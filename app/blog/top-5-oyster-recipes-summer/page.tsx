@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Calendar, ArrowLeft, ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
+import Script from 'next/script'
 // import { // SeasonalFloatingParticles } from '@/components/ui/floating-particles'
 
 export const metadata: Metadata = {
@@ -36,8 +37,43 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPostPage() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com'
+  const articleUrl = `${siteUrl}/blog/top-5-oyster-recipes-summer`
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      <Script id="article-jsonld" type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Top 5 Oyster Recipes for Summer Gatherings",
+            "description": "Perfect your oyster preparation with these delicious recipes. From classic raw oysters to grilled specialties, impress your guests with fresh Gulf Coast oysters.",
+            "image": `${siteUrl}/gal.jpg`,
+            "datePublished": "2024-08-20",
+            "dateModified": "2024-08-20",
+            "author": {
+              "@type": "Organization",
+              "name": "Three Sisters Oyster Co.",
+              "url": siteUrl
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Three Sisters Oyster Co.",
+              "logo": {
+                "@type": "ImageObject",
+                "url": `${siteUrl}/logo.jpg`
+              }
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": articleUrl
+            },
+            "articleSection": "Recipes",
+            "keywords": ["oyster recipes", "summer recipes", "oyster cooking", "Gulf Coast oysters", "oyster preparation"]
+          })
+        }}
+      />
       {/* <SeasonalFloatingParticles count={8} /> */}
       
       {/* Header */}

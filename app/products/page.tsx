@@ -295,7 +295,7 @@ export default async function ProductsPage() {
       <Navigation />
 
       {/* Main Content */}
-      <main className="flex-1 py-8 px-4">
+      <main className="flex-1 py-8 px-4" role="main">
         <div className="container mx-auto max-w-7xl">
           {/* Page Header */}
           <div className="text-center mb-12">

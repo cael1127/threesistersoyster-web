@@ -196,6 +196,8 @@ export default function HomePage() {
         </div>
       )}
 
+      {/* Main Content */}
+      <main role="main">
       {/* Hero Section */}
       <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20 overflow-hidden">
         <div className="container mx-auto max-w-7xl">
@@ -208,7 +210,7 @@ export default function HomePage() {
                   Oyster Co.
                 </span>
               </h1>
-              <p className="text-base sm:text-lg md:text-xl text-purple-800 mb-6 md:mb-8 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-purple-900 mb-6 md:mb-8 leading-relaxed drop-shadow-sm">
                 Growing the finest Gulf Coast oysters in the pristine waters of Port Lavaca, Texas. Our sustainable farming practices deliver exceptional flavor, texture, and freshness that chefs and seafood lovers trust. From our farm to your table, experience the superior taste of premium Texas oysters for restaurants, catering, and home dining.
               </p>
 
@@ -261,7 +263,7 @@ export default function HomePage() {
           <ScrollAnimatedSection animationType="fade-in" delay={200}>
             <div className="text-center mb-12 md:mb-16">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-3 md:mb-4 px-2 text-center">Crafting Premium Oysters</h2>
-              <p className="text-base sm:text-lg md:text-xl text-purple-800 max-w-2xl mx-auto leading-relaxed px-4">
+              <p className="text-base sm:text-lg md:text-xl text-purple-900 max-w-2xl mx-auto leading-relaxed px-4 drop-shadow-sm">
                 From seed to shuck, our meticulous farming process ensures every oyster delivers exceptional taste, texture, and freshness. Sustainable practices that enhance flavor and quality in every bite.
               </p>
             </div>
@@ -286,11 +288,11 @@ export default function HomePage() {
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Premium Seed for Superior Taste</h3>
                   </div>
-                  <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed">
+                  <p className="text-sm md:text-base text-purple-900 mb-4 md:mb-6 leading-relaxed drop-shadow-sm">
                     Our nursery produces hardy Eastern oyster seed that develops into oysters with exceptional flavor profiles. 
                     Quality seed stock ensures consistent taste and texture that chefs and oyster lovers expect.
                   </p>
-                  <ul className="space-y-2 text-sm md:text-base text-purple-800 mb-4 md:mb-6">
+                  <ul className="space-y-2 text-sm md:text-base text-purple-900 mb-4 md:mb-6 drop-shadow-sm">
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
                       Superior flavor development
@@ -304,7 +306,7 @@ export default function HomePage() {
                       Quality-focused cultivation
                     </li>
                   </ul>
-                  <p className="text-xs md:text-sm text-purple-800">
+                  <p className="text-xs md:text-sm text-purple-900 drop-shadow-sm">
                     For pricing and ordering information, please call{" "}
                     <a href="tel:713-854-7427" className="font-semibold text-white hover:text-white transition-colors duration-200">
                       713-854-7427
@@ -330,8 +332,8 @@ export default function HomePage() {
                           quality={90}
                         />
                       </div>
-                      <p className="text-purple-800 font-medium">Quality Seed Production</p>
-                      <p className="text-purple-700 text-sm">Flavor-Focused Cultivation</p>
+                      <p className="text-purple-900 font-medium drop-shadow-sm">Quality Seed Production</p>
+                      <p className="text-purple-800 text-sm drop-shadow-sm">Flavor-Focused Cultivation</p>
                     </div>
                   </div>
                 </div>
@@ -357,8 +359,8 @@ export default function HomePage() {
                           quality={90}
                         />
                       </div>
-                      <p className="text-purple-800 font-medium">Premium Harvest</p>
-                      <p className="text-purple-700 text-sm">Quality & Flavor Focus</p>
+                      <p className="text-purple-900 font-medium drop-shadow-sm">Premium Harvest</p>
+                      <p className="text-purple-800 text-sm drop-shadow-sm">Quality & Flavor Focus</p>
                     </div>
                   </div>
                 </div>
@@ -382,11 +384,11 @@ export default function HomePage() {
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Premium Oyster Harvest</h3>
                   </div>
-                  <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed">
+                  <p className="text-sm md:text-base text-purple-900 mb-4 md:mb-6 leading-relaxed drop-shadow-sm">
                     We carefully grow oysters to perfect market size, ensuring optimal flavor, texture, and brininess. 
                     Our sustainable farming in Keller Bay's pristine waters creates oysters that deliver an exceptional dining experience.
                   </p>
-                  <ul className="space-y-2 text-sm md:text-base text-purple-800">
+                  <ul className="space-y-2 text-sm md:text-base text-purple-900 drop-shadow-sm">
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
                       Perfect half-shell presentation
@@ -416,20 +418,20 @@ export default function HomePage() {
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-4 md:mb-6 leading-tight px-2 text-center">Named After Blake's Three Daughters</h2>
               </ScrollAnimatedSection>
               <ScrollAnimatedSection animationType="fade-in" delay={400}>
-                <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed px-2">
+                <p className="text-sm md:text-base text-purple-900 mb-4 md:mb-6 leading-relaxed px-2 drop-shadow-sm">
                   Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
                   daughters, our team strives to create a better coastline for the future.
                 </p>
               </ScrollAnimatedSection>
               <ScrollAnimatedSection animationType="fade-in" delay={600}>
-                <p className="text-sm md:text-base text-purple-800 mb-4 md:mb-6 leading-relaxed px-2">
+                <p className="text-sm md:text-base text-purple-900 mb-4 md:mb-6 leading-relaxed px-2 drop-shadow-sm">
                   Blake grew up outdoors, learning to dive in the Thousand Islands in Indonesia and stayed active in wildlife and
                   FFA during his youth. His love of the outdoors led him to oyster farming as a family and lifestyle
                   choice.
                 </p>
               </ScrollAnimatedSection>
               <ScrollAnimatedSection animationType="fade-in" delay={800}>
-                <p className="text-sm md:text-base text-purple-800 mb-6 md:mb-8 leading-relaxed px-2">
+                <p className="text-sm md:text-base text-purple-900 mb-6 md:mb-8 leading-relaxed px-2 drop-shadow-sm">
                   With a Range and Wildlife Management degree from Texas A&M Kingsville and eight years in Environmental
                   Consulting, Blake discovered the pristine waters of Keller Bay - an excellent location for growing
                   premium oysters while improving water quality and sequestering nitrogen and carbon.
@@ -454,7 +456,7 @@ export default function HomePage() {
           <ScrollAnimatedSection animationType="fade-in" delay={1000}>
             <div className="mt-16 text-center">
               <h2 className="text-4xl font-bold text-purple-900 mb-8 text-center">Meet Our Team</h2>
-              <p className="text-xl text-purple-800 mb-12 max-w-3xl mx-auto">
+              <p className="text-xl text-purple-900 mb-12 max-w-3xl mx-auto drop-shadow-sm">
                 The dedicated team behind Three Sisters Oyster Co. - passionate about sustainable aquaculture and premium oysters.
               </p>
             </div>
@@ -472,7 +474,7 @@ export default function HomePage() {
             <h2 className="text-4xl font-bold text-purple-900 mb-6 text-center">Environmental Stewardship</h2>
           </ScrollAnimatedSection>
           <ScrollAnimatedSection animationType="fade-in" delay={400}>
-            <p className="text-xl text-purple-800 mb-12 max-w-3xl mx-auto">
+            <p className="text-xl text-purple-900 mb-12 max-w-3xl mx-auto drop-shadow-sm">
               Our environmental practices don't just protect the coast—they enhance the flavor and quality of our oysters. 
               Clean water means better taste, and sustainable farming creates superior culinary experiences.
             </p>
@@ -485,7 +487,7 @@ export default function HomePage() {
                   <Waves className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
                 </div>
                 <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Water Quality</h3>
-                <p className="text-purple-800">Clean water creates cleaner, more flavorful oysters</p>
+                <p className="text-purple-900 drop-shadow-sm">Clean water creates cleaner, more flavorful oysters</p>
               </div>
             </ScrollAnimatedSection>
             <ScrollAnimatedSection animationType="zoom-in" delay={800}>
@@ -494,7 +496,7 @@ export default function HomePage() {
                   <Leaf className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
                 </div>
                 <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Carbon Sequestration</h3>
-                <p className="text-purple-800">Healthy ecosystems produce healthier, tastier oysters</p>
+                <p className="text-purple-900 drop-shadow-sm">Healthy ecosystems produce healthier, tastier oysters</p>
               </div>
             </ScrollAnimatedSection>
             <ScrollAnimatedSection animationType="slide-right-far" delay={1000}>
@@ -503,12 +505,13 @@ export default function HomePage() {
                   <Fish className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
                 </div>
                 <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Marine Habitat</h3>
-                <p className="text-purple-800">Rich marine environments enhance oyster flavor complexity</p>
+                <p className="text-purple-900 drop-shadow-sm">Rich marine environments enhance oyster flavor complexity</p>
               </div>
             </ScrollAnimatedSection>
           </div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <footer className="bg-purpleBrand text-white py-12 px-4">

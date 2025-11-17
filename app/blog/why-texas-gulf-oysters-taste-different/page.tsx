@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Calendar, ArrowLeft, ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
+import Script from 'next/script'
 // import { // SeasonalFloatingParticles } from '@/components/ui/floating-particles'
 
 export const metadata: Metadata = {
@@ -36,8 +37,43 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPostPage() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com'
+  const articleUrl = `${siteUrl}/blog/why-texas-gulf-oysters-taste-different`
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
+      <Script id="article-jsonld" type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Why Texas Gulf Oysters Taste Different",
+            "description": "Discover what makes our Port Lavaca oysters unique. From water quality to farming methods, learn why Texas Gulf Coast oysters have a distinct flavor profile.",
+            "image": `${siteUrl}/farmlog.jpg`,
+            "datePublished": "2024-09-15",
+            "dateModified": "2024-09-15",
+            "author": {
+              "@type": "Organization",
+              "name": "Three Sisters Oyster Co.",
+              "url": siteUrl
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Three Sisters Oyster Co.",
+              "logo": {
+                "@type": "ImageObject",
+                "url": `${siteUrl}/logo.jpg`
+              }
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": articleUrl
+            },
+            "articleSection": "Farming",
+            "keywords": ["Texas oysters", "Port Lavaca oysters", "Gulf Coast oysters", "oyster farming", "sustainable aquaculture"]
+          })
+        }}
+      />
       {/* <SeasonalFloatingParticles count={8} /> */}
       
       {/* Header */}
