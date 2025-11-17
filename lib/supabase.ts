@@ -513,29 +513,40 @@ export async function createOrder(orderData: {
     finalOrderData.shipping_address = mergedShippingAddress
   }
 
-  console.log('Inserting order into database:', JSON.stringify(finalOrderData, null, 2))
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Inserting order into database:', JSON.stringify(finalOrderData, null, 2))
+  }
 
   // Use service client to bypass RLS for trusted server-side order creation
   const serviceClient = getServiceSupabaseClient()
   const { data, error } = await serviceClient.from("orders").insert([finalOrderData]).select().single()
 
   if (error) {
-    console.error("Error creating order:", error)
-    console.error("Error details:", {
-      message: error.message,
-      code: error.code,
-      details: error.details,
-      hint: error.hint
-    })
-    throw error
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Error creating order:", error)
+      console.error("Error details:", {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+        hint: error.hint
+      })
+    }
+    // Create a more descriptive error message
+    const errorMessage = error.message || 'Unknown database error'
+    const errorCode = error.code || 'UNKNOWN'
+    throw new Error(`Database error (${errorCode}): ${errorMessage}. ${error.hint || ''}`)
   }
 
   if (!data) {
-    console.error("Order created but no data returned from database")
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Order created but no data returned from database")
+    }
     throw new Error("Order creation failed - no data returned")
   }
 
-  console.log("Order created successfully:", data.id)
+  if (process.env.NODE_ENV === 'development') {
+    console.log("Order created successfully:", data.id)
+  }
   return normalizeOrder(data)
 }
 
@@ -682,7 +693,9 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
           // Decrement inventory when order/reservation is placed
           const newCount = Math.max(0, currentCount - item.quantity)
           
-          console.log(`📦 Updating inventory for ${product.name}: ${currentCount} → ${newCount} (decrementing ${item.quantity})`)
+          if (process.env.NODE_ENV === 'development') {
+            console.log(`📦 Updating inventory for ${product.name}: ${currentCount} → ${newCount} (decrementing ${item.quantity})`)
+          }
           
           // Update both the description JSON and inventory_count field
           let newDescription = product.description;
@@ -690,10 +703,14 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
             if (parsedDesc) {
               parsedDesc.inventory = newCount;
               newDescription = JSON.stringify(parsedDesc);
-              console.log(`✅ Updated description JSON for ${product.name}`)
+              if (process.env.NODE_ENV === 'development') {
+                console.log(`✅ Updated description JSON for ${product.name}`)
+              }
             }
           } catch (error) {
-            console.warn(`⚠️ Could not update description JSON for ${product.name}`)
+            if (process.env.NODE_ENV === 'development') {
+              console.warn(`⚠️ Could not update description JSON for ${product.name}`)
+            }
           }
           
           // Update the product with new inventory count and description
@@ -709,10 +726,14 @@ export async function updateProductInventoryCounts(orderItems: any[]): Promise<v
             .select("inventory_count")
 
           if (updateError) {
-            console.error(`❌ Error updating product inventory for ${product.name}:`, updateError.message)
-            console.error('Update error details:', updateError)
+            if (process.env.NODE_ENV === 'development') {
+              console.error(`❌ Error updating product inventory for ${product.name}:`, updateError.message)
+              console.error('Update error details:', updateError)
+            }
           } else {
-            console.log(`✅ Inventory updated successfully for ${product.name}: ${newCount}`)
+            if (process.env.NODE_ENV === 'development') {
+              console.log(`✅ Inventory updated successfully for ${product.name}: ${newCount}`)
+            }
           }
         } else {
 

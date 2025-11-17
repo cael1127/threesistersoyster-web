@@ -148,11 +148,16 @@ export async function POST(request: NextRequest) {
         console.error('Error creating order:', orderError)
         console.error('Order error details:', { errorMessage, errorDetails, orderData })
       }
+      
+      // Return more detailed error information
       return NextResponse.json(
         { 
           error: 'Failed to create order in database',
           details: errorMessage,
-          hint: 'Check if database migration has been run (scripts/database-migration-orders.sql)'
+          code: errorDetails,
+          hint: errorMessage.includes('column') || errorMessage.includes('relation') 
+            ? 'Database schema may be missing required columns. Check if database migration has been run (scripts/database-migration-orders.sql)'
+            : 'Check server logs for more details'
         },
         { status: 500 }
       )
