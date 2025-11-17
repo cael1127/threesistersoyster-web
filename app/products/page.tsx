@@ -300,10 +300,15 @@ export default async function ProductsPage() {
           {/* Page Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-purple-900 mb-4 text-center">Our Products</h1>
-            <p className="text-lg text-purple-800 mb-8 text-center">
+            <p className="text-lg text-purple-900 mb-6 text-center drop-shadow-sm">
               Discover our premium Texas Gulf Coast oysters and branded merchandise. Order fresh oysters online 
               from our sustainable farm in Port Lavaca, Texas. Perfect for restaurants, catering, and seafood lovers.
             </p>
+            <div className="bg-blueBrand/20 border-l-4 border-blueBrand rounded-lg p-4 mb-8 max-w-3xl mx-auto">
+              <p className="text-purple-900 font-medium text-center drop-shadow-sm">
+                Please be patient - we do not always have oysters readily packaged. Please use the reserve function below to tell us when and how much you need.
+              </p>
+            </div>
           </div>
 
           {/* Products Tabs */}
