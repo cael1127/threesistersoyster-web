@@ -54,6 +54,17 @@ export function ReserveForm({ products, focusId }: ReserveFormProps) {
   )
 
   const minPickupDate = useMemo(() => {
+    if (typeof window === 'undefined') {
+      // Server-side: use a safe default
+      const base = new Date()
+      base.setHours(0, 0, 0, 0)
+      base.setDate(base.getDate() + 2)
+      if (base.getDay() === 1) {
+        base.setDate(base.getDate() + 1)
+      }
+      return base.toISOString().split("T")[0]
+    }
+    // Client-side: calculate properly
     const base = new Date()
     base.setHours(0, 0, 0, 0)
     base.setDate(base.getDate() + 2)

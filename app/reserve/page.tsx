@@ -20,7 +20,9 @@ export default async function ReservePage({ searchParams }: ReservePageProps) {
   try {
     products = await getProducts()
   } catch (error) {
-    console.error("Failed to load products for reservations:", error)
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Failed to load products for reservations:", error)
+    }
   }
 
   const focusParam = searchParams?.focus
@@ -30,11 +32,11 @@ export default async function ReservePage({ searchParams }: ReservePageProps) {
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative overflow-hidden">
       <SeasonalFloatingParticles count={12} />
       <Navigation />
-      <main className="flex-1 py-10 px-4">
+      <main className="flex-1 py-10 px-4" role="main">
         <div className="container mx-auto max-w-6xl space-y-8">
           <header className="text-center space-y-4">
             <h1 className="text-4xl font-bold text-purple-900">Reserve Your Pickup</h1>
-            <p className="text-lg text-purple-800 max-w-3xl mx-auto">
+            <p className="text-lg text-purple-900 max-w-3xl mx-auto drop-shadow-sm">
               Build your oyster order and reserve the exact day you want to pick up (Tuesday–Sunday). Schedule at least
               two days ahead, choose a time between 12 PM and 7 PM, and pay with cash or card when you arrive.
             </p>

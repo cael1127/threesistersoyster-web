@@ -131,17 +131,23 @@ export async function POST(request: NextRequest) {
       pickup_week_start: pickupWeekStart
     }
 
-    console.log('Creating order with data:', JSON.stringify(orderData, null, 2))
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Creating order with data:', JSON.stringify(orderData, null, 2))
+    }
     
     let order
     try {
       order = await createOrder(orderData)
-      console.log('Order created successfully:', order.id)
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Order created successfully:', order.id)
+      }
     } catch (orderError) {
-      console.error('Error creating order:', orderError)
       const errorMessage = orderError instanceof Error ? orderError.message : 'Unknown error'
       const errorDetails = orderError instanceof Error && 'code' in orderError ? (orderError as any).code : 'no-code'
-      console.error('Order error details:', { errorMessage, errorDetails, orderData })
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error creating order:', orderError)
+        console.error('Order error details:', { errorMessage, errorDetails, orderData })
+      }
       return NextResponse.json(
         { 
           error: 'Failed to create order in database',
@@ -155,9 +161,13 @@ export async function POST(request: NextRequest) {
     // Update inventory counts (reserve the items)
     try {
       await updateProductInventoryCounts(items)
-      console.log('Inventory updated successfully')
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Inventory updated successfully')
+      }
     } catch (inventoryError) {
-      console.error('Error updating inventory:', inventoryError)
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error updating inventory:', inventoryError)
+      }
       // Don't fail the reservation if inventory update fails - order is already created
       // We can update inventory manually if needed
     }
@@ -173,10 +183,12 @@ export async function POST(request: NextRequest) {
       order: normalizedOrder
     })
   } catch (error) {
-    console.error('Error creating reservation:', error)
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     const errorStack = error instanceof Error ? error.stack : undefined
-    console.error('Full error details:', { errorMessage, errorStack })
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error creating reservation:', error)
+      console.error('Full error details:', { errorMessage, errorStack })
+    }
     
     return NextResponse.json(
       { 
