@@ -451,42 +451,13 @@ export async function createOrder(orderData: {
     throw new Error("Supabase is not configured. Set SUPABASE_URL/NEXT_PUBLIC_SUPABASE_URL and keys.")
   }
 
-  // If legacy fields are provided at top level, move them to shipping_address
-  const finalOrderData: Record<string, any> = {
-    customer_name: orderData.customer_name,
-    customer_email: orderData.customer_email,
-    customer_phone: orderData.customer_phone,
-    items: orderData.items,
-    total_amount: orderData.total_amount,
-    status: orderData.status || 'pending',
-    shipping_address: orderData.shipping_address || null
-  }
-
-  if (orderData.payment_status !== undefined) {
-    finalOrderData.payment_status = orderData.payment_status
-  }
-
-  if (orderData.order_type !== undefined) {
-    finalOrderData.order_type = orderData.order_type
-  }
-
-  if (orderData.pickup_code !== undefined) {
-    finalOrderData.pickup_code = orderData.pickup_code
-  }
-
-  if (orderData.pickup_week_start !== undefined) {
-    finalOrderData.pickup_week_start = orderData.pickup_week_start
-  }
-
-  if (orderData.checkout_session_id !== undefined) {
-    finalOrderData.checkout_session_id = orderData.checkout_session_id
-  }
-
-  // If legacy fields exist, merge them into shipping_address
+  // Build shipping_address JSONB field with all metadata
+  // These fields should NOT be at the top level - only in shipping_address
   const mergedShippingAddress: Record<string, any> = {
-    ...(finalOrderData.shipping_address || {})
+    ...(orderData.shipping_address || {})
   }
 
+  // Merge all metadata fields into shipping_address JSONB field only
   if (orderData.payment_status !== undefined) {
     mergedShippingAddress.payment_status = orderData.payment_status
   }
@@ -509,8 +480,25 @@ export async function createOrder(orderData: {
     mergedShippingAddress.checkout_session_id = orderData.checkout_session_id
   }
 
-  if (Object.keys(mergedShippingAddress).length > 0) {
-    finalOrderData.shipping_address = mergedShippingAddress
+  if (orderData.pickup_requested_date !== undefined) {
+    mergedShippingAddress.pickup_requested_date = orderData.pickup_requested_date
+  }
+
+  if (orderData.pickup_requested_time !== undefined) {
+    mergedShippingAddress.pickup_requested_time = orderData.pickup_requested_time
+  }
+
+  // Build final order data - ONLY include columns that exist in the orders table
+  // DO NOT include order_type, payment_status, pickup_code, etc. at top level
+  // These are stored ONLY in shipping_address JSONB field
+  const finalOrderData: Record<string, any> = {
+    customer_name: orderData.customer_name,
+    customer_email: orderData.customer_email,
+    customer_phone: orderData.customer_phone,
+    items: orderData.items,
+    total_amount: orderData.total_amount,
+    status: orderData.status || 'pending',
+    shipping_address: Object.keys(mergedShippingAddress).length > 0 ? mergedShippingAddress : null
   }
 
   if (process.env.NODE_ENV === 'development') {
