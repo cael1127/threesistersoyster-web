@@ -11,7 +11,9 @@ import {
   Download,
   Check,
   X,
-  Clock
+  Clock,
+  Search,
+  Filter
 } from 'lucide-react'
 import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
 import {
@@ -22,6 +24,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
 
 interface Order {
   id: string
@@ -41,10 +44,13 @@ interface Order {
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
+  const [allOrders, setAllOrders] = useState<Order[]>([]) // Store all orders including fulfilled
   const [loading, setLoading] = useState(true)
   const [selectedWeek, setSelectedWeek] = useState<string>('all')
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date())
   const [orderCount, setOrderCount] = useState<number>(0)
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [statusFilter, setStatusFilter] = useState<string>('active') // 'active', 'all', 'fulfilled'
 
   const formatPickupTime = (time: string | undefined | null) => {
     if (!time) return null
@@ -66,7 +72,9 @@ export default function AdminOrdersPage() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (!loading) { // Only refresh if not currently loading
-        console.log('Auto-refreshing orders...')
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Auto-refreshing orders...')
+        }
         fetchOrders()
       }
     }, 30000) // 30 seconds
@@ -91,29 +99,38 @@ export default function AdminOrdersPage() {
       }
       
       const data = await response.json()
-      console.log('Orders fetched:', data.orders?.length || 0, 'orders')
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Orders fetched:', data.orders?.length || 0, 'orders')
+      }
       
       if (data.orders) {
         const newCount = data.orders.length
         const previousCount = orderCount
         
-        setOrders(data.orders)
+        // Store all orders
+        setAllOrders(data.orders)
         setOrderCount(newCount)
         setLastRefresh(new Date())
         
-        console.log('Orders set in state:', newCount)
-        
-        // Show notification if new orders were added
-        if (newCount > previousCount && previousCount > 0) {
-          console.log(`New order detected! Previous: ${previousCount}, Current: ${newCount}`)
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Orders set in state:', newCount)
+          
+          // Show notification if new orders were added
+          if (newCount > previousCount && previousCount > 0) {
+            console.log(`New order detected! Previous: ${previousCount}, Current: ${newCount}`)
+          }
         }
       } else {
-        console.warn('No orders in response:', data)
-        setOrders([])
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('No orders in response:', data)
+        }
+        setAllOrders([])
         setOrderCount(0)
       }
     } catch (error) {
-      console.error('Error fetching orders:', error)
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error fetching orders:', error)
+      }
       alert('Failed to load orders. Please refresh the page.')
     } finally {
       setLoading(false)
@@ -129,7 +146,9 @@ export default function AdminOrdersPage() {
       })
       fetchOrders()
     } catch (error) {
-      console.error('Error updating order:', error)
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error updating order:', error)
+      }
     }
   }
 
@@ -169,15 +188,66 @@ export default function AdminOrdersPage() {
     }
   }
 
-  // Get unique pickup weeks for filter
+  // Filter orders based on status and search query
+  const filteredOrders = useMemo(() => {
+    let filtered = allOrders
+
+    // Filter by status
+    if (statusFilter === 'active') {
+      // Hide fulfilled/delivered orders
+      filtered = filtered.filter(order => 
+        order.status !== 'delivered' && 
+        order.status !== 'fulfilled' &&
+        order.status !== 'completed'
+      )
+    } else if (statusFilter === 'fulfilled') {
+      // Show only fulfilled orders
+      filtered = filtered.filter(order => 
+        order.status === 'delivered' || 
+        order.status === 'fulfilled' ||
+        order.status === 'completed'
+      )
+    }
+    // 'all' shows everything
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim()
+      filtered = filtered.filter(order => {
+        const searchableText = [
+          order.id,
+          order.customer_name,
+          order.customer_email,
+          order.customer_phone || '',
+          order.pickup_code || '',
+          order.payment_status || '',
+          order.status
+        ].join(' ').toLowerCase()
+        
+        return searchableText.includes(query)
+      })
+    }
+
+    // Filter by week if selected
+    if (selectedWeek !== 'all') {
+      filtered = filtered.filter(order => {
+        const week = order.pickup_week_start || getPickupWeekStart(order.created_at)
+        return week === selectedWeek
+      })
+    }
+
+    return filtered
+  }, [allOrders, statusFilter, searchQuery, selectedWeek])
+
+  // Get unique pickup weeks for filter (from all orders)
   const uniqueWeeks = useMemo(() => {
     const weeks = new Set<string>()
-    orders.forEach(order => {
+    allOrders.forEach(order => {
       const week = order.pickup_week_start || getPickupWeekStart(order.created_at)
       weeks.add(week)
     })
     return Array.from(weeks).sort()
-  }, [orders])
+  }, [allOrders])
 
   const exportWeekOrders = () => {
     if (selectedWeek === 'all') {
@@ -185,7 +255,7 @@ export default function AdminOrdersPage() {
       return
     }
     
-    const weekOrders = orders.filter(order => {
+    const weekOrders = filteredOrders.filter(order => {
       const week = order.pickup_week_start || getPickupWeekStart(order.created_at)
       return week === selectedWeek
     })
@@ -300,7 +370,7 @@ export default function AdminOrdersPage() {
               <div>
                 <h1 className="text-4xl font-bold text-purple-900">Orders</h1>
                 <p className="text-purple-700">
-                  View and manage customer orders • {orderCount} total orders
+                  View and manage customer orders • {filteredOrders.length} of {orderCount} orders shown
                   {lastRefresh && (
                     <span className="text-purple-600 text-sm ml-2">
                       (Last updated: {lastRefresh.toLocaleTimeString()})
@@ -309,10 +379,12 @@ export default function AdminOrdersPage() {
                 </p>
               </div>
             </div>
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-4 items-center flex-wrap">
               <Button 
                 onClick={() => {
-                  console.log('Manual refresh triggered')
+                  if (process.env.NODE_ENV === 'development') {
+                    console.log('Manual refresh triggered')
+                  }
                   fetchOrders()
                 }} 
                 variant="outline"
@@ -322,12 +394,32 @@ export default function AdminOrdersPage() {
                 <Clock className="w-4 h-4 mr-2" />
                 Refresh
               </Button>
+              <div className="relative flex-1 min-w-[200px] max-w-[400px]">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-400 w-4 h-4" />
+                <Input
+                  type="text"
+                  placeholder="Search by name, email, order ID, phone..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 border-purpleBrand/30"
+                />
+              </div>
+              <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <SelectTrigger className="w-40">
+                  <SelectValue placeholder="Filter status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="active">Active Orders</SelectItem>
+                  <SelectItem value="all">All Orders</SelectItem>
+                  <SelectItem value="fulfilled">Fulfilled Only</SelectItem>
+                </SelectContent>
+              </Select>
               <Select value={selectedWeek} onValueChange={setSelectedWeek}>
                 <SelectTrigger className="w-48">
                   <SelectValue placeholder="Select week" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Orders</SelectItem>
+                  <SelectItem value="all">All Weeks</SelectItem>
                   {uniqueWeeks.map(week => (
                     <SelectItem key={week} value={week}>
                       Week of {new Date(week).toLocaleDateString()}
@@ -351,15 +443,31 @@ export default function AdminOrdersPage() {
             </div>
           ) : (
             <div className="space-y-4">
-              {orders.length === 0 ? (
+              {filteredOrders.length === 0 ? (
                 <Card className="border-purpleBrand/30 bg-gradient-to-br from-purpleBrand/10 to-lavenderBrand/10 backdrop-blur-sm">
                   <CardContent className="p-8 text-center">
                     <FileText className="w-16 h-16 text-purpleBrand mx-auto mb-4" />
-                    <p className="text-purple-800 text-lg">No orders found</p>
+                    <p className="text-purple-800 text-lg">
+                      {searchQuery || statusFilter !== 'all' 
+                        ? 'No orders match your filters' 
+                        : 'No orders found'}
+                    </p>
+                    {(searchQuery || statusFilter !== 'all') && (
+                      <Button 
+                        variant="outline" 
+                        className="mt-4"
+                        onClick={() => {
+                          setSearchQuery('')
+                          setStatusFilter('active')
+                        }}
+                      >
+                        Clear Filters
+                      </Button>
+                    )}
                   </CardContent>
                 </Card>
               ) : (
-                orders.map((order) => {
+                filteredOrders.map((order) => {
                   const pickupWeek = order.pickup_week_start || getPickupWeekStart(order.created_at)
                   const items = typeof order.items === 'string' ? JSON.parse(order.items) : order.items
                   const pickupRequestedDate = order.pickup_requested_date || (order as any)?.shipping_address?.pickup_requested_date
@@ -374,32 +482,63 @@ export default function AdminOrdersPage() {
                   const pickupRequestedTimeLabel = formatPickupTime(pickupRequestedTime)
                   
                   return (
-                    <Card key={order.id} className="border-purpleBrand/30 bg-gradient-to-br from-purpleBrand/10 to-lavenderBrand/10 backdrop-blur-sm">
+                    <Card key={order.id} className="border-purpleBrand/30 bg-gradient-to-br from-purpleBrand/10 to-lavenderBrand/10 backdrop-blur-sm hover:shadow-lg transition-shadow">
                       <CardHeader>
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <CardTitle className="text-purple-900 flex items-center">
-                              <FileText className="w-5 h-5 mr-2" />
-                              Order #{order.id.slice(-8)}
+                        <div className="flex justify-between items-start gap-4">
+                          <div className="flex-1 min-w-0">
+                            <CardTitle className="text-purple-900 flex items-center mb-2">
+                              <FileText className="w-5 h-5 mr-2 flex-shrink-0" />
+                              <span className="font-mono">Order #{order.id.slice(-8)}</span>
                             </CardTitle>
-                            <p className="text-purple-700 mt-1">
-                              {order.customer_name} • {order.customer_email}
-                            </p>
-                            {order.customer_phone && (
-                              <p className="text-purple-600 text-sm">Phone: {order.customer_phone}</p>
-                            )}
+                            <div className="space-y-1">
+                              <p className="text-purple-900 font-semibold">
+                                {order.customer_name}
+                              </p>
+                              <p className="text-purple-700 text-sm break-all">
+                                {order.customer_email}
+                              </p>
+                              {order.customer_phone && (
+                                <p className="text-purple-600 text-sm">📞 {order.customer_phone}</p>
+                              )}
+                            </div>
                           </div>
-                          <div className="flex gap-2">
-                            <Badge variant={order.status === 'delivered' ? 'default' : 'secondary'}>
-                              {order.status}
+                          <div className="flex gap-2 flex-wrap">
+                            <Badge 
+                              variant={
+                                order.status === 'delivered' || 
+                                order.status === 'fulfilled' || 
+                                order.status === 'completed'
+                                  ? 'default' 
+                                  : order.status === 'pending'
+                                  ? 'secondary'
+                                  : 'outline'
+                              }
+                              className={
+                                order.status === 'delivered' || 
+                                order.status === 'fulfilled' || 
+                                order.status === 'completed'
+                                  ? 'bg-green-600'
+                                  : order.status === 'pending'
+                                  ? 'bg-yellow-500'
+                                  : ''
+                              }
+                            >
+                              {order.status === 'delivered' || 
+                               order.status === 'fulfilled' || 
+                               order.status === 'completed'
+                                ? 'Fulfilled'
+                                : order.status}
                             </Badge>
                             {order.payment_status && (
-                              <Badge variant={order.payment_status === 'paid' ? 'default' : 'outline'}>
+                              <Badge 
+                                variant={order.payment_status === 'paid' ? 'default' : 'outline'}
+                                className={order.payment_status === 'paid' ? 'bg-blue-600' : ''}
+                              >
                                 {order.payment_status}
                               </Badge>
                             )}
                             {order.pickup_code && (
-                              <Badge variant="outline">
+                              <Badge variant="outline" className="font-mono">
                                 Code: {order.pickup_code}
                               </Badge>
                             )}
@@ -407,16 +546,26 @@ export default function AdminOrdersPage() {
                         </div>
                       </CardHeader>
                       <CardContent className="space-y-4">
-                        <div>
-                          <p className="text-purple-900 font-semibold mb-2">Items:</p>
-                          <ul className="list-disc list-inside text-purple-700 space-y-1">
-                            {Array.isArray(items) ? items.map((item: any, idx: number) => (
-                              <li key={idx}>
-                                {item.name || item.product_name} × {item.quantity || 1} 
-                                {item.price && ` - $${(item.price * (item.quantity || 1)).toFixed(2)}`}
+                        <div className="bg-white/50 rounded-lg p-4 border border-purpleBrand/20">
+                          <p className="text-purple-900 font-semibold mb-3 flex items-center">
+                            <span className="mr-2">📦</span>
+                            Order Items
+                          </p>
+                          <ul className="space-y-2">
+                            {Array.isArray(items) && items.length > 0 ? items.map((item: any, idx: number) => (
+                              <li key={idx} className="flex justify-between items-center text-purple-700 bg-white/50 rounded p-2">
+                                <span>
+                                  <span className="font-medium">{item.name || item.product_name}</span>
+                                  <span className="text-purple-600 ml-2">× {item.quantity || 1}</span>
+                                </span>
+                                {item.price && (
+                                  <span className="font-semibold text-purple-900">
+                                    ${(item.price * (item.quantity || 1)).toFixed(2)}
+                                  </span>
+                                )}
                               </li>
                             )) : (
-                              <li>No items listed</li>
+                              <li className="text-purple-600 italic">No items listed</li>
                             )}
                           </ul>
                         </div>
@@ -442,15 +591,24 @@ export default function AdminOrdersPage() {
                             <p className="text-purple-900 font-bold text-xl">
                               Total: ${order.total_amount.toFixed(2)}
                             </p>
-                            {order.status !== 'delivered' && (
+                            {order.status !== 'delivered' && 
+                             order.status !== 'fulfilled' && 
+                             order.status !== 'completed' && (
                               <Button
                                 size="sm"
-                                onClick={() => updateOrderStatus(order.id, 'delivered')}
-                                className="bg-gradient-to-r from-mintBrand to-seafoamBrand"
+                                onClick={() => updateOrderStatus(order.id, 'fulfilled')}
+                                className="bg-gradient-to-r from-mintBrand to-seafoamBrand hover:from-seafoamBrand hover:to-mintBrand"
                               >
                                 <Check className="w-4 h-4 mr-1" />
                                 Mark Fulfilled
                               </Button>
+                            )}
+                            {(order.status === 'delivered' || 
+                              order.status === 'fulfilled' || 
+                              order.status === 'completed') && (
+                              <Badge variant="default" className="bg-green-600">
+                                ✓ Fulfilled
+                              </Badge>
                             )}
                           </div>
                         </div>

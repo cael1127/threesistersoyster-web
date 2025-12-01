@@ -126,6 +126,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
     },
     {
+      path: 'blog/oyster-storage-quick-guide',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/petite-oysters-2-5-inches',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/oyster-freshness-checklist',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/quick-oyster-facts',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
       path: 'contact',
       priority: 0.8,
       changeFrequency: 'monthly' as const,

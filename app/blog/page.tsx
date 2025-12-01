@@ -165,6 +165,50 @@ const blogPosts = [
     slug: "how-to-host-oyster-party",
     readTime: "8 min read",
     featured: false
+  },
+  {
+    id: 15,
+    title: "Oyster Storage Quick Guide",
+    excerpt: "Quick tips for storing oysters properly. Keep your Texas Gulf oysters fresh with these essential storage guidelines. Perfect for Instagram sharing!",
+    date: "2024-12-20",
+    category: "Process",
+    image: "/oyster.png",
+    slug: "oyster-storage-quick-guide",
+    readTime: "2 min read",
+    featured: false
+  },
+  {
+    id: 16,
+    title: "Petite Oysters: Perfect 2.5 Inches",
+    excerpt: "Discover our petite 2.5-inch oysters - perfectly sized for half-shell presentation. Learn why size matters and what makes these oysters special.",
+    date: "2024-12-21",
+    category: "Product",
+    image: "/oyster.png",
+    slug: "petite-oysters-2-5-inches",
+    readTime: "3 min read",
+    featured: false
+  },
+  {
+    id: 17,
+    title: "Oyster Freshness Checklist",
+    excerpt: "Quick checklist to verify oyster freshness. Know what to look for when buying or using Texas Gulf oysters. Perfect for Instagram carousel!",
+    date: "2024-12-22",
+    category: "Process",
+    image: "/oyster.png",
+    slug: "oyster-freshness-checklist",
+    readTime: "2 min read",
+    featured: false
+  },
+  {
+    id: 18,
+    title: "Quick Oyster Facts",
+    excerpt: "Fun facts about Texas Gulf oysters! Bite-sized interesting facts perfect for Instagram stories. Learn about oyster nutrition, farming, and more.",
+    date: "2024-12-23",
+    category: "Education",
+    image: "/oyster.png",
+    slug: "quick-oyster-facts",
+    readTime: "3 min read",
+    featured: false
   }
 ]
 
