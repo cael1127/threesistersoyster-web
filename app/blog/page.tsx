@@ -209,14 +209,69 @@ const blogPosts = [
     slug: "quick-oyster-facts",
     readTime: "3 min read",
     featured: false
+  },
+  {
+    id: 19,
+    title: "How Oysters Fight Climate Change: Carbon Sequestration Explained",
+    excerpt: "Discover how oyster farming sequesters carbon and fights climate change. Learn about the environmental impact of sustainable aquaculture and how oysters help restore ocean health.",
+    date: "2024-12-28",
+    category: "Sustainability",
+    image: "/topFarm.JPG",
+    slug: "oysters-carbon-sequestration-climate-change",
+    readTime: "7 min read",
+    featured: true
+  },
+  {
+    id: 20,
+    title: "One Oyster Filters 50 Gallons of Water Per Day: The Environmental Impact",
+    excerpt: "Discover how oysters filter water and improve water quality. Learn about the impressive environmental impact of oyster filtration and how it benefits marine ecosystems.",
+    date: "2024-12-29",
+    category: "Sustainability",
+    image: "/enviromentBlog.jpg",
+    slug: "oysters-water-filtration-environmental-impact",
+    readTime: "6 min read",
+    featured: false
+  },
+  {
+    id: 21,
+    title: "Restoring Our Oceans: How Oyster Farming Rebuilds Marine Ecosystems",
+    excerpt: "Learn how oyster farming creates habitats and restores marine ecosystems. Discover how sustainable aquaculture rebuilds biodiversity and supports ocean health.",
+    date: "2024-12-30",
+    category: "Sustainability",
+    image: "/gal2.jpg",
+    slug: "oyster-farming-ocean-restoration",
+    readTime: "6 min read",
+    featured: false
+  },
+  {
+    id: 22,
+    title: "Why Oysters Are the Most Sustainable Seafood Choice",
+    excerpt: "Discover why oysters are the most sustainable seafood option. Learn about their low environmental footprint, regenerative farming, and comparison to other seafood choices.",
+    date: "2024-12-31",
+    category: "Sustainability",
+    image: "/oyster.png",
+    slug: "why-oysters-sustainable-seafood-choice",
+    readTime: "5 min read",
+    featured: false
+  },
+  {
+    id: 23,
+    title: "A Day in the Life: Behind the Scenes at Three Sisters Oyster Farm",
+    excerpt: "Get an inside look at daily life on our sustainable oyster farm. Meet our team, see our process, and discover what it takes to grow premium Texas Gulf Coast oysters.",
+    date: "2025-01-01",
+    category: "Farming",
+    image: "/aboutpic.jpg",
+    slug: "day-in-life-oyster-farmer",
+    readTime: "5 min read",
+    featured: false
   }
 ]
 
-// Featured post (first one)
-const featuredPost = blogPosts[0]
+// Featured post (find the one marked as featured, or use first one)
+const featuredPost = blogPosts.find(post => post.featured) || blogPosts[0]
 
-// Regular posts
-const regularPosts = blogPosts.slice(1)
+// Regular posts (exclude featured)
+const regularPosts = blogPosts.filter(post => !post.featured || post.id !== featuredPost.id)
 
 
 export default function BlogPage() {

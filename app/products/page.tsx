@@ -419,7 +419,7 @@ export default async function ProductsPage() {
                 <a href="tel:713-854-7427">Call for Custom Orders</a>
               </Button>
               <Button asChild variant="outline" className="border-purpleBrand/30 text-purple-700 hover:bg-purpleBrand/10">
-                <Link href="/inventory">View Live Inventory</Link>
+                <Link href="/contact">Contact Us</Link>
               </Button>
             </div>
           </div>

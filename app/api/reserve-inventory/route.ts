@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getSupabaseClient } from "@/lib/supabase"
+import { sendReservationNotification } from "@/lib/email"
 
 // In-memory storage for reservations (in production, consider Redis or similar)
 const activeReservations = new Map<string, {
@@ -110,6 +111,19 @@ export async function POST(request: NextRequest) {
             expiresAt: expiresAt.toISOString(),
             availableAfterReservation: availableInventory - item.quantity
           })
+
+          // Send email notification for successful reservation
+          try {
+            await sendReservationNotification({
+              productName: item.name,
+              quantity: item.quantity,
+              sessionId: session_id,
+              reservationTime: now
+            })
+          } catch (emailError) {
+            // Log email error but don't fail the reservation
+            console.error(`Error sending reservation notification email for ${item.name}:`, emailError)
+          }
 
         } catch (error) {
           console.error(`Error processing reservation for ${item.name}:`, error)

@@ -24,9 +24,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
     },
     {
-      path: 'inventory',
-      priority: 0.9,
-      changeFrequency: 'daily' as const,
+      path: 'farm',
+      priority: 0.8,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'nursery',
+      priority: 0.8,
+      changeFrequency: 'monthly' as const,
       lastModified: now,
     },
     {
@@ -145,6 +151,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       path: 'blog/quick-oyster-facts',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/oysters-carbon-sequestration-climate-change',
+      priority: 0.8,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/oysters-water-filtration-environmental-impact',
+      priority: 0.7,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/oyster-farming-ocean-restoration',
+      priority: 0.7,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/why-oysters-sustainable-seafood-choice',
+      priority: 0.7,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/day-in-life-oyster-farmer',
       priority: 0.6,
       changeFrequency: 'monthly' as const,
       lastModified: now,

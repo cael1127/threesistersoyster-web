@@ -7,8 +7,9 @@ Disallow: /monitoring
 Disallow: /test-mobile-scroll
 
 # Allow important pages for SEO
-Allow: /inventory
 Allow: /products
+Allow: /farm
+Allow: /nursery
 Allow: /about
 Allow: /gallery
 

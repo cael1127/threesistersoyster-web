@@ -22,6 +22,7 @@ SESSION_SECRET=your-random-secret-string-here
 ```bash
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxx
 RESEND_FROM_EMAIL=orders@yourdomain.com
+RESERVATION_NOTIFICATION_EMAIL=kathryn@threesistersoyster.com
 ```
 
 **Details:**
@@ -29,6 +30,7 @@ RESEND_FROM_EMAIL=orders@yourdomain.com
 - `RESEND_FROM_EMAIL` - Must be a verified email/domain in Resend
   - For testing: Use `onboarding@resend.dev` (pre-verified)
   - For production: Verify your domain first, then use `orders@yourdomain.com` or `noreply@yourdomain.com`
+- `RESERVATION_NOTIFICATION_EMAIL` - Email address to receive reservation notifications (defaults to `kathryn@threesistersoyster.com` if not set)
 
 **How to set up Resend:**
 1. Sign up at https://resend.com
@@ -85,6 +87,7 @@ SESSION_SECRET=your-random-secret-here
 # Resend Email Service
 RESEND_API_KEY=re_xxxxxxxxxxxxx
 RESEND_FROM_EMAIL=orders@yourdomain.com
+RESERVATION_NOTIFICATION_EMAIL=kathryn@threesistersoyster.com
 
 # Stripe Payment Processing
 STRIPE_SECRET_KEY=sk_live_xxxxxxxxxxxxx
@@ -120,6 +123,7 @@ After setting up, verify:
 - [ ] Checkout completes successfully
 - [ ] Success page loads without 403 error
 - [ ] Email receipts are sent (check Resend dashboard)
+- [ ] Reservation notification emails are sent (check Resend dashboard)
 - [ ] Webhook receives Stripe events (check Stripe Dashboard → Webhooks)
 
 ## Troubleshooting
@@ -131,6 +135,7 @@ After setting up, verify:
 ### Emails not sending
 - Check `RESEND_API_KEY` is correct (starts with `re_`)
 - Verify `RESEND_FROM_EMAIL` is verified in Resend dashboard
+- For reservation notifications: Verify `RESERVATION_NOTIFICATION_EMAIL` is set (defaults to `kathryn@threesistersoyster.com`)
 - Check Resend dashboard for delivery status
 - Check Netlify Functions logs for email errors
 

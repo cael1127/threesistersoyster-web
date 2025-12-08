@@ -55,11 +55,11 @@ export default function Navigation() {
             <Link href="/products" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
               Products
             </Link>
-            <Link
-              href="/inventory"
-              className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105"
-            >
-              Inventory
+            <Link href="/farm" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
+              Farm
+            </Link>
+            <Link href="/nursery" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
+              Nursery
             </Link>
             <Link href="/gallery" className="text-white hover:text-white font-medium text-sm transition-all duration-200 hover:bg-white/10 px-3 py-2 rounded-lg hover:scale-105">
               Gallery
@@ -93,7 +93,7 @@ export default function Navigation() {
           
           {/* Mobile Layout - Improved spacing and touch targets */}
           <div className="flex md:hidden items-center min-w-0 flex-1 ml-2">
-            {/* Mobile Navigation - Optimized for 5 items with proper spacing */}
+            {/* Mobile Navigation - Optimized for 6 items with proper spacing */}
             <nav className="flex items-center justify-between flex-1 min-w-0 gap-1">
               <Link 
                 href="/products" 
@@ -102,10 +102,16 @@ export default function Navigation() {
                 Shop
               </Link>
               <Link 
-                href="/inventory" 
+                href="/farm" 
                 className="text-white hover:text-white font-medium text-xs py-2 px-0.5 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center hover:scale-105"
               >
-                Stock
+                Farm
+              </Link>
+              <Link 
+                href="/nursery" 
+                className="text-white hover:text-white font-medium text-xs py-2 px-0.5 flex-1 text-center rounded-lg hover:bg-white/10 transition-all duration-200 min-h-[40px] flex items-center justify-center hover:scale-105"
+              >
+                Nursery
               </Link>
               <Link 
                 href="/gallery" 

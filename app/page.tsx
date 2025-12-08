@@ -1,14 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Waves, Fish, Leaf } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import dynamic from "next/dynamic";
-import TeamScroller from "@/components/TeamScroller";
-// import { VideoPlayer } from '@/components/ui/video-player'; // Now using LazyVideoPlayer
 import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import { SeasonalFloatingParticles } from "@/components/ui/floating-particles";
 import Navigation from "@/components/Navigation";
@@ -17,7 +12,6 @@ import EnvVarChecker from "@/components/EnvVarChecker";
 import { AnalyticsTestButton } from "@/components/AnalyticsTestButton";
 import { useState, useEffect } from "react";
 
-const TotalHarvestedCounter = dynamic(() => import("@/components/TotalHarvestedCounter"));
 const LazyVideoPlayer = dynamic(() => import("@/components/ui/video-player").then(mod => ({ default: mod.VideoPlayer })), {
   ssr: false,
   loading: () => <div className="w-full h-64 bg-gray-200 animate-pulse rounded-lg" />
@@ -90,41 +84,10 @@ export default function HomePage() {
                   "priceCurrency": "USD",
                   "availability": "https://schema.org/InStock",
                   "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/products'
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Product", 
-                    "name": "Oyster Seed",
-                    "description": "Hardy Eastern oyster seed for growers and aquaculture operations",
-                    "image": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/oyster.png',
-                    "category": "Aquaculture",
-                    "brand": {
-                      "@type": "Brand",
-                      "name": "Three Sisters Oyster Co."
-                    },
-                    "offers": {
-                      "@type": "Offer",
-                      "price": "25.00",
-                      "priceCurrency": "USD",
-                      "availability": "https://schema.org/InStock",
-                      "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/inventory',
-                      "seller": {
-                        "@type": "Organization",
-                        "name": "Three Sisters Oyster Co."
-                      }
-                    }
-                  },
-                  "price": "25.00",
-                  "priceCurrency": "USD",
-                  "availability": "https://schema.org/InStock",
-                  "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/inventory'
                 }
               ]
             },
-            "sameAs": [
-              // Add social URLs if available
-            ],
+            "sameAs": [],
             "contactPoint": [{
               "@type": "ContactPoint",
               "telephone": "+1-713-854-7427",
@@ -198,319 +161,432 @@ export default function HomePage() {
 
       {/* Main Content */}
       <main role="main">
-      {/* Hero Section */}
-      <section className="py-8 md:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20 overflow-hidden">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-            {/* Left Side - Text Content */}
-            <div className="text-center lg:text-left">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-purple-900 mb-4 md:mb-6 leading-[1.4] text-center">
+        {/* Section 1: Hero Section */}
+        <section className="relative min-h-[80vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <div className="aspect-video w-full h-full">
+              <LazyVideoPlayer
+                src="/homepage.MP4"
+                alt="Sustainable oyster farm in Port Lavaca Texas with fresh Gulf Coast oysters"
+                className="w-full h-full object-cover"
+                autoPlay={true}
+                muted={true}
+                loop={true}
+                playsInline={true}
+                controls={false}
+                preload="metadata"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-purpleBrand/60 via-transparent to-purpleBrand/60"></div>
+          </div>
+          <div className="relative z-10 container mx-auto max-w-7xl text-center">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 drop-shadow-2xl">
                 Three Sisters
-                <span className="block text-purple-900 pb-2">
-                  Oyster Co.
-                </span>
+                <span className="block">Oyster Co.</span>
               </h1>
-              <p className="text-base sm:text-lg md:text-xl text-purple-900 mb-6 md:mb-8 leading-relaxed drop-shadow-sm">
-                Growing the finest Gulf Coast oysters in the pristine waters of Port Lavaca, Texas. Our sustainable farming practices deliver exceptional flavor, texture, and freshness that chefs and seafood lovers trust. From our farm to your table, experience the superior taste of premium Texas oysters for restaurants, catering, and home dining.
+            </ScrollAnimatedSection>
+            <ScrollAnimatedSection animationType="fade-in" delay={400}>
+              <p className="text-lg md:text-xl lg:text-2xl text-white mb-8 max-w-3xl mx-auto drop-shadow-lg">
+                Premium Gulf Coast oysters from the pristine waters of Port Lavaca, Texas
               </p>
-
-              {/* Total Harvested Counter */}
-              <div className="mb-6 md:mb-8">
-                <TotalHarvestedCounter />
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
+            </ScrollAnimatedSection>
+            <ScrollAnimatedSection animationType="fade-in" delay={600}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
                   asChild
                   size="lg"
-                  className="bg-purpleBrand hover:bg-lavenderBrand text-white min-h-[48px] text-base shadow-lg"
+                  className="bg-white hover:bg-white/90 text-purpleBrand min-h-[56px] text-lg px-8 shadow-xl"
                 >
-                  <Link href="/products">Order Premium Oysters</Link>
+                  <Link href="/products">Order Oysters</Link>
                 </Button>
                 <Button
                   asChild
                   size="lg"
-                  className="bg-mintBrand hover:bg-seafoamBrand text-white min-h-[48px] text-base shadow-lg"
+                  variant="outline"
+                  className="border-2 border-white text-white hover:bg-white/10 min-h-[56px] text-lg px-8 shadow-xl"
                 >
-                  <Link href="/about">Learn Our Story</Link>
+                  <Link href="/about">Our Story</Link>
                 </Button>
               </div>
-            </div>
-
-            {/* Right Side - Video */}
-            <div className="relative">
-              <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl">
-                <LazyVideoPlayer
-                  src="/homepage.MP4"
-                  alt="Sustainable oyster farm in Port Lavaca Texas with fresh Gulf Coast oysters"
-                  className="w-full h-full"
-                  autoPlay={true}
-                  muted={true}
-                  loop={true}
-                  playsInline={true}
-                  controls={false}
-                  preload="metadata"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 via-blueBrand/20 to-seafoamBrand/20 overflow-hidden">
-        <div className="container mx-auto max-w-7xl">
-          <ScrollAnimatedSection animationType="fade-in" delay={200}>
-            <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-3 md:mb-4 px-2 text-center">Crafting Premium Oysters</h2>
-              <p className="text-base sm:text-lg md:text-xl text-purple-900 max-w-2xl mx-auto leading-relaxed px-4 drop-shadow-sm">
-                From seed to shuck, our meticulous farming process ensures every oyster delivers exceptional taste, texture, and freshness. Sustainable practices that enhance flavor and quality in every bite.
-              </p>
-            </div>
-          </ScrollAnimatedSection>
-
-          {/* First Row: Nursery Card (Left) + Picture (Right) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center mb-12 md:mb-16">
-            {/* Nursery Card - Left Side */}
-            <ScrollAnimatedSection animationType="slide-left-far" delay={400}>
-              <Card className="border-seafoamBrand/30 bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl">
-                <CardContent className="p-6 md:p-8">
-                  <div className="flex items-center mb-4 md:mb-6">
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center mr-3 md:mr-4">
-                      <Image
-                        src="/nurserylog.JPEG"
-                        alt="Oyster nursery equipment used for sustainable oyster farming in Texas"
-                        width={48}
-                        height={48}
-                        className="w-full h-full object-cover"
-                        quality={90}
-                      />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Premium Seed for Superior Taste</h3>
-                  </div>
-                  <p className="text-sm md:text-base text-purple-900 mb-4 md:mb-6 leading-relaxed drop-shadow-sm">
-                    Our nursery produces hardy Eastern oyster seed that develops into oysters with exceptional flavor profiles. 
-                    Quality seed stock ensures consistent taste and texture that chefs and oyster lovers expect.
-                  </p>
-                  <ul className="space-y-2 text-sm md:text-base text-purple-900 mb-4 md:mb-6 drop-shadow-sm">
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
-                      Superior flavor development
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
-                      Consistent taste profiles
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-seafoamBrand rounded-full mr-3"></div>
-                      Quality-focused cultivation
-                    </li>
-                  </ul>
-                  <p className="text-xs md:text-sm text-purple-900 drop-shadow-sm">
-                    For pricing and ordering information, please call{" "}
-                    <a href="tel:713-854-7427" className="font-semibold text-white hover:text-white transition-colors duration-200">
-                      713-854-7427
-                    </a>
-                  </p>
-                </CardContent>
-              </Card>
             </ScrollAnimatedSection>
+          </div>
+        </section>
 
-            {/* Nursery Picture - Right Side */}
-            <ScrollAnimatedSection animationType="slide-right-far" delay={500}>
-              <div className="relative">
-                <div className="aspect-square bg-gradient-to-b from-seafoamBrand/40 to-blueBrand/40 rounded-2xl flex items-center justify-center border border-seafoamBrand/30 overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-seafoamBrand/20 to-blueBrand/20 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-seafoamBrand/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Image
-                          src="/nurserylog.JPEG"
-                          alt="Texas oyster nursery operations showing sustainable aquaculture equipment"
-                          width={64}
-                          height={64}
-                          className="rounded-full object-cover"
-                          quality={90}
-                        />
+        {/* Section 2: Products Showcase */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/10 to-blueBrand/10">
+          <div className="container mx-auto max-w-7xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-purple-900 mb-4">Our Products</h2>
+                <p className="text-lg md:text-xl text-purple-800 max-w-2xl mx-auto">
+                  Premium oysters grown with care in Keller Bay
+                </p>
+              </div>
+            </ScrollAnimatedSection>
+            <ScrollAnimatedSection animationType="fade-in" delay={400}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <Link href="/products" className="group">
+                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                    <Image
+                      src="/oyster.png"
+                      alt="Premium fresh oysters"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-purpleBrand/80 to-transparent flex items-end">
+                      <div className="p-6 text-white">
+                        <h3 className="text-2xl font-bold mb-2">Fresh Oysters</h3>
+                        <p className="text-lg">Premium half-shell market oysters</p>
                       </div>
-                      <p className="text-purple-900 font-medium drop-shadow-sm">Quality Seed Production</p>
-                      <p className="text-purple-800 text-sm drop-shadow-sm">Flavor-Focused Cultivation</p>
                     </div>
                   </div>
-                </div>
-              </div>
-            </ScrollAnimatedSection>
-          </div>
-
-          {/* Second Row: Picture (Left) + Farm Card (Right) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-            {/* Farm Picture - Left Side */}
-            <ScrollAnimatedSection animationType="slide-left-far" delay={700}>
-              <div className="relative">
-                <div className="aspect-square bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 rounded-2xl flex items-center justify-center border border-purpleBrand/30 overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-purpleBrand/20 to-blueBrand/20 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-purpleBrand/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Image
-                          src="/farmlog.jpg"
-                          alt="Texas oyster farm operations showing Gulf Coast oyster cultivation"
-                          width={64}
-                          height={64}
-                          className="rounded-full object-cover"
-                          quality={90}
-                        />
+                </Link>
+                <Link href="/nursery" className="group">
+                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                    <Image
+                      src="/nurserylog.JPEG"
+                      alt="Oyster seed production"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-seafoamBrand/80 to-transparent flex items-end">
+                      <div className="p-6 text-white">
+                        <h3 className="text-2xl font-bold mb-2">Oyster Seed</h3>
+                        <p className="text-lg">Hardy Eastern oyster seed for growers</p>
                       </div>
-                      <p className="text-purple-900 font-medium drop-shadow-sm">Premium Harvest</p>
-                      <p className="text-purple-800 text-sm drop-shadow-sm">Quality & Flavor Focus</p>
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
             </ScrollAnimatedSection>
-
-            {/* Farm Card - Right Side */}
-            <ScrollAnimatedSection animationType="slide-right-far" delay={800}>
-              <Card className="border-purpleBrand/30 bg-gradient-to-b from-purpleBrand/40 to-blueBrand/40 backdrop-blur-sm hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl">
-                <CardContent className="p-6 md:p-8">
-                  <div className="flex items-center mb-4 md:mb-6">
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden flex items-center justify-center mr-3 md:mr-4">
-                      <Image
-                        src="/farmlog.jpg"
-                        alt="Fresh oysters for sale online from Port Lavaca Texas oyster farm"
-                        width={48}
-                        height={48}
-                        className="w-full h-full object-cover"
-                        quality={90}
-                      />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-purple-900 text-center">Premium Oyster Harvest</h3>
-                  </div>
-                  <p className="text-sm md:text-base text-purple-900 mb-4 md:mb-6 leading-relaxed drop-shadow-sm">
-                    We carefully grow oysters to perfect market size, ensuring optimal flavor, texture, and brininess. 
-                    Our sustainable farming in Keller Bay's pristine waters creates oysters that deliver an exceptional dining experience.
-                  </p>
-                  <ul className="space-y-2 text-sm md:text-base text-purple-900 drop-shadow-sm">
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
-                      Perfect half-shell presentation
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
-                      Enhanced flavor through sustainable practices
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-blueBrand rounded-full mr-3"></div>
-                      Clean, pristine growing environment
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </ScrollAnimatedSection>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* About Section */}
-      <section id="about" className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blueBrand/20 to-purpleBrand/20 overflow-hidden">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div className="text-center lg:text-left">
-              <ScrollAnimatedSection animationType="fade-in" delay={200}>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-4 md:mb-6 leading-tight px-2 text-center">Named After Blake's Three Daughters</h2>
-              </ScrollAnimatedSection>
-              <ScrollAnimatedSection animationType="fade-in" delay={400}>
-                <p className="text-sm md:text-base text-purple-900 mb-4 md:mb-6 leading-relaxed px-2 drop-shadow-sm">
-                  Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three
-                  daughters, our team strives to create a better coastline for the future.
-                </p>
-              </ScrollAnimatedSection>
-              <ScrollAnimatedSection animationType="fade-in" delay={600}>
-                <p className="text-sm md:text-base text-purple-900 mb-4 md:mb-6 leading-relaxed px-2 drop-shadow-sm">
-                  Blake grew up outdoors, learning to dive in the Thousand Islands in Indonesia and stayed active in wildlife and
-                  FFA during his youth. His love of the outdoors led him to oyster farming as a family and lifestyle
-                  choice.
-                </p>
-              </ScrollAnimatedSection>
-              <ScrollAnimatedSection animationType="fade-in" delay={800}>
-                <p className="text-sm md:text-base text-purple-900 mb-6 md:mb-8 leading-relaxed px-2 drop-shadow-sm">
-                  With a Range and Wildlife Management degree from Texas A&M Kingsville and eight years in Environmental
-                  Consulting, Blake discovered the pristine waters of Keller Bay - an excellent location for growing
-                  premium oysters while improving water quality and sequestering nitrogen and carbon.
-                </p>
-              </ScrollAnimatedSection>
-            </div>
-            <ScrollAnimatedSection animationType="slide-right-far" delay={300}>
-              <div className="relative">
-                <div className="aspect-square bg-gradient-to-b from-purpleBrand/40 to-seafoamBrand/40 rounded-2xl flex items-center justify-center border border-purpleBrand/30">
+        {/* Section 3: About/Story Section */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blueBrand/10 to-seafoamBrand/10">
+          <div className="container mx-auto max-w-6xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <ScrollAnimatedSection animationType="slide-left" delay={200}>
+                <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
                   <Image
                     src="/aboutpic.jpg"
-                    alt="Three Sisters Oyster farmers harvesting sustainable oysters in Port Lavaca Texas"
-                    width={400}
-                    height={400}
-                    className="rounded-2xl object-cover"
-                    quality={90}
+                    alt="Three Sisters Oyster Co. family and team"
+                    fill
+                    className="object-cover"
                   />
                 </div>
-              </div>
-            </ScrollAnimatedSection>
-          </div>
-          <ScrollAnimatedSection animationType="fade-in" delay={1000}>
-            <div className="mt-16 text-center">
-              <h2 className="text-4xl font-bold text-purple-900 mb-8 text-center">Meet Our Team</h2>
-              <p className="text-xl text-purple-900 mb-12 max-w-3xl mx-auto drop-shadow-sm">
-                The dedicated team behind Three Sisters Oyster Co. - passionate about sustainable aquaculture and premium oysters.
-              </p>
+              </ScrollAnimatedSection>
+              <ScrollAnimatedSection animationType="slide-right" delay={400}>
+                <div>
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-purple-900 mb-6">Our Story</h2>
+                  <p className="text-lg md:text-xl text-purple-800 mb-6 leading-relaxed">
+                    Three Sisters Oyster Co. is a family-owned oyster farm on the coast of Texas. Named after Blake's three daughters, our team strives to create a better coastline for the future.
+                  </p>
+                  <p className="text-lg md:text-xl text-purple-800 mb-8 leading-relaxed">
+                    With sustainable farming practices in the pristine waters of Keller Bay, we grow premium oysters while improving water quality and protecting our marine environment.
+                  </p>
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-purpleBrand hover:bg-lavenderBrand text-white"
+                  >
+                    <Link href="/about">Learn More</Link>
+                  </Button>
+                </div>
+              </ScrollAnimatedSection>
             </div>
-          </ScrollAnimatedSection>
-          <ScrollAnimatedSection animationType="scale-in" delay={1200}>
-            <TeamScroller />
-          </ScrollAnimatedSection>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* Environmental Impact */}
-      <section className="py-20 px-4 bg-gradient-to-b from-purpleBrand/40 via-blueBrand/40 to-seafoamBrand/40 overflow-hidden">
-        <div className="container mx-auto text-center">
-          <ScrollAnimatedSection animationType="fade-in" delay={200}>
-            <h2 className="text-4xl font-bold text-purple-900 mb-6 text-center">Environmental Stewardship</h2>
-          </ScrollAnimatedSection>
-          <ScrollAnimatedSection animationType="fade-in" delay={400}>
-            <p className="text-xl text-purple-900 mb-12 max-w-3xl mx-auto drop-shadow-sm">
-              Our environmental practices don't just protect the coast—they enhance the flavor and quality of our oysters. 
-              Clean water means better taste, and sustainable farming creates superior culinary experiences.
-            </p>
-          </ScrollAnimatedSection>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <ScrollAnimatedSection animationType="slide-left-far" delay={600}>
-              <div className="text-center group cursor-pointer transition-all duration-500 hover:scale-110 hover:-translate-y-2">
-                <div className="w-16 h-16 bg-gradient-to-b from-purpleBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4 transition-all duration-500 group-hover:scale-125 group-hover:shadow-lg">
-                  <Waves className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
+        {/* Section 4A: Carbon Sequestration Impact - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blueBrand/20 to-seafoamBrand/20">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <Link href="/blog/oysters-carbon-sequestration-climate-change" className="group block">
+                <div className="relative aspect-[4/3] md:aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+                  <div className="absolute inset-0 bg-gradient-to-br from-purpleBrand/90 via-blueBrand/90 to-seafoamBrand/90"></div>
+                  <div className="absolute inset-0 flex items-center justify-center p-8 md:p-12">
+                    <div className="text-center text-white z-10">
+                      <div className="text-6xl md:text-8xl font-bold mb-4 drop-shadow-2xl">🌊</div>
+                      <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-2xl">
+                        Fighting Climate Change
+                      </h2>
+                      <p className="text-xl md:text-2xl lg:text-3xl mb-6 drop-shadow-lg">
+                        Our oysters sequester carbon and restore ocean health
+                      </p>
+                      <div className="text-4xl md:text-6xl font-bold mb-2 drop-shadow-2xl">
+                        50+ gallons
+                      </div>
+                      <p className="text-lg md:text-xl drop-shadow-lg">filtered per oyster daily</p>
+                    </div>
+                  </div>
+                  <Image
+                    src="/topFarm.JPG"
+                    alt="Oyster farm fighting climate change through carbon sequestration"
+                    fill
+                    className="object-cover opacity-30 group-hover:opacity-40 transition-opacity duration-500"
+                  />
                 </div>
-                <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Water Quality</h3>
-                <p className="text-purple-900 drop-shadow-sm">Clean water creates cleaner, more flavorful oysters</p>
+              </Link>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4B: Water Filtration Stats - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-seafoamBrand/20 to-blueBrand/20">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <Link href="/blog/oysters-water-filtration-environmental-impact" className="group block">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                    <Image
+                      src="/enviromentBlog.jpg"
+                      alt="Oysters filtering water in Keller Bay"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-seafoamBrand/90 via-seafoamBrand/50 to-transparent flex items-end">
+                      <div className="p-6 text-white">
+                        <div className="text-5xl md:text-6xl font-bold mb-2">50</div>
+                        <div className="text-xl md:text-2xl font-semibold">Gallons per Day</div>
+                        <p className="text-sm md:text-base mt-2">Each oyster filters this much water</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-blueBrand to-seafoamBrand flex items-center justify-center">
+                    <div className="text-center p-8 text-white">
+                      <div className="text-4xl md:text-5xl font-bold mb-4">💧</div>
+                      <h3 className="text-2xl md:text-3xl font-bold mb-4">Natural Water Purifiers</h3>
+                      <p className="text-lg md:text-xl mb-6">Removing algae, sediment, and excess nutrients</p>
+                      <div className="text-3xl md:text-4xl font-bold">Cleaner Oceans</div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4C: Marine Habitat Creation - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 to-blueBrand/20">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <Link href="/blog/oyster-farming-ocean-restoration" className="group block">
+                <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+                  <Image
+                    src="/gal2.jpg"
+                    alt="Marine habitat created by oyster farming"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-purpleBrand/80 via-transparent to-transparent flex items-center">
+                    <div className="p-8 md:p-12 text-white max-w-2xl">
+                      <div className="text-5xl md:text-6xl mb-4">🐟</div>
+                      <h2 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-2xl">
+                        Restoring Ocean Ecosystems
+                      </h2>
+                      <p className="text-xl md:text-2xl mb-6 drop-shadow-lg">
+                        Our oyster beds create habitats for fish, crabs, and marine life
+                      </p>
+                      <div className="flex gap-4 text-lg md:text-xl">
+                        <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">Biodiversity</span>
+                        <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">Habitat</span>
+                        <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">Restoration</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4D: Sustainable Practices Showcase - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-seafoamBrand/20 to-purpleBrand/20">
+          <div className="container mx-auto max-w-7xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-purple-900 mb-4">Sustainable Practices</h2>
+                <p className="text-lg md:text-xl text-purple-800">Why oysters are the most sustainable seafood choice</p>
               </div>
             </ScrollAnimatedSection>
-            <ScrollAnimatedSection animationType="zoom-in" delay={800}>
-              <div className="text-center group cursor-pointer transition-all duration-500 hover:scale-110 hover:-translate-y-2">
-                <div className="w-16 h-16 bg-gradient-to-b from-seafoamBrand to-blueBrand rounded-full flex items-center justify-center mx-auto mb-4 transition-all duration-500 group-hover:scale-125 group-hover:shadow-lg">
-                  <Leaf className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
+            <ScrollAnimatedSection animationType="fade-in" delay={400}>
+              <Link href="/blog/why-oysters-sustainable-seafood-choice" className="group block">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-purpleBrand to-lavenderBrand flex flex-col items-center justify-center text-white p-6">
+                    <div className="text-5xl mb-4">🌱</div>
+                    <h3 className="text-xl font-bold mb-2 text-center">Zero Feed</h3>
+                    <p className="text-sm text-center">No additional feed required</p>
+                  </div>
+                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-blueBrand to-seafoamBrand flex flex-col items-center justify-center text-white p-6">
+                    <div className="text-5xl mb-4">♻️</div>
+                    <h3 className="text-xl font-bold mb-2 text-center">Regenerative</h3>
+                    <p className="text-sm text-center">Improves the environment</p>
+                  </div>
+                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-seafoamBrand to-mintBrand flex flex-col items-center justify-center text-white p-6">
+                    <div className="text-5xl mb-4">🌍</div>
+                    <h3 className="text-xl font-bold mb-2 text-center">Low Impact</h3>
+                    <p className="text-sm text-center">Minimal carbon footprint</p>
+                  </div>
+                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-mintBrand to-purpleBrand flex flex-col items-center justify-center text-white p-6">
+                    <div className="text-5xl mb-4">💚</div>
+                    <h3 className="text-xl font-bold mb-2 text-center">Eco-Friendly</h3>
+                    <p className="text-sm text-center">Cleans water naturally</p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Carbon Sequestration</h3>
-                <p className="text-purple-900 drop-shadow-sm">Healthy ecosystems produce healthier, tastier oysters</p>
+              </Link>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4E: Behind the Scenes - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blueBrand/20 to-seafoamBrand/20">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <Link href="/blog/day-in-life-oyster-farmer" className="group block">
+                <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+                  <div className="absolute inset-0">
+                    <Image
+                      src="/aboutpic.jpg"
+                      alt="Behind the scenes at Three Sisters Oyster Farm"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-purpleBrand/90 via-purpleBrand/50 to-transparent flex items-end">
+                    <div className="p-8 md:p-12 text-white w-full">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl">📸</div>
+                        <span className="text-sm md:text-base font-semibold bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">Behind the Scenes</span>
+                      </div>
+                      <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-2xl">
+                        A Day in the Life
+                      </h2>
+                      <p className="text-xl md:text-2xl mb-6 drop-shadow-lg">
+                        See what it's like to work at our sustainable oyster farm
+                      </p>
+                      <div className="flex gap-2 text-sm md:text-base">
+                        <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">Farm Life</span>
+                        <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">Team</span>
+                        <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">Process</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4: Gallery Preview */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-seafoamBrand/10 to-purpleBrand/10">
+          <div className="container mx-auto max-w-7xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-purple-900 mb-4">Gallery</h2>
+                <p className="text-lg md:text-xl text-purple-800 max-w-2xl mx-auto">
+                  A glimpse into life at the farm
+                </p>
               </div>
             </ScrollAnimatedSection>
-            <ScrollAnimatedSection animationType="slide-right-far" delay={1000}>
-              <div className="text-center group cursor-pointer transition-all duration-500 hover:scale-110 hover:-translate-y-2">
-                <div className="w-16 h-16 bg-gradient-to-b from-blueBrand to-seafoamBrand rounded-full flex items-center justify-center mx-auto mb-4 transition-all duration-500 group-hover:scale-125 group-hover:shadow-lg">
-                  <Fish className="w-8 h-8 text-white transition-all duration-500 group-hover:scale-110" />
-                </div>
-                <h3 className="text-xl font-bold text-purple-900 mb-2 text-center">Marine Habitat</h3>
-                <p className="text-purple-900 drop-shadow-sm">Rich marine environments enhance oyster flavor complexity</p>
+            <ScrollAnimatedSection animationType="fade-in" delay={400}>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+                <Link href="/gallery" className="group">
+                  <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <Image
+                      src="/gal.jpg"
+                      alt="Gallery image 1"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                </Link>
+                <Link href="/gallery" className="group">
+                  <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <Image
+                      src="/gal1.jpg"
+                      alt="Gallery image 2"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                </Link>
+                <Link href="/gallery" className="group">
+                  <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <Image
+                      src="/gal2.jpg"
+                      alt="Gallery image 3"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                </Link>
+                <Link href="/gallery" className="group">
+                  <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <Image
+                      src="/gal3.jpg"
+                      alt="Gallery image 4"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                </Link>
+                <Link href="/gallery" className="group">
+                  <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <Image
+                      src="/topFarm.JPG"
+                      alt="Farm view"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                </Link>
+              </div>
+              <div className="text-center">
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-purpleBrand text-purpleBrand hover:bg-purpleBrand hover:text-white"
+                >
+                  <Link href="/gallery">View Full Gallery</Link>
+                </Button>
               </div>
             </ScrollAnimatedSection>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* Section 5: Call-to-Action */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purpleBrand to-seafoamBrand">
+          <div className="container mx-auto max-w-4xl text-center">
+            <ScrollAnimatedSection animationType="scale-in" delay={200}>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+                Ready to Experience Premium Texas Oysters?
+              </h2>
+              <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
+                Order fresh oysters or learn more about our farm and nursery operations
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-white hover:bg-white/90 text-purpleBrand min-h-[56px] text-lg px-8 shadow-xl"
+                >
+                  <Link href="/products">Order Now</Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-white text-white hover:bg-white/10 min-h-[56px] text-lg px-8 shadow-xl"
+                >
+                  <Link href="/contact">Contact Us</Link>
+                </Button>
+              </div>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
@@ -544,7 +620,8 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4 text-white">Quick Links</h4>
               <ul className="space-y-2 text-white">
                 <li><Link href="/products" className="hover:text-white transition-colors">Products</Link></li>
-                <li><Link href="/inventory" className="hover:text-white transition-colors">Inventory</Link></li>
+                <li><Link href="/farm" className="hover:text-white transition-colors">Farm</Link></li>
+                <li><Link href="/nursery" className="hover:text-white transition-colors">Nursery</Link></li>
                 <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
               </ul>
             </div>
@@ -561,7 +638,7 @@ export default function HomePage() {
           </div>
 
           <div className="border-t border-white/30 mt-8 pt-8 text-center text-white text-sm">
-            <p>&copy; 2024 Three Sisters Oyster Co. All rights reserved. | Designed and built by Cael Findley</p>
+            <p>&copy; 2024 Three Sisters Oyster Co. All rights reserved.</p>
           </div>
         </div>
       </footer>
