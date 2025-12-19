@@ -1,9 +1,11 @@
 'use client'
 
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Calendar, ArrowUpRight, Book, Users, TrendingUp, Clock, Star } from 'lucide-react'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
@@ -264,17 +266,133 @@ const blogPosts = [
     slug: "day-in-life-oyster-farmer",
     readTime: "5 min read",
     featured: false
+  },
+  {
+    id: 24,
+    title: "Oysters vs Other Seafood: Carbon Footprint Comparison",
+    excerpt: "Compare the carbon footprint of oysters to other seafood options. Discover why oysters have the lowest environmental impact of any protein source.",
+    date: "2025-01-05",
+    category: "Sustainability",
+    image: "/oyster.png",
+    slug: "oysters-vs-other-seafood-carbon-footprint",
+    readTime: "6 min read",
+    featured: false
+  },
+  {
+    id: 25,
+    title: "Why Keller Bay is Perfect for Oyster Farming",
+    excerpt: "Discover why Keller Bay in Port Lavaca, Texas provides the perfect conditions for growing premium Gulf Coast oysters with exceptional flavor and quality.",
+    date: "2025-01-06",
+    category: "Farming",
+    image: "/topFarm.JPG",
+    slug: "keller-bay-oyster-farming-location",
+    readTime: "5 min read",
+    featured: false
+  },
+  {
+    id: 26,
+    title: "Oyster Shell Recycling: Environmental Benefits",
+    excerpt: "Learn how oyster shell recycling helps restore reefs, protect coastlines, and support marine ecosystems. Discover the environmental benefits of shell recycling programs.",
+    date: "2025-01-07",
+    category: "Sustainability",
+    image: "/enviromentBlog.jpg",
+    slug: "oyster-shell-recycling-environmental-benefits",
+    readTime: "6 min read",
+    featured: false
+  },
+  {
+    id: 27,
+    title: "Best Oyster Recipes for Winter",
+    excerpt: "Discover delicious winter oyster recipes perfect for cold weather. From grilled oysters to hearty stews, warm up with these comforting oyster dishes.",
+    date: "2025-01-08",
+    category: "Recipes",
+    image: "/gal.jpg",
+    slug: "best-oyster-recipes-winter",
+    readTime: "7 min read",
+    featured: false
+  },
+  {
+    id: 28,
+    title: "Oyster Farming: The Future of Sustainable Food",
+    excerpt: "Explore how oyster farming represents the future of sustainable food production. Learn about regenerative aquaculture and its role in feeding the world.",
+    date: "2025-01-09",
+    category: "Sustainability",
+    image: "/topFarm.JPG",
+    slug: "oyster-farming-sustainable-future",
+    readTime: "6 min read",
+    featured: false
+  },
+  {
+    id: 29,
+    title: "How Oysters Improve Water Quality: The Science Explained",
+    excerpt: "Learn the science behind how oysters improve water quality. Discover how filter feeding removes pollutants, reduces algae, and creates cleaner marine environments.",
+    date: "2025-01-10",
+    category: "Sustainability",
+    image: "/enviromentBlog.jpg",
+    slug: "how-oysters-improve-water-quality",
+    readTime: "7 min read",
+    featured: false
   }
 ]
 
-// Featured post (find the one marked as featured, or use first one)
-const featuredPost = blogPosts.find(post => post.featured) || blogPosts[0]
+// Helper function to get current week number (for rotation)
+function getWeekNumber(date: Date): number {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
+  const dayNum = d.getUTCDay() || 7
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum)
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1))
+  return Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7)
+}
 
-// Regular posts (exclude featured)
-const regularPosts = blogPosts.filter(post => !post.featured || post.id !== featuredPost.id)
+// Get all unique categories
+const allCategories = Array.from(new Set(blogPosts.map(post => post.category))).sort()
 
+// Weekly rotation for featured post
+// Get posts that can be featured (high quality, important topics)
+const featureablePosts = blogPosts.filter(post => 
+  post.category === 'Sustainability' || 
+  post.category === 'Farming' || 
+  post.featured === true
+)
+
+// Calculate which featured post to show based on week
+const currentWeek = getWeekNumber(new Date())
+const featuredPostIndex = currentWeek % featureablePosts.length
+const featuredPost = featureablePosts[featuredPostIndex] || blogPosts[0]
+
+// Weekly rotation for spotlight posts (3-4 posts that rotate)
+const spotlightPosts = blogPosts.filter(post => 
+  post.id !== featuredPost.id && 
+  (post.category === 'Sustainability' || post.category === 'Farming' || post.category === 'Recipes')
+)
+const spotlightStartIndex = currentWeek % Math.max(1, spotlightPosts.length - 3)
+const weeklySpotlightPosts = spotlightPosts.slice(spotlightStartIndex, spotlightStartIndex + 4)
+
+// Regular posts (exclude featured and spotlight)
+const regularPosts = blogPosts.filter(post => 
+  post.id !== featuredPost.id && 
+  !weeklySpotlightPosts.some(spotlight => spotlight.id === post.id)
+)
 
 export default function BlogPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string>('All')
+
+  // Filter posts by category
+  const filteredPosts = useMemo(() => {
+    if (selectedCategory === 'All') {
+      return regularPosts
+    }
+    return regularPosts.filter(post => post.category === selectedCategory)
+  }, [selectedCategory])
+
+  // Count posts by category
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { All: regularPosts.length }
+    allCategories.forEach(cat => {
+      counts[cat] = regularPosts.filter(post => post.category === cat).length
+    })
+    return counts
+  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purpleBrand via-lavenderBrand via-blueBrand via-mintBrand to-seafoamBrand relative">
@@ -324,6 +442,7 @@ export default function BlogPage() {
           {/* Featured Post */}
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-purple-900 mb-6 text-center">Featured Article</h2>
+            <p className="text-center text-purple-600 mb-6 text-sm">Rotates weekly to highlight different topics</p>
             <Card className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                 <div className="aspect-video lg:aspect-square relative overflow-hidden">
@@ -373,10 +492,94 @@ export default function BlogPage() {
             </Card>
           </div>
 
-          {/* Blog Posts Grid */}
+          {/* Spotlight Posts (Weekly Rotation) */}
+          {weeklySpotlightPosts.length > 0 && (
+            <div className="mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-purple-900 mb-6 text-center">Weekly Spotlight</h2>
+              <p className="text-center text-purple-600 mb-6 text-sm">Handpicked articles that rotate weekly</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                {weeklySpotlightPosts.map((post) => (
+                  <Card key={post.id} className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+                    <div className="aspect-video relative overflow-hidden rounded-t-lg">
+                      <Image
+                        src={post.image}
+                        alt={`${post.title} - Texas oyster farm blog post`}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        quality={90}
+                      />
+                      <div className="absolute top-3 left-3">
+                        <Badge className="bg-purpleBrand/90 text-white text-xs">
+                          {post.category}
+                        </Badge>
+                      </div>
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-seafoamBrand/90 text-white text-xs">
+                          <Star className="w-3 h-3 mr-1" />
+                          Spotlight
+                        </Badge>
+                      </div>
+                    </div>
+                    <CardHeader className="p-4">
+                      <div className="flex items-center justify-between text-xs text-purple-600 mb-2">
+                        <div className="flex items-center">
+                          <Calendar className="w-3 h-3 mr-1" />
+                          {new Date(post.date).toLocaleDateString('en-US', { 
+                            month: 'short', 
+                            day: 'numeric' 
+                          })}
+                        </div>
+                        <div className="flex items-center">
+                          <Clock className="w-3 h-3 mr-1" />
+                          {post.readTime}
+                        </div>
+                      </div>
+                      <CardTitle className="text-lg font-bold text-purple-900 mb-2 line-clamp-2">
+                        {post.title}
+                      </CardTitle>
+                      <p className="text-purple-700 leading-relaxed text-sm line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                    </CardHeader>
+                    <CardContent className="p-4 pt-0">
+                      <Button asChild className="w-full bg-purpleBrand hover:bg-lavenderBrand text-white text-sm">
+                        <Link href={`/blog/${post.slug}`}>
+                          Read More
+                          <ArrowUpRight className="w-3 h-3 ml-1" />
+                        </Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Category Filter Tabs */}
           <div className="mb-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {blogPosts.map((post) => (
+            <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-6 h-auto bg-white/60 backdrop-blur-sm border border-purpleBrand/20 p-1">
+                <TabsTrigger 
+                  value="All" 
+                  className="data-[state=active]:bg-purpleBrand data-[state=active]:text-white text-purple-900"
+                >
+                  All ({categoryCounts.All || 0})
+                </TabsTrigger>
+                {allCategories.map((category) => (
+                  <TabsTrigger 
+                    key={category}
+                    value={category}
+                    className="data-[state=active]:bg-purpleBrand data-[state=active]:text-white text-purple-900"
+                  >
+                    {category} ({categoryCounts[category] || 0})
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              <TabsContent value={selectedCategory} className="mt-6">
+                {/* Blog Posts Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredPosts.length > 0 ? (
+                    filteredPosts.map((post) => (
                 <Card key={post.id} className="border-purpleBrand/30 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:scale-105 group">
                   <div className="aspect-video relative overflow-hidden rounded-t-lg">
                     <Image
@@ -422,8 +625,15 @@ export default function BlogPage() {
                     </Button>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
+                    ))
+                  ) : (
+                    <div className="col-span-full text-center py-12">
+                      <p className="text-purple-600 text-lg">No posts found in this category.</p>
+                    </div>
+                  )}
+                </div>
+              </TabsContent>
+            </Tabs>
           </div>
 
           {/* Newsletter Signup */}

@@ -186,6 +186,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
     },
     {
+      path: 'blog/oysters-vs-other-seafood-carbon-footprint',
+      priority: 0.7,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/keller-bay-oyster-farming-location',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/oyster-shell-recycling-environmental-benefits',
+      priority: 0.7,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/best-oyster-recipes-winter',
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/oyster-farming-sustainable-future',
+      priority: 0.7,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
+      path: 'blog/how-oysters-improve-water-quality',
+      priority: 0.7,
+      changeFrequency: 'monthly' as const,
+      lastModified: now,
+    },
+    {
       path: 'contact',
       priority: 0.8,
       changeFrequency: 'monthly' as const,

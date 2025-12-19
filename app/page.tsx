@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import Image from "next/image"
 import dynamic from "next/dynamic";
@@ -86,7 +87,7 @@ export default function HomePage() {
                   "url": (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://threesistersoyster.com') + '/products'
                 }
               ]
-            },
+                    },
             "sameAs": [],
             "contactPoint": [{
               "@type": "ContactPoint",
@@ -210,25 +211,25 @@ export default function HomePage() {
                 </Button>
               </div>
             </ScrollAnimatedSection>
-          </div>
-        </section>
+        </div>
+      </section>
 
         {/* Section 2: Products Showcase */}
         <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/10 to-blueBrand/10">
-          <div className="container mx-auto max-w-7xl">
-            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+        <div className="container mx-auto max-w-7xl">
+          <ScrollAnimatedSection animationType="fade-in" delay={200}>
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-purple-900 mb-4">Our Products</h2>
                 <p className="text-lg md:text-xl text-purple-800 max-w-2xl mx-auto">
                   Premium oysters grown with care in Keller Bay
-                </p>
-              </div>
-            </ScrollAnimatedSection>
+              </p>
+            </div>
+          </ScrollAnimatedSection>
             <ScrollAnimatedSection animationType="fade-in" delay={400}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <Link href="/products" className="group">
                   <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-                    <Image
+                      <Image
                       src="/oyster.png"
                       alt="Premium fresh oysters"
                       fill
@@ -244,8 +245,8 @@ export default function HomePage() {
                 </Link>
                 <Link href="/nursery" className="group">
                   <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-                    <Image
-                      src="/nurserylog.JPEG"
+                        <Image
+                          src="/nurserylog.JPEG"
                       alt="Oyster seed production"
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -269,7 +270,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <ScrollAnimatedSection animationType="slide-left" delay={200}>
                 <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
-                  <Image
+                        <Image
                     src="/aboutpic.jpg"
                     alt="Three Sisters Oyster Co. family and team"
                     fill
@@ -305,6 +306,10 @@ export default function HomePage() {
             <ScrollAnimatedSection animationType="fade-in" delay={200}>
               <Link href="/blog/oysters-carbon-sequestration-climate-change" className="group block">
                 <div className="relative aspect-[4/3] md:aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+                  <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <Badge className="bg-purpleBrand/90 text-white backdrop-blur-sm">Sustainability</Badge>
+                    <Badge className="bg-seafoamBrand/90 text-white backdrop-blur-sm">Carbon Impact</Badge>
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-br from-purpleBrand/90 via-blueBrand/90 to-seafoamBrand/90"></div>
                   <div className="absolute inset-0 flex items-center justify-center p-8 md:p-12">
                     <div className="text-center text-white z-10">
@@ -340,6 +345,10 @@ export default function HomePage() {
               <Link href="/blog/oysters-water-filtration-environmental-impact" className="group block">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                    <div className="absolute top-4 left-4 z-20 flex gap-2">
+                      <Badge className="bg-seafoamBrand/90 text-white backdrop-blur-sm">Sustainability</Badge>
+                      <Badge className="bg-blueBrand/90 text-white backdrop-blur-sm">Water Quality</Badge>
+                    </div>
                     <Image
                       src="/enviromentBlog.jpg"
                       alt="Oysters filtering water in Keller Bay"
@@ -355,6 +364,9 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-blueBrand to-seafoamBrand flex items-center justify-center">
+                    <div className="absolute top-4 left-4 z-20 flex gap-2">
+                      <Badge className="bg-blueBrand/90 text-white backdrop-blur-sm">Ecosystem</Badge>
+                    </div>
                     <div className="text-center p-8 text-white">
                       <div className="text-4xl md:text-5xl font-bold mb-4">💧</div>
                       <h3 className="text-2xl md:text-3xl font-bold mb-4">Natural Water Purifiers</h3>
@@ -374,6 +386,10 @@ export default function HomePage() {
             <ScrollAnimatedSection animationType="fade-in" delay={200}>
               <Link href="/blog/oyster-farming-ocean-restoration" className="group block">
                 <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+                  <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <Badge className="bg-purpleBrand/90 text-white backdrop-blur-sm">Sustainability</Badge>
+                    <Badge className="bg-blueBrand/90 text-white backdrop-blur-sm">Ocean Restoration</Badge>
+                  </div>
                   <Image
                     src="/gal2.jpg"
                     alt="Marine habitat created by oyster farming"
@@ -407,6 +423,10 @@ export default function HomePage() {
           <div className="container mx-auto max-w-7xl">
             <ScrollAnimatedSection animationType="fade-in" delay={200}>
               <div className="text-center mb-12">
+                <div className="flex justify-center gap-2 mb-4">
+                  <Badge className="bg-seafoamBrand/90 text-white backdrop-blur-sm">Sustainability</Badge>
+                  <Badge className="bg-purpleBrand/90 text-white backdrop-blur-sm">Eco-Friendly</Badge>
+                </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-purple-900 mb-4">Sustainable Practices</h2>
                 <p className="text-lg md:text-xl text-purple-800">Why oysters are the most sustainable seafood choice</p>
               </div>
@@ -446,6 +466,10 @@ export default function HomePage() {
             <ScrollAnimatedSection animationType="fade-in" delay={200}>
               <Link href="/blog/day-in-life-oyster-farmer" className="group block">
                 <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+                  <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <Badge className="bg-purpleBrand/90 text-white backdrop-blur-sm">Farming</Badge>
+                    <Badge className="bg-blueBrand/90 text-white backdrop-blur-sm">Farm Life</Badge>
+                  </div>
                   <div className="absolute inset-0">
                     <Image
                       src="/aboutpic.jpg"
@@ -473,6 +497,294 @@ export default function HomePage() {
                       </div>
                     </div>
                   </div>
+                </div>
+              </Link>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4F: Zero Waste Farming - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-mintBrand/20 to-seafoamBrand/20">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+                <div className="absolute top-4 left-4 z-20 flex gap-2">
+                  <Badge className="bg-mintBrand/90 text-white backdrop-blur-sm">Sustainability</Badge>
+                  <Badge className="bg-seafoamBrand/90 text-white backdrop-blur-sm">Zero Waste</Badge>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-br from-mintBrand/90 via-seafoamBrand/90 to-blueBrand/90 flex items-center justify-center">
+                  <div className="text-center text-white p-8 md:p-12 z-10">
+                    <div className="text-6xl md:text-8xl mb-4">♻️</div>
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-2xl">
+                      Zero Waste Farming
+                    </h2>
+                    <p className="text-xl md:text-2xl lg:text-3xl mb-6 drop-shadow-lg">
+                      Every part of the oyster is used - shells, meat, and even the water
+                    </p>
+                    <div className="text-4xl md:text-6xl font-bold drop-shadow-2xl">100% Utilized</div>
+                  </div>
+                </div>
+                <Image
+                  src="/farmlog.jpg"
+                  alt="Zero waste sustainable oyster farming"
+                  fill
+                  className="object-cover opacity-30"
+                />
+              </div>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4G: Local Community Impact - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 to-lavenderBrand/20">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-purpleBrand to-lavenderBrand flex flex-col items-center justify-center text-white p-6">
+                  <div className="absolute top-4 left-4 z-20">
+                    <Badge className="bg-purpleBrand/90 text-white backdrop-blur-sm">Community</Badge>
+                  </div>
+                  <div className="text-5xl mb-4">👥</div>
+                  <h3 className="text-2xl font-bold mb-2 text-center">Local Jobs</h3>
+                  <p className="text-sm text-center">Supporting Port Lavaca economy</p>
+                </div>
+                <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-lavenderBrand to-blueBrand flex flex-col items-center justify-center text-white p-6">
+                  <div className="absolute top-4 left-4 z-20">
+                    <Badge className="bg-lavenderBrand/90 text-white backdrop-blur-sm">Texas</Badge>
+                  </div>
+                  <div className="text-5xl mb-4">🏡</div>
+                  <h3 className="text-2xl font-bold mb-2 text-center">Gulf Coast</h3>
+                  <p className="text-sm text-center">Proudly Texan</p>
+                </div>
+                <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-blueBrand to-purpleBrand flex flex-col items-center justify-center text-white p-6">
+                  <div className="absolute top-4 left-4 z-20">
+                    <Badge className="bg-blueBrand/90 text-white backdrop-blur-sm">Impact</Badge>
+                  </div>
+                  <div className="text-5xl mb-4">💪</div>
+                  <h3 className="text-2xl font-bold mb-2 text-center">Sustainable</h3>
+                  <p className="text-sm text-center">Future-focused farming</p>
+                </div>
+              </div>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4H: Premium Quality Promise - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blueBrand/20 to-purpleBrand/20">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <Link href="/products" className="group block">
+                <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+                  <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <Badge className="bg-blueBrand/90 text-white backdrop-blur-sm">Quality</Badge>
+                    <Badge className="bg-purpleBrand/90 text-white backdrop-blur-sm">Premium</Badge>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blueBrand/90 via-purpleBrand/90 to-lavenderBrand/90"></div>
+                  <div className="absolute inset-0 flex items-center justify-center p-8 md:p-12">
+                    <div className="text-center text-white z-10">
+                      <div className="text-6xl md:text-8xl mb-4">⭐</div>
+                      <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-2xl">
+                        Premium Quality
+                      </h2>
+                      <p className="text-xl md:text-2xl lg:text-3xl mb-6 drop-shadow-lg">
+                        Every oyster hand-selected for perfection
+                      </p>
+                      <div className="text-4xl md:text-6xl font-bold drop-shadow-2xl">Chef-Grade</div>
+                    </div>
+                  </div>
+                  <Image
+                    src="/oyster.png"
+                    alt="Premium quality oysters"
+                    fill
+                    className="object-cover opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+                  />
+                </div>
+              </Link>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4I: Fresh from Bay to Table - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-seafoamBrand/20 to-mintBrand/20">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <Badge className="bg-seafoamBrand/90 text-white backdrop-blur-sm">Fresh</Badge>
+                  </div>
+                  <Image
+                    src="/topFarm.JPG"
+                    alt="Fresh oysters from Keller Bay"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-seafoamBrand/90 to-transparent flex items-end">
+                    <div className="p-6 text-white">
+                      <h3 className="text-2xl md:text-3xl font-bold mb-2">Keller Bay</h3>
+                      <p className="text-lg">Pristine waters, premium oysters</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-mintBrand to-seafoamBrand flex items-center justify-center">
+                  <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <Badge className="bg-mintBrand/90 text-white backdrop-blur-sm">Process</Badge>
+                  </div>
+                  <div className="text-center p-8 text-white">
+                    <div className="text-5xl md:text-6xl mb-4">🚚</div>
+                    <h3 className="text-2xl md:text-3xl font-bold mb-4">Bay to Table</h3>
+                    <p className="text-lg md:text-xl mb-6">Harvested fresh, delivered fast</p>
+                    <div className="text-3xl md:text-4xl font-bold">Same Day</div>
+                  </div>
+                </div>
+              </div>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4J: Nutrition Powerhouse - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purpleBrand/20 to-blueBrand/20">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <Link href="/blog/oyster-nutrition-benefits" className="group block">
+                <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+                  <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <Badge className="bg-purpleBrand/90 text-white backdrop-blur-sm">Health</Badge>
+                    <Badge className="bg-blueBrand/90 text-white backdrop-blur-sm">Nutrition</Badge>
+                  </div>
+                  <Image
+                    src="/oyster.png"
+                    alt="Oyster nutrition benefits"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-purpleBrand/80 via-transparent to-transparent flex items-center">
+                    <div className="p-8 md:p-12 text-white max-w-2xl">
+                      <div className="text-5xl md:text-6xl mb-4">💪</div>
+                      <h2 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-2xl">
+                        Superfood from the Sea
+                      </h2>
+                      <p className="text-xl md:text-2xl mb-6 drop-shadow-lg">
+                        Packed with protein, zinc, and omega-3s
+                      </p>
+                      <div className="flex gap-4 text-lg md:text-xl">
+                        <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">High Protein</span>
+                        <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">Rich in Zinc</span>
+                        <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">Omega-3s</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4K: Family Legacy - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-lavenderBrand/20 to-purpleBrand/20">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <Link href="/about" className="group block">
+                <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+                  <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <Badge className="bg-lavenderBrand/90 text-white backdrop-blur-sm">Family</Badge>
+                    <Badge className="bg-purpleBrand/90 text-white backdrop-blur-sm">Legacy</Badge>
+                  </div>
+                  <Image
+                    src="/aboutpic.jpg"
+                    alt="Three Sisters Oyster Co. family"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-purpleBrand/90 via-purpleBrand/50 to-transparent flex items-end">
+                    <div className="p-8 md:p-12 text-white w-full">
+                      <div className="text-5xl md:text-6xl mb-4">👨‍👩‍👧‍👧</div>
+                      <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-2xl">
+                        Named After Three Daughters
+                      </h2>
+                      <p className="text-xl md:text-2xl mb-6 drop-shadow-lg">
+                        Building a better coastline for the future
+                      </p>
+                      <div className="flex gap-2 text-sm md:text-base">
+                        <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">Family-Owned</span>
+                        <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">Future-Focused</span>
+                        <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">Legacy</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4L: Chef's Choice - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blueBrand/20 to-seafoamBrand/20">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <Badge className="bg-blueBrand/90 text-white backdrop-blur-sm">Recipes</Badge>
+                  </div>
+                  <Image
+                    src="/gal.jpg"
+                    alt="Chef's choice oysters"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blueBrand/90 to-transparent flex items-end">
+                    <div className="p-6 text-white">
+                      <h3 className="text-2xl md:text-3xl font-bold mb-2">Chef's Choice</h3>
+                      <p className="text-lg">Trusted by top restaurants</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-seafoamBrand to-blueBrand flex items-center justify-center">
+                  <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <Badge className="bg-seafoamBrand/90 text-white backdrop-blur-sm">Quality</Badge>
+                  </div>
+                  <div className="text-center p-8 text-white">
+                    <div className="text-5xl md:text-6xl mb-4">👨‍🍳</div>
+                    <h3 className="text-2xl md:text-3xl font-bold mb-4">Restaurant Grade</h3>
+                    <p className="text-lg md:text-xl mb-6">Perfect for professional kitchens</p>
+                    <div className="text-3xl md:text-4xl font-bold">Premium</div>
+                  </div>
+                </div>
+              </div>
+            </ScrollAnimatedSection>
+          </div>
+        </section>
+
+        {/* Section 4M: Seasonal Freshness - Instagram Worthy */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-seafoamBrand/20 to-mintBrand/20">
+          <div className="container mx-auto max-w-6xl">
+            <ScrollAnimatedSection animationType="fade-in" delay={200}>
+              <Link href="/blog/oyster-season-guide-texas" className="group block">
+                <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+                  <div className="absolute top-4 left-4 z-20 flex gap-2">
+                    <Badge className="bg-seafoamBrand/90 text-white backdrop-blur-sm">Seasonal</Badge>
+                    <Badge className="bg-mintBrand/90 text-white backdrop-blur-sm">Fresh</Badge>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-seafoamBrand/90 via-mintBrand/90 to-blueBrand/90"></div>
+                  <div className="absolute inset-0 flex items-center justify-center p-8 md:p-12">
+                    <div className="text-center text-white z-10">
+                      <div className="text-6xl md:text-8xl mb-4">🌊</div>
+                      <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-2xl">
+                        Year-Round Freshness
+                      </h2>
+                      <p className="text-xl md:text-2xl lg:text-3xl mb-6 drop-shadow-lg">
+                        Premium oysters available every season
+                      </p>
+                      <div className="text-4xl md:text-6xl font-bold drop-shadow-2xl">Always Fresh</div>
+                    </div>
+                  </div>
+                  <Image
+                    src="/gal3.jpg"
+                    alt="Seasonal fresh oysters"
+                    fill
+                    className="object-cover opacity-30 group-hover:opacity-40 transition-opacity duration-500"
+                  />
                 </div>
               </Link>
             </ScrollAnimatedSection>
@@ -542,7 +854,7 @@ export default function HomePage() {
                     />
                   </div>
                 </Link>
-              </div>
+                </div>
               <div className="text-center">
                 <Button
                   asChild
@@ -554,7 +866,7 @@ export default function HomePage() {
                 </Button>
               </div>
             </ScrollAnimatedSection>
-          </div>
+                </div>
         </section>
 
         {/* Section 5: Call-to-Action */}
@@ -585,8 +897,8 @@ export default function HomePage() {
                 </Button>
               </div>
             </ScrollAnimatedSection>
-          </div>
-        </section>
+        </div>
+      </section>
       </main>
 
       {/* Footer */}

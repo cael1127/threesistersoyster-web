@@ -205,6 +205,12 @@ export async function sendReservationNotification(data: ReservationNotificationD
   // Get notification email address (with fallback)
   const notificationEmail = process.env.RESERVATION_NOTIFICATION_EMAIL || 'kathryn@threesistersoyster.com'
 
+  // Validate notification email address format
+  if (!notificationEmail || !notificationEmail.includes('@')) {
+    console.warn('Invalid notification email address:', notificationEmail)
+    return { success: false, error: 'Invalid notification email address. RESERVATION_NOTIFICATION_EMAIL must be a valid email address.' }
+  }
+
   try {
     const reservationTime = new Date(data.reservationTime)
     const formattedTime = reservationTime.toLocaleString('en-US', {
