@@ -13,7 +13,9 @@ import {
   X,
   Clock,
   Search,
-  Filter
+  Filter,
+  Mail,
+  AlertCircle
 } from 'lucide-react'
 import { SeasonalFloatingParticles } from '@/components/ui/floating-particles'
 import {
@@ -51,6 +53,8 @@ export default function AdminOrdersPage() {
   const [orderCount, setOrderCount] = useState<number>(0)
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [statusFilter, setStatusFilter] = useState<string>('active') // 'active', 'all', 'fulfilled'
+  const [emailConfig, setEmailConfig] = useState<{configured: boolean, config: {RESEND_API_KEY: string, RESEND_FROM_EMAIL: string}} | null>(null)
+  const [emailTestStatus, setEmailTestStatus] = useState<{sending: boolean, success: boolean | null, message: string}>({sending: false, success: null, message: ''})
 
   const formatPickupTime = (time: string | undefined | null) => {
     if (!time) return null
@@ -66,7 +70,54 @@ export default function AdminOrdersPage() {
 
   useEffect(() => {
     fetchOrders()
+    fetchEmailConfig()
   }, [selectedWeek])
+
+  const fetchEmailConfig = async () => {
+    try {
+      const response = await fetch('/api/test-email')
+      if (response.ok) {
+        const data = await response.json()
+        setEmailConfig(data)
+      }
+    } catch (error) {
+      console.error('Error fetching email config:', error)
+    }
+  }
+
+  const sendTestEmail = async () => {
+    setEmailTestStatus({ sending: true, success: null, message: '' })
+    try {
+      const response = await fetch('/api/test-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: 'caelfindley1@gmail.com' })
+      })
+      const data = await response.json()
+      
+      if (data.success) {
+        setEmailTestStatus({ 
+          sending: false, 
+          success: true, 
+          message: `Test email sent successfully to caelfindley1@gmail.com! Message ID: ${data.messageId || 'N/A'}` 
+        })
+        // Refresh config to show updated status
+        fetchEmailConfig()
+      } else {
+        setEmailTestStatus({ 
+          sending: false, 
+          success: false, 
+          message: `Failed to send test email: ${data.error || 'Unknown error'}` 
+        })
+      }
+    } catch (error) {
+      setEmailTestStatus({ 
+        sending: false, 
+        success: false, 
+        message: `Error sending test email: ${error instanceof Error ? error.message : 'Unknown error'}` 
+      })
+    }
+  }
 
   // Auto-refresh orders every 30 seconds
   useEffect(() => {
@@ -435,6 +486,79 @@ export default function AdminOrdersPage() {
               )}
             </div>
           </div>
+
+          {/* Email Testing Section */}
+          <Card className="border-purpleBrand/30 bg-gradient-to-br from-blueBrand/10 to-mintBrand/10 backdrop-blur-sm mb-6">
+            <CardHeader>
+              <CardTitle className="text-purple-900 flex items-center">
+                <Mail className="w-5 h-5 mr-2" />
+                Email Testing
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <p className="text-purple-700 text-sm font-semibold">Email Configuration Status:</p>
+                {emailConfig ? (
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <Badge variant={emailConfig.config.RESEND_API_KEY === 'SET' ? 'default' : 'destructive'} className={emailConfig.config.RESEND_API_KEY === 'SET' ? 'bg-green-600' : ''}>
+                        {emailConfig.config.RESEND_API_KEY === 'SET' ? <Check className="w-3 h-3 mr-1" /> : <X className="w-3 h-3 mr-1" />}
+                        RESEND_API_KEY: {emailConfig.config.RESEND_API_KEY}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge variant={emailConfig.config.RESEND_FROM_EMAIL !== 'MISSING' ? 'default' : 'destructive'} className={emailConfig.config.RESEND_FROM_EMAIL !== 'MISSING' ? 'bg-green-600' : ''}>
+                        {emailConfig.config.RESEND_FROM_EMAIL !== 'MISSING' ? <Check className="w-3 h-3 mr-1" /> : <X className="w-3 h-3 mr-1" />}
+                        RESEND_FROM_EMAIL: {emailConfig.config.RESEND_FROM_EMAIL !== 'MISSING' ? emailConfig.config.RESEND_FROM_EMAIL : 'MISSING'}
+                      </Badge>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-purple-600 text-sm">Loading configuration...</p>
+                )}
+              </div>
+              
+              <div className="pt-2 border-t border-purple-200">
+                <p className="text-purple-700 text-sm mb-3">
+                  Send a test purchase confirmation email to verify the email template and delivery:
+                </p>
+                <Button
+                  onClick={sendTestEmail}
+                  disabled={emailTestStatus.sending || !emailConfig?.configured}
+                  className="bg-gradient-to-r from-mintBrand to-seafoamBrand hover:from-seafoamBrand hover:to-mintBrand"
+                >
+                  {emailTestStatus.sending ? (
+                    <>
+                      <Clock className="w-4 h-4 mr-2 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="w-4 h-4 mr-2" />
+                      Send Test Email to caelfindley1@gmail.com
+                    </>
+                  )}
+                </Button>
+                
+                {emailTestStatus.message && (
+                  <div className={`mt-3 p-3 rounded-lg flex items-start gap-2 ${
+                    emailTestStatus.success 
+                      ? 'bg-green-50 border border-green-200' 
+                      : 'bg-red-50 border border-red-200'
+                  }`}>
+                    {emailTestStatus.success ? (
+                      <Check className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    ) : (
+                      <AlertCircle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
+                    )}
+                    <p className={`text-sm ${emailTestStatus.success ? 'text-green-800' : 'text-red-800'}`}>
+                      {emailTestStatus.message}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
 
           {loading ? (
             <div className="text-center py-12">
