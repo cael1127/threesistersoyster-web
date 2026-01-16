@@ -284,3 +284,124 @@ export async function sendReservationNotification(data: ReservationNotificationD
   }
 }
 
+export interface JobApplicationData {
+  firstName: string
+  lastName: string
+  email: string
+  phone?: string
+  availability: string
+  about: string
+  resumeUrl?: string
+}
+
+export async function sendJobApplication(data: JobApplicationData) {
+  // Get Resend client instance
+  const resend = getResendClient()
+  
+  // Check if Resend is configured
+  if (!process.env.RESEND_API_KEY || !resend) {
+    console.warn('RESEND_API_KEY not configured, skipping job application email')
+    return { success: false, error: 'Email service not configured. RESEND_API_KEY is missing.' }
+  }
+
+  if (!process.env.RESEND_FROM_EMAIL) {
+    console.warn('RESEND_FROM_EMAIL not configured, skipping job application email')
+    return { success: false, error: 'From email not configured. RESEND_FROM_EMAIL is missing.' }
+  }
+
+  // Job application recipient email
+  const recipientEmail = 'blake@threesistersoyster.com'
+
+  // Validate recipient email address format
+  if (!recipientEmail || !recipientEmail.includes('@')) {
+    console.warn('Invalid recipient email address:', recipientEmail)
+    return { success: false, error: 'Invalid recipient email address.' }
+  }
+
+  // Validate applicant email address
+  if (!data.email || !data.email.includes('@')) {
+    console.error('Invalid applicant email:', data.email)
+    return { success: false, error: 'Invalid applicant email address' }
+  }
+
+  try {
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+            <h1 style="color: white; margin: 0;">🦪 Three Sisters Oyster Co.</h1>
+            <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0;">New Job Application</p>
+          </div>
+          
+          <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px;">
+            <h2 style="color: #667eea; margin-top: 0;">Employment Application Received</h2>
+            
+            <div style="background: #fff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
+              <h3 style="color: #667eea; margin-top: 0;">Applicant Information</h3>
+              <p style="margin: 10px 0;"><strong style="color: #667eea;">Name:</strong> ${data.firstName} ${data.lastName}</p>
+              <p style="margin: 10px 0;"><strong style="color: #667eea;">Email:</strong> <a href="mailto:${data.email}" style="color: #667eea;">${data.email}</a></p>
+              ${data.phone ? `<p style="margin: 10px 0;"><strong style="color: #667eea;">Phone:</strong> <a href="tel:${data.phone}" style="color: #667eea;">${data.phone}</a></p>` : ''}
+              <p style="margin: 10px 0;"><strong style="color: #667eea;">Availability:</strong> ${data.availability}</p>
+            </div>
+
+            <div style="background: #fff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
+              <h3 style="color: #667eea; margin-top: 0;">About the Applicant</h3>
+              <p style="margin: 10px 0; white-space: pre-wrap;">${data.about.replace(/\n/g, '<br>')}</p>
+            </div>
+
+            ${data.resumeUrl ? `
+              <div style="background: #e7f3ff; border-left: 4px solid #2196F3; padding: 15px; margin: 20px 0; border-radius: 4px;">
+                <p style="margin: 0; font-weight: bold; color: #1565C0;">Resume/Additional Information:</p>
+                <p style="margin: 5px 0 0 0;"><a href="${data.resumeUrl}" style="color: #1565C0; text-decoration: underline;">${data.resumeUrl}</a></p>
+              </div>
+            ` : ''}
+
+            <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 30px 0;">
+              <p style="margin: 0; font-size: 14px; color: #666;">
+                This application was submitted through the Three Sisters Oyster Co. website. Please review and contact the applicant at <a href="mailto:${data.email}" style="color: #667eea;">${data.email}</a> to follow up.
+              </p>
+            </div>
+
+            <p style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #666; text-align: center;">
+              This is an automated notification from the Three Sisters Oyster Co. job application system.
+            </p>
+          </div>
+        </body>
+      </html>
+    `
+
+    console.log('Sending job application email to:', recipientEmail)
+    console.log('Applicant:', `${data.firstName} ${data.lastName}`)
+    
+    const result = await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL!,
+      to: recipientEmail,
+      replyTo: data.email,
+      subject: `Job Application - ${data.firstName} ${data.lastName} (${data.availability})`,
+      html
+    })
+
+    // Resend v4 returns { data: { id: string } } on success or { error: {...} } on failure
+    if ('error' in result && result.error) {
+      console.error('Resend API error:', result.error)
+      const errorMsg = typeof result.error === 'object' && result.error !== null && 'message' in result.error
+        ? String(result.error.message)
+        : 'Failed to send email'
+      return { success: false, error: errorMsg }
+    }
+
+    // Success - extract message ID
+    const messageId = result.data?.id || 'unknown'
+    console.log('Job application email sent successfully. Message ID:', messageId)
+    return { success: true, id: messageId }
+  } catch (error) {
+    console.error('Error sending job application email:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    return { success: false, error: errorMessage }
+  }
+}

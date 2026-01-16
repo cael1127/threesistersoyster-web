@@ -332,6 +332,28 @@ const blogPosts = [
     slug: "how-oysters-improve-water-quality",
     readTime: "7 min read",
     featured: false
+  },
+  {
+    id: 30,
+    title: "Oyster Safety: How to Ensure Fresh, Safe Oysters",
+    excerpt: "Learn essential oyster safety tips. Discover how to identify fresh oysters, proper storage methods, and safe handling practices for Texas Gulf oysters.",
+    date: "2025-01-15",
+    category: "Safety",
+    image: "/oyster.png",
+    slug: "oyster-safety-fresh-safe-oysters",
+    readTime: "6 min read",
+    featured: false
+  },
+  {
+    id: 31,
+    title: "The Texas Gulf Coast Oyster Culture",
+    excerpt: "Explore the rich cultural heritage of oyster farming along the Texas Gulf Coast. Discover traditions, communities, and the deep connection between people and oysters.",
+    date: "2025-01-16",
+    category: "Education",
+    image: "/gal.jpg",
+    slug: "texas-gulf-coast-oyster-culture",
+    readTime: "5 min read",
+    featured: false
   }
 ]
 

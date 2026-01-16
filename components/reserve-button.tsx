@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Clock, Check, Minus, Plus } from "lucide-react"
+import { Clock, Check, Minus, Plus, CalendarDays } from "lucide-react"
 import { useRouter } from "next/navigation"
 import {
   Dialog,
@@ -35,10 +35,85 @@ export function ReserveButton({ product, className }: ReserveButtonProps) {
     email: '',
     phone: ''
   })
+  const [pickupDate, setPickupDate] = useState("")
+  const [pickupTime, setPickupTime] = useState("12:00")
+
+  const pickupTimeSlots = useMemo(
+    () => [
+      { value: "12:00", label: "12:00 PM" },
+      { value: "13:00", label: "1:00 PM" },
+      { value: "14:00", label: "2:00 PM" },
+      { value: "15:00", label: "3:00 PM" },
+      { value: "16:00", label: "4:00 PM" },
+      { value: "17:00", label: "5:00 PM" },
+      { value: "18:00", label: "6:00 PM" },
+      { value: "19:00", label: "7:00 PM" },
+    ],
+    [],
+  )
+
+  const minPickupDate = useMemo(() => {
+    if (typeof window === 'undefined') {
+      const base = new Date()
+      base.setHours(0, 0, 0, 0)
+      base.setDate(base.getDate() + 2)
+      if (base.getDay() === 1) {
+        base.setDate(base.getDate() + 1)
+      }
+      return base.toISOString().split("T")[0]
+    }
+    const base = new Date()
+    base.setHours(0, 0, 0, 0)
+    base.setDate(base.getDate() + 2)
+    if (base.getDay() === 1) {
+      base.setDate(base.getDate() + 1)
+    }
+    return base.toISOString().split("T")[0]
+  }, [])
+
+  useEffect(() => {
+    if (!pickupDate) {
+      setPickupDate(minPickupDate)
+    }
+  }, [minPickupDate, pickupDate])
+
+  useEffect(() => {
+    if (!pickupTime) {
+      setPickupTime(pickupTimeSlots[0]?.value ?? "12:00")
+    }
+  }, [pickupTime, pickupTimeSlots])
 
   const handleReserve = async () => {
     if (!formData.name || !formData.email) {
       alert('Please fill in your name and email')
+      return
+    }
+
+    if (!pickupDate) {
+      alert('Please select a pickup date')
+      return
+    }
+
+    if (!pickupTime) {
+      alert('Please select a pickup time')
+      return
+    }
+
+    const selectedDate = new Date(`${pickupDate}T00:00:00`)
+    if (Number.isNaN(selectedDate.getTime())) {
+      alert('Please enter a valid pickup date')
+      return
+    }
+
+    const dayOfWeek = selectedDate.getUTCDay()
+    if (dayOfWeek === 1) {
+      alert('We do not schedule pickups on Mondays. Please choose another day.')
+      return
+    }
+
+    const earliestDate = new Date(minPickupDate + "T00:00:00")
+    if (selectedDate < earliestDate) {
+      alert('Pickups must be scheduled at least two days in advance.')
       return
     }
 
@@ -57,7 +132,9 @@ export function ReserveButton({ product, className }: ReserveButtonProps) {
             quantity: quantity,
             price: product.price
           }],
-          total_amount: product.price * quantity
+          total_amount: product.price * quantity,
+          pickup_date: pickupDate,
+          pickup_time: pickupTime
         })
       })
 
@@ -76,7 +153,7 @@ export function ReserveButton({ product, className }: ReserveButtonProps) {
       if (data.success) {
         const order = data.order
         const total = (product.price * quantity).toFixed(2)
-        router.push(`/success?reservation=true&code=${order.pickup_code || ''}&orderId=${order.id}&total=${total}`)
+        router.push(`/success?reservation=true&code=${order.pickup_code || ''}&orderId=${order.id}&total=${total}&pickupDate=${encodeURIComponent(pickupDate)}&pickupTime=${encodeURIComponent(pickupTime)}`)
       } else {
         const errorMsg = data.details 
           ? `${data.error}\n\nDetails: ${data.details}`
@@ -156,6 +233,47 @@ export function ReserveButton({ product, className }: ReserveButtonProps) {
               </p>
             </div>
 
+            {/* Pickup Date and Time Selection */}
+            <div className="space-y-3 pt-4 border-t">
+              <div className="flex items-center gap-2 text-purple-900 font-semibold">
+                <CalendarDays className="h-4 w-4" />
+                <span>Select Pickup Date and Time</span>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <Label htmlFor="reserve-pickup-date" className="text-sm">Pickup Date *</Label>
+                  <Input
+                    id="reserve-pickup-date"
+                    type="date"
+                    min={minPickupDate}
+                    value={pickupDate}
+                    onChange={(e) => setPickupDate(e.target.value)}
+                    className="border-purpleBrand/30 focus:border-purpleBrand"
+                    required
+                  />
+                  {pickupDate && new Date(`${pickupDate}T00:00:00`).getUTCDay() === 1 && (
+                    <p className="text-xs text-red-600">Please choose a day other than Monday.</p>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="reserve-pickup-time" className="text-sm">Pickup Time *</Label>
+                  <select
+                    id="reserve-pickup-time"
+                    value={pickupTime}
+                    onChange={(e) => setPickupTime(e.target.value)}
+                    className="w-full rounded-md border border-purpleBrand/30 bg-white p-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purpleBrand"
+                    required
+                  >
+                    {pickupTimeSlots.map((slot) => (
+                      <option key={slot.value} value={slot.value}>
+                        {slot.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+
             {/* Customer Info Form */}
             <div className="space-y-3 pt-4 border-t">
               <div>
@@ -200,7 +318,7 @@ export function ReserveButton({ product, className }: ReserveButtonProps) {
 
             <Button
               onClick={handleReserve}
-              disabled={loading || !formData.name || !formData.email}
+              disabled={loading || !formData.name || !formData.email || !pickupDate || !pickupTime}
               className="w-full bg-gradient-to-r from-purpleBrand to-lavenderBrand"
             >
               {loading ? 'Processing...' : 'Confirm Reservation'}
